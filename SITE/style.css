@@ -1,0 +1,152 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
+    font-size: 2.5vh;
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(77, 77, 77);
+    font-weight: 600;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(106, 0, 205);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(80, 0, 179);
+  }
+.header {
+    background-color: #ffffff;
+    position: absolute;
+    height: 900px;
+    width: 100%;
+    text-align: center;
+}
+.logo {
+    height: 10vh;
+    position: absolute;
+    left: 20vh;
+    top: 1%;
+    cursor: pointer;
+}
+.unorderedList {
+    position: absolute;
+    left: 85vh;
+    top: 2%;
+}
+ul {
+    display: flex;
+    list-style: none;
+    padding: 0px;
+    margin-left: 0%;
+}
+li {
+    margin-left: 10vh;
+    cursor: pointer;
+}
+.downloadCont {
+    border: 3px solid rgb(123, 0, 255);
+    border-radius: 5px;
+    width: 16vh;
+    height: 7vh;
+    position: absolute;
+    left: 68vh;
+    top: 0.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.linha {
+    width: 100%;
+    height: 5px;
+    background:linear-gradient(90deg, rgb(123, 0, 255) 0%, rgb(89, 0, 255) 35%, rgb(132, 0, 255) 100%);;
+    position: absolute;
+    top: 13vh;
+    left: 0%;
+}
+.siteInfo {
+    position: absolute;
+    left: 12.5%;
+    top: 20%;
+    width: 75%;
+    height: 60%;
+}
+.infoApp {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    width: 30%;
+    height: 90%;
+}
+.textoTopo {
+    position: absolute;
+    left: 5%;
+    top: 2.5%;
+    font-size: 5vh;
+    font-weight: 700;
+    color: rgb(123, 0, 255);
+}
+.texto {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    font-size: 2.5vh;
+    font-weight: 500;
+    color: rgb(103, 103, 103);
+}
+.botao {
+    position: absolute;
+    left: 5%;
+    top: 80%;
+    border: 2.5px solid rgb(123, 0, 255);
+    height: 8vh;
+    width: 30vh;
+    border-radius: 10px;
+    font-size: 3.5vh;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.propaganda {
+    position: absolute;
+    left: 37.5%;
+    top: 8.5%;
+    width: 60%;
+    height: 80%;
+}
+.propagandaFoto {
+    width: 100%;
+    filter: blur(0);
+    border-radius: 10px;
+}
+.infoCont {
+    position: absolute;
+    top: 88%;
+    left: -10vh;
+    width: 250vh;
+    height: 50vh;
+    transform: rotate(-6deg);
+    background:linear-gradient(90deg, rgb(111, 0, 229) 0%, rgb(82, 0, 233) 35%, rgb(112, 0, 218) 100%);
+    -webkit-box-shadow: 0px 1px 27px 2px rgba(0,0,0,0.69); 
+box-shadow: 0px 1px 27px 2px rgba(0,0,0,0.69);
+}
+.moreInfo {
+    position: absolute;
+    top: 92vh;
+    height: 10vh;
+    width: 40vh;
+    left: 135vh;
+    color: #ffffff;
+    font-size: 4vh;
+}
