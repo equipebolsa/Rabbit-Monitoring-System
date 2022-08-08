@@ -9,7 +9,7 @@ body {
     overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
   }
   
   ::-webkit-scrollbar-track {
@@ -25,22 +25,22 @@ body {
   }
 .header {
     background-color: #ffffff;
-    position: absolute;
-    height: 900px;
+    position: relative;
+    height: 25vh;
     width: 100%;
     text-align: center;
 }
 .logo {
     height: 10vh;
-    position: absolute;
-    left: 20vh;
-    top: 1%;
+    position: relative;
+    right: 32.5%;
+    top: 2vh;
     cursor: pointer;
 }
 .unorderedList {
-    position: absolute;
-    left: 85vh;
-    top: 2%;
+    position: relative;
+    left: 47.5%;
+    top: -5vh;
 }
 ul {
     display: flex;
@@ -52,61 +52,72 @@ li {
     margin-left: 10vh;
     cursor: pointer;
 }
+li:hover {
+    color: rgb(123, 0, 255);
+    transition: 300ms;
+}
 .downloadCont {
     border: 3px solid rgb(123, 0, 255);
     border-radius: 5px;
-    width: 16vh;
+    max-width: 16vh;
     height: 7vh;
-    position: absolute;
+    position: relative;
     left: 68vh;
-    top: 0.5%;
+    top: -8vh;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: 300ms;
+}
+
+.downloadCont:hover{ 
+    background-color: rgb(123, 0, 255); 
+    color:white; 
+    transition: 300ms;
 }
 .linha {
     width: 100%;
     height: 5px;
     background:linear-gradient(90deg, rgb(123, 0, 255) 0%, rgb(89, 0, 255) 35%, rgb(132, 0, 255) 100%);;
-    position: absolute;
-    top: 13vh;
+    position: relative;
+    top: -10vh;
     left: 0%;
 }
 .siteInfo {
-    position: absolute;
+    position: relative;
     left: 12.5%;
     top: 20%;
     width: 75%;
-    height: 60%;
+    height: 70vh;
 }
 .infoApp {
-    position: absolute;
+    position: relative;
     left: 5%;
-    top: 5%;
+    top: 0%;
     width: 30%;
     height: 90%;
 }
 .textoTopo {
-    position: absolute;
+    position: relative;
     left: 5%;
-    top: 2.5%;
+    top: 0vh;
     font-size: 5vh;
     font-weight: 700;
     color: rgb(123, 0, 255);
 }
 .texto {
-    position: absolute;
+    position: relative;
     left: 5%;
-    top: 50%;
+    top: 2vh;
     font-size: 2.5vh;
     font-weight: 500;
     color: rgb(103, 103, 103);
 }
 .botao {
-    position: absolute;
+    position: relative;
     left: 5%;
-    top: 80%;
+    top: 5vh;
     border: 2.5px solid rgb(123, 0, 255);
     height: 8vh;
     width: 30vh;
@@ -118,10 +129,15 @@ li {
     align-items: center;
     cursor: pointer;
 }
+.botao:hover {
+    background-color: rgb(123, 0, 255); 
+    color:white; 
+    transition: 300ms
+}
 .propaganda {
-    position: absolute;
-    left: 37.5%;
-    top: 8.5%;
+    position: relative;
+    left: 60vh;
+    top: -59vh;
     width: 60%;
     height: 80%;
 }
@@ -130,9 +146,13 @@ li {
     filter: blur(0);
     border-radius: 10px;
 }
+.propagandaFoto:hover {
+    width: 103%;
+    transition: 300ms;
+}
 .infoCont {
-    position: absolute;
-    top: 88%;
+    position: relative;
+    top: 5vh;
     left: -10vh;
     width: 250vh;
     height: 50vh;
@@ -142,11 +162,17 @@ li {
 box-shadow: 0px 1px 27px 2px rgba(0,0,0,0.69);
 }
 .moreInfo {
-    position: absolute;
-    top: 92vh;
+    position: relative;
+    top: -43.5vh;
     height: 10vh;
     width: 40vh;
-    left: 135vh;
+    left: 125vh;
     color: #ffffff;
     font-size: 4vh;
+}
+.linhagraph {
+    height: 70vh;
+    position: relative;
+    top: -10vh;
+    left: 30vh;
 }
