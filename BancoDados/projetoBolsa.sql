@@ -24,7 +24,8 @@ CREATE TABLE tbTelefone (
 
 CREATE TABLE tbServidor (
 	idServidor INT PRIMARY KEY AUTO_INCREMENT, 
-	sistemaServidor VARCHAR(40) NOT NULL, 
+	sistemaServidor VARCHAR(40) NOT NULL,
+	conexaoRede CHAR(3) NOT NULL,
 	dataCadastro DATETIME NOT NULL, 
 	fkCliente INT , 
 	FOREIGN KEY (fkCliente) REFERENCES tbCliente(idCliente)
@@ -53,7 +54,9 @@ CREATE TABLE tbDadosDisco(
 );
 
 CREATE TABLE tbCpu(  --dados fixos
-	idCpu PRIMARY KEY AUTO_INCREMENT, 
+	idCpu PRIMARY KEY AUTO_INCREMENT,
+	qtdNucleos INT NOT NULL ,
+	qtdThreads INT NOT NULL ,
 	tecnologiaCpu VARCHAR(5) NOT NULL , --nm da cpu  
 	voltagemCpu INT NOT NULL , 
 	modeloCpu VARCHAR(40) NOT NULL,
@@ -93,6 +96,8 @@ CREATE TABLE tbRam(
 	modeloRam VARCHAR(40) NOT NULL ,
 	capacidadeRam INT NOT NULL ,
 	tecnologiaRam CHAR(4) NOT NULL,
+	velocidade varchar(8) NOT NULL,
+	latênciaRam varchar(3) NOT NULL,
 	fabricanteRam VARCHAR(40) NOT NULL,
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
