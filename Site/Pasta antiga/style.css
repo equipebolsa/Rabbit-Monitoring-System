@@ -1,9 +1,13 @@
+@font-face {
+    font-family: 'Nunito';
+    src: url(../public/assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+}
 body {
     padding: 0;
     margin: 0;
     background-color: #ffffff;
     font-size: 2.5vh;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Nunito';
     color: rgb(77, 77, 77);
     font-weight: 600;
     overflow-x: hidden;
@@ -40,7 +44,7 @@ body {
 .unorderedList {
     position: relative;
     left: 47.5%;
-    top: -5vh;
+    top: -7vh;
 }
 ul {
     display: flex;
@@ -63,7 +67,7 @@ li:hover {
     height: 7vh;
     position: relative;
     left: 68vh;
-    top: -8vh;
+    top: -8.5vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,7 +85,7 @@ li:hover {
     height: 5px;
     background:linear-gradient(90deg, rgb(123, 0, 255) 0%, rgb(89, 0, 255) 35%, rgb(132, 0, 255) 100%);;
     position: relative;
-    top: -10vh;
+    top: -13vh;
     left: 0%;
 }
 .siteInfo {
@@ -101,7 +105,7 @@ li:hover {
 .textoTopo {
     position: relative;
     left: 5%;
-    top: 0vh;
+    top: 3vh;
     font-size: 5vh;
     font-weight: 700;
     color: rgb(123, 0, 255);
@@ -109,7 +113,7 @@ li:hover {
 .texto {
     position: relative;
     left: 5%;
-    top: 2vh;
+    top: 3.5vh;
     font-size: 2.5vh;
     font-weight: 500;
     color: rgb(103, 103, 103);
@@ -143,18 +147,14 @@ li:hover {
 }
 .propagandaFoto {
     width: 100%;
-    filter: blur(0);
+    filter: blur(0px);
     border-radius: 10px;
-}
-.propagandaFoto:hover {
-    width: 103%;
-    transition: 300ms;
 }
 .infoCont {
     position: relative;
-    top: 5vh;
+    top: -8vh;
     left: -10vh;
-    width: 250vh;
+    width: 250vw;
     height: 50vh;
     transform: rotate(-6deg);
     background:linear-gradient(90deg, rgb(111, 0, 229) 0%, rgb(82, 0, 233) 35%, rgb(112, 0, 218) 100%);
@@ -163,7 +163,7 @@ box-shadow: 0px 1px 27px 2px rgba(0,0,0,0.69);
 }
 .moreInfo {
     position: relative;
-    top: -43.5vh;
+    top: -40vh;
     height: 10vh;
     width: 40vh;
     left: 125vh;
@@ -175,4 +175,38 @@ box-shadow: 0px 1px 27px 2px rgba(0,0,0,0.69);
     position: relative;
     top: -10vh;
     left: 30vh;
+}
+.funcCont {
+    position: relative;
+    top: 15vh;
+    left: 20vh;
+    width: 80vw;
+    height: 70vh;
+    display: flex;
+}
+.func {
+    border: 3px solid rgb(123, 0, 255);
+    border-radius: 8px;
+    width: 30vw;
+    height: 65vh;
+    margin: 2vh;
+}
+.noti {
+    height: 25%;
+    position: relative;
+    top: 5vh;
+    left: 8.5vw;
+}
+.notiText {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    top: 12vh;
+    font-size: 3.5vh;
+}
+.func:hover {
+    height: 67vh;
+    width: 32vw;
+    transition: 300ms;
 }
