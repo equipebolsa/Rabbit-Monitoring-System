@@ -5,10 +5,16 @@
     --text-color: #404040
 }
 
+@font-face {
+    font-family: "Nunito";
+    src: url(../public/assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+}
+
 body {
     padding: 0;
     margin: 0;
     overflow-x: hidden;
+    font-family: "Nunito" !important;
 }
 
 .navbar {
@@ -84,10 +90,24 @@ body {
     transition: 300ms;
 }
 
+.container-fluid .cadastrar-button {
+    height: 7vh !important;
+}
+
+/* Diagonal */
 .first-diagonal {
     transform: skewY(-2deg);
     background-color: var(--grad-base-color);
     width: 100vw;
-    height: 100px;
+    height: 400px;
     margin-top: 10vh;
+    margin-bottom: 10vh;
+
+}
+
+/* Fim Diagonal */
+
+/* Início Card */
+.cards .card {
+    
 }
