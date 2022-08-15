@@ -9,14 +9,16 @@ CREATE TABLE tbCliente (
 	senhaCliente VARCHAR(40) NOT NULL, 
 	cnpjCliente CHAR(14) NOT NULL ,
 	dataCadastro DATETIME NOT NULL , 
-	fkTelefone INT 
+	fkTelefone INT  NOT NULL,  
+	fkAdministrador INT NOT NULL , 
+	FOREIGN KEY (fkAdministrador) REFERENCES tbCliente(idCliente)   	
 ) ;
 
 CREATE TABLE tbTelefone ( 
 	idTelefone INT PRIMARY KEY AUTO_INCREMENT, 
 	paisTelefone VARCHAR(3) NOT NULL, 
 	regiaoTelefone CHAR(2) NOT NULL, 
-	numeroTelefone VARCHAR(12) NOT NULL
+	numeroTelefone VARCHAR(12) NOT NULL,
 	fkCliente INT, 
 	FOREIGN KEY (fkCliente) REFERENCES tbCliente(idCliente)
 ) ;  
@@ -47,35 +49,35 @@ CREATE TABLE tbDadosDisco(
 	idDadosDisco INT PRIMARY KEY AUTO_INCREMENT, 
 	espacoLivreDisco INT NOT NULL ,
 	espacoUsadoDisco INT NOT NULL , 
-	usoAtualDisco INT NOT NULL,  --uso de 0 a 100 em porcecntagem
+	usoAtualDisco INT NOT NULL, 
 	dataDisco DATETIME NOT NULL,
-	fkDisco , 
+	fkDisco INT , 
 	FOREIGN KEY (fkDisco) REFERENCES tbDisco(idDisco)
 );
 
-CREATE TABLE tbCpu(  --dados fixos
-	idCpu PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE tbCpu(  
+	idCpu INT PRIMARY KEY AUTO_INCREMENT,
 	qtdNucleos INT NOT NULL ,
 	qtdThreads INT NOT NULL ,
-	tecnologiaCpu VARCHAR(5) NOT NULL , --nm da cpu  
+	tecnologiaCpu VARCHAR(5) NOT NULL , 
 	voltagemCpu INT NOT NULL , 
 	modeloCpu VARCHAR(40) NOT NULL,
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
 ) ; 
 
-CREATE TABLE tbDadosCpu( --dados soltos
-	idDadosCpu INT PRIMARY KEY, 
+CREATE TABLE tbDadosCpu( 
+	idDadosCpu INT PRIMARY KEY  AUTO_INCREMENT, 
 	freqAtualCpu INT NOT NULL, 
 	temperaturaAtualCpu INT NOT NULL, 
 	dataCpu DATETIME NOT NULL  ,
 	fkCpu INT , 
-	FOREIGN KEY (idCpu) REFERENCES tbCpu(idCpu)
+	FOREIGN KEY (fkCpu) REFERENCES tbCpu(idCpu)
 );
 
 
 
-CREATE TABLE tbCore(  --
+CREATE TABLE tbCore(  
 	idCore INT PRIMARY KEY AUTO_INCREMENT, 
 	velocidadeCore INT NOT NULL, 
 	busSpeedCore INT NOT NULL , 
@@ -83,7 +85,7 @@ CREATE TABLE tbCore(  --
 	FOREIGN KEY (fkCpu) REFERENCES tbCpu(idCpu)
 ) ; 
 
-CREATE TABLE tbDadosCores(  --volateis
+CREATE TABLE tbDadosCores(  
 	idDadosCore INT PRIMARY KEY AUTO_INCREMENT,
 	usoCore INT NOT NULL, 
 	dataCore DATETIME NOT NULL,
