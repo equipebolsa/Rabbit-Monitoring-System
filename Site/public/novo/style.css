@@ -13,8 +13,10 @@
 
     /* Cores Claras */
     --curve-color: #8461c1;
+    --second-benefits: #a7a7a7;
     /* Cores Fontes */
     --text-color: #404040;
+
 }
 
 @font-face {
@@ -60,7 +62,7 @@ li .cadastrar-button {
     box-shadow: 0px 0px 15px -3px var(--base-color) !important;
 }
 
-.cadastrar-button {
+.cadastrar-button, .saiba-mais-button {
     /* background-color: white !important; */
     color: white !important;
     /* position: relative; */
@@ -69,27 +71,51 @@ li .cadastrar-button {
     background-color: var(--base-color) !important;
 }
 
-.cadastrar-button:hover {
+.cadastrar-button:hover, .saiba-mais-button:hover {
     background: var(--base-color-purple-dark) !important;
     transition: 300ms;
+    color: white !important;
 }
 
-.container-fluid .cadastrar-button {
+.container-fluid .cadastrar-button, .container-fluid .saiba-mais-button {
     height: 7vh !important;
 }
 
-/* Diagonal */
-.diagonal {
-    background-color: var(--curve-color);
+.saiba-mais-button {
+    background-color: white !important;
+    border: 2px solid var(--base-color) !important;
+    color: black !important;
 }
 
+/* Diagonal */
+.first-benefit {
+    background-color: var(--curve-color);
+    margin-top: 20vh !important;
+}
+
+.others-benefits {
+    background-color: var(--second-benefits);
+}
 .curve {
     fill: var(--curve-color);
 }
 
 /* Fim Diagonal */
 
-/* Início Card */
-div.card.d-flex {
-    border: 1px solid var(--base-color) !important;
+/* Início Carrosel */
+.carrossel {
+    margin-top: 20vh !important;
 }
+.images-carrossel {
+    width: 90%;
+}
+.others-images-carrossel {
+    cursor: pointer;
+    width: 60%;
+    transition: width 300ms;
+}
+
+.others-images-carrossel:hover {
+    width: 70%;
+}
+
