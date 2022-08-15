@@ -1,0 +1,95 @@
+:root {
+    
+    /* Cores Principais */
+    --base-color: #5926BB;
+
+    /* Cores Principais Mais Escuras  */
+    --base-color-purple-dark: #5020AA;
+
+    /* Cores gradiente */
+    --gradient-first-color: #B826BB;
+    --gradient-second-color: #8B26BB;
+    /* A terceira cor é a base */
+
+    /* Cores Claras */
+    --curve-color: #8461c1;
+    /* Cores Fontes */
+    --text-color: #404040;
+}
+
+@font-face {
+    font-family: "Nunito", sans-serif;
+    src: url(../public/assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    font-family: "Nunito" !important;
+}
+
+.navbar {
+    height: 10vh;
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.container {
+    height: 100%;
+}
+
+.nav-item a:not(.here):hover {
+    color: var(--base-color-purple-dark) !important;
+}
+
+.here {
+    color: var(--base-color) !important;
+}
+
+.title {
+    color: black !important
+}
+
+.subtitle {
+    color: var(--text-color) !important;
+}
+
+li .cadastrar-button {
+    width: 10vw !important;
+    box-shadow: 0px 0px 15px -3px var(--base-color) !important;
+}
+
+.cadastrar-button {
+    /* background-color: white !important; */
+    color: white !important;
+    /* position: relative; */
+    border: 0 !important;
+    border-radius: 0.375rem;
+    background-color: var(--base-color) !important;
+}
+
+.cadastrar-button:hover {
+    background: var(--base-color-purple-dark) !important;
+    transition: 300ms;
+}
+
+.container-fluid .cadastrar-button {
+    height: 7vh !important;
+}
+
+/* Diagonal */
+.diagonal {
+    background-color: var(--curve-color);
+}
+
+.curve {
+    fill: var(--curve-color);
+}
+
+/* Fim Diagonal */
+
+/* Início Card */
+div.card.d-flex {
+    border: 1px solid var(--base-color) !important;
+}
