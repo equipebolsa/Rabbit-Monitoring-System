@@ -15,7 +15,7 @@
 
 <body>
     <!-- Navbar e primeira parte -->
-    <div>
+    <div class="background">
         <nav class="navbar navbar-expand-lg float-right py-2 px-0 m-0">
             <div class="container">
                 <img src="../assets/img/logo.png" class="h-100">
@@ -39,7 +39,7 @@
 
             </div>
         </nav>
-        <div class="container-fluid mb-5 pb-5">
+        <div class="container-fluid">
             <div class="container row my-2 mx-auto p-0 pt-5 d-flex align-items-center justify-content-center w-50">
                 <div
                     class="col pt-0 ps-4 d-flex flex-column align-items-center justify-content-between m-2 text-center">
@@ -47,17 +47,21 @@
                     <p class="fs-6 fw-semibold subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                     <div class="row w-75 d-flex justify-content-evenly align-items-center">
-                        <button class="cadastrar-button btn fw-semibold justify-content-end" style="width: 45%;">Inicie</button>
+                        <button class="cadastrar-button btn fw-semibold justify-content-end"
+                            style="width: 45%;">Inicie</button>
                         <button class="saiba-mais-button btn fw-semibold justify-content-end" style="width: 45%;">Saiba
                             mais</button>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="bg-container container-fluid m-0 p-0" style="bottom: 0vh;">
+            <img src="../assets/img/svgs/first-background/layered-waves-haikei.svg" class="img-fluid">
+        </div>
     </div>
 
-    <div class="first-benefit py-5">
-        <div class="container-fluid p-0 mt-5 d-flex justify-content-center">
+    <div class="first-benefit py-2">
+        <div class="container-fluid p-0 m-0 d-flex justify-content-center">
             <div class="container row">
                 <div class="col-6 text-center">
                     <p class="fs-5 fw-semibold text-light mt-5 pt-5">Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -74,25 +78,35 @@
     </div>
 
     <!-- Carrossel -->
-    <div class="carrossel row container my-5">
-        <div class="col-6 d-flex flex-column justify-content-evenly align-items-center">
-            <img src="../assets/img/propaganda.png" class="others-images-carrossel">
-            <img src="../assets/img/propaganda.png" class="my-5 images-carrossel">
-            <img src="../assets/img/propaganda.png" class="others-images-carrossel">
+    <div class="background">
+        <div class="bg-container container-fluid m-0 p-0" style="top: 0;">
+            <img src="../assets/img/svgs/second-background/layered-waves-haikei.svg" class="img-fluid">
         </div>
-        <div class="col-6 text-center d-flex align-items-center">
-            <p class="fs-5 fw-semibold text-dark">Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit, sed
-                do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+        <div class="carrossel row container my-0 py-5">
+            <div class="col-6 d-flex flex-column justify-content-evenly align-items-center">
+                <img src="../assets/img/propaganda.png" class="others-images-carrossel">
+                <img src="../assets/img/propaganda.png" class="my-5 images-carrossel">
+                <img src="../assets/img/propaganda.png" class="others-images-carrossel">
+            </div>
+            <div class="col-6 text-center d-flex align-items-center">
+                <p class="fs-5 fw-semibold text-dark">Lorem ipsum dolor sit amet, consectetur adipiscing
+                    elit, sed
+                    do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+        </div>
+        <div class="bg-container container-fluid m-0 p-0" style="bottom: 0;">
+            <img src="../assets/img/svgs/third-background/layered-waves-haikei.svg" class="img-fluid">
         </div>
     </div>
 
-    <div class="others-benefits py-5">
-        <div class="container-fluid p-0 m-0 d-flex justify-content-center">
+
+
+    <div class="others-benefits pb-5">
+        <div class="container-fluid p-0 d-flex justify-content-center">
             <div class="container row">
                 <div class="col-6 text-center">
-                    <p class="fs-5 fw-semibold text-light mt-5 pt-5">Lorem ipsum dolor sit amet, consectetur adipiscing
+                    <p class="fs-5 fw-semibold text-dark mt-5 pt-5">Lorem ipsum dolor sit amet, consectetur adipiscing
                         elit, sed
                         do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
@@ -104,11 +118,12 @@
         </div>
     </div>
 
+
     <!-- Footer  -->
     <div class="container">
         <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 pt-3 mt-3 border-top">
             <div class="col mb-1">
-<!--                 <p class="text-muted">© 2022</p> -->
+                <!--                 <p class="text-muted">© 2022</p> -->
             </div>
 
             <div class="col mb-1">

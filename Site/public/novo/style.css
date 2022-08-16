@@ -12,8 +12,8 @@
     /* A terceira cor é a base */
 
     /* Cores Claras */
-    --curve-color: #8461c1;
-    --second-benefits: #a7a7a7;
+    --curve-color: #411A8C;
+    --second-benefits: #d8d8d8;
     /* Cores Fontes */
     --text-color: #404040;
 
@@ -31,6 +31,19 @@ body {
     font-family: "Nunito" !important;
 }
 
+.background {
+    position: relative;
+}
+
+.background:nth-child(1) .container-fluid:not(.bg-container) {
+    padding-bottom: 15rem !important;
+}
+
+.background:nth-child(3) {
+    padding-top: 6rem;
+    padding-bottom: 8rem;
+}
+
 .navbar {
     height: 10vh;
     padding: 0 !important;
@@ -43,6 +56,16 @@ body {
 
 .nav-item a:not(.here):hover {
     color: var(--base-color-purple-dark) !important;
+}
+
+.bg-container {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+}
+
+img.svg-bg {
+    position: relative;
 }
 
 .here {
@@ -90,7 +113,6 @@ li .cadastrar-button {
 /* Diagonal */
 .first-benefit {
     background-color: var(--curve-color);
-    margin-top: 20vh !important;
 }
 
 .others-benefits {
@@ -103,9 +125,9 @@ li .cadastrar-button {
 /* Fim Diagonal */
 
 /* Início Carrosel */
-.carrossel {
+/* .carrossel {
     margin-top: 20vh !important;
-}
+} */
 .images-carrossel {
     width: 90%;
 }
