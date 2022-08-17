@@ -13,10 +13,18 @@
 
     /* Cores Claras */
     --curve-color: #411A8C;
-    --second-benefits: #d8d8d8;
+    --second-benefits: #ececec;
     /* Cores Fontes */
     --text-color: #404040;
+}
 
+/* Tamanho svg: 450 */
+
+/* Remover linhas brancas entre cada curva */
+
+.svg-img {
+    margin-top: -5px;
+    margin-bottom: -5px;
 }
 
 @font-face {
@@ -39,11 +47,6 @@ body {
     padding-bottom: 15rem !important;
 }
 
-.background:nth-child(3) {
-    padding-top: 6rem;
-    padding-bottom: 8rem;
-}
-
 .navbar {
     height: 10vh;
     padding: 0 !important;
@@ -64,8 +67,8 @@ body {
     width: 100%;
 }
 
-img.svg-bg {
-    position: relative;
+.bg-container img {
+    width: 100vw;
 }
 
 .here {
@@ -110,34 +113,46 @@ li .cadastrar-button {
     color: black !important;
 }
 
-/* Diagonal */
-.first-benefit {
+/* Benefícios */
+.benefits:nth-child(2) {
     background-color: var(--curve-color);
 }
 
-.others-benefits {
+.benefits:nth-child(4) {
     background-color: var(--second-benefits);
 }
-.curve {
-    fill: var(--curve-color);
+
+.benefits:nth-child(6) {
+    background-color: var(--gradient-second-color);
 }
 
-/* Fim Diagonal */
+/* Fim Benefícios */
 
 /* Início Carrosel */
-/* .carrossel {
-    margin-top: 20vh !important;
-} */
-.images-carrossel {
-    width: 90%;
+ul li:nth-child(2) img.images-carrossel{
+    width: 100%;
 }
-.others-images-carrossel {
+ul li:nth-child(1) img.images-carrossel, ul li:nth-child(3) .images-carrossel {
+    width: 80%;
     cursor: pointer;
-    width: 60%;
-    transition: width 300ms;
+    transition: opacity 300ms;
+    opacity: 0.4;
 }
 
-.others-images-carrossel:hover {
-    width: 70%;
+.images-carrossel:nth-child(1):hover, .images-carrossel:nth-child(3):hover {
+    opacity: 1;
 }
 
+/* Revelar Home*/
+
+.reveal {
+    position: relative;
+    transform: translateY(130px);
+    opacity: 0;
+    transition: all 2s ease;
+}
+
+.active {
+    transform: translateY(0px);
+    opacity: 1;
+}
