@@ -4,7 +4,9 @@
     --base-color: #5926BB;
 
     /* Cores Principais Mais Escuras  */
-    --base-color-purple-dark: #5020AA;
+    --base-color-purple-dark: #431a8e;
+    --second-background: #32136d;
+    --third-background: #240b52;
 
     /* Cores gradiente */
     --gradient-first-color: #B826BB;
@@ -12,8 +14,8 @@
     /* A terceira cor é a base */
 
     /* Cores Claras */
-    --curve-color: #411A8C;
-    --second-benefits: #ececec;
+    --benefits-color: #411A8C;
+
     /* Cores Fontes */
     --text-color: #404040;
 }
@@ -53,6 +55,17 @@ body {
     background-color: transparent !important;
 }
 
+.navbar .container a {
+    height: 100%;
+}
+
+.navbar-lateral-button {
+    width: 60% !important;
+    height: 7vh;
+}
+
+/* Fim Navbar */
+/* Inicio */
 .container {
     height: 100%;
 }
@@ -63,7 +76,6 @@ body {
 
 .bg-container {
     position: absolute;
-    z-index: -1;
     width: 100%;
 }
 
@@ -84,8 +96,23 @@ body {
 }
 
 li .cadastrar-button {
-    width: 10vw !important;
     box-shadow: 0px 0px 15px -3px var(--base-color) !important;
+}
+
+@media (max-width: 1000px) {
+    .cadastrar-button:not(.nav-item .cadastrar-button), .saiba-mais-button {
+        width: 45vw !important;
+        margin-top: 10px !important;
+    }
+}
+
+@media (min-width: 1001px) {
+    .nav-item .cadastrar-button {
+        width: 10vw !important;
+    }
+    .cadastrar-button, .saiba-mais-button {
+        width: 15vw !important;
+    }
 }
 
 .cadastrar-button, .saiba-mais-button {
@@ -112,10 +139,10 @@ li .cadastrar-button {
     border: 2px solid var(--base-color) !important;
     color: black !important;
 }
-
+/* Fim Início */
 /* Benefícios */
 .benefits:nth-child(2) {
-    background-color: var(--curve-color);
+    background-color: var(--benefits-color);
 }
 
 .benefits:nth-child(4) {
@@ -129,10 +156,20 @@ li .cadastrar-button {
 /* Fim Benefícios */
 
 /* Início Carrosel */
-ul li:nth-child(2) img.images-carrossel{
-    width: 100%;
+
+img.images-carrossel {
+    position: absolute;
 }
-ul li:nth-child(1) img.images-carrossel, ul li:nth-child(3) .images-carrossel {
+ul li:nth-child(1) img.images-carrossel {
+    top: 0%
+}
+ul li:nth-child(2) img.images-carrossel {
+    top: 60%;
+}
+ul li:nth-child(3) img.images-carrossel {
+    top:  100%;
+}
+ul li:not(:nth-child(1)) img.images-carrossel{
     width: 80%;
     cursor: pointer;
     transition: opacity 300ms;
@@ -142,6 +179,26 @@ ul li:nth-child(1) img.images-carrossel, ul li:nth-child(3) .images-carrossel {
 .images-carrossel:nth-child(1):hover, .images-carrossel:nth-child(3):hover {
     opacity: 1;
 }
+
+.background:nth-child(3){
+    background-color: var(--second-background);
+}
+/* Animação Carrossel */
+
+@keyframes images-carrossel-up {
+    from {
+
+    }
+    to {
+
+    }
+}
+/* último Background */
+
+.benefits:nth-child(4) .container-fluid {
+    background-color: var(--third-background);
+}
+
 
 /* Revelar Home*/
 
