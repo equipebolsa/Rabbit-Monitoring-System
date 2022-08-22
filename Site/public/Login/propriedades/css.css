@@ -1,0 +1,81 @@
+
+body{
+    background: rgb(0,0,0);
+    background: linear-gradient(31deg, #e47be6 0%, #9e04a3 35%, #5926BB 100%);
+    background-size: 300% 300%;
+    animation: anima 3s infinite alternate;
+}
+
+.container{
+    width: 60vh;
+    height: 90vh;
+    margin-top: 30vh;
+    border: #8953f2 solid 0.2vh;
+    border-radius: 1vh;
+    background-color: white;
+    margin-bottom: 20vh;
+
+
+}
+.logo{
+    width: 35vh;
+    height: 15vh;
+    margin-left: 10vh;
+}
+.form-check{
+    justify-content: right;
+}
+.linha{
+    margin-left: 7.5vh;
+}
+.a{
+    margin-top: 6vh;
+}
+.b{
+    margin-top: 3vh;
+}
+.little{
+    font-size: 1.5vh;
+    
+}
+.title{
+    margin-top: 3vh;
+    margin-left: 21.5vh;
+    font-size: 4vh;
+}
+
+.btn {
+    margin-left: 22vh;
+    background-color: darkviolet;
+    font-weight: bold;
+}
+.btn:hover{
+    background-color: black;
+}
+.form-check{   
+    margin-top: 2vh;
+    
+}
+.form-check-label{
+    font-size: 2vh;
+}
+.senha{
+    font-size: 2.5vh;
+}
+.form-control{
+    font-size: 2vh;
+}
+
+@keyframes anima{
+    0%{
+        background-position-x: 100%;
+    }
+    
+    50%{
+        background-position-x: 25%;
+    }
+    
+    100%{
+        background-position-x: 0%;
+    }
+}
