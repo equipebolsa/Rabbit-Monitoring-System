@@ -12,36 +12,47 @@
 </head>
 <body>
     <script src="propriedades/js/bootstrap.bundle.js"></script>
-    <div class="container">
-    <form>
-
-
-      <img class="logo" src="propriedades/css_miscelaneous/Novo Projeto.png" alt="">
+    
+  <main class="container">
+    
       <div class="title">
         <span >Login</span>
+        <div class="linha"></div>
+      </div>
         
-      </div>
-      <div class="linha">
-        <span class="linha">_________________</span>
-        
-      </div>
-      <div class="form-group a">
-        <label for="exampleInputEmail1"><span class="senha"> Email</span></label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Exemplo@email.com">
-        <small id="emailHelp" class="form-text text-muted"><b class="little">Suas informações estão seguras.</b></small>
-      </div>
-      <div class="form-group b">
-        <label for="exampleInputPassword1"><span class="senha"> Senha</span></label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="*****">
-      </div>
-      <div class="form-group form-check">
-        <a href=""><label class="form-check-label">Cadastre-se </label></a>
-        
-        <button type="submit" class="btn btn-primary">Logar</button>
-      </div>
+        <form action="">
+          <div class="campo-de-input">
+            <input type="text" name="username" id="usuario" placeholder="Email@exemplo.com.br">
+            <div class="underline"></div>
+          </div>
+          <div class="campo-de-input">
+            <input type="password" name="password" id="senha" placeholder="*********">
+            <div class="underline"></div>
+          </div>
+          <input type="submit" value="Logar">
+        </form>
+      
+        <div class="footer">
+          <span>Não possui cadastro? </span>
 
-    </form>
-  </div>
+          <div class="campos-sociais">
+            <div class="linkedn">
+              <a href="">
+                <i class="a"></i>
+                Entre com linkedin
+              </a>
+            </div>
+            <div class="facebook">
+              <a href="">
+                <i class=""></i>
+                Entre com facebook
+              </a>
+            </div>
+          </div>
+        </div>
+      
+        
+  </main>
 
 
 
