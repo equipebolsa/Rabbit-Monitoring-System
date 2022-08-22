@@ -14,7 +14,7 @@ CREATE TABLE tbCliente (
 	FOREIGN KEY (fkAdministrador) REFERENCES tbCliente(idCliente)   	
 ) ;
 
-CREATE TABLE tbTelefone ( 
+CREATE TABLE tbTelefone (
 	idTelefone INT PRIMARY KEY AUTO_INCREMENT, 
 	paisTelefone VARCHAR(3) NOT NULL, 
 	regiaoTelefone CHAR(2) NOT NULL, 
@@ -24,44 +24,39 @@ CREATE TABLE tbTelefone (
 ) ;  
 	
 
+CREATE TABLE tbSetor ( 
+	idSetor INT PRIMARY KEY AUTO_INCREMENT,
+	nomeSetor INT NOT NULL, 
+	fkCliente INT , 
+	FOREIGN KEY (fkCliente) REFERENCES tbCliente(idCliente) 
+) ;
+
 CREATE TABLE tbServidor (
 	idServidor INT PRIMARY KEY AUTO_INCREMENT, 
 	sistemaServidor VARCHAR(40) NOT NULL,
-	conexaoRede CHAR(3) NOT NULL,
 	dataCadastro DATETIME NOT NULL, 
-	fkCliente INT , 
-	FOREIGN KEY (fkCliente) REFERENCES tbCliente(idCliente)
+	fkSetor INT , 
+	FOREIGN KEY (fkSetor) REFERENCES tbSetor(idSetor)
 ); 
 
 
 CREATE TABLE tbDisco( 
 	idDisco INT PRIMARY KEY,   
-	nomeDisco VARCHAR(60) NOT NULL, 
-	capacidadeDisco INT NOT NULL  ,   
-	velocidadeRotacaoDisco INT NOT NULL , 
-	tecnologiaDisco VARCHAR(3) ,
+	capacidadeDisco INT NOT NULL  ,    
+	espacoLivreDisco DECIMAL(4,2) NOT NULL ,
+	espacoUsadoDisco DECIMAL(4,2) NOT NULL , 
+	usoAtualDisco INT NOT NULL, 
+	dataDisco DATETIME NOT NULL,	
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
 
 ); 
-
-CREATE TABLE tbDadosDisco( 
-	idDadosDisco INT PRIMARY KEY AUTO_INCREMENT, 
-	espacoLivreDisco INT NOT NULL ,
-	espacoUsadoDisco INT NOT NULL , 
-	usoAtualDisco INT NOT NULL, 
-	dataDisco DATETIME NOT NULL,
-	fkDisco INT , 
-	FOREIGN KEY (fkDisco) REFERENCES tbDisco(idDisco)
-);
-
 CREATE TABLE tbCpu(  
 	idCpu INT PRIMARY KEY AUTO_INCREMENT,
 	qtdNucleos INT NOT NULL ,
 	qtdThreads INT NOT NULL ,
-	tecnologiaCpu VARCHAR(5) NOT NULL , 
-	voltagemCpu INT NOT NULL , 
-	modeloCpu VARCHAR(40) NOT NULL,
+	tecnologiaCpu VARCHAR(20) NOT NULL , -- 64 bits, 32, etc   
+	modeloCpu VARCHAR(40) NOT NULL, -- i3, i9, etc
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
 ) ; 
@@ -76,46 +71,15 @@ CREATE TABLE tbDadosCpu(
 );
 
 
-
-CREATE TABLE tbCore(  
-	idCore INT PRIMARY KEY AUTO_INCREMENT, 
-	velocidadeCore INT NOT NULL, 
-	busSpeedCore INT NOT NULL , 
-	fkCpu INT , 
-	FOREIGN KEY (fkCpu) REFERENCES tbCpu(idCpu)
-) ; 
-
-CREATE TABLE tbDadosCores(  
-	idDadosCore INT PRIMARY KEY AUTO_INCREMENT,
-	usoCore INT NOT NULL, 
-	dataCore DATETIME NOT NULL,
-	fkCore INT , 
-	FOREIGN KEY (fkCore) REFERENCES tbCore(idCore)
-); 
-
 CREATE TABLE tbRam( 
 	idRam INT PRIMARY KEY AUTO_INCREMENT, 
-	modeloRam VARCHAR(40) NOT NULL ,
 	capacidadeRam INT NOT NULL ,
-	tecnologiaRam CHAR(4) NOT NULL,
-	velocidade varchar(8) NOT NULL,
-	latênciaRam varchar(3) NOT NULL,
-	fabricanteRam VARCHAR(40) NOT NULL,
+	espacoLivreRam DECIMAL(4,2) NOT NULL ,
+	espacoUsadoRam DECIMAL(4,2) NOT NULL , 
+	usoAtualRam DECIMAL(4,2) NOT NULL, 
+	dataRam DATETIME NOT NULL ,
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
 
 ); 
-
-CREATE TABLE tbDadosRam( 
-	idDadosRam INT PRIMARY KEY AUTO_INCREMENT, 
-	espacoLivreRam INT NOT NULL ,
-	espacoUsadoRam INT NOT NULL , 
-	usoAtualRam INT NOT NULL, 
-	dataRam DATETIME NOT NULL ,
-	fkRam INT ,  
-	FOREIGN KEY (fkRam) REFERENCES tbRam(idRam)
-	
-); 
-
-
 
