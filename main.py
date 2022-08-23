@@ -7,16 +7,19 @@ import time
 import socket
 import subprocess
 import pymysql ; 
-from datetime import date
-today = date.today()
+from datetime import datetime
+today = datetime.now()
+
+horaSistema = os.popen("date").read()
+horaSistema = horaSistema.split()
+dataAtual = today.strftime("%Y-%m-%d "+horaSistema[4])
 
 
-dataAtual = today.strftime("%Y/%m/%d %H/%M/%S")
 
 connection = pymysql.connect( host='localhost',
                 user='root', 
                 password='akemih32',
-                database='projetoBolsa') 
+                database='dbProjetoBolsa') 
 
 cursor = connection.cursor() 
         
@@ -38,34 +41,36 @@ dados_cpu = {
 }
 
 def sistemaOperacional(): 
-
+  
     
     print("\033[1;36m Sistema Operacional  \n ================= \033[0m\n  ")
+    print(horaSistema[4])
     print("Nome do sistema: " + str(dados_os["SISTEMA_NOME"]))
     print(dados_os["SISTEMA_URL"])
     print("Tipo do sistema: " + str(dados_os["SISTEMA_TIPO"]))
-    print("Horário atual: ") 
-    os.system('date')
     print('\n')
 
 def memoriaRam() : 
-    sqlFlex = "INSERT INTO tbRam (capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkRam) VALUES (%s,%s,%s,%s,1) "
+  
 
-    print(ps.virtual_memory())
-    total = ps.virtual_memory().total / pow(10,9)
-    uso_ram = ps.virtual_memory().used / pow(10,9)
-    livre_ram = ps.virtual_memory().free / pow(10,9)
+    total = round(ps.virtual_memory().total / pow(10,9),0)
+    uso_ram = round(ps.virtual_memory().used / pow(10,9),2)
+    livre_ram = round(ps.virtual_memory().free / pow(10,9),2)
     percent = round((uso_ram*100/total)) 
     
     print("\033[1;36m MEMÓRIA RAM \n ================= \033[0m\n  ") 
     print("Uso atual da Ram: "+str(percent) + "%/100%")
-
-    print("Uso em memória da Ram: "+ str(round(uso_ram),2)+"GB/" +str(round(dados_ram['RAM_TOTAL']/pow(10,9),2))+"GB")
-
+    print("Uso em memória da Ram: "+ str(uso_ram)+"GB/" +str(round(dados_ram['RAM_TOTAL']/pow(10,9),2))+"GB")
     print('\n')
 
+    sql = "INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkServidor) \
+         VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(dataAtual)+"',1);"
 
-    cursor.execute(sqlFlex, (total , livre_ram,  (uso_ram ) , dataAtual, 1  ))
+    
+    
+    cursor.execute(sql)
+
+#INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkServidor) VALUES (%s,%s,%s,'%s',1); (8.0, 2.81, 2.73, '2022-08-23 19:26:38', 1)
 
 def cpu() :
 
@@ -74,29 +79,28 @@ def cpu() :
 
 
      
-    cpu_modelo = os.popen("lscpu").read()
-    cpu_modelo = cpu_modelo.split("\n")
-    temp = ps.sensors_temperatures()['coretemp'].current 
-    sqlFixo = "INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES (%s, %s,%s,%s,1) "
-
-    sqlFlex = "INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES (%s,%s,%s,%s,1) "
+    cpu_dados = os.popen("lscpu").read()
+    cpu_dados = cpu_dados.split("\n")
+    temp = ps.sensors_temperatures()['coretemp'][0].current
     freqAtualCpu = round(ps.cpu_freq().current * pow(2,13) / ps.cpu_freq().max,2)
-    for i in range(len(cpu_modelo)) : 
-        cpu_modelo[i] = cpu_modelo[i].strip()
+
+
+    for i in range(len(cpu_dados)) : 
+        cpu_dados[i] = cpu_dados[i].strip()
    
-        cpu_modelo[i] = cpu_modelo[i].split(':')
+        cpu_dados[i] = cpu_dados[i].split(':')
 
  
-    for i in range(len(cpu_modelo)) : 
+    for i in range(len(cpu_dados)) : 
         for j in range(0,1) : 
-            if (cpu_modelo[i][j] == "Núcleo(s) por soquete"): 
-                nuc  = cpu_modelo[i][j+1]
-            elif(cpu_modelo[i][j] == "Nome do modelo") : 
-                nom = cpu_modelo[i][j+1]
-            elif(cpu_modelo[i][j] == "Arquitetura") : 
-                arq = cpu_modelo[i][j+1]
-            elif(cpu_modelo[i][j] == "Thread(s) per núcleo"): 
-                thr = cpu_modelo[i][j+1]
+            if (cpu_dados[i][j] == "Núcleo(s) por soquete"): 
+                nuc  = cpu_dados[i][j+1]
+            elif(cpu_dados[i][j] == "Nome do modelo") : 
+                nom = cpu_dados[i][j+1]
+            elif(cpu_dados[i][j] == "Arquitetura") : 
+                arq = cpu_dados[i][j+1]
+            elif(cpu_dados[i][j] == "Thread(s) per núcleo"): 
+                thr = cpu_dados[i][j+1]
 
             
 
@@ -107,54 +111,61 @@ def cpu() :
     cpu_qtd_nucleos = index_cpu["NUCLEO"]
     cpu_qtd_threads = index_cpu["THREAD"]
 
-    print("Nome da CPU: " + str(cpu_modelo_nome).strip()) 
-    print("Arquitetura possível da CPU: " + str(cpu_tecnologia).strip() )
-    print("Quantidade de núcleos: " + str(cpu_qtd_nucleos).strip())
-    print("Quantidade de Thread: " + str(cpu_qtd_threads).strip())
+    #formatacao
+    cpu_qtd_nucleos =  str(cpu_qtd_nucleos).strip()
+    cpu_qtd_threads = str(cpu_qtd_threads).strip()
+    cpu_tecnologia = str(cpu_tecnologia).strip()
+    cpu_modelo_nome = str(cpu_modelo_nome).strip() 
+
+    print("Nome da CPU: " +cpu_modelo_nome) 
+    print("Arquitetura possível da CPU: " + cpu_tecnologia) 
+    print("Quantidade de núcleos: " + cpu_qtd_nucleos) 
+    print("Quantidade de Thread: " +cpu_qtd_threads) 
     print("Frequência mínima da CPU: "+ str(dados_cpu['CPU_FREQ_MINIMA']) + "GHz")
-
     print("Frequência máxima da CPU: " + str(dados_cpu['CPU_FREQ_MAX']) + "GHz")
-
     print("Frequência atual da  CPU: " + str(freqAtualCpu ) + "%/100% ") 
     print("Arquitetura do processador: " + platform.machine())
     print('\n')
 
 
 
-    cursor.execute(sqlFixo, (str(cpu_qtd_nucleos).strip() , str(cpu_qtd_threads).strip() , str(cpu_tecnologia).strip(), str(cpu_modelo_nome).strip()) )
-    cursor.execute(sqlFlex, (freqAtualCpu, temp, dataAtual))
+    sqlFixo = "INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES \
+         ("+cpu_qtd_nucleos+","+cpu_qtd_threads+",'"+cpu_tecnologia+"','"+cpu_modelo_nome+"',1) "
+
+    sqlFlex = "INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES \
+         ("+str(freqAtualCpu)+","+str(temp)+",'"+str(dataAtual)+"',1) "
+    cursor.execute(sqlFixo)
 
 
 
 def disco() :  
-     
-
-    sqlFixo = "INSERT INTO tbDisco (capacidadeDisco,espacoLivreDisco,espacoUsadoDisco,dataDisco, fkServidor) VALUES (%s, %s,%s,%s, %s, 1) "
-
     print("\033[1;36mDisco \n ================= \n \033[0m ")
 
 
-    disco_total = ps.disk_usage('/').total >> 30
-    disco_livre = ps.disk_usage('/').free >> 30
-    disco_percent = round(disco_total * 100 / disco_livre/100,2)
+    disco_total = round(ps.disk_usage('/').total >> 30) 
+    disco_livre = round( ps.disk_usage('/').free >> 30)
+    disco_usado = disco_total-disco_livre
+    disco_percent = round(disco_total * 100 / disco_livre/100)
     tempo_leitura = ps.disk_io_counters().read_time >> 30 
     tempo_escrita = ps.disk_io_counters().write_time >> 30 
     particoes_disco = ps.disk_partitions()
     
     print("Uso do Disco: " + str(round(disco_total-disco_livre))  + "GB/" + str(disco_total) + "GB"  +  " ("+str(disco_percent)+"%)")
-
     print("Tempo de escrita: " + str(tempo_escrita)+"ms")
     print("Tempo de leitura "+ str(tempo_leitura)+"ms")
     print('\n')
-
-
     print("Partições do disco: \n")
+
+
     for i in range(1,len(ps.disk_partitions())+1):
         if(i%2==0) : 
             print(ps.disk_partitions()[i][0])
     print('\n')
 
-    cursor.execute(sqlFixo, disco_total, disco_livre, (disco_total - disco_livre) , dataAtual)  
+    sql = "INSERT INTO tbDisco (capacidadeDisco,espacoLivreDisco,espacoUsadoDisco,porcentagemUsoDisco , dataDisco, fkServidor) VALUES \
+        ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(dataAtual)+"', 1) "
+   
+    cursor.execute(sql)  
 
 
 def network() : 
@@ -170,21 +181,21 @@ def network() :
 
     print("Velocidade de Upload: " + str(round(bytes_recebidos/1000000,2) ) + "mb")
 
-
+    
 
 
 def processoTotal() : 
-    cursor.commit() 
+   
+    horaSistema = os.popen("date").read()
+    horaSistema = horaSistema.split()
     os.system("clear")
     sistemaOperacional()
     memoriaRam() 
     cpu()
     disco()
     network()
-    time.sleep(30)
+    time.sleep(1)
+    connection.commit() 
+
     processoTotal()
-
-
-
-    
 processoTotal()

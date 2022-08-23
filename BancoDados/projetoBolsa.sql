@@ -1,5 +1,5 @@
-CREATE DATABASE dbProjetoBolsa
-USE dbProjetoBolsa
+CREATE DATABASE IF NOT EXISTS dbProjetoBolsa;
+USE dbProjetoBolsa;
 
 
 CREATE TABLE tbCliente ( 
@@ -26,10 +26,12 @@ CREATE TABLE tbTelefone (
 
 CREATE TABLE tbSetor ( 
 	idSetor INT PRIMARY KEY AUTO_INCREMENT,
-	nomeSetor INT NOT NULL, 
+	nomeSetor VARCHAR(40) NOT NULL, 
 	fkCliente INT , 
 	FOREIGN KEY (fkCliente) REFERENCES tbCliente(idCliente) 
 ) ;
+
+
 
 CREATE TABLE tbServidor (
 	idServidor INT PRIMARY KEY AUTO_INCREMENT, 
@@ -41,11 +43,11 @@ CREATE TABLE tbServidor (
 
 
 CREATE TABLE tbDisco( 
-	idDisco INT PRIMARY KEY,   
+	idDisco INT PRIMARY KEY AUTO_INCREMENT,   
 	capacidadeDisco INT NOT NULL  ,    
-	espacoLivreDisco DECIMAL(4,2) NOT NULL ,
-	espacoUsadoDisco DECIMAL(4,2) NOT NULL , 
-	usoAtualDisco INT NOT NULL, 
+	espacoLivreDisco DOUBLE NOT NULL ,
+	espacoUsadoDisco DOUBLE NOT NULL , 
+	porcentagemUsoDisco INT NOT NULL, 
 	dataDisco DATETIME NOT NULL,	
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
@@ -56,15 +58,15 @@ CREATE TABLE tbCpu(
 	qtdNucleos INT NOT NULL ,
 	qtdThreads INT NOT NULL ,
 	tecnologiaCpu VARCHAR(20) NOT NULL , -- 64 bits, 32, etc   
-	modeloCpu VARCHAR(40) NOT NULL, -- i3, i9, etc
+	modeloCpu VARCHAR(60) NOT NULL, -- i3, i9, etc
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
 ) ; 
 
 CREATE TABLE tbDadosCpu( 
 	idDadosCpu INT PRIMARY KEY  AUTO_INCREMENT, 
-	freqAtualCpu INT NOT NULL, 
-	temperaturaAtualCpu INT NOT NULL, 
+	freqAtualCpu DECIMAL(4,2) NOT NULL, 
+	temperaturaAtualCpu DECIMAL(4,2) NOT NULL, 
 	dataCpu DATETIME NOT NULL  ,
 	fkCpu INT , 
 	FOREIGN KEY (fkCpu) REFERENCES tbCpu(idCpu)
@@ -76,10 +78,18 @@ CREATE TABLE tbRam(
 	capacidadeRam INT NOT NULL ,
 	espacoLivreRam DECIMAL(4,2) NOT NULL ,
 	espacoUsadoRam DECIMAL(4,2) NOT NULL , 
-	usoAtualRam DECIMAL(4,2) NOT NULL, 
 	dataRam DATETIME NOT NULL ,
 	fkServidor INT , 
 	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
 
 ); 
 
+
+
+ INSERT INTO tbCliente VALUES (1,"Rafael","rafael@gmail.com","rafael01","00000000000","2004-07-23",1,1); 
+
+INSERT INTO tbTelefone VALUES (1,"BR",'55','11982072730',1);
+
+INSERT INTO tbSetor VALUES (1,"Alpha",1);
+
+INSERT INTO tbServidor VALUES (1 , "Linux","2004-12,23",1);
