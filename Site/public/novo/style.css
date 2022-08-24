@@ -32,9 +32,68 @@
     background: var(--base-color-purple-dark);
 }
 
+@font-face {
+    font-family: "Nunito", sans-serif;
+    src: url(../public/assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+}
+
+@media (min-width: 1000px) {
+    .carrossel-list {
+        transform: translateY(-40vh);
+    }
+
+    .carrossel-first-container div:nth-child(2) {
+        height: 75vh !important;
+    }
+
+    ul.carrossel-list {
+        position: absolute;
+    }
+
+    .nav-item .cadastrar-button {
+        width: 10vw !important;
+    }
+
+    .cadastrar-button,
+    .saiba-mais-button {
+        width: 15vw !important;
+    }
+
+    .text-container p:nth-child(1) {
+        width: 65%;
+    }
+
+    .subtitle {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    ul.carrossel-list li.carrossel-item:not(:nth-child(2)) {
+        display: none !important;
+        width: 100% !important;
+    }
+
+    .cadastrar-button:not(.nav-item .cadastrar-button),
+    .saiba-mais-button {
+        width: 45vw !important;
+        margin-top: 10px !important;
+    }
+
+    .carrossel-container div:has(.h-100) {
+        height: auto !important;
+    }
+
+    .text-container p:nth-child(1) {
+        width: auto;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
+    border: 0 !important;
 }
 
 button {
@@ -45,13 +104,10 @@ button {
 
 /* Remover linhas brancas entre cada curva */
 .svg-img {
-    margin-top: -5px;
-    margin-bottom: -5px;
-}
-
-@font-face {
-    font-family: "Nunito", sans-serif;
-    src: url(../public/assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+    margin-top: -4px;
+    margin-bottom: -4px;
+    position: absolute;
+    z-index: 1;
 }
 
 body {
@@ -61,11 +117,12 @@ body {
     font-family: "Nunito" !important;
 }
 
-.background .container-fluid{
+.background .container-fluid {
     height: 85vh !important;
 }
 
-.background, .background-carrossel {
+.background,
+.background-carrossel {
     position: relative;
 }
 
@@ -99,12 +156,6 @@ body {
     color: var(--base-color-purple-dark) !important;
 }
 
-.bg-container {
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-}
-
 .bg-container img {
     width: 100vw;
 }
@@ -113,32 +164,18 @@ body {
     color: var(--base-color) !important;
 }
 
+/* Navbar */
+.text-container {
+    height: 52%;
+}
+
 .subtitle {
     color: var(--text-color) !important;
+    width: auto;
 }
 
 li .cadastrar-button {
     box-shadow: 0px 0px 15px -3px var(--base-color) !important;
-}
-
-@media (max-width: 1000px) {
-
-    .cadastrar-button:not(.nav-item .cadastrar-button),
-    .saiba-mais-button {
-        width: 45vw !important;
-        margin-top: 10px !important;
-    }
-}
-
-@media (min-width: 1001px) {
-    .nav-item .cadastrar-button {
-        width: 10vw !important;
-    }
-
-    .cadastrar-button,
-    .saiba-mais-button {
-        width: 15vw !important;
-    }
 }
 
 .cadastrar-button,
@@ -173,11 +210,6 @@ li .cadastrar-button {
     background-color: var(--benefits-color);
 }
 
-@media (max-width: 1000px) {
-    .benefits {
-        height: 40vh;
-    }
-}
 /* Fim Benefícios */
 
 /* Início Carrosel */
@@ -185,23 +217,11 @@ li .cadastrar-button {
     background-color: var(--second-background);
 }
 
-.carrossel-first-container {
-    height: 85vh;
-}
-
 .carrossel-container-fluid {
     position: relative;
 }
 
-@media (max-width: 1000px) {
-
-    ul.carrossel-list li.carrossel-item:not(:nth-child(2)) {
-        display: none !important;
-        width: 100% !important;
-    }
-}
-
-img.images-carrossel {
+.carrossel-item img {
     width: 100%;
 }
 
@@ -212,23 +232,16 @@ div.carrossel-container {
 ul.carrossel-list {
     list-style: none;
     padding: 0;
-    row-gap: 10vh;
-    position: absolute;
+    row-gap: 5vh;
 }
 
 ul.carrossel-list li {
     transition: all 1s ease-out;
 }
 
-ul.carrossel-list li:nth-child(1) {
-}
-
 ul.carrossel-list li:nth-child(2) {
     width: 100%;
     opacity: 1;
-}
-
-ul.carrossel-list li:nth-child(3) {
 }
 
 ul.carrossel-list li:not(:nth-child(2)) {
