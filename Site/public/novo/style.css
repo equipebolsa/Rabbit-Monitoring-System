@@ -1,29 +1,49 @@
 :root {
-    
+
     /* Cores Principais */
     --base-color: #5926BB;
-
     /* Cores Principais Mais Escuras  */
     --base-color-purple-dark: #431a8e;
-    --second-background: #32136d;
+    --second-background: #39147c;
     --third-background: #240b52;
-
     /* Cores gradiente */
     --gradient-first-color: #B826BB;
     --gradient-second-color: #8B26BB;
     /* A terceira cor é a base */
-
     /* Cores Claras */
     --benefits-color: #411A8C;
-
     /* Cores Fontes */
     --text-color: #404040;
 }
 
-/* Tamanho svg: 450 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--third-background)
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--base-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--base-color-purple-dark);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
 
 /* Remover linhas brancas entre cada curva */
-
 .svg-img {
     margin-top: -5px;
     margin-bottom: -5px;
@@ -41,12 +61,17 @@ body {
     font-family: "Nunito" !important;
 }
 
-.background {
+.background .container-fluid{
+    height: 85vh !important;
+}
+
+.background, .background-carrossel {
     position: relative;
 }
 
-.background:nth-child(1) .container-fluid:not(.bg-container) {
-    padding-bottom: 15rem !important;
+.background-carrossel {
+    position: relative;
+    overflow: hidden;
 }
 
 .navbar {
@@ -77,6 +102,7 @@ body {
 .bg-container {
     position: absolute;
     width: 100%;
+    z-index: 1;
 }
 
 .bg-container img {
@@ -85,10 +111,6 @@ body {
 
 .here {
     color: var(--base-color) !important;
-}
-
-.title {
-    color: black !important
 }
 
 .subtitle {
@@ -100,7 +122,9 @@ li .cadastrar-button {
 }
 
 @media (max-width: 1000px) {
-    .cadastrar-button:not(.nav-item .cadastrar-button), .saiba-mais-button {
+
+    .cadastrar-button:not(.nav-item .cadastrar-button),
+    .saiba-mais-button {
         width: 45vw !important;
         margin-top: 10px !important;
     }
@@ -110,27 +134,30 @@ li .cadastrar-button {
     .nav-item .cadastrar-button {
         width: 10vw !important;
     }
-    .cadastrar-button, .saiba-mais-button {
+
+    .cadastrar-button,
+    .saiba-mais-button {
         width: 15vw !important;
     }
 }
 
-.cadastrar-button, .saiba-mais-button {
-    /* background-color: white !important; */
+.cadastrar-button,
+.saiba-mais-button {
     color: white !important;
-    /* position: relative; */
     border: 0 !important;
     border-radius: 0.375rem;
     background-color: var(--base-color) !important;
 }
 
-.cadastrar-button:hover, .saiba-mais-button:hover {
+.cadastrar-button:hover,
+.saiba-mais-button:hover {
     background: var(--base-color-purple-dark) !important;
     transition: 300ms;
     color: white !important;
 }
 
-.container-fluid .cadastrar-button, .container-fluid .saiba-mais-button {
+.container-fluid .cadastrar-button,
+.container-fluid .saiba-mais-button {
     height: 7vh !important;
 }
 
@@ -139,68 +166,89 @@ li .cadastrar-button {
     border: 2px solid var(--base-color) !important;
     color: black !important;
 }
+
 /* Fim Início */
 /* Benefícios */
-.benefits:nth-child(2) {
+.benefits {
     background-color: var(--benefits-color);
 }
 
-.benefits:nth-child(4) {
-    background-color: var(--second-benefits);
+@media (max-width: 1000px) {
+    .benefits {
+        height: 40vh;
+    }
 }
-
-.benefits:nth-child(6) {
-    background-color: var(--gradient-second-color);
-}
-
 /* Fim Benefícios */
 
 /* Início Carrosel */
+.background-carrossel {
+    background-color: var(--second-background);
+}
+
+.carrossel-first-container {
+    height: 85vh;
+}
+
+.carrossel-container-fluid {
+    position: relative;
+}
+
+@media (max-width: 1000px) {
+
+    ul.carrossel-list li.carrossel-item:not(:nth-child(2)) {
+        display: none !important;
+        width: 100% !important;
+    }
+}
 
 img.images-carrossel {
-    position: absolute;
-}
-ul li:nth-child(1) img.images-carrossel {
-    top: 0%
-}
-ul li:nth-child(2) img.images-carrossel {
-    top: 60%;
-}
-ul li:nth-child(3) img.images-carrossel {
-    top:  100%;
-}
-ul li:not(:nth-child(1)) img.images-carrossel{
-    width: 80%;
-    cursor: pointer;
-    transition: opacity 300ms;
-    opacity: 0.4;
+    width: 100%;
 }
 
-.images-carrossel:nth-child(1):hover, .images-carrossel:nth-child(3):hover {
+div.carrossel-container {
+    position: relative;
+}
+
+ul.carrossel-list {
+    list-style: none;
+    padding: 0;
+    row-gap: 10vh;
+    position: absolute;
+}
+
+ul.carrossel-list li {
+    transition: all 1s ease-out;
+}
+
+ul.carrossel-list li:nth-child(1) {
+}
+
+ul.carrossel-list li:nth-child(2) {
+    width: 100%;
     opacity: 1;
 }
 
-.background:nth-child(3){
-    background-color: var(--second-background);
+ul.carrossel-list li:nth-child(3) {
 }
-/* Animação Carrossel */
 
-@keyframes images-carrossel-up {
-    from {
-
-    }
-    to {
-
-    }
+ul.carrossel-list li:not(:nth-child(2)) {
+    width: 99%;
+    cursor: pointer;
+    opacity: 0.4;
 }
-/* último Background */
 
-.benefits:nth-child(4) .container-fluid {
+ul.carrossel-list li:not(:nth-child(2)):hover {
+    opacity: 1;
+}
+
+/* Último Background */
+
+.last-benefits .container-fluid {
     background-color: var(--third-background);
 }
 
 
-/* Revelar Home*/
+/* Revelar Home */
 
 .reveal {
     position: relative;

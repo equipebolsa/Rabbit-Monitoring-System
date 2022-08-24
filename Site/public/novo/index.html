@@ -18,9 +18,9 @@
     <!-- Navbar e primeira parte -->
     <div class="background">
         <nav class="navbar navbar-expand-lg float-right py-2 px-0 m-0">
-            <div class="container">
-                <a class="navbar-brand" href="./index.html">
-                    <img src="../assets/img/logo.png" class="h-100">
+            <div class="container-lg">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/img/logo.png" alt="" width="30" height="24">
                 </a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
@@ -70,16 +70,16 @@
             </div>
         </div>
         <!-- Texto do Meio no Início -->
-        <div class="container-fluid">
-            <div class="container row my-2 mx-auto p-0 pt-5 d-flex align-items-center justify-content-center w-50">
+        <div class="container-fluid h-auto pb-5">
+            <div class="container row mx-auto p-0 d-flex align-items-center justify-content-between w-75 pb-5">
                 <div
-                    class="col pt-0 ps-4 d-flex flex-column align-items-center justify-content-between m-2 text-center">
-                    <p class="fs-1 fw-bolder title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p class="fs-6 fw-semibold subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    class="col pt-0 d-flex flex-column align-items-center justify-content-between text-center h-50">
+                    <p class="h1 fw-bolder text-dark">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p class="h6 fw-semibold subtitle w-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                    <div class="row w-75 d-flex justify-content-evenly align-items-center">
-                        <button class="cadastrar-button btn fw-semibold justify-content-end">Inicie</button>
-                        <button class="saiba-mais-button btn fw-semibold justify-content-end">Saiba mais</button>
+                    <div class="row d-flex justify-content-evenly align-items-center" style="width: 50% !important;">
+                        <button class="cadastrar-button btn fw-semibold">Inicie</button>
+                        <button class="saiba-mais-button btn fw-semibold">Saiba mais</button>
                     </div>
                 </div>
             </div>
@@ -89,29 +89,37 @@
     </div>
 
     <!-- Benefícios -->
-    <div class="benefits py-2">
+    <div class="benefits py-sm-4 py-md-2">
         <div class="container-fluid p-0 m-0 d-flex justify-content-center">
-            <div class="container row reveal">
-                <div class="col-6 d-flex justify-content-center align-items-center">
+            <div class="container row reveal row-cols-auto">
+                <div class="col-sm-12 col-md-7 p-0 d-flex justify-content-center align-items-center">
                     <img src="../assets/img/working-computer.png" class="w-75">
                 </div>
-                <div class="col-6 text-center d-flex align-items-center">
-                    <ul class="col-8" style="list-style: none; row-gap: 3vh; display: grid;">
-                        <li class="text-light fs-5 fw-semibold">
+                <div class="col-sm-12 w-100 mt-md-0 mt-3 col-md p-0 d-flex align-items-center justify-content-center">
+                    <ul class="w-100 p-0 m-0 text-center" style="list-style: none; row-gap: 10px; display: grid;">
+                        <li class="text-light h6 fw-semibold">
                             <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
-                            Lorem ipsum dolor sit amet
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
                         </li>
-                        <li class="text-light fs-5 fw-semibold">
+                        <li class="text-light h6 fw-semibold">
                             <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
-                            Lorem ipsum dolor sit amet
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
                         </li>
-                        <li class="text-light fs-5 fw-semibold">
+                        <li class="text-light h6 fw-semibold">
                             <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
-                            Lorem ipsum dolor sit amet
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
                         </li>
-                        <li class="text-light fs-5 fw-semibold">
+                        <li class="text-light h6 fw-semibold">
                             <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
-                            Lorem ipsum dolor sit amet
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -122,45 +130,44 @@
     </div>
 
     <!-- Carrossel -->
-    <div class="background">
+    <div class="background-carrossel">
         <div class="bg-container m-0 p-0" style="top: 0vh;"><img src="../assets/img/svgs/wave-haikei.svg"
                 class="img-fluid svg-img"></div>
-        <div class="container-fluid d-flex justify-content-center align-items-center pt-5" style="overflow: hidden; ">
-            <div class="row container my-0 pt-5 pb-0 reveal position-relative" style="height: 99vh !important;">
-                <div class="col-8 position-absolute h-100">
-                    <ul class="d-flex flex-column justify-content-evenly align-items-center" style="list-style: none;">
-                        <li class="d-flex flex-column justify-content-evenly align-items-center">
+        <div class="container-fluid d-flex justify-content-center align-items-center py-5 carrossel-container-fluid">
+            <div class="container-lg p-0 carrossel-first-container row">
+                <div class="col-sm-12 col-md-6 p-0 carrossel-container">
+                    <ul class="d-flex flex-column justify-content-evenly align-items-center carrossel-list">
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
                             <img src="../assets/img/propaganda.png" class="images-carrossel rounded">
                         </li>
-                        <li class="d-flex flex-column justify-content-evenly align-items-center">
-                            <img src="../assets/img/propaganda.png" class="my-5 images-carrossel rounded">
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
+                            <img src="../assets/img/propaganda.png" class="images-carrossel rounded">
                         </li>
-                        <li class="d-flex flex-column justify-content-evenly align-items-center">
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
                             <img src="../assets/img/propaganda.png" class="images-carrossel rounded">
                         </li>
                     </ul>
-
                 </div>
-                <div class="col-4 text-center d-flex align-items-center position-absolute" style="right:0px">
-                    <p class="fs-5 fw-semibold text-light">Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit, sed
-                        do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                <div class="col px-4 h-100 d-flex flex-column justify-content-center align-items-center">
+                    <p class="h5 fw-bolder text-light">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder text-light">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder text-light">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
                 </div>
             </div>
         </div>
-
-
         <div class="bg-container container-fluid m-0 p-0" style="bottom: 0;">
             <img src="../assets/img/svgs/wave-haikei-2.svg" class="img-fluid svg-img">
-        </div>
+        </div>  
     </div>
 
-    <div class="benefits pb-4 position-relative">
+    <div class="benefits last-benefits pb-4 position-relative">
         <div class="container-fluid p-0 d-flex justify-content-center">
             <div class="container py-5 d-flex flex-column align-items-center reveal">
                 <div class="col-6 text-center d-flex align-items-center">
-                    <p class="fs-1 fw-bolder text-light">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                    <p class="h1 fw-bolder text-light">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
                 </div>
                 <button class="saiba-mais-button btn fw-semibold my-4" style="width: 25%;">Cadastrar</button>
             </div>
@@ -205,6 +212,7 @@
 </body>
 <script>
     window.addEventListener('scroll', reveal);
+    tradeImageCarrossel();
 
     function reveal() {
         let reveals = document.getElementsByClassName('reveal'); /* Documento para revelar */
@@ -222,13 +230,32 @@
     }
 
     function tradeImageCarrossel() {
-        let carrosselImgs = document.getElementsByClassName("images-carrossel");
-        for (let i = 0; i < carrosselImgs.length; i++) {
-            if (i == 1) {
-                carrosselImgs[i].addEventListener("click", () => {
+        let carrosselItems = document.getElementsByClassName("carrossel-item");
+        let carrosselList = document.getElementsByClassName("carrossel-list")[0];
 
-                })
+        carrosselItems[0].onclick = () => {
+            let lastElementChild = carrosselList.lastElementChild;
+            let firstElementChild = carrosselList.firstElementChild;
+            carrosselList.removeChild(carrosselList.lastElementChild);
+            for (let j = 0; j < carrosselItems.length; j++) {
+                carrosselItems[j].onclick = () => { };
             }
+            carrosselList.insertBefore(lastElementChild, firstElementChild);
+            setTimeout(() => {
+                tradeImageCarrossel();
+            }, 1000)
+        }
+
+        carrosselItems[2].onclick = () => {
+            let firstElementChild = carrosselList.firstElementChild;
+            carrosselList.removeChild(carrosselList.firstElementChild);
+            for (let j = 0; j < carrosselItems.length; j++) {
+                carrosselItems[j].onclick = () => { };
+            }
+            carrosselList.appendChild(firstElementChild);
+            setTimeout(() => {
+                tradeImageCarrossel();
+            }, 1000)
         }
     }
 
