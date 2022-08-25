@@ -32,13 +32,7 @@ dados_os =  {
         'SISTEMA_URL'  : platform.freedesktop_os_release()["HOME_URL"]
       
 }
-#dicionario 2 com os dados fixos da memoria  ram 
-dados_ram = {
-            'RAM_DISPONIVEL':ps.virtual_memory().available >>30 , 
-            'RAM_TOTAL':ps.virtual_memory()[0] ,
-}
-
-#dicionario 3, com os dados fixos da CPU 
+#dicionario 2, com os dados fixos da CPU 
 dados_cpu = { 
     'CPU_NOME' : platform.processor(),
     'CPU_FREQ_MINIMA':  ps.cpu_freq().min,
@@ -65,7 +59,7 @@ def memoriaRam() :
     
     print("\033[1;36m MEMÓRIA RAM \n ================= \033[0m\n  ") 
     print("Uso atual da Ram: "+str(percent) + "%/100%")
-    print("Uso em memória da Ram: "+ str(uso_ram)+"GB/" +str(round(dados_ram['RAM_TOTAL']/pow(10,9),2))+"GB")
+    print("Uso em memória da Ram: "+ str(uso_ram)+"GB/" +str(round(total/pow(10,9),2))+"GB")
     print('\n')
 
     sql = "INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkServidor) \
@@ -143,7 +137,9 @@ def cpu() :
 
     sqlFlex = "INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES \
          ("+str(freqAtualCpu)+","+str(temp)+",'"+str(dataAtual)+"',1) "
+
     cursor.execute(sqlFixo)
+    cursor.execute(sqlFlex)
 
 
 
@@ -183,7 +179,6 @@ def network() :
     bytes_recebidos = ps.net_io_counters()[0]
     bytes_enviados = ps.net_io_counters()[1]
     nome_internet = socket.gethostname()
-    # internet tá com problema na conversão => ver com a Marise
     ip_internet = socket.gethostbyname(socket.gethostname())
     print("ip: " + str(ip_internet))
     print("Hostname: " + str(nome_internet))
@@ -205,6 +200,5 @@ def processoTotal() :
     network()
     time.sleep(1)
     connection.commit() 
-
     processoTotal()
 processoTotal()
