@@ -1,6 +1,6 @@
 
 *{
-    margin: 0;
+    margin: 8px;
     border: 0;
     padding: 0;
     box-sizing: 0;
@@ -8,16 +8,16 @@
 
 
 body{
-    
-    background: linear-gradient(31deg, #e47be6 0%, #9e04a3 35%, #5926BB 100%);
-    background-size: 300% 300%; 
-    animation: anima 3s infinite alternate;
+    margin: 0;
+    background: purple;
     min-height: 100vh;
     min-width: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0;
 }
+
 
 main.container{
     background-color: white;
@@ -31,7 +31,7 @@ main.container{
 .title{
     font-weight: 600;
     margin-bottom: 2rem;
-    position: relative;
+    /* position: relative; */
 }
 .title::before{
     content: '';
