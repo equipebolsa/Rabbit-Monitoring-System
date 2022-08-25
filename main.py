@@ -1,11 +1,11 @@
 
 import psutil as ps 
-import platform
+import platform # linux ou windows
 import math  
 import os 
 import time 
 import socket
-import subprocess
+import subprocess #executa programas externos pelo python
 import pymysql ; 
 from datetime import datetime
 today = datetime.now()
@@ -89,17 +89,30 @@ def cpu() :
         # " nome: pedro "
         # [ nome, pedro ]
     #recebe os dados do lscpu e armazena em uma variável, rodando o vetor e procurando palavras predefinidas
+    
+    
+    #if (busca_dados[i][j] == 'nome' ) :
+    #   busca_dados[i][j+1]
+    # [ [nome, igor]
+    #   [idade, 18]
+    #   [genero, masculino]
+    #  ] 
+
+
+    
     for i in range(len(cpu_dados)) : 
-        for j in range(0,1) : 
-            #versao portugues e ingles
-            if (cpu_dados[i][j] == "Núcleo(s) por soquete" or cpu_dados[i][j] == "Core(s) per socket"): 
-                nuc  = cpu_dados[i][j+1]
-            elif(cpu_dados[i][j] == "Nome do modelo" or cpu_dados[i][j] == "Model name") : 
-                nom = cpu_dados[i][j+1]
-            elif(cpu_dados[i][j] == "Arquitetura"  or cpu_dados[i][j] == "Architecture") : 
-                arq = cpu_dados[i][j+1]
-            elif(cpu_dados[i][j] == "Thread(s) per núcleo"  or cpu_dados[i][j] == "Thread(s) per core"): 
-                thr = cpu_dados[i][j+1]
+         
+            #i e j ; matriz na matematica
+            #0 == pergunta , 1 == resposta
+
+            if (cpu_dados[i][0] == "Núcleo(s) por soquete" or cpu_dados[i][0] == "Core(s) per socket"): 
+                nuc  = cpu_dados[i][1]
+            elif(cpu_dados[i][0] == "Nome do modelo" or cpu_dados[i][0] == "Model name") : 
+                nom = cpu_dados[i][1]
+            elif(cpu_dados[i][0] == "Arquitetura"  or cpu_dados[i][0] == "Architecture") : 
+                arq = cpu_dados[i][1]
+            elif(cpu_dados[i][0] == "Thread(s) per núcleo"  or cpu_dados[i][0] == "Thread(s) per core"): 
+                thr = cpu_dados[i][1]
 
          
    
@@ -147,7 +160,8 @@ def disco() :
     print("\033[1;36mDisco \n ================= \n \033[0m ")
 
     #Colhe os dados e converte para GB, >> 30 é a conversão, descobri isso depois. 
-
+    # manipulacao de bits = >> 
+    # para virar gb
     disco_total = round(ps.disk_usage('/').total >> 30) 
     disco_livre = round( ps.disk_usage('/').free >> 30)
     disco_usado = disco_total-disco_livre
@@ -164,7 +178,7 @@ def disco() :
 
     #roda o sistema e apresenta todas as partições
     for i in range(1,len(ps.disk_partitions())+1):
-        if(i%2==0) : 
+        if(i%2==0) : # i%2 pq o psutil estava repetindo partições, a cada 2 muda.  
             print(ps.disk_partitions()[i][0])
     print('\n')
 
