@@ -10,49 +10,54 @@ import pymysql ;
 from datetime import datetime
 today = datetime.now()
 
+# define os dados para leitura do horário, que é pego pela função "date" do shell 
 horaSistema = os.popen("date").read()
 horaSistema = horaSistema.split()
 dataAtual = today.strftime("%Y-%m-%d "+horaSistema[4])
 
-
+# define as propriedades do banco de dados 
 
 connection = pymysql.connect( host='localhost',
                 user='root', 
                 password='akemih32',
                 database='dbProjetoBolsa') 
-
-cursor = connection.cursor() 
+ 
+cursor = connection.cursor()  #cursor, que nos auxilia a adentrar o banco de dados e inserir no mesmo 
         
+
+#dicionario 1 com os dados fixos do sistema operacional
 dados_os =  { 
         'SISTEMA_NOME' : platform.freedesktop_os_release()["NAME"],
         'SISTEMA_TIPO' : platform.system(), 
         'SISTEMA_URL'  : platform.freedesktop_os_release()["HOME_URL"]
       
 }
+#dicionario 2 com os dados fixos da memoria  ram 
 dados_ram = {
             'RAM_DISPONIVEL':ps.virtual_memory().available >>30 , 
             'RAM_TOTAL':ps.virtual_memory()[0] ,
 }
 
+#dicionario 3, com os dados fixos da CPU 
 dados_cpu = { 
     'CPU_NOME' : platform.processor(),
     'CPU_FREQ_MINIMA':  ps.cpu_freq().min,
     'CPU_FREQ_MAX' :  ps.cpu_freq().max,
 }
 
+#funcao que colhe os dados do sistema operacional e apresenta os mesmos
 def sistemaOperacional(): 
   
     
     print("\033[1;36m Sistema Operacional  \n ================= \033[0m\n  ")
-    print(horaSistema[4])
+    print(horaSistema[4]) #horario do sistema atual (visto no shell)
     print("Nome do sistema: " + str(dados_os["SISTEMA_NOME"]))
     print(dados_os["SISTEMA_URL"])
-    print("Tipo do sistema: " + str(dados_os["SISTEMA_TIPO"]))
+    print("Tipo do sistema: " + str(dados_os["SISTEMA_TIPO"])) 
     print('\n')
 
 def memoriaRam() : 
-  
-
+    #calculo de conversão de bytes para gb, 10^9
     total = round(ps.virtual_memory().total / pow(10,9),0)
     uso_ram = round(ps.virtual_memory().used / pow(10,9),2)
     livre_ram = round(ps.virtual_memory().free / pow(10,9),2)
@@ -70,52 +75,56 @@ def memoriaRam() :
     
     cursor.execute(sql)
 
-#INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkServidor) VALUES (%s,%s,%s,'%s',1); (8.0, 2.81, 2.73, '2022-08-23 19:26:38', 1)
-
+#funcao que insere dados na cpu e apresenta os mesmos 
 def cpu() :
 
 
     print("\033[1;36mCPU \n ================= \n \033[0m ")
-
-
-     
+    #pega os dados da cpu (nome, etc) pelo comando shell lscpu
     cpu_dados = os.popen("lscpu").read()
     cpu_dados = cpu_dados.split("\n")
     temp = ps.sensors_temperatures()['coretemp'][0].current
     freqAtualCpu = round(ps.cpu_freq().current * pow(2,13) / ps.cpu_freq().max,2)
 
-
+    #separa os dados pegos da lscpu e separa em uma array, sendo a divisão dos elementos " : "   
     for i in range(len(cpu_dados)) : 
         cpu_dados[i] = cpu_dados[i].strip()
-   
         cpu_dados[i] = cpu_dados[i].split(':')
-
- 
+        #exemplo do split: 
+      
+        # " nome: pedro "
+        # [ nome, pedro ]
+    #recebe os dados do lscpu e armazena em uma variável, rodando o vetor e procurando palavras predefinidas
     for i in range(len(cpu_dados)) : 
         for j in range(0,1) : 
-            if (cpu_dados[i][j] == "Núcleo(s) por soquete"): 
+            #versao portugues e ingles
+            if (cpu_dados[i][j] == "Núcleo(s) por soquete" or cpu_dados[i][j] == "Core(s) per socket"): 
                 nuc  = cpu_dados[i][j+1]
-            elif(cpu_dados[i][j] == "Nome do modelo") : 
+            elif(cpu_dados[i][j] == "Nome do modelo" or cpu_dados[i][j] == "Model name") : 
                 nom = cpu_dados[i][j+1]
-            elif(cpu_dados[i][j] == "Arquitetura") : 
+            elif(cpu_dados[i][j] == "Arquitetura"  or cpu_dados[i][j] == "Architecture") : 
                 arq = cpu_dados[i][j+1]
-            elif(cpu_dados[i][j] == "Thread(s) per núcleo"): 
+            elif(cpu_dados[i][j] == "Thread(s) per núcleo"  or cpu_dados[i][j] == "Thread(s) per core"): 
                 thr = cpu_dados[i][j+1]
 
-            
+         
+   
 
-    index_cpu ={"NOME": nom , "ARQUITETURA" : arq , "NUCLEO": nuc, "THREAD" : thr}
+            
+    #guarda as variáveis anteriores em novas, para melhor trabalhar o nome
+    cpu_modelo_nome = nom
+    cpu_tecnologia = arq
+    cpu_qtd_nucleos = nuc
+    cpu_qtd_threads = thr
     
-    cpu_modelo_nome = index_cpu["NOME"]
-    cpu_tecnologia = index_cpu['ARQUITETURA']
-    cpu_qtd_nucleos = index_cpu["NUCLEO"]
-    cpu_qtd_threads = index_cpu["THREAD"]
+
 
     #formatacao
     cpu_qtd_nucleos =  str(cpu_qtd_nucleos).strip()
     cpu_qtd_threads = str(cpu_qtd_threads).strip()
     cpu_tecnologia = str(cpu_tecnologia).strip()
     cpu_modelo_nome = str(cpu_modelo_nome).strip() 
+
 
     print("Nome da CPU: " +cpu_modelo_nome) 
     print("Arquitetura possível da CPU: " + cpu_tecnologia) 
@@ -128,7 +137,7 @@ def cpu() :
     print('\n')
 
 
-
+    #insere no sql 
     sqlFixo = "INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES \
          ("+cpu_qtd_nucleos+","+cpu_qtd_threads+",'"+cpu_tecnologia+"','"+cpu_modelo_nome+"',1) "
 
@@ -141,6 +150,7 @@ def cpu() :
 def disco() :  
     print("\033[1;36mDisco \n ================= \n \033[0m ")
 
+    #Colhe os dados e converte para GB, >> 30 é a conversão, descobri isso depois. 
 
     disco_total = round(ps.disk_usage('/').total >> 30) 
     disco_livre = round( ps.disk_usage('/').free >> 30)
@@ -156,7 +166,7 @@ def disco() :
     print('\n')
     print("Partições do disco: \n")
 
-
+    #roda o sistema e apresenta todas as partições
     for i in range(1,len(ps.disk_partitions())+1):
         if(i%2==0) : 
             print(ps.disk_partitions()[i][0])
@@ -181,7 +191,6 @@ def network() :
 
     print("Velocidade de Upload: " + str(round(bytes_recebidos/1000000,2) ) + "mb")
 
-    
 
 
 def processoTotal() : 
