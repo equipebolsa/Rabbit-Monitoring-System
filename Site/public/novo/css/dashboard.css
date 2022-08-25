@@ -13,7 +13,7 @@ body {
     background-color: rgb(140, 0, 255);
     color: white;
     font-weight: 600;
-    font-size: 3vh;
+    font-size: 2vh;
     margin-top: -80vh;
     margin-left: 55vw;
 }
@@ -114,11 +114,23 @@ body {
     height: 5vh;
     z-index: 2;
 }
+.listList {
+    cursor: pointer;
+    height: 6vh; 
+    margin-top: -0.5vh; 
+    margin-left: 0.5vw;
+}
 .server {
     height: 5vh;
     width: 2.5vw;
     margin-top: 1vh;
     margin-left: 0.5vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+    font-size: 1vw;
+    cursor: pointer;
 }
 .servers {
     margin-left: 0.6vw;

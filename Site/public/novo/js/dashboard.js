@@ -1,10 +1,15 @@
 servers = []
+serversFiltro = []
 listStyle = 1
 contFiltro = 1
+serverQtd = 0
+isFiltro = false
 document.getElementById("filterSearch").addEventListener("keypress", function (e) {
     if (e.key == 'Enter') {
         filtro = filterSearch.value
         filterSearch.value = ''
+        filtrarServers(filtro)
+        isFiltro = true
         filters.innerHTML = `<div class="filterSelected">${filtro}<img onclick="cancelFilter(1)" class="filterCancel" src="../../assets/img/x.svg" alt=""></div>`
         
     }
@@ -13,14 +18,26 @@ document.getElementById("filterSearch2").addEventListener("keypress", function (
     if (e.key == 'Enter') {
         filtro = filterSearch2.value
         filterSearch2.value = ''
+        filtrarServers(filtro)
+        isFiltro = false
         filters2.innerHTML = `<div class="filterSelected">${filtro}<img onclick="cancelFilter(2)" class="filterCancel" src="../../assets/img/x.svg" alt=""></div>`
     }
 })
 function cancelFilter(x) {
     if (x == 1) {
         filters.innerHTML = ''
+        serverCont.innerHTML = ''
+        serverList.innerHTML = ''
+        serversFiltro = []
+        isFiltro = false
+        montarLista()
     } else if (x == 2) {
         filters2.innerHTML = ''
+        serverCont.innerHTML = ''
+        serverList.innerHTML = ''
+        serversFiltro = []
+        isFiltro = false
+        montarLista()
     }
 }
 function mudarFiltro() {
@@ -30,22 +47,37 @@ function mudarFiltro() {
         filtroNumerico.style.display = 'block'
         serverCont.innerHTML = ''
         serverList.innerHTML = ''
-        servers.sort(mudarOrdem("IdServer"))
-            montarLista()
+            if (isFiltro) {
+                serversFiltro.sort(mudarOrdem("IdServer"))
+                montarListaFiltro()
+            } else {
+                servers.sort(mudarOrdem("IdServer"))
+                montarLista()
+            }
     } else if (contFiltro == 2) {
         sumirFiltros()
         filtroAlfa.style.display = 'block'
         serverCont.innerHTML = ''
         serverList.innerHTML = ''
-        servers.sort(mudarOrdem("Setor"))
+        if (isFiltro) {
+            serversFiltro.sort(mudarOrdem("Setor"))
+            montarListaFiltro()
+        } else {
+            servers.sort(mudarOrdem("Setor"))
             montarLista()
+        }
     } else if (contFiltro == 3) {
         sumirFiltros()
         filtroGrau.style.display = 'block'
         serverCont.innerHTML = ''
         serverList.innerHTML = ''
-        servers.sort(mudarOrdem("cpuTemp"))
-            montarLista()
+            if (isFiltro) {
+                serversFiltro.sort(mudarOrdem("cpuTemp"))
+                montarListaFiltro()
+            } else {
+                servers.sort(mudarOrdem("cpuTemp"))
+                montarLista()
+            }
             contFiltro = 0
     }
 }
@@ -98,7 +130,9 @@ function mostrarLista(x) {
 }
 function montarLista() {
     for (let x = 0; x < servers.length; x++) {
-        serverCont.innerHTML += `<div id="idServer${x}" class="server"></div>`
+        serverQtd++
+        setor = servers[x].Setor
+        serverCont.innerHTML += `<div id="idServer${x}" class="server">${setor.slice(0,1)}</div>`
         serverList.innerHTML += `<div class="serverLista">
         <div id="statusServer${x}" class="statusServer position-absolute"></div>
         <img class="serverSvg" src="../../assets/img/hdd-stack-fill.svg" alt="">
@@ -108,44 +142,74 @@ function montarLista() {
         <div class="armazemProgress position-absolute"></div>
         <div id="serverArma${x}" class="armazemHas position-absolute"></div>
         <span id="cpuTemperatura${x}" class="cpuTemperatura position-absolute">${servers[x].cpuTemp}ºC</span>
-    </div>`
+        </div>`
     }
-    verificarCor()
+    verificarCor(servers)
 }
 
-function verificarCor() {
+function filtrarServers(filtro) {
+    serverCont.innerHTML = ''
+    serverList.innerHTML = ''
+    for (let x = 0; x < servers.length; x++) {
+        if (servers[x].Setor == filtro) {
+            serversFiltro.push(servers[x])
+        }
+    }
+    montarListaFiltro()
+}
+function montarListaFiltro() {
+    for (let x = 0; x < serversFiltro.length; x++) {
+        serverQtd++
+        setor = serversFiltro[x].Setor
+        serverCont.innerHTML += `<div id="idServer${x}" class="server">${setor.slice(0,1)}</div>`
+        serverList.innerHTML += `<div class="serverLista">
+        <div id="statusServer${x}" class="statusServer position-absolute"></div>
+        <img class="serverSvg" src="../../assets/img/hdd-stack-fill.svg" alt="">
+        <span class="setorLista position-absolute"><b>${serversFiltro[x].Setor}</b></span>
+        <span class="hexLista position-absolute">${serversFiltro[x].Serial}</span>
+        <span class="qtdArmazem position-absolute">${serversFiltro[x].Armazenamento}GB de 1tb</span>
+        <div class="armazemProgress position-absolute"></div>
+        <div id="serverArma${x}" class="armazemHas position-absolute"></div>
+        <span id="cpuTemperatura${x}" class="cpuTemperatura position-absolute">${serversFiltro[x].cpuTemp}ºC</span>
+        </div>`
+    }
+        verificarCor(serversFiltro)
+}
+
+function verificarCor(filtro) {
     normal = '#35FFFE'
     alerta = '#F547AC'
     risco = '#7C4FE0'
-    for (let x = 0; x < servers.length; x++) {
-        if (servers[x].cpuTemp > 95 || servers[x].Armazenamento > 950) {
+    for (let x = 0; x < serverQtd; x++) {
+        if (filtro[x].cpuTemp > 95 || filtro[x].Armazenamento > 950) {
             document.getElementById(`idServer${x}`).style.backgroundColor = risco
-        } else if (servers[x].cpuTemp > 85 || servers[x].Armazenamento > 800) {
+        } else if (filtro[x].cpuTemp > 85 || filtro[x].Armazenamento > 800) {
             document.getElementById(`idServer${x}`).style.backgroundColor = alerta
         } else {
             document.getElementById(`idServer${x}`).style.backgroundColor = normal
         }
     }
-    for (let x = 0; x < servers.length; x++) {
-        if (servers[x].cpuTemp >= 95 || servers[x].Armazenamento > 950) {
+    for (let x = 0; x < serverQtd; x++) {
+        if (filtro[x].cpuTemp >= 95 || filtro[x].Armazenamento > 950) {
             document.getElementById(`statusServer${x}`).style.backgroundColor = "#FF0000"
-        } else if (servers[x].cpuTemp >= 85 || servers[x].Armazenamento > 800) {
+        } else if (filtro[x].cpuTemp >= 85 || filtro[x].Armazenamento > 800) {
             document.getElementById(`statusServer${x}`).style.backgroundColor = "#FFFF00"
-        } else if (servers[x].cpuTemp < 85 && servers[x].Armazenamento < 800){ 
+        } else if (filtro[x].cpuTemp < 85 && filtro[x].Armazenamento < 800){ 
             document.getElementById(`statusServer${x}`).style.backgroundColor = "#00FF00"
         }
-        if (servers[x].cpuTemp >= 95) {
+        if (filtro[x].cpuTemp >= 95) {
             document.getElementById(`cpuTemperatura${x}`).style.color = "#FF0000"
-        } else if (servers[x].cpuTemp >= 85) {
+        } else if (filtro[x].cpuTemp >= 85) {
             document.getElementById(`cpuTemperatura${x}`).style.color = "#FFFF00"
         }
-        if (servers[x].Armazenamento > 950) {
+        if (filtro[x].Armazenamento > 950) {
             document.getElementById(`serverArma${x}`).style.backgroundColor = "#FF0000"
-        } else if (servers[x].Armazenamento > 800) {
+        } else if (filtro[x].Armazenamento > 800) {
             document.getElementById(`serverArma${x}`).style.backgroundColor = "#FFFF00"
-        } else if (servers[x].Armazenamento < 800) {
+        } else if (filtro[x].Armazenamento < 800) {
             document.getElementById(`serverArma${x}`).style.backgroundColor = "#00FF00"
         }
         document.getElementById(`serverArma${x}`).style.width = `${servers[x].Armazenamento / 50}vw`
     }
+    serverQtd = 0
 }
