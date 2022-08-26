@@ -36,6 +36,8 @@
     font-family: "Nunito", sans-serif;
     src: url(../public/assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
 }
+/* Home */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 @media (min-width: 1000px) {
     .carrossel-list {
@@ -274,3 +276,6 @@ ul.carrossel-list li:not(:nth-child(2)):hover {
     transform: translateY(0px);
     opacity: 1;
 }
+
+/*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+/* Fim Home */
