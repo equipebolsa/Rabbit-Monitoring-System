@@ -34,17 +34,11 @@ main.container{
     font-weight: 600;
     margin-bottom: 2rem;
     /* position: relative; */
+    /* display: flex;
+     */
+     text-align: center;
 }
-.title::before{
-    content: '';
-    position: absolute;
-    height: 4px;
-    width: 25px;
-    bottom: 3px;
-    left: 0;
-    border-radius: 8px;
-    background: linear-gradient(31deg, #e47be6 0%, #9e04a3 35%, #5926BB 100%);
-}
+
 .campo-de-input{
     position: relative;
     margin-bottom: 2.5rem;   
@@ -54,9 +48,7 @@ main.container{
     outline: none;
     font-size: 0.9rem;
 }
-.campo-de-input:first-child{
-   margin-bottom: 1.5rem;  
-}
+
 .campo-de-input input::placeholder{
  color: rgba(0, 0, 0, 0.5);      
 }
