@@ -1,6 +1,6 @@
 
 *{
-    margin: 8px;
+    margin: 0px;
     border: 0;
     padding: 0;
     box-sizing: 0;
@@ -8,16 +8,18 @@
 
 
 body{
-    margin: 0;
-    background: purple;
-    min-height: 100vh;
-    min-width: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
+    background: linear-gradient(45deg, #8b26bb 25%, #7223ac 50%, #5a1f9c 75%, #411a8c 100%);
+    background-repeat: no-repeat;
+    background-size: 200% 200%;
+    animation: animation-body 3s ease infinite;
 }
 
+.saiba-mais-button {
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.375rem;
+    background-color: var(--base-color) !important;
+}
 
 main.container{
     background-color: white;
@@ -45,12 +47,12 @@ main.container{
 }
 .campo-de-input{
     position: relative;
+    margin-bottom: 2.5rem;   
 }
 
 .campo-de-input input{
- outline: none;
- font-size: 0.9rem;
-   
+    outline: none;
+    font-size: 0.9rem;
 }
 .campo-de-input:first-child{
    margin-bottom: 1.5rem;  
@@ -60,23 +62,24 @@ main.container{
 }
 
 form input[type="submit"]{
-    margin-top: 2rem;
-    padding: 0.4rem;
-    background: linear-gradient(to left, darkviolet, violet);
-    cursor: pointer;
-    color: whitesmoke;
-    font-size: 0.9rem;
-    font-weight: 300;
-    border-radius: 4px;
-    transition: all 0.3s ease;
+    margin-top: 10px;
+    border: 0 !important;
+    border-radius: 0.375rem;
+    background-color: rgb(255, 255, 255) !important;
+    border: 2px solid rgb(67,26,142) !important;
+    color: black !important;
+    height: 7vh !important;
+    font-weight: 600 !important;
 }
+
 form{
     display: flex;
     flex-direction: column;
 }
 form input[type="submit"]:hover{
-        letter-spacing: 0.5;
-        background: linear-gradient(to right, darkviolet, violet);
+    background:  rgb(67,26,142) !important;
+    transition: 300ms;
+    color: white !important;
 }
 .footer{
     display: flex;
@@ -193,16 +196,16 @@ form input[type="submit"]:hover{
     font-size: 2vh;
 } */ 
 
-@keyframes anima{
-    0%{
-        background-position-x: 100%;
+@keyframes animation-body {
+    0% {
+        background-position: 0% 50%;
     }
-    
-    50%{
-        background-position-x: 25%;
+
+    50% {
+        background-position: 100% 50%;
     }
-    
-    100%{
-        background-position-x: 0%;
+
+    100% {
+        background-position: 0% 50%;
     }
 }
