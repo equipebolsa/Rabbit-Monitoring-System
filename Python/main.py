@@ -1,10 +1,10 @@
-import subprocess
+import subprocess #programas externos e leitura de saída
 import pymysql
-import socket
-import time
-import os
+import socket #dados referentes a internet
+import time #sleep
+import os #shell
 import math
-import platform
+import platform #linux ou windows
 import psutil as ps
 from datetime import datetime
 today = datetime.now()
