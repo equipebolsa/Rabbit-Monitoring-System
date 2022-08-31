@@ -70,9 +70,15 @@
     .subtitle {
         width: 50% !important;
     }
+
+    
 }
 
 @media (max-width: 1000px) {
+
+    ul.carrossel-list li.carrossel-item.selected {
+        transform: translateY(0) !important;
+    }
 
     ul.carrossel-list li.carrossel-item:not(.selected) {
         display: none !important;

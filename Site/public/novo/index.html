@@ -181,6 +181,10 @@
                         consectetur adipiscing</p>
                     <p class="h5 fw-bolder carrossel-text" id="carrossel-text-3">Lorem ipsum dolor sit amet,
                         consectetur adipiscing</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-4">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-5">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
                 </div>
             </div>
         </div>
@@ -192,7 +196,7 @@
         </svg>
     </div>
 
-    <div class="benefits last-benefits pb-4 position-relative">
+    <div class="benefits last-benefits pb-sm-2 pb-md-4 position-relative">
         <div class="container-fluid p-0 d-flex justify-content-center">
             <div class="container py-5 d-flex flex-column align-items-center reveal">
                 <div class="col-6 text-center d-flex align-items-center">
@@ -246,7 +250,7 @@
     var carrosselImgNum = 1;
     window.addEventListener('scroll', reveal);
     setImageCarrosselAnimation();
-    /* setCarrosselTextOnclick(); */
+    setCarrosselTextOnclick();
 
 
     function reveal() {
@@ -269,19 +273,15 @@
         let carrosselList = document.getElementsByClassName("carrossel-list")[0];
 
         for (let i = 0; i < carrosselItems.length; i++) {
-            if (carrosselItems[i].id != carrosselImgNum) {
+            let imgCarrosselElement = carrosselItems[i].firstElementChild;
+
+            if (imgCarrosselElement.id[imgCarrosselElement.id.length - 1] != carrosselImgNum) {
                 carrosselItems[i].onclick = (event) => {
                     let carrosselSelectedElement = event.target.parentElement;
                     let imgSelectedElement = event.target;
-                    console.log(`Old: ${carrosselImgNum}`);
-                    console.log(`New: ${imgSelectedElement.id[imgSelectedElement.id.length - 1]}`);
+                    /* console.log(`Old: ${carrosselImgNum}`);
+                    console.log(`New: ${imgSelectedElement.id[imgSelectedElement.id.length - 1]}`); */
                     let newNumber = parseInt(imgSelectedElement.id[imgSelectedElement.id.length - 1]);
-
-                    for (let j = 0; j < carrosselItems.length; j++) {
-                        carrosselItems[j].classList.remove("selected");
-                    }
-
-                    carrosselSelectedElement.classList.add("selected");
 
                     moveImageCarrossel(newNumber);
                     carrosselImgNum = newNumber;
@@ -295,13 +295,46 @@
 
     }
 
-    function moveImageCarrossel(newNumber, ondNumber) {
+    function moveImageCarrossel(newNumber) {
         var cssRoot = document.querySelector(':root');
         let carrosselPosition = parseInt((getComputedStyle(cssRoot)).getPropertyValue('--carrossel-position'));
 
         /* console.log(`Velha Posição: ${carrosselPosition}`) */
-        newNumber > carrosselImgNum ? carrosselPosition -= 110 : carrosselPosition += 110;
+        //newNumber > carrosselImgNum ? carrosselPosition -= 110 : carrosselPosition += 110;
+        switch (newNumber) {
+            case 1: 
+                carrosselPosition = 110;
+                break;
+            case 2:
+                carrosselPosition = 0;
+                break;
+            case 3:
+                carrosselPosition = -110;
+                break;
+            case 4:
+                carrosselPosition = -220;
+                break;
+            case 5:
+                carrosselPosition = -330;
+                break;
+        }
         /* console.log(`Nova Posição: ${carrosselPosition}`) */
+
+        /* Mudar imagem selecionada */
+        document.getElementsByClassName("carrossel-item selected")[0].classList.remove("selected");
+        
+        let carrosselItems = document.getElementsByClassName("carrossel-item");
+        for (let j = 0; j < carrosselItems.length; j++) {
+            carrosselItems[j].onclick = () => { };
+        }
+
+        let carrosselSelectedImg = document.getElementById(`carrossel-img-${newNumber}`).parentElement;
+        carrosselSelectedImg.classList.add("selected");
+
+        /* Mudar texto selecionado */
+        document.getElementsByClassName("carrossel-text selected")[0].classList.remove("selected");
+        let carrosselSelectedText = document.getElementById(`carrossel-text-${newNumber}`);
+        carrosselSelectedText.classList.add("selected");
 
         cssRoot.style.setProperty('--carrossel-position', `${carrosselPosition}`);
     }
@@ -310,11 +343,9 @@
         let carrosselTexts = document.getElementsByClassName("carrossel-text");
         for (let i = 0; i < carrosselTexts.length; i++) {
             let text = carrosselTexts[i];
-            if (!text.classList.contains("selected")) {
+            if (text.id[text.id.length - 1] != carrosselImgNum) {
                 text.onclick = (event) => {
-                    let selectedText = document.getElementsByClassName("carrossel-text selected")[0];
-                    selectedText.classList.remove("selected");
-                    text.classList.add("selected");
+
                     tradeImageCarrosselUsingText(event.target);
                 }
             }
@@ -322,32 +353,17 @@
     }
 
     function tradeImageCarrosselUsingText(element) {
-        console.log(`Old: ${carrosselImgNum}`);
-        console.log(`New: ${element.id[element.id.length - 1]}`);
-        if (carrosselImgNum > parseInt(element.id[element.id.length - 1])) {
-            let carrosselItems = document.getElementsByClassName("carrossel-item");
-            let carrosselList = document.getElementsByClassName("carrossel-list")[0];
-            let lastElementChild = carrosselList.lastElementChild;
-            let firstElementChild = carrosselList.firstElementChild;
-            carrosselList.removeChild(carrosselList.lastElementChild);
-            for (let j = 0; j < carrosselItems.length; j++) {
-                carrosselItems[j].onclick = () => { };
-            }
-            carrosselList.insertBefore(lastElementChild, firstElementChild);
-            carrosselImgNum = parseInt(element.id[element.id.length - 1]);
-        } else if (carrosselImgNum < parseInt(element.id[element.id.length - 1])) {
-            let carrosselItems = document.getElementsByClassName("carrossel-item");
-            let carrosselList = document.getElementsByClassName("carrossel-list")[0];
-            let firstElementChild = carrosselList.firstElementChild;
-            carrosselList.removeChild(carrosselList.firstElementChild);
-            for (let j = 0; j < carrosselItems.length; j++) {
-                carrosselItems[j].onclick = () => { };
-            }
-            carrosselList.appendChild(firstElementChild);
-            carrosselImgNum = parseInt(element.id[element.id.length - 1]);
-        }
+        let textNumber = parseInt(element.id[element.id.length - 1]);
+        if (textNumber != carrosselImgNum) {
+            console.log(`Old: ${carrosselImgNum}`);
+        console.log(`New: ${textNumber}`);
+        moveImageCarrossel(textNumber);
+        carrosselImgNum = textNumber;
+
         setCarrosselTextOnclick();
-        tradeImageCarrossel();
+        setImageCarrosselAnimation();
+        }
+        
     }
 
 </script>
