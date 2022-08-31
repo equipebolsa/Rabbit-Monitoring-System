@@ -72,7 +72,8 @@
         <!-- Texto do Meio no Início -->
         <div class="container-fluid h-auto pb-5">
             <div class="container row mx-auto p-0 d-flex align-items-center justify-content-between w-75 pb-5">
-                <div class="col pt-0 d-flex flex-column align-items-center justify-content-between text-center text-container">
+                <div
+                    class="col pt-0 d-flex flex-column align-items-center justify-content-between text-center text-container">
                     <p class="h1 fw-bolder text-dark">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     <p class="h6 fw-semibold subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do
@@ -154,24 +155,31 @@
             <div class="container-lg p-0 carrossel-first-container row">
                 <div class="col-sm-12 col-md-6 p-0 carrossel-container">
                     <ul class="m-0 d-flex flex-column justify-content-evenly align-items-center carrossel-list">
-                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="../assets/img/propaganda.png" class="rounded">
+                        <li
+                            class="d-flex flex-column justify-content-evenly align-items-center carrossel-item selected">
+                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-1">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="../assets/img/propaganda.png" class="rounded">
+                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-2">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="../assets/img/propaganda.png" class="rounded">
+                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-3">
+                        </li>
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
+                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-4">
+                        </li>
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
+                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-5">
                         </li>
                     </ul>
                 </div>
                 <div
                     class="col px-4 mt-md-0 mt-3 vh-75 d-flex flex-column justify-content-sm-start justify-content-md-center align-items-md-center">
-                    <p class="h5 fw-bolder text-light">Lorem ipsum dolor sit amet,
+                    <p class="h5 fw-bolder carrossel-text selected" id="carrossel-text-1">Lorem ipsum dolor sit amet,
                         consectetur adipiscing</p>
-                    <p class="h5 fw-bolder text-light">Lorem ipsum dolor sit amet,
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-2">Lorem ipsum dolor sit amet,
                         consectetur adipiscing</p>
-                    <p class="h5 fw-bolder text-light">Lorem ipsum dolor sit amet,
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-3">Lorem ipsum dolor sit amet,
                         consectetur adipiscing</p>
                 </div>
             </div>
@@ -197,7 +205,7 @@
             viewBox="0 41.88 1400 59.12" class="svg-img" style="bottom: 0;">
             <path
                 d="M0 51L58.3 54.5C116.7 58 233.3 65 350 66.5C466.7 68 583.3 64 700 57.2C816.7 50.3 933.3 40.7 1050 42C1166.7 43.3 1283.3 55.7 1341.7 61.8L1400 68L1400 101L1341.7 101C1283.3 101 1166.7 101 1050 101C933.3 101 816.7 101 700 101C583.3 101 466.7 101 350 101C233.3 101 116.7 101 58.3 101L0 101Z"
-                fill="#ffffff" stroke-linecap="round" stroke-linejoin="miter"/>
+                fill="#ffffff" stroke-linecap="round" stroke-linejoin="miter" />
         </svg>
     </div>
 
@@ -235,8 +243,11 @@
 
 </body>
 <script>
+    var carrosselImgNum = 1;
     window.addEventListener('scroll', reveal);
-    tradeImageCarrossel();
+    setImageCarrosselAnimation();
+    /* setCarrosselTextOnclick(); */
+
 
     function reveal() {
         let reveals = document.getElementsByClassName('reveal'); /* Documento para revelar */
@@ -253,11 +264,69 @@
         }
     }
 
-    function tradeImageCarrossel() {
+    function setImageCarrosselAnimation() {
         let carrosselItems = document.getElementsByClassName("carrossel-item");
         let carrosselList = document.getElementsByClassName("carrossel-list")[0];
 
-        carrosselItems[0].onclick = () => {
+        for (let i = 0; i < carrosselItems.length; i++) {
+            if (carrosselItems[i].id != carrosselImgNum) {
+                carrosselItems[i].onclick = (event) => {
+                    let carrosselSelectedElement = event.target.parentElement;
+                    let imgSelectedElement = event.target;
+                    console.log(`Old: ${carrosselImgNum}`);
+                    console.log(`New: ${imgSelectedElement.id[imgSelectedElement.id.length - 1]}`);
+                    let newNumber = parseInt(imgSelectedElement.id[imgSelectedElement.id.length - 1]);
+
+                    for (let j = 0; j < carrosselItems.length; j++) {
+                        carrosselItems[j].classList.remove("selected");
+                    }
+
+                    carrosselSelectedElement.classList.add("selected");
+
+                    moveImageCarrossel(newNumber);
+                    carrosselImgNum = newNumber;
+
+                    setTimeout(() => {
+                        setImageCarrosselAnimation();
+                    }, 1000)
+                }
+            }
+        }
+
+    }
+
+    function moveImageCarrossel(newNumber, ondNumber) {
+        var cssRoot = document.querySelector(':root');
+        let carrosselPosition = parseInt((getComputedStyle(cssRoot)).getPropertyValue('--carrossel-position'));
+
+        /* console.log(`Velha Posição: ${carrosselPosition}`) */
+        newNumber > carrosselImgNum ? carrosselPosition -= 110 : carrosselPosition += 110;
+        /* console.log(`Nova Posição: ${carrosselPosition}`) */
+
+        cssRoot.style.setProperty('--carrossel-position', `${carrosselPosition}`);
+    }
+
+    function setCarrosselTextOnclick() {
+        let carrosselTexts = document.getElementsByClassName("carrossel-text");
+        for (let i = 0; i < carrosselTexts.length; i++) {
+            let text = carrosselTexts[i];
+            if (!text.classList.contains("selected")) {
+                text.onclick = (event) => {
+                    let selectedText = document.getElementsByClassName("carrossel-text selected")[0];
+                    selectedText.classList.remove("selected");
+                    text.classList.add("selected");
+                    tradeImageCarrosselUsingText(event.target);
+                }
+            }
+        }
+    }
+
+    function tradeImageCarrosselUsingText(element) {
+        console.log(`Old: ${carrosselImgNum}`);
+        console.log(`New: ${element.id[element.id.length - 1]}`);
+        if (carrosselImgNum > parseInt(element.id[element.id.length - 1])) {
+            let carrosselItems = document.getElementsByClassName("carrossel-item");
+            let carrosselList = document.getElementsByClassName("carrossel-list")[0];
             let lastElementChild = carrosselList.lastElementChild;
             let firstElementChild = carrosselList.firstElementChild;
             carrosselList.removeChild(carrosselList.lastElementChild);
@@ -265,22 +334,20 @@
                 carrosselItems[j].onclick = () => { };
             }
             carrosselList.insertBefore(lastElementChild, firstElementChild);
-            setTimeout(() => {
-                tradeImageCarrossel();
-            }, 1000)
-        }
-
-        carrosselItems[2].onclick = () => {
+            carrosselImgNum = parseInt(element.id[element.id.length - 1]);
+        } else if (carrosselImgNum < parseInt(element.id[element.id.length - 1])) {
+            let carrosselItems = document.getElementsByClassName("carrossel-item");
+            let carrosselList = document.getElementsByClassName("carrossel-list")[0];
             let firstElementChild = carrosselList.firstElementChild;
             carrosselList.removeChild(carrosselList.firstElementChild);
             for (let j = 0; j < carrosselItems.length; j++) {
                 carrosselItems[j].onclick = () => { };
             }
             carrosselList.appendChild(firstElementChild);
-            setTimeout(() => {
-                tradeImageCarrossel();
-            }, 1000)
+            carrosselImgNum = parseInt(element.id[element.id.length - 1]);
         }
+        setCarrosselTextOnclick();
+        tradeImageCarrossel();
     }
 
 </script>

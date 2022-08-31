@@ -14,6 +14,8 @@
     --benefits-color: #411A8C;
     /* Cores Fontes */
     --text-color: #404040;
+
+    --carrossel-position: 110;
 }
 
 ::-webkit-scrollbar {
@@ -72,7 +74,7 @@
 
 @media (max-width: 1000px) {
 
-    ul.carrossel-list li.carrossel-item:not(:nth-child(2)) {
+    ul.carrossel-list li.carrossel-item:not(.selected) {
         display: none !important;
         width: 100% !important;
     }
@@ -238,22 +240,38 @@ ul.carrossel-list {
 }
 
 ul.carrossel-list li {
-    transition: all 1s ease-out;
+    transform: translateY(calc(var(--carrossel-position) * 1%));
+    transition: all .5s ease-in-out;
 }
 
-ul.carrossel-list li:nth-child(2) {
+ul.carrossel-list li.carrossel-item.selected {
     width: 100%;
     opacity: 1;
 }
 
-ul.carrossel-list li:not(:nth-child(2)) {
+ul.carrossel-list li:not(.selected) {
     width: 99%;
     cursor: pointer;
     opacity: 0.4;
 }
 
-ul.carrossel-list li:not(:nth-child(2)):hover {
+ul.carrossel-list li:not(.selected):hover {
     opacity: 1;
+}
+
+/* Texto Carrossel */
+
+.carrossel-text {
+    color: gray;
+}
+
+.carrossel-text.selected {
+    color: white;
+}
+
+.carrossel-text:not(.selected):hover {
+    color: white;
+    cursor: pointer;
 }
 
 /* Último Background */
