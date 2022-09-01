@@ -70,7 +70,6 @@ body {
 }
 
 .third-container {
-    height: -webkit-fill-available;
     background-color: aqua;
 }
 
@@ -100,3 +99,24 @@ body {
     cursor: pointer;
 }
 
+.computer-grid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    overflow-y: scroll;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.computer-grid ul {
+    list-style: none;
+}
+
+.computer-grid li {
+    background-color: blue;
+    width: 2.5vw;
+    height: 4.5vh;
+}
