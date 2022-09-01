@@ -1,9 +1,7 @@
-import subprocess
 import pymysql
 import socket
 import time
-import os
-import math
+import os # shell zsh 5.4 
 import platform
 import psutil as ps
 from datetime import datetime
@@ -11,16 +9,13 @@ today = datetime.now()
 
 # cria arquivo logs.txt
 f = open("logs.txt", "w")
-
 f.write("=====")
-f.write("LOGS DA APLICAÇÃO")
+f.write("LOGS DE CAPTURA DE DADOS")
 f.write("===== \n\n")
-# define os dados para leitura do horário, que é pego pela função "date" do shell
-horaSistema = os.popen("date").read()
-horaSistema = horaSistema.split()
+#define o modo que os horarios serao utilizados 
 dataAtual = today.strftime("%Y-%m-%d ")
 
-# define as propriedades do banco de dados
+# define as propriedades de acesso do banco de dados
 
 connection = pymysql.connect(host='localhost',
                              user='root',
@@ -139,6 +134,7 @@ def cpu():
     select_nome_cpu = 'SELECT * from tbCpu WHERE modeloCpu="{}"'.format(cpu_modelo_nome)
     
     cursor_select_cpu_count = cursor.execute(select_nome_cpu)
+    
     print("Nome da CPU: " + cpu_modelo_nome)
     print("Arquitetura possível da CPU: " + cpu_tecnologia)
     print("Quantidade de núcleos: " + cpu_qtd_nucleos)
@@ -180,7 +176,7 @@ def disco():
     disco_total = round(ps.disk_usage('/').total >> 30)
     disco_livre = round(ps.disk_usage('/').free >> 30)
     disco_usado = disco_total-disco_livre
-    disco_percent = round(disco_total * 100 / disco_livre/100)
+    disco_percent =ps.disk_usage('/').percent
     tempo_leitura = ps.disk_io_counters().read_time >> 15
     tempo_escrita = ps.disk_io_counters().write_time >> 15
     particoes_disco = ps.disk_partitions()
@@ -206,6 +202,7 @@ def disco():
     
     ====================================================
     """.format(disco_total, tempo_leitura, tempo_escrita, disco_percent))
+
     sql = "INSERT INTO tbDisco (capacidadeDisco,espacoLivreDisco,espacoUsadoDisco,porcentagemUsoDisco , dataDisco, fkServidor) VALUES \
         ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(dataAtual + os.popen("date").read().split()[4])+"', 1) "
 
