@@ -25,15 +25,15 @@ cursor = config()
 
 def select_data (component) : 
     if(component.lower() == "cpu") : 
-        cursor.execute("SELECT * FROM tbDadosCpu ORDER BY dataCpu LIMIT 20 ")
+        cursor.execute("SELECT * FROM tbDadosCpu ORDER BY dataCpu DESC LIMIT 20 ")
         return cursor.fetchall()
 
     elif(component.lower() == "ram") : 
-        cursor.execute("SELECT idRam, capacidadeRam,espacoLivreRam, espacoUsadoRam, dataRam FROM tbRam ORDER BY dataRam LIMIT 20")
+        cursor.execute("SELECT idRam, capacidadeRam,espacoLivreRam, espacoUsadoRam, dataRam FROM tbRam ORDER BY dataRam DESC LIMIT 20")
         return cursor.fetchall() 
 
     elif(component.lower() == "disco") : 
-        cursor.execute("SELECT idDisco, capacidadeDisco, espacoLivreDisco, espacoUsadoDisco, porcentagemUsoDisco, dataDisco FROM tbDisco ORDER BY dataDisco LIMIT 20")    
+        cursor.execute("SELECT idDisco, capacidadeDisco, espacoLivreDisco, espacoUsadoDisco, porcentagemUsoDisco, dataDisco FROM tbDisco ORDER BY dataDisco DESC  LIMIT 20")    
         return cursor.fetchall()
 
 def main () : 
@@ -58,6 +58,8 @@ def main () :
     disk_x = get_data(disk_full_data, 'dataDisco')
     disk_y = get_data(disk_full_data, 'porcentagemUsoDisco')
 
+
+    print(ram_x)
     plotCharts(cpu_x, cpu_y, 'cpu', 100)
 
     plotCharts(ram_x,ram_y, 'ram',  ram_full_data[0]['capacidadeRam'])
@@ -90,15 +92,15 @@ def plotCharts(x,y, component, limit) :
         ax.set_ylim([0,limit])
         ax.set_ylabel("Uso % CPU")
         ax.set_title("USO CPU")
-        ax.set_xlabel("Hora")
+        ax.set_xlabel("Dia/Hora/Segundo")
         ax.grid('on')
         ax.fill_between(x, 0, y, alpha=.3, color='blue')
         ax.plot(x,y, alpha=.3, color='blue')
 
     elif(component.lower() == 'ram'): 
         ax1.set_ylim([0,limit])
-        ax1.set_ylabel("Uso % CPU")
-        ax1.set_xlabel("Hora")
+        ax1.set_ylabel("Uso % RAM")
+        ax1.set_xlabel("Dia/Hora/Segundo")
         ax1.fill_between(x, 0, y, alpha=.3, color='green')
         ax1.set_title("USO RAM")
 
@@ -123,7 +125,7 @@ def plotCharts(x,y, component, limit) :
     elif(component.lower() == 'disk'): 
         ax2.set_ylim([0,limit])
         ax2.set_ylabel("Uso % Disco")
-        ax2.set_xlabel("Hora")
+        ax2.set_xlabel("Dia/Hora/Segundo")
         ax2.set_title("USO DISCO")
         ax2.fill_between(x, 0, y, alpha=.4, color='orange')
         ax2.grid('on')
