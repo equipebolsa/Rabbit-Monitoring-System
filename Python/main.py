@@ -5,15 +5,9 @@ import os
 import platform
 import psutil as ps
 from datetime import datetime
-import matplotlib.pyplot as plt 
-from matplotlib.animation import FuncAnimation
 import numpy as np 
+import subprocess
 
-xdata, ydata = [], []
-
-
-#plot 
-fig, (cpu_ax, ram_ax, disco_ax) = plt.subplots(2,3)
 
 
 
@@ -56,7 +50,15 @@ dados_cpu = {
 
 
 def run_sql_command(sql_command):
-    cursor.execute(sql_command)
+    return cursor.execute(sql_command)
+
+
+def get_directory(): 
+    directory = os.popen('pwd').read()
+    return directory
+
+def execute_chart(directory): 
+    os.system('python {}/grafics.py'.format(directory))
 
 def get_system_type():
     f.write("""
@@ -163,13 +165,8 @@ def get_cpu():
          ("+str(freqAtualCpu)+","+str(temp)+",'"+str(today_time + os.popen("date").read().split()[4])+"',1) ")
 
 
-    cpu_ax.plot(os.popen("date").read().split()[4]  ,freqAtualCpu  )
 
 
-
-
-#animacao
-anim = FuncAnimation(fig,ani_cpu)
 
 def get_disk():
     print("\033[1;36mDisco \n ================= \n \033[0m ")
@@ -224,18 +221,15 @@ def network():
           str(round(bytes_recebidos/1000000, 2)) + "mb")
 
 
-def processoTotal():
-    os.system("clear")
-    get_system_type()
-    get_memory_ram()
-    get_cpu()
-    get_disk()
-    network()
-    time.sleep(1)
-    connection.commit()
-    processoTotal()
+def processo_total():
+    while True : 
+        os.system("clear")
+        get_system_type()
+        get_memory_ram()
+        get_cpu()
+        get_disk()
+        network()
+        time.sleep(1)
+        connection.commit()
 
-
-
-processoTotal()
-
+processo_total()

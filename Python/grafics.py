@@ -1,5 +1,6 @@
 import pymysql, matplotlib.pyplot as plt ,re,os, numpy as np    
 from matplotlib.pyplot import figure
+from matplotlib.animation import FuncAnimation
 
 
 
@@ -36,7 +37,9 @@ def select_data (component) :
         cursor.execute("SELECT idDisco, capacidadeDisco, espacoLivreDisco, espacoUsadoDisco, porcentagemUsoDisco, dataDisco FROM tbDisco ORDER BY dataDisco DESC  LIMIT 20")    
         return cursor.fetchall()
 
-def main () : 
+
+def animate (i) :
+
     cpu_full_data =  select_data('cpu')
     ram_full_data = select_data('ram')
     disk_full_data = select_data('disco')
@@ -58,16 +61,18 @@ def main () :
     disk_x = get_data(disk_full_data, 'dataDisco')
     disk_y = get_data(disk_full_data, 'porcentagemUsoDisco')
 
+    print(cpu_full_data[0]['dataCpu'])
 
-    print(ram_x)
     plotCharts(cpu_x, cpu_y, 'cpu', 100)
 
     plotCharts(ram_x,ram_y, 'ram',  ram_full_data[0]['capacidadeRam'])
 
     plotCharts(disk_x, disk_y, 'disk', 100)
 
-    plt.show()
+
+
     
+
 def get_data(arr, item): 
     new_arr = []
     for i in arr: 
@@ -86,52 +91,42 @@ def label_font_size(ax):
 
 
 def plotCharts(x,y, component, limit) : 
-
-
+    blue = '#6250e6'
+    green ='#79e675'
+    orange = '#f5b795'
     if(component.lower() == 'cpu'): 
+        ax.cla()
         ax.set_ylim([0,limit])
         ax.set_ylabel("Uso % CPU")
         ax.set_title("USO CPU")
         ax.set_xlabel("Dia/Hora/Segundo")
         ax.grid('on')
-        ax.fill_between(x, 0, y, alpha=.3, color='blue')
-        ax.plot(x,y, alpha=.3, color='blue')
+        ax.fill_between(x, 0, y,  color='#9086db')
+        ax.plot(x,y,  color=blue)
 
     elif(component.lower() == 'ram'): 
+      
         ax1.set_ylim([0,limit])
         ax1.set_ylabel("Uso % RAM")
         ax1.set_xlabel("Dia/Hora/Segundo")
-        ax1.fill_between(x, 0, y, alpha=.3, color='green')
+        ax1.fill_between(x, 0, y,  color=green)
         ax1.set_title("USO RAM")
-
-
-        #tentativa de inserir gráficos de Pizza, acabou ficando visualmente ruim
-        #para testar, adicione ax3 no fig, coloque, ao inves de 3, 4 e descomenta o codigo abaixo
-
-        # labels = ['Restante',"Utilizado"]
-        
-        # pie_y  = sum(y) / len(y)
-        # sizes= [limit,pie_y]
-        # print(limit, pie_y)
-        # explode = (0,0.1)
-        # ax3.set_title("USO RAM")
-        # ax3.pie(sizes,labels=labels,explode=explode, autopct='%1.f%%')
-        # ax3.axis('equal')
-
-        # ax3.plot()
         ax1.grid('on')
         ax1.plot(x,y, color='green', label='Ram')
         
     elif(component.lower() == 'disk'): 
+       
         ax2.set_ylim([0,limit])
         ax2.set_ylabel("Uso % Disco")
         ax2.set_xlabel("Dia/Hora/Segundo")
         ax2.set_title("USO DISCO")
-        ax2.fill_between(x, 0, y, alpha=.4, color='orange')
+        ax2.fill_between(x, 0, y,  color=orange)
         ax2.grid('on')
         ax2.plot(x,y, color='orange')
     label_font_size(ax)
     label_font_size(ax1)
     label_font_size(ax2)
 
-main()
+
+ani = FuncAnimation(fig, animate, interval=1000)
+plt.show()
