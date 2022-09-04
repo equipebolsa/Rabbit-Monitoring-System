@@ -19,7 +19,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 1px;
 }
 
 ::-webkit-scrollbar-track {
@@ -36,7 +36,7 @@
 
 @font-face {
     font-family: "Nunito", sans-serif;
-    src: url(../public/assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+    src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
 }
 /* Home */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -149,6 +149,14 @@ body {
 
 .navbar .container a {
     height: 100%;
+}
+
+a.navbar-brand {
+    width: 4%;
+}
+
+a.navbar-brand img {
+    width: 100%;
 }
 
 .navbar-lateral-button {

@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Nunito", sans-serif;
+    src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+}
+
 * {
     margin: 0;
     border: 0 !important;
@@ -13,6 +18,7 @@ body {
     animation: animation-body 3s ease infinite;
     width: 100vw;
     height: 100vh;
+    font-family: "Nunito" !important;
 }
 
 @media (max-width: 1100px) {
@@ -39,8 +45,12 @@ main.container {
     height: 50%;
 }
 
-.coelho img {
+.coelho a {
     width: 20%;
+}
+
+.coelho a img {
+    width: 100%;
 }
 
 .title {
@@ -67,6 +77,7 @@ main.container {
     outline: none;
     font-size: 0.9rem;
     background-color: transparent;
+    width: 80%;
 }
 
 .campo-de-input input::placeholder {
