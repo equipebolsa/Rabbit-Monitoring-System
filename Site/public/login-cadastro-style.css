@@ -15,11 +15,13 @@ body {
     height: 100vh;
 }
 
-.arrow {
-    margin-left: 1rem;
+@media (max-width: 1100px) {
+    main.container {
+        width: 50% !important;
+    }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
     main.container {
         width: 80% !important;
     }
@@ -27,7 +29,7 @@ body {
 
 main.container {
     background-color: white;
-    width: 40%;
+    width: 35%;
     padding: 2rem;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.432);
     border-radius: 8px;
@@ -35,7 +37,6 @@ main.container {
 
 .coelho {
     height: 50%;
-    margin-bottom: 3%;
 }
 
 .coelho img {
@@ -44,14 +45,12 @@ main.container {
 
 .title {
     text-align: center;
-    margin-bottom: 3%;
 }
 
 .linha {
     width: 80%;
     background-color: black;
-    height: 1px;
-    margin-bottom: 5%;
+    height: 0.05rem;
 }
 
 .container-input {
@@ -61,11 +60,13 @@ main.container {
 .campo-de-input {
     position: relative;
     width: 80%;
+    height: 5%;
 }
 
 .campo-de-input input {
     outline: none;
     font-size: 0.9rem;
+    background-color: transparent;
 }
 
 .campo-de-input input::placeholder {
@@ -73,12 +74,12 @@ main.container {
 }
 
 form input[type="submit"]{
-    margin-top: 10px;
     border-radius: 0.375rem;
     background-color: rgb(255, 255, 255) !important;
     border: 2px solid rgb(67,26,142) !important;
     color: black !important;
     font-weight: 600 !important;
+    width: 60%;
 }
 
 form{
@@ -89,6 +90,32 @@ form input[type="submit"]:hover{
     background:  rgb(67,26,142) !important;
     transition: 300ms;
     color: white !important;
+}
+
+.campo-de-input .underline::before {
+    content: '';
+    position: absolute;
+    height: 2%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: rgb(90, 79, 79);
+}
+
+.campo-de-input .underline::after {
+    content: '';
+    position: absolute;
+    height: 2%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, blue, rgb(154, 154, 241));
+    transform: scaleX(0);
+    transition: all .3s ease;
+}
+
+.campo-de-input input:focus~.underline::after {
+    transform: scaleX(1);
 }
 
 .footer {
@@ -108,34 +135,8 @@ form input[type="submit"]:hover{
     border-radius: 4px;
     font-size: 0.85rem;
     width: 100%;
+    flex-direction: column;
 }
-
-.campo-de-input .underline::before {
-    content: '';
-    position: absolute;
-    height: 1px;
-    width: 100%;
-    bottom: -5px;
-    left: 0;
-    background: rgb(90, 79, 79);
-}
-
-.campo-de-input .underline::after {
-    content: '';
-    position: absolute;
-    height: 1px;
-    width: 100%;
-    bottom: -5px;
-    left: 0;
-    background: linear-gradient(to right, blue, rgb(154, 154, 241));
-    transform: scaleX(0);
-    transition: all .3s ease;
-}
-
-.campo-de-input input:focus~.underline::after {
-    transform: scaleX(1);
-}
-
 
 .footer .campos-sociais a {
     text-decoration: none;
@@ -147,19 +148,19 @@ form input[type="submit"]:hover{
     width: 15px;
 }
 
+.linkedn, .facebook {
+    border-radius: 5px;
+    width: 80%;
+}
+
 .linkedn {
     background: linear-gradient(to right, blue, rgb(154, 154, 241));
-    width: 65%;
-    border-radius: 5px;
-    margin-left: 3rem;
+   
 }
 
 .facebook {
     margin-top: 0.2rem;
     background: linear-gradient(to right, rgb(1, 1, 161), blue);
-    border-radius: 5px;
-    width: 65%;
-    margin-left: 3rem;
 }
 
 @keyframes animation-body {
