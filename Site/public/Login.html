@@ -4,35 +4,40 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="propriedades/css/bootstrap.min.css">
-  <link rel="stylesheet" href="propriedades/css.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
-
-  <link rel="shortcut icon" href="propriedades/css_miscelaneous/Novo Projeto.png" type="image/x-icon">
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
   <title>Login</title>
 </head>
 
 <body>
   <script src="propriedades/js/bootstrap.bundle.js"></script>
+
   <div class="container d-flex justify-content-center align-items-center vh-100 vw-100">
-    <a class = "arrow" href= "../novo/index.html" style="position: absolute; top:0; left:0; font-size: 30px; color: black;"><i class="fa-solid fa-arrow-left-long"></i></a>
+    <a class="arrow" href="./index.html"
+      style="position: absolute; top:0; left:0; font-size: 30px; color: black;">
+      <i class="fa-solid fa-arrow-left-long"></i>
+    </a>
+
     <main class="container">
 
-
-
-      <div ><img class="coelho"  src="propriedades/css_miscelaneous/Novo Projeto.png" alt=""></div>
-      <div class="title">
-        <span>Login</span>
-        
+      <div class="w-100 d-flex justify-content-center align-items-center coelho">
+        <img src="./assets/img/logo.png">
       </div>
-      <div class="linha"></div>
+      <div class="title w-100 fw-semibold">
+        <span>Login</span>
+      </div>
+
+      <div class="w-100 d-flex justify-content-center align-items-center">
+        <div class="linha"></div>
+      </div>
       
 
-      <form action="">
+
+      <form action="" class="d-flex justify-content-center align-items-center">
         <div class="campo-de-input">
           <input type="text" name="username" id="usuario" placeholder="Email@exemplo.com.br">
           <div class="underline"></div>
@@ -41,11 +46,11 @@
           <input type="password" name="password" id="senha" placeholder="*********">
           <div class="underline"></div>
         </div>
-        <input type="submit" value="Logar">
+        <input type="submit" value="Logar" class="w-50 h-50">
       </form>
 
-      <div class="footer">
-        <span>Não possui <a href="../Cadastro/Cadastro.html">cadastro</a> ? </span>
+       <div class="footer">
+        <span class="fs-6">Não possui uma conta? <a href="../Cadastro/Cadastro.html" class="fw-bolder">Cadastre-se</a></span>
 
         <div class="campos-sociais">
           <div class="linkedn">

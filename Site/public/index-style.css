@@ -64,11 +64,11 @@
     }
 
     .text-container p:nth-child(1) {
-        width: 65%;
+        width: 75%;
     }
 
     .subtitle {
-        width: 50% !important;
+        width: 60% !important;
     }
 
     
@@ -176,7 +176,7 @@ body {
 
 /* Navbar */
 .text-container {
-    height: 52%;
+    height: 45%;
 }
 
 .subtitle {

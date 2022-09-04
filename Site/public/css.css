@@ -1,8 +1,8 @@
 * {
     margin: 0;
-    border: 0;
+    border: 0 !important;
     padding: 0;
-    box-sizing: 0;
+    box-sizing: border-box;
 }
 
 
@@ -11,89 +11,84 @@ body {
     background-repeat: no-repeat;
     background-size: 200% 200%;
     animation: animation-body 3s ease infinite;
+    width: 100vw;
+    height: 100vh;
 }
-.arrow{
+
+.arrow {
     margin-left: 1rem;
 }
 
-.coelho{
-    height: 20vh;
-    width: 94%;
+@media (max-width: 1000px) {
+    main.container {
+        width: 80% !important;
+    }
 }
-.btn{
-    border: none;
-}
+
 main.container {
     background-color: white;
-    max-width: 350px;
-    min-height: 40vh;
+    width: 40%;
     padding: 2rem;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.432);
     border-radius: 8px;
+}
 
+.coelho {
+    height: 50%;
+    margin-bottom: 3%;
+}
+
+.coelho img {
+    width: 20%;
 }
 
 .title {
-    font-weight: 600;
-    margin-bottom: 1rem;
-    margin-left: 7rem;
-}
-.linha{
-    width: 100%;
-    background-color: black;
-    height: 2px;
-    margin-bottom: 3rem;
+    text-align: center;
+    margin-bottom: 3%;
 }
 
-/* .title::before {
-    content: '';
-    position: absolute;
-    height: 4px;
-    width: 25px;
-    bottom: 3px;
-    left: 0;
-    border-radius: 8px;
-    background: linear-gradient(31deg, #e47be6 0%, #9e04a3 35%, #5926BB 100%);
-} */
+.linha {
+    width: 80%;
+    background-color: black;
+    height: 1px;
+    margin-bottom: 5%;
+}
+
+.container-input {
+    width: 100%;
+}
 
 .campo-de-input {
     position: relative;
+    width: 80%;
 }
 
 .campo-de-input input {
     outline: none;
     font-size: 0.9rem;
-
-}
-
-.campo-de-input:first-child {
-    margin-bottom: 1.5rem;
 }
 
 .campo-de-input input::placeholder {
     color: rgba(0, 0, 0, 0.5);
 }
 
-form input[type="submit"] {
-    margin-top: 2rem;
-    padding: 0.4rem;
-    background: linear-gradient(to left, darkviolet, violet);
-    cursor: pointer;
-    color: whitesmoke;
-    font-size: 0.9rem;
-    font-weight: 300;
-    border-radius: 4px;
-    transition: all 0.3s ease;
+form input[type="submit"]{
+    margin-top: 10px;
+    border-radius: 0.375rem;
+    background-color: rgb(255, 255, 255) !important;
+    border: 2px solid rgb(67,26,142) !important;
+    color: black !important;
+    font-weight: 600 !important;
 }
 
-form {
+form{
     display: flex;
     flex-direction: column;
 }
-
-form input[type="submit"]:hover {
-    letter-spacing: 0.5;
-    background: linear-gradient(to right, darkviolet, violet);
+form input[type="submit"]:hover{
+    background:  rgb(67,26,142) !important;
+    transition: 300ms;
+    color: white !important;
 }
 
 .footer {

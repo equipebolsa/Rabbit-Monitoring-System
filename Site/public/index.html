@@ -9,8 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
-
-
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+    <script src="./assets/js/funcoes.js"></script>
     <title>Home</title>
 </head>
 
@@ -20,7 +20,7 @@
         <nav class="navbar navbar-expand-lg float-right py-2 px-0 m-0">
             <div class="container-lg">
                 <a class="navbar-brand" href="#">
-                    <img src="../assets/img/logo.png" alt="" width="30" height="24">
+                    <img src="./assets/img/logo.png" alt="" width="30" height="24">
                 </a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
@@ -35,7 +35,7 @@
                             <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Suporte</a>
                         </li>
                         <li class="nav-item d-flex justify-content-center">
-                            <button class="cadastrar-button btn fw-semibold">Cadastrar</button>
+                            <button class="cadastrar-button btn fw-semibold" onclick="goToLoginOrSignUp('')">Cadastrar</button>
                         </li>
                     </ul>
                 </div>
@@ -64,7 +64,7 @@
                         <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Planos</a>
                     </li>
                     <li class="nav-item d-flex justify-content-center">
-                        <button class="navbar-lateral-button cadastrar-button btn fw-semibold ">Cadastrar</button>
+                        <button class="navbar-lateral-button cadastrar-button btn fw-semibold" onclick="goToLoginOrSignUp('')">Cadastrar</button>
                     </li>
                 </ul>
             </div>
@@ -74,12 +74,12 @@
             <div class="container row mx-auto p-0 d-flex align-items-center justify-content-between w-75 pb-5">
                 <div
                     class="col pt-0 d-flex flex-column align-items-center justify-content-between text-center text-container">
-                    <p class="h1 fw-bolder text-dark">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p class="h6 fw-semibold subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                    <p class="h1 m-0 fw-bolder text-dark">De modo Eficiente e Moderno, se livre de problemas com os seus
+                        servidores</p>
+                    <p class="h6 fw-semibold subtitle">Instalando o nosso aplicativo, você poderá verificar as
+                        principais informações do seu hardware, permitindo o seu monitoramento utilizando o nosso site.</p>
                     <div class="row d-flex justify-content-evenly align-items-center" style="width: 50% !important;">
-                        <button class="cadastrar-button btn fw-semibold">Inicie</button>
+                        <button class="cadastrar-button btn fw-semibold" onclick="goToLoginOrSignUp('')">Inicie</button>
                         <button class="saiba-mais-button btn fw-semibold">Saiba mais</button>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
         <div class="container-fluid p-0 m-0 d-flex justify-content-center">
             <div class="container row reveal row-cols-auto">
                 <div class="col-sm-12 col-md-7 p-0 d-flex justify-content-center align-items-center">
-                    <img src="../assets/img/working-computer.png" class="w-75">
+                    <img src="./assets/img/working-computer.png" class="w-75">
                 </div>
                 <div class="col-sm-12 w-100 mt-md-0 mt-3 col-md p-0 d-flex align-items-center justify-content-center">
                     <ul class="w-100 p-0 m-0 text-center" style="list-style: none; row-gap: 10px; display: grid;">
@@ -157,19 +157,19 @@
                     <ul class="m-0 d-flex flex-column justify-content-evenly align-items-center carrossel-list">
                         <li
                             class="d-flex flex-column justify-content-evenly align-items-center carrossel-item selected">
-                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-1">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-1">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-2">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-2">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-3">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-3">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-4">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-4">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="../assets/img/propaganda.png" class="rounded" id="carrossel-img-5">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-5">
                         </li>
                     </ul>
                 </div>
@@ -302,7 +302,7 @@
         /* console.log(`Velha Posição: ${carrosselPosition}`) */
         //newNumber > carrosselImgNum ? carrosselPosition -= 110 : carrosselPosition += 110;
         switch (newNumber) {
-            case 1: 
+            case 1:
                 carrosselPosition = 110;
                 break;
             case 2:
@@ -322,7 +322,7 @@
 
         /* Mudar imagem selecionada */
         document.getElementsByClassName("carrossel-item selected")[0].classList.remove("selected");
-        
+
         let carrosselItems = document.getElementsByClassName("carrossel-item");
         for (let j = 0; j < carrosselItems.length; j++) {
             carrosselItems[j].onclick = () => { };
@@ -356,14 +356,14 @@
         let textNumber = parseInt(element.id[element.id.length - 1]);
         if (textNumber != carrosselImgNum) {
             console.log(`Old: ${carrosselImgNum}`);
-        console.log(`New: ${textNumber}`);
-        moveImageCarrossel(textNumber);
-        carrosselImgNum = textNumber;
+            console.log(`New: ${textNumber}`);
+            moveImageCarrossel(textNumber);
+            carrosselImgNum = textNumber;
 
-        setCarrosselTextOnclick();
-        setImageCarrosselAnimation();
+            setCarrosselTextOnclick();
+            setImageCarrosselAnimation();
         }
-        
+
     }
 
 </script>
