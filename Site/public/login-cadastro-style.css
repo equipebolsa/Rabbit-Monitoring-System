@@ -80,7 +80,7 @@ main.container {
     border-radius: 20px;
     outline: none;
     font-size: 0.9rem;
-    background-color: rgb(227, 227, 227);
+    background-color: transparent;
     padding:5px;
     width: 80%;
 }
