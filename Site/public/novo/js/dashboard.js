@@ -177,9 +177,9 @@ function montarListaFiltro() {
 }
 
 function verificarCor(filtro) {
-    normal = '#35FFFE'
-    alerta = '#F547AC'
-    risco = '#7C4FE0'
+    normal = '#00FF00'
+    alerta = '#FFFF00'
+    risco = '#FF0000'
     for (let x = 0; x < serverQtd; x++) {
         if (filtro[x].cpuTemp > 95 || filtro[x].Armazenamento > 950) {
             document.getElementById(`idServer${x}`).style.backgroundColor = risco
