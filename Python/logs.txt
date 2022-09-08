@@ -1,360 +1,66 @@
 =====LOGS DA APLICAÇÃO===== 
 
 
-        Horário atual: 09:38:47 
-        Nome do S.O : EndeavourOS 
+        Horário atual: 02:14:32 
+        Nome do S.O : Fedora Linux 
         Tipo do sistema : Linux  
     
         Total Ram : 8.0GB
-        Uso atual : 2.04 GB
-        Porcentagem : 34.0% / 100% 
-        Data: 2022-09-05  
+        Uso atual : 2.89 GB
+        Porcentagem : 44.8% / 100% 
+        Data: 2022-09-08  
     
-        Freq. Atual CPU : 8.18% / 100% 
+        Freq. Atual CPU : 5489.28% / 100% 
         Freq. Minima CPU : 500.0 GhZ
         Freq. Maxima CPU : 1900.0 GhZ
         Temperatura da CPU : 47.0°C
     
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 593 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 103 ms 
+       Porcentagem de uso do disco: 1%/100% 
     
     ====================================================
     
-        Horário atual: 09:38:49 
-        Nome do S.O : EndeavourOS 
+        Horário atual: 02:14:34 
+        Nome do S.O : Fedora Linux 
         Tipo do sistema : Linux  
     
         Total Ram : 8.0GB
-        Uso atual : 2.04 GB
-        Porcentagem : 34.0% / 100% 
-        Data: 2022-09-05  
+        Uso atual : 2.9 GB
+        Porcentagem : 44.8% / 100% 
+        Data: 2022-09-08  
     
-        Freq. Atual CPU : 7.97% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 46.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 593 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:38:50 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.04 GB
-        Porcentagem : 34.0% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 8.19% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 46.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 594 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:38:51 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.05 GB
-        Porcentagem : 34.1% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 8.17% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 47.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 594 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:38:53 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.05 GB
-        Porcentagem : 34.2% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 7.43% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 48.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 594 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:38:54 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.05 GB
-        Porcentagem : 34.3% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 8.18% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 47.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 595 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:38:55 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.05 GB
-        Porcentagem : 34.3% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 8.19% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 47.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 595 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:38:57 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.07 GB
-        Porcentagem : 34.4% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 7.75% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 46.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 595 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:38:58 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.07 GB
-        Porcentagem : 34.4% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 6.89% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 46.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 595 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:39:00 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.07 GB
-        Porcentagem : 34.4% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 8.18% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 46.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 596 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:39:01 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.07 GB
-        Porcentagem : 34.4% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 6.79% / 100% 
+        Freq. Atual CPU : 3877.55% / 100% 
         Freq. Minima CPU : 500.0 GhZ
         Freq. Maxima CPU : 1900.0 GhZ
         Temperatura da CPU : 45.0°C
     
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 596 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 103 ms 
+       Porcentagem de uso do disco: 1%/100% 
     
     ====================================================
     
-        Horário atual: 09:39:02 
-        Nome do S.O : EndeavourOS 
+        Horário atual: 02:14:35 
+        Nome do S.O : Fedora Linux 
         Tipo do sistema : Linux  
     
         Total Ram : 8.0GB
-        Uso atual : 2.07 GB
-        Porcentagem : 34.5% / 100% 
-        Data: 2022-09-05  
+        Uso atual : 2.9 GB
+        Porcentagem : 44.8% / 100% 
+        Data: 2022-09-08  
     
-        Freq. Atual CPU : 6.88% / 100% 
+        Freq. Atual CPU : 3877.61% / 100% 
         Freq. Minima CPU : 500.0 GhZ
         Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 47.0°C
+        Temperatura da CPU : 44.0°C
     
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 597 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:39:04 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.07 GB
-        Porcentagem : 34.5% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 7.65% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 46.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 598 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:39:05 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.07 GB
-        Porcentagem : 34.5% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 8.18% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 46.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 598 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:39:06 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.08 GB
-        Porcentagem : 34.5% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 6.14% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 45.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 598 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:39:08 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.08 GB
-        Porcentagem : 34.6% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 7.86% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 47.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 599 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
-    
-    ====================================================
-    
-        Horário atual: 09:39:09 
-        Nome do S.O : EndeavourOS 
-        Tipo do sistema : Linux  
-    
-        Total Ram : 8.0GB
-        Uso atual : 2.08 GB
-        Porcentagem : 34.6% / 100% 
-        Data: 2022-09-05  
-    
-        Freq. Atual CPU : 6.79% / 100% 
-        Freq. Minima CPU : 500.0 GhZ
-        Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 45.0°C
-    
-       Capacidade do disco : 922 GB
-       Tempo de leitura : 599 ms 
-       Tempo de escrita : 825 ms 
-       Porcentagem de uso do disco: 8%/100% 
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 103 ms 
+       Porcentagem de uso do disco: 1%/100% 
     
     ====================================================
     

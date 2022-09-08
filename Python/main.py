@@ -9,7 +9,7 @@ import numpy as np
 import subprocess
 
 
-
+a = os.popen('bash').read()
 
 # cria arquivo logs.txt
 f = open("logs.txt", "w")
@@ -19,16 +19,18 @@ f.write("LOGS DA APLICAÇÃO")
 f.write("===== \n\n")
 
 # define os dados para leitura do horário, que é pego pela função "date" do shell
-system_time = (os.popen("date").read()).split(
-
-)
+system_time = (os.popen("date").read().split() ) 
 today = datetime.now()
 today_time = today.strftime("%Y-%m-%d ")
 
+
+
+
+print( os.popen("date").read().split())
 # define as propriedades da conexão do banco de dados
 connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='akemih32',
+                             user='rafael',
+                             password='akemisql',
                              database='dbProjetoBolsa')
 
 # cursor, que nos auxilia a adentrar o banco de dados e inserir no mesmo
@@ -52,7 +54,8 @@ dados_cpu = {
 def run_sql_command(sql_command):
     return cursor.execute(sql_command)
 
-
+def get_current_date() : 
+    return os.popen("date").read().split()[4]
 def get_directory(): 
     directory = os.popen('pwd').read()
     return directory
@@ -65,9 +68,9 @@ def get_system_type():
         Horário atual: {0} 
         Nome do S.O : {1} 
         Tipo do sistema : {2}  
-    """.format(os.popen("date").read().split()[4], dados_os['SISTEMA_NOME'], dados_os['SISTEMA_TIPO']))
+    """.format(get_current_date(), dados_os['SISTEMA_NOME'], dados_os['SISTEMA_TIPO']))
     print("\033[1;36m Sistema Operacional  \n ================= \033[0m\n  ")
-    print(os.popen("date").read().split()[4])  # horario do sistema atual (visto no shell)
+    print(get_current_date())  # horario do sistema atual (visto no shell)
     print("Nome do sistema: " + str(dados_os["SISTEMA_NOME"]))
     print(dados_os["SISTEMA_URL"])
     print("Tipo do sistema: " + str(dados_os["SISTEMA_TIPO"]) + "\n")
@@ -94,7 +97,7 @@ def get_memory_ram():
     """.format(total, uso_ram, percent, today_time))
 
     run_sql_command("INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkServidor) \
-         VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(today_time + os.popen("date").read().split()[4])+"',1);")
+         VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(today_time + get_current_date())+"',1);")
 
 def get_cpu():
     
@@ -158,11 +161,16 @@ def get_cpu():
 
     # insere no sql
     if(cursor_select_cpu_count < 1 ) :  
-         run_sql_command("INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES \
+        run_sql_command("INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES \
             ("+cpu_qtd_nucleos+","+cpu_qtd_threads+",'"+cpu_tecnologia+"','"+cpu_modelo_nome+"',1) ")
+        
+        print("jorge jorge")
+
+
+
 
     run_sql_command("INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES \
-         ("+str(freqAtualCpu)+","+str(temp)+",'"+str(today_time + os.popen("date").read().split()[4])+"',1) ")
+         ("+str(freqAtualCpu)+","+str(temp)+",'"+str(today_time + get_current_date())+"',1) ")
 
 
 
@@ -190,7 +198,7 @@ def get_disk():
     print("Partições do disco: \n")
 
     # roda o sistema e apresenta todas as partições
-    for i in range(1, len(particoes_disco) + 1):
+    for i in range(1, len(particoes_disco) -1 ):
         if (i % 2 == 0):  # i%2 pq o psutil estava repetindo partições, a cada 2 muda.
             print(ps.disk_partitions()[i][0])
     print('\n')
@@ -204,7 +212,7 @@ def get_disk():
     ====================================================
     """.format(disco_total, tempo_leitura, tempo_escrita, disco_percent))
     run_sql_command("INSERT INTO tbDisco (capacidadeDisco,espacoLivreDisco,espacoUsadoDisco,porcentagemUsoDisco , dataDisco, fkServidor) VALUES \
-        ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(today_time + os.popen("date").read().split()[4])+"', 1) ")
+        ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(today_time + get_current_date())+"', 1) ")
 
 def network():
     print("\033[1;36mInternet \n ================= \033[0m\n")
@@ -223,6 +231,7 @@ def network():
 
 def processo_total():
     while True : 
+        
         os.system("clear")
         get_system_type()
         get_memory_ram()
