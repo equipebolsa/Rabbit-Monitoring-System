@@ -36,9 +36,9 @@ cursor = connection.cursor()
 
 # dicionario 1 com os dados fixos do sistema operacional
 dados_os = {
-    'SISTEMA_NOME': platform.freedesktop_os_release()["NAME"],
+    'SISTEMA_NOME': platform.system()["NAME"],
     'SISTEMA_TIPO': platform.system(),
-    'SISTEMA_URL': platform.freedesktop_os_release()["HOME_URL"]
+    'SISTEMA_URL': platform.system()["HOME_URL"]
 }
 
 # dicionario 2, com os dados fixos da CPU
