@@ -135,3 +135,6 @@ INSERT INTO tbSetor(nomeSetor, descricao, fkEmpresa) VALUES ("Alpha", null, 1);
 INSERT INTO tbServidor VALUES (1 , "Linux","2004-12,23",1);
 
 INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES (2,2,'64x_86x', 'Intel i3 5005U 2.0GhZ',1 )
+
+INSERT INTO tbServidor(sistemaoOperacionalServidor, serialServidor, dataCadastro, fkSetor) VALUES (
+			"LX-1045693", "Linux","2022-09-08", 1);
