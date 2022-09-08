@@ -1,15 +1,13 @@
 import pymysql
 import socket
 import time
-import os
+import sys,os
 import platform
 import psutil as ps
 from datetime import datetime
 import numpy as np 
 import subprocess
 
-
-a = os.popen('bash').read()
 
 # cria arquivo logs.txt
 f = open("logs.txt", "w")
@@ -55,7 +53,7 @@ def run_sql_command(sql_command):
     return cursor.execute(sql_command)
 
 def get_current_date() : 
-    return os.popen("date").read().split()[4]
+    return os.popen("date").read().split()[3]
 def get_directory(): 
     directory = os.popen('pwd').read()
     return directory
@@ -106,8 +104,7 @@ def get_cpu():
     cpu_dados = os.popen("lscpu").read()
     cpu_dados = cpu_dados.split("\n")
     temp = ps.sensors_temperatures()['coretemp'][0].current
-    freqAtualCpu = round(ps.cpu_freq().current *
-                         pow(2, 13) / ps.cpu_freq().max, 2)
+    freqAtualCpu = round(ps.cpu_freq().current * 100 / ps.cpu_freq().max, 2)
 
     # separa os dados pegos da lscpu e separa em uma array, sendo a divisão dos elementos " : "
     for i in range(len(cpu_dados)):
@@ -148,7 +145,7 @@ def get_cpu():
           str(dados_cpu['CPU_FREQ_MINIMA']) + "GHz")
     print("Frequência máxima da CPU: " +
           str(dados_cpu['CPU_FREQ_MAX']) + "GHz")
-    print("Frequência atual da  CPU: " + str(freqAtualCpu) + "%/100% ")
+    print("Frequência atual da CPU: " + str(freqAtualCpu) + "%/100% ")
     print("Arquitetura do processador: " + platform.machine())
     print('\n')
 
@@ -169,9 +166,8 @@ def get_cpu():
 
 
 
-    run_sql_command("INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES \
-         ("+str(freqAtualCpu)+","+str(temp)+",'"+str(today_time + get_current_date())+"',1) ")
-
+    a = today_time + get_current_date()
+    run_sql_command("INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES ({0},{1},'{2}',1) ".format(freqAtualCpu, temp, a))
 
 
 
@@ -231,14 +227,14 @@ def network():
 
 def processo_total():
     while True : 
-        
-        os.system("clear")
+        connection.commit()
         get_system_type()
         get_memory_ram()
         get_cpu()
         get_disk()
         network()
         time.sleep(1)
-        connection.commit()
+
+
 
 processo_total()

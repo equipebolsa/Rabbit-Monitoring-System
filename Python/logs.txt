@@ -1,65 +1,338 @@
 =====LOGS DA APLICAÇÃO===== 
 
 
-        Horário atual: 02:14:32 
+        Horário atual: 02:34:18 
         Nome do S.O : Fedora Linux 
         Tipo do sistema : Linux  
     
         Total Ram : 8.0GB
-        Uso atual : 2.89 GB
-        Porcentagem : 44.8% / 100% 
+        Uso atual : 3.01 GB
+        Porcentagem : 46.6% / 100% 
         Data: 2022-09-08  
     
-        Freq. Atual CPU : 5489.28% / 100% 
+        Freq. Atual CPU : 85.84% / 100% 
         Freq. Minima CPU : 500.0 GhZ
         Freq. Maxima CPU : 1900.0 GhZ
-        Temperatura da CPU : 47.0°C
+        Temperatura da CPU : 48.0°C
     
        Capacidade do disco : 929 GB
        Tempo de leitura : 16 ms 
-       Tempo de escrita : 103 ms 
+       Tempo de escrita : 111 ms 
        Porcentagem de uso do disco: 1%/100% 
     
     ====================================================
     
-        Horário atual: 02:14:34 
+        Horário atual: 02:34:20 
         Nome do S.O : Fedora Linux 
         Tipo do sistema : Linux  
     
         Total Ram : 8.0GB
-        Uso atual : 2.9 GB
-        Porcentagem : 44.8% / 100% 
+        Uso atual : 3.02 GB
+        Porcentagem : 46.5% / 100% 
         Data: 2022-09-08  
     
-        Freq. Atual CPU : 3877.55% / 100% 
+        Freq. Atual CPU : 47.33% / 100% 
         Freq. Minima CPU : 500.0 GhZ
         Freq. Maxima CPU : 1900.0 GhZ
         Temperatura da CPU : 45.0°C
     
        Capacidade do disco : 929 GB
        Tempo de leitura : 16 ms 
-       Tempo de escrita : 103 ms 
+       Tempo de escrita : 111 ms 
        Porcentagem de uso do disco: 1%/100% 
     
     ====================================================
     
-        Horário atual: 02:14:35 
+        Horário atual: 02:34:21 
         Nome do S.O : Fedora Linux 
         Tipo do sistema : Linux  
     
         Total Ram : 8.0GB
-        Uso atual : 2.9 GB
-        Porcentagem : 44.8% / 100% 
+        Uso atual : 3.02 GB
+        Porcentagem : 46.5% / 100% 
         Data: 2022-09-08  
     
-        Freq. Atual CPU : 3877.61% / 100% 
+        Freq. Atual CPU : 57.86% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:22 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.02 GB
+        Porcentagem : 46.4% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.34% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:23 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.02 GB
+        Porcentagem : 46.3% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 46.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:24 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.02 GB
+        Porcentagem : 46.3% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:26 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 49.96% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 46.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:27 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:28 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:29 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:30 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 57.86% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:31 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:33 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:34 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.33% / 100% 
         Freq. Minima CPU : 500.0 GhZ
         Freq. Maxima CPU : 1900.0 GhZ
         Temperatura da CPU : 44.0°C
     
        Capacidade do disco : 929 GB
        Tempo de leitura : 16 ms 
-       Tempo de escrita : 103 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:35 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 3.01 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 57.86% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
+       Porcentagem de uso do disco: 1%/100% 
+    
+    ====================================================
+    
+        Horário atual: 02:34:36 
+        Nome do S.O : Fedora Linux 
+        Tipo do sistema : Linux  
+    
+        Total Ram : 8.0GB
+        Uso atual : 2.99 GB
+        Porcentagem : 46.2% / 100% 
+        Data: 2022-09-08  
+    
+        Freq. Atual CPU : 47.34% / 100% 
+        Freq. Minima CPU : 500.0 GhZ
+        Freq. Maxima CPU : 1900.0 GhZ
+        Temperatura da CPU : 45.0°C
+    
+       Capacidade do disco : 929 GB
+       Tempo de leitura : 16 ms 
+       Tempo de escrita : 111 ms 
        Porcentagem de uso do disco: 1%/100% 
     
     ====================================================
