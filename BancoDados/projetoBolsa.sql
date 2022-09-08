@@ -93,3 +93,5 @@ INSERT INTO tbTelefone VALUES (1,"BR",'55','11982072730',1);
 INSERT INTO tbSetor VALUES (1,"Alpha",1);
 
 INSERT INTO tbServidor VALUES (1 , "Linux","2004-12,23",1);
+
+INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES (2,2,'64x_86x', 'Intel i3 5005U 2.0GhZ',1 )
