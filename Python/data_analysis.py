@@ -11,6 +11,13 @@ def config() :
     return pd.read_csv('processador.csv')
 df = config() 
 
+def chart_config(ax, xlabel, ylabel, title) : 
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+
+
+
 
 def temperature_per_frequence() :
     #explicacao: 
@@ -29,10 +36,29 @@ def temperature_per_frequence() :
     #depois do modelo ter sido "limpo" pelo fit, usa-se o predict para encontrar o padrao, a linha. 
     #predict e perigoso, usar com cautela
     y_previsao = regressao_linear.predict(x)
-    chart_configs(ax,'Frequência','Temperatura','Temperatura por frequência')
+    chart_config(ax,'Frequência','Temperatura','Temperatura por frequência')
 
     ax.scatter(x,y, alpha=0.4)
-    ax.plot(x,y_previsao, color='green',linewidth=5.0 )
+    ax.plot(x,y_previsao, color='orange',linewidth=5.0 )
+    plt.show()
+
+
+def frequence_per_time() : 
+    data = df.sort_values(by=['id'],ascending=False).iloc[0:20]
+
+    data_timestamp = pd.to_datetime(data['Data'],  format='%Y-%m-%d %H:%M:%S').tolist()
+    for i in range(len(data_timestamp)) : 
+        data_timestamp[i] =  data_timestamp[i].minute + data_timestamp[i].second
+    x = np.array(data_timestamp).reshape(-1,1)
+    y = np.array(data['Frequência']).reshape(-1,1) 
+
+    reg_l = LinearRegression() 
+    reg_l.fit(x,y)
+    y_prev = reg_l.predict(x)
+    fig, ax = plt.subplots() 
+    ax.plot(data_timestamp,data['Frequência'], color='blue')
+    ax.plot(data_timestamp, y_prev, color='green', linewidth=5.0)
+    chart_config(ax, 'Segundos', 'Frequência', 'Frequência por temp')
     plt.show()
 
 def avg_frequence_weekend_day() : 
@@ -57,16 +83,31 @@ def get_weekend_day(data):
     return arr
 
 
-def chart_configs(ax, xlabel, ylabel, title) : 
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
-    ax.set_title(title)
 
 def main() : 
-    #descomenta a que voce quer ver
+    print("""
+        Análise de dados da CPU.
+        1) Temperatura por frequência com regressão Linear
+        2) Correlação por dia da semana
+        3) Frequência por tempo com regressão linear
+        0) Sair
+        ... 
+    """)
+    select = int(input()) 
     
-    #regressao linear - tmeperatura por frequencia
-    #temperature_per_frequence()
-    #correlacao por dia da semana - media de frequencia
-    avg_frequence_weekend_day()
+    if select == 1 : 
+        temperature_per_frequence()
+        main()
+    elif select == 2 : 
+        avg_frequence_weekend_day()
+        main()
+    elif select == 3  :
+        frequence_per_time()
+        main()
+    elif select == 0 : 
+        print ("Tchau... ")
+        exit()
+    else : 
+        print ("Valor inválido")
+        main()
 main() 
