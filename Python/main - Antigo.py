@@ -36,9 +36,9 @@ cursor = connection.cursor()
 
 # dicionario 1 com os dados fixos do sistema operacional
 dados_os = {
-    'SISTEMA_NOME': platform.system(),
+    'SISTEMA_NOME': platform.system()["NAME"],
     'SISTEMA_TIPO': platform.system(),
-    'SISTEMA_URL': platform.release()
+    'SISTEMA_URL': platform.system()["HOME_URL"]
 }
 
 # dicionario 2, com os dados fixos da CPU
@@ -48,16 +48,12 @@ dados_cpu = {
     'CPU_FREQ_MAX':  ps.cpu_freq().max,
 }
 
-# cat /proc/meminfo  
+
 def run_sql_command(sql_command):
     return cursor.execute(sql_command)
 
-def transform_to_gb(value, n_decimal=0):
-    return round(value / pow(1024, 3), n_decimal)
-
 def get_current_date() : 
     return os.popen("date").read().split()[3]
-
 def get_directory(): 
     directory = os.popen('pwd').read()
     return directory
@@ -81,9 +77,9 @@ def get_system_type():
 
 def get_memory_ram():
     # calculo de conversão de bytes para gb, 10^9
-    total = transform_to_gb(ps.virtual_memory().total)
-    uso_ram = transform_to_gb(ps.virtual_memory().used, 2)
-    livre_ram = transform_to_gb(ps.virtual_memory().free, 2)
+    total = round(ps.virtual_memory().total / pow(10, 9), 0)
+    uso_ram = round(ps.virtual_memory().used / pow(10, 9), 2)
+    livre_ram = round(ps.virtual_memory().free / pow(10, 9), 2)
     percent = ps.virtual_memory().percent
 
     print("\033[1;36m MEMÓRIA RAM \n ================= \033[0m\n  ")
@@ -182,8 +178,8 @@ def get_disk():
     # Colhe os dados e converte para GB, >> 30 é a conversão, descobri isso depois.
     # manipulacao de bits = >>
     # para virar gb
-    disco_total = transform_to_gb(ps.disk_usage('/').total, 2)
-    disco_livre = transform_to_gb(ps.disk_usage('/').free, 2)
+    disco_total = round(ps.disk_usage('/').total >> 30)
+    disco_livre = round(ps.disk_usage('/').free >> 30)
     disco_usado = disco_total-disco_livre
     disco_percent = round(ps.disk_usage('/').percent)
     tempo_leitura = ps.disk_io_counters().read_time >> 15
