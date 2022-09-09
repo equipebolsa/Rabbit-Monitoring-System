@@ -36,9 +36,9 @@ cursor = connection.cursor()
 
 # dicionario 1 com os dados fixos do sistema operacional
 dados_os = {
-    'SISTEMA_NOME': platform.system()["NAME"],
+    'SISTEMA_NOME': platform.system(),
     'SISTEMA_TIPO': platform.system(),
-    'SISTEMA_URL': platform.system()["HOME_URL"]
+    'SISTEMA_URL': platform.release()
 }
 
 # dicionario 2, com os dados fixos da CPU
@@ -48,7 +48,7 @@ dados_cpu = {
     'CPU_FREQ_MAX':  ps.cpu_freq().max,
 }
 
-
+# cat /proc/meminfo  
 def run_sql_command(sql_command):
     return cursor.execute(sql_command)
 
