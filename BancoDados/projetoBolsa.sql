@@ -1,6 +1,5 @@
 CREATE DATABASE IF NOT EXISTS dbProjetoRms;
 USE dbProjetoRms;
-DROP DATABASE dbProjetoRms;
 
 CREATE TABLE tbEmpresa (
 	idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,27 +64,16 @@ CREATE TABLE tbServidor (
 
 
 CREATE TABLE tbDisco( 
-	idDisco INT AUTO_INCREMENT,
+	idDisco INT PRIMARY KEY AUTO_INCREMENT,   
+	capacidadeDisco INT NOT NULL  ,    
+	espacoLivreDisco DOUBLE NOT NULL ,
+	espacoUsadoDisco DOUBLE NOT NULL , 
+	porcentagemUsoDisco INT NOT NULL, 
 	dataDisco DATETIME NOT NULL,	
-	fkServidor INT, 
-	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor),
-	fkSetor INT,
-	FOREIGN KEY (fkSetor) REFERENCES tbSetor(idSetor),
-    PRIMARY KEY (idDisco, fkServidor, fkSetor)
-); 
+	fkServidor INT , 
+	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor)
 
-CREATE TABLE tbParticao(
-	idParticao INT NOT NULL AUTO_INCREMENT,
-    capacidadeTotalParticao DECIMAL(7,2) NOT NULL,    
-	espacoLivreParticao DECIMAL(7,2) NOT NULL,
-	espacoUsadoParticao DECIMAL(7,2) NOT NULL, 
-    dataColetaDadosParticao DATETIME,
-    fkDisco INT NOT NULL,
-    fkServidor INT NOT NULL,
-    FOREIGN KEY (fkDisco) REFERENCES tbDisco(idDisco),
-	FOREIGN KEY (fkServidor) REFERENCES tbServidor(idServidor),
-    PRIMARY KEY (idParticao, fkDisco, fkServidor)
-);
+); 
 
 CREATE TABLE tbCpu(  
 	idCpu INT NOT NULL AUTO_INCREMENT,
@@ -102,7 +90,7 @@ CREATE TABLE tbCpu(
 
 CREATE TABLE tbDadosCpu( 
 	idDadosCpu INT PRIMARY KEY AUTO_INCREMENT, 
-	freqAtualCpu DECIMAL(4,2) NOT NULL, 
+	freqAtualCpu DECIMAL(5,2) NOT NULL, 
 	temperaturaAtualCpu DECIMAL(4,2), 
 	dataColetaDadosCpu DATETIME NOT NULL,
 	fkCpu INT NOT NULL, 
@@ -132,9 +120,9 @@ INSERT INTO tbTelefone(paisTelefone, regiaoTelefone, numeroTelefone, fkEmpresa) 
 # Olhar o telefone se é 11966643600 ou 966643600
 INSERT INTO tbSetor(nomeSetor, descricao, fkEmpresa) VALUES ("Alpha", null, 1);
 
-INSERT INTO tbServidor VALUES (1 , "Linux","2004-12,23",1);
+INSERT INTO tbServidor VALUES (1 , "Linux","2004-12,23",1234567890,1);
 
-INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES (2,2,'64x_86x', 'Intel i3 5005U 2.0GhZ',1 )
+INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor, fkSetor) VALUES (2,2,'64x_86x', 'Intel i3 5005U 2.0GhZ', 1, 1);
 
 INSERT INTO tbServidor(sistemaoOperacionalServidor, serialServidor, dataCadastro, fkSetor) VALUES (
 			"LX-1045693", "Linux","2022-09-08", 1);
