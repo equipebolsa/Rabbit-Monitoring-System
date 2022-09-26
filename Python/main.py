@@ -7,6 +7,7 @@ import psutil as ps
 from datetime import datetime
 import numpy as np 
 import subprocess
+import wmi;
 
 
 # cria arquivo logs.txt
@@ -27,9 +28,9 @@ today_time = today.strftime("%Y-%m-%d ")
 print( os.popen("date").read().split())
 # define as propriedades da conexão do banco de dados
 connection = pymysql.connect(host='localhost',
-                             user='rafael',
-                             password='akemisql',
-                             database='dbProjetoBolsa')
+                             user='aluno',
+                             password='sptech',
+                             database='dbProjetoRms')
 
 # cursor, que nos auxilia a adentrar o banco de dados e inserir no mesmo
 cursor = connection.cursor()
@@ -98,8 +99,8 @@ def get_memory_ram():
         Data: {3} 
     """.format(total, uso_ram, percent, today_time))
 
-    run_sql_command("INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkServidor) \
-         VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(today_time + get_current_date())+"',1);")
+    run_sql_command("INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataColetaDadosRam, fkServidor, fkSetor) \
+         VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(today_time)+"',1,1);")
 
 def get_cpu():
     
@@ -162,16 +163,18 @@ def get_cpu():
 
     # insere no sql
     if(cursor_select_cpu_count < 1 ) :  
-        run_sql_command("INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES \
-            ("+cpu_qtd_nucleos+","+cpu_qtd_threads+",'"+cpu_tecnologia+"','"+cpu_modelo_nome+"',1) ")
+        run_sql_command("INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor, fkSetor) VALUES \
+            ("+cpu_qtd_nucleos+","+cpu_qtd_threads+",'"+cpu_tecnologia+"','"+cpu_modelo_nome+"',1,1) ")
         
-        print("jorge jorge")
+        print("Enviado ao Banco de Dados")
+        print("\n")
 
 
 
 
-    a = today_time + get_current_date()
-    run_sql_command("INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES ({0},{1},'{2}',1) ".format(freqAtualCpu, temp, a))
+    a = today_time
+    print(freqAtualCpu)
+    run_sql_command("INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataColetaDadosCpu, fkCpu) VALUES ({0},{1},'{2}',1) ".format(freqAtualCpu, temp, a))
 
 
 
@@ -212,7 +215,7 @@ def get_disk():
     ====================================================
     """.format(disco_total, tempo_leitura, tempo_escrita, disco_percent))
     run_sql_command("INSERT INTO tbDisco (capacidadeDisco,espacoLivreDisco,espacoUsadoDisco,porcentagemUsoDisco , dataDisco, fkServidor) VALUES \
-        ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(today_time + get_current_date())+"', 1) ")
+        ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(today_time)+"', 1) ")
 
 def network():
     print("\033[1;36mInternet \n ================= \033[0m\n")
