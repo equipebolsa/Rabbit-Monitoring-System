@@ -1,5 +1,7 @@
 :root {
 
+
+    
     /* Cores Principais */
     --base-color: #5926BB;
     /* Cores Principais Mais Escuras  */
@@ -18,6 +20,7 @@
     --carrossel-position: 110;
 }
 
+
 ::-webkit-scrollbar {
     width: 1px;
 }
@@ -34,10 +37,6 @@
     background: var(--base-color-purple-dark);
 }
 
-@font-face {
-    font-family: "Nunito", sans-serif;
-    src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
-}
 /* Home */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
@@ -124,9 +123,10 @@ body {
     padding: 0;
     margin: 0;
     overflow-x: hidden;
-    font-family: "Nunito" !important;
 }
-
+.background{
+    background-color: #FFF;
+}
 .background .container-fluid {
     height: 85vh !important;
 }
@@ -143,8 +143,11 @@ body {
 
 .navbar {
     height: 10vh;
-    padding: 0 !important;
-    background-color: transparent !important;
+    width: 100%;
+    overflow: hidden !important;
+    position: fixed !important; 
+    background-color: #FFF;
+    z-index: 100; 
 }
 
 .navbar .container a {
@@ -152,7 +155,7 @@ body {
 }
 
 a.navbar-brand {
-    width: 4%;
+    width: 4%;;
 }
 
 a.navbar-brand img {
