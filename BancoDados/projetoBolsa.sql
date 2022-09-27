@@ -1,5 +1,6 @@
-CREATE DATABASE IF NOT EXISTS dbProjetoRms;
-USE dbProjetoRms;
+CREATE DATABASE IF NOT EXISTS dbRabbitMonitoring;
+-- DROP DATABASE dbRabbitMonitoring;
+USE dbRabbitMonitoring;
 
 CREATE TABLE tbEmpresa (
 	idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
@@ -126,3 +127,7 @@ INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor, 
 
 INSERT INTO tbServidor(sistemaoOperacionalServidor, serialServidor, dataCadastro, fkSetor) VALUES (
 			"LX-1045693", "Linux","2022-09-08", 1);
+            
+            
+SELECT * FROM tbCpu;
+SELECT * FROM tbRam;

@@ -7,6 +7,7 @@ import psutil as ps
 from datetime import datetime
 import numpy as np 
 import subprocess
+import wmi;
 
 
 # cria arquivo logs.txt
@@ -27,18 +28,18 @@ today_time = today.strftime("%Y-%m-%d ")
 print( os.popen("date").read().split())
 # define as propriedades da conexão do banco de dados
 connection = pymysql.connect(host='localhost',
-                             user='rafael',
-                             password='akemisql',
-                             database='dbProjetoBolsa')
+                             user='aluno',
+                             password='sptech',
+                             database='dbProjetoRms')
 
 # cursor, que nos auxilia a adentrar o banco de dados e inserir no mesmo
 cursor = connection.cursor()
 
 # dicionario 1 com os dados fixos do sistema operacional
 dados_os = {
-    'SISTEMA_NOME': platform.system()["NAME"],
+    'SISTEMA_NOME': platform.system(),
     'SISTEMA_TIPO': platform.system(),
-    'SISTEMA_URL': platform.system()["HOME_URL"]
+    'SISTEMA_URL': platform.release()
 }
 
 # dicionario 2, com os dados fixos da CPU
@@ -48,12 +49,16 @@ dados_cpu = {
     'CPU_FREQ_MAX':  ps.cpu_freq().max,
 }
 
-
+# cat /proc/meminfo  
 def run_sql_command(sql_command):
     return cursor.execute(sql_command)
 
+def transform_to_gb(value, n_decimal=0):
+    return round(value / pow(1024, 3), n_decimal)
+
 def get_current_date() : 
     return os.popen("date").read().split()[3]
+
 def get_directory(): 
     directory = os.popen('pwd').read()
     return directory
@@ -77,9 +82,9 @@ def get_system_type():
 
 def get_memory_ram():
     # calculo de conversão de bytes para gb, 10^9
-    total = round(ps.virtual_memory().total / pow(10, 9), 0)
-    uso_ram = round(ps.virtual_memory().used / pow(10, 9), 2)
-    livre_ram = round(ps.virtual_memory().free / pow(10, 9), 2)
+    total = transform_to_gb(ps.virtual_memory().total)
+    uso_ram = transform_to_gb(ps.virtual_memory().used, 2)
+    livre_ram = transform_to_gb(ps.virtual_memory().free, 2)
     percent = ps.virtual_memory().percent
 
     print("\033[1;36m MEMÓRIA RAM \n ================= \033[0m\n  ")
@@ -94,8 +99,8 @@ def get_memory_ram():
         Data: {3} 
     """.format(total, uso_ram, percent, today_time))
 
-    run_sql_command("INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataRam, fkServidor) \
-         VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(today_time + get_current_date())+"',1);")
+    run_sql_command("INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataColetaDadosRam, fkServidor, fkSetor) \
+         VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(today_time)+"',1,1);")
 
 def get_cpu():
     
@@ -158,16 +163,18 @@ def get_cpu():
 
     # insere no sql
     if(cursor_select_cpu_count < 1 ) :  
-        run_sql_command("INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor) VALUES \
-            ("+cpu_qtd_nucleos+","+cpu_qtd_threads+",'"+cpu_tecnologia+"','"+cpu_modelo_nome+"',1) ")
+        run_sql_command("INSERT INTO tbCpu (qtdNucleos,qtdThreads, tecnologiaCpu, modeloCpu, fkServidor, fkSetor) VALUES \
+            ("+cpu_qtd_nucleos+","+cpu_qtd_threads+",'"+cpu_tecnologia+"','"+cpu_modelo_nome+"',1,1) ")
         
-        print("jorge jorge")
+        print("Enviado ao Banco de Dados")
+        print("\n")
 
 
 
 
-    a = today_time + get_current_date()
-    run_sql_command("INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataCpu, fkCpu) VALUES ({0},{1},'{2}',1) ".format(freqAtualCpu, temp, a))
+    a = today_time
+    print(freqAtualCpu)
+    run_sql_command("INSERT INTO tbDadosCpu (freqAtualCpu, temperaturaAtualCpu, dataColetaDadosCpu, fkCpu) VALUES ({0},{1},'{2}',1) ".format(freqAtualCpu, temp, a))
 
 
 
@@ -178,8 +185,8 @@ def get_disk():
     # Colhe os dados e converte para GB, >> 30 é a conversão, descobri isso depois.
     # manipulacao de bits = >>
     # para virar gb
-    disco_total = round(ps.disk_usage('/').total >> 30)
-    disco_livre = round(ps.disk_usage('/').free >> 30)
+    disco_total = transform_to_gb(ps.disk_usage('/').total, 2)
+    disco_livre = transform_to_gb(ps.disk_usage('/').free, 2)
     disco_usado = disco_total-disco_livre
     disco_percent = round(ps.disk_usage('/').percent)
     tempo_leitura = ps.disk_io_counters().read_time >> 15
@@ -208,7 +215,7 @@ def get_disk():
     ====================================================
     """.format(disco_total, tempo_leitura, tempo_escrita, disco_percent))
     run_sql_command("INSERT INTO tbDisco (capacidadeDisco,espacoLivreDisco,espacoUsadoDisco,porcentagemUsoDisco , dataDisco, fkServidor) VALUES \
-        ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(today_time + get_current_date())+"', 1) ")
+        ("+str(disco_total)+", "+str(disco_livre)+","+str(disco_usado)+","+str(disco_percent)+",'"+str(today_time)+"', 1) ")
 
 def network():
     print("\033[1;36mInternet \n ================= \033[0m\n")
