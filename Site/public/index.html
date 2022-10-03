@@ -81,9 +81,9 @@
             </div>
         </div>
         <!-- Texto do Meio no Início -->
-        <div class="container-fluid h-auto pb-5">
+        <div class="container-fluid h-auto pb-5 ">
             <div class="container row mx-auto p-0 d-flex align-items-md-center justify-content-between w-75 pb-md-5">
-                <div class="col pt-0 d-flex flex-column align-items-center justify-content-between text-center text-container"
+                <div class="jump1 col pt-0 d-flex flex-column align-items-center justify-content-between text-center text-container"
                     style="margin-top: 100px">
                     <p class="h1 m-0 mb-4 fw-bolder text-dark">Rabbit Monitoring System</p>
                     <p class="h5 mb-4 fw-bold subtitle text-dark">Basta abrir para você transformar a realidade</p>
@@ -91,7 +91,7 @@
                         principais informações do seu hardware, permitindo o seu monitoramento utilizando o nosso site
                     </p>
                     <div class="row d-flex justify-content-evenly align-items-center" style="width: 50% !important;">
-                        <button class="cadastrar-button btn fw-semibold">Começar</button>
+                        <button onclick="redirecionar()" class="cadastrar-button btn fw-semibold">Começar</button>
                     </div>
                 </div>
             </div>
@@ -472,6 +472,10 @@
         }
 
     }
+
+function redirecionar(){
+    window.location.href= "./sing-up.html";
+}
 
 </script>
 

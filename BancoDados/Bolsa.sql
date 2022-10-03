@@ -1,11 +1,12 @@
 CREATE DATABASE bolsa;
+-- DROP DATABASE bolsa;
 USE bolsa;
 
 CREATE TABLE empresa(
   idEmpresa INT  PRIMARY KEY AUTO_INCREMENT,
   nomeEmpresa VARCHAR(45) NOT NULL,
   cnpjEmpresa CHAR(18) UNIQUE NOT NULL,
-  telefoneEmpesa CHAR(15)
+  telefoneEmpresa CHAR(15)
 );
 
 CREATE TABLE usuario (
@@ -58,9 +59,9 @@ CREATE TABLE leitura (
   horarioLeitura DATETIME NOT NULL,
   valorLeitura VARCHAR(255) NOT NULL,
   fkComponenteFisico INT NOT NULL,
-  CONSTRAINT FK_componenteFisico_fkLeitura FOREIGN KEY (fkComponenteFisico) REFERENCES componenteFisico (idComponenteFisico),
+  CONSTRAINT FK_leitura_fkComponenteFisico FOREIGN KEY (fkComponenteFisico) REFERENCES componenteFisico (idComponenteFisico),
   fkMetrica INT NOT NULL,
-  CONSTRAINT FK_metrica_fkLeitura FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica)
+  CONSTRAINT FK_leitura_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica)
 );
 
 CREATE TABLE alerta (
@@ -68,17 +69,17 @@ CREATE TABLE alerta (
   valorLeitura VARCHAR(255) NOT NULL,
   tipoLeitura VARCHAR(45),
   fkLeitura INT NOT NULL,
-  CONSTRAINT FK_leitura_fkAlerta FOREIGN KEY (fkLeitura) REFERENCES leitura (idLeitura)
+  CONSTRAINT FK_alerta_fkAlerta FOREIGN KEY (fkLeitura) REFERENCES leitura (idLeitura)
  );
  
  CREATE TABLE parametro(
    fkComponenteFisico INT NOT NULL,
-  CONSTRAINT FK_componenteFisico_fkLeitura FOREIGN KEY (fkComponenteFisico) REFERENCES componenteFisico (idComponenteFisico),
+  CONSTRAINT FK_parametro_fkComponenteFisico FOREIGN KEY (fkComponenteFisico) REFERENCES componenteFisico (idComponenteFisico),
   fkMetrica INT NOT NULL,
-  CONSTRAINT FK_metrica_fkLeitura FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica),
+  CONSTRAINT FK_parametro_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica),
   fkServidor INT NOT NULL,
-  CONSTRAINT FK_componenteFisico_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
-  isTupla CHAR(1),
-   CONSTRAINT CK_parametro_isTupla CHECK(isTupla IN ('S', 'N')),
+  CONSTRAINT FK_parametro_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
   PRIMARY KEY(fkComponenteFisico, fkMetrica, fkServidor)
  );
+ 
+ SELECT * FROM empresa;

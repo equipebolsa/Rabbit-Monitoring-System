@@ -13,7 +13,6 @@ function cadastrar(nome,cnpj,telefone) {
 }
 
 module.exports = {
-    entrar,
     cadastrar,
     listar,
 };

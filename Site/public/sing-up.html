@@ -90,7 +90,13 @@
     function cadastrar() {
 
       var nomePessoa = nome.value;
-      fetch(`usuarios/cadastrar`, {
+      var emailPessoa = email.value;
+      var senhaPessoa = senha.value;
+      var nomeEmpresaEmpresa = nomeEmpresa.value;
+      var cpnjEmpresa = cnpj.value;
+      var telefoneEmpresa = telefone.value;
+
+      fetch(`/empresa/cadastrar`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -101,13 +107,12 @@
           senhaServer: senhaPessoa,
           nomeEmpresaServer: nomeEmpresaEmpresa,
           cpnjEmpresaServer: cpnjEmpresa,
-          telefoneEmpresaServer: telefoneEmpresa,
-
+          telefoneEmpresaServer: telefoneEmpresa
         })
       }).then(function (response) {
         console.log('Resposta: ', response);
-        if(response.ok){
-          alert("C")
+        if (response.ok) {
+          window.location.href = "./sing-in.html";
         }
       });
     }

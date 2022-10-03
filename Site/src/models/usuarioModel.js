@@ -8,12 +8,12 @@ function listar() {
 }
 
 function entrar(email, senha) {
-    var instrucao = `SELECT * FROM usuario WHERE email = '${email}' AND senha = '${senha}';`;
+    var instrucao = `SELECT * FROM usuario WHERE emailUsuario = '${email}' AND senhaUsuario = '${senha}';`;
     return database.executar(instrucao);
 }
 
-function cadastrar(nome,senha,email,cpf,tipoUsuario,fkEmpresa,fkGestor) {
-    var instrucao = `INSERT INTO usuario (nomeUsuario, emailUsuario, senhaUsuario,cpfUsuario,tipoUsuario,fkEmpresa,fkGestor) VALUES ('${nome}','${cpf}', '${email}', '${senha}', '${tipoUsuario}','${fkEmpresa}','${fkGestor}');`;
+function cadastrar(nome,email,senha,tipoUsuario,fkEmpresa,fkGestor) {
+    var instrucao = `INSERT INTO usuario (nomeUsuario, emailUsuario, senhaUsuario,tipoUsuario,fkEmpresa,fkGestor) VALUES ('${nome}','${email}','${senha}','${tipoUsuario}','${fkEmpresa}',${fkGestor});`;
     return database.executar(instrucao);
 }
 

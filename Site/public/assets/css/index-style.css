@@ -330,6 +330,9 @@ ul.carrossel-list li:not(.selected):hover {
     margin-top: 5%;
 }
 
+.jump1{
+    margin-bottom: 10%;
+}
 
 .planos{
     display: flex;
@@ -425,3 +428,13 @@ ul.carrossel-list li:not(.selected):hover {
     font-size:13px;
     opacity:0.6;
   }
+
+
+  @keyframes animation {
+	to{
+		opacity: 1;
+	}
+	from{
+		opacity: 0;
+	}
+}
