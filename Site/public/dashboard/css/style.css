@@ -304,3 +304,7 @@
 .container{
     width: 40vw;        
 }
+
+input:disabled{
+    background-color: #000000 !important;
+}
