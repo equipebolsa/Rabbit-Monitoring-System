@@ -35,7 +35,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         
         varProcesso.setText(looca.getGrupoDeProcessos().getProcessos().toString());
         
-        int delay = 5000;
+        int delay = 4000;
         int interval = 1000;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask(){
