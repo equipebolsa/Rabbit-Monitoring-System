@@ -38,27 +38,34 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
      */
     public TelaDeMonitoramento() {
         initComponents();
-        
-        
+        Double total = looca.getMemoria().getTotal() / Math.pow(1024.0, 3.0);
+        Double uso = looca.getMemoria().getEmUso() / Math.pow(1024.0, 3.0);
+        Double disponivel = looca.getMemoria().getDisponivel() / Math.pow(1024.0, 3.0);
+
         varCpu.setText(looca.getTemperatura().getTemperatura().toString());
-        varUsoRam.setText(looca.getMemoria().getEmUso().toString());
-        varDispRam.setText(looca.getMemoria().getDisponivel().toString());
-        varTotalRam.setText(looca.getMemoria().getTotal().toString());
-        
+        varUsoRam.setText(String.format("%.2f GB", uso));
+        varDispRam.setText(String.format("%.2f GB", disponivel));
+        varTotalRam.setText(String.format("%.2f GB", total));
+        varDisco.setText(looca.getGrupoDeDiscos().getDiscos().toString());
+
         int delay = 5000;
         int interval = 1000;
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask(){
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+
             public void run() {
-              
-                
-               varCpu.setText(looca.getTemperatura().getTemperatura().toString()); 
-               varUsoRam.setText(looca.getMemoria().getEmUso().toString());
-               varDispRam.setText(looca.getMemoria().getDisponivel().toString());
-               varTotalRam.setText(looca.getMemoria().getTotal().toString());
-               varDisco.setText(looca.getGrupoDeDiscos().getDiscos().toString());
+                Double total = looca.getMemoria().getTotal() / Math.pow(1024.0, 3.0);
+                Double uso = looca.getMemoria().getEmUso() / Math.pow(1024.0, 3.0);
+                Double disponivel = looca.getMemoria().getDisponivel() / Math.pow(1024.0, 3.0);
+
+                varCpu.setText(looca.getTemperatura().getTemperatura().toString());
+                varUsoRam.setText(String.format("%.2f GB", uso));
+                varDispRam.setText(String.format("%.2f GB", disponivel));
+                varTotalRam.setText(String.format("%.2f GB", total));
+                varDisco.setText(looca.getGrupoDeDiscos().getDiscos().toString());
             }
-        }, delay, interval); 
+        }, delay, interval);
     }
  
     
@@ -84,6 +91,8 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         varTotalRam = new javax.swing.JLabel();
         disco = new javax.swing.JLabel();
         varDisco = new java.awt.TextArea();
+        buttonProcesso = new javax.swing.JButton();
+        buttonSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +117,20 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         varTotalRam.setText("0,0");
 
         disco.setText("Disco:");
+
+        buttonProcesso.setText("Ver processo");
+        buttonProcesso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProcessoActionPerformed(evt);
+            }
+        });
+
+        buttonSair.setText("Sair");
+        buttonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,11 +166,16 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(tempCpu)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(varCpu))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(varDisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(113, 113, 113))
+                        .addComponent(varCpu)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(varDisco, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonProcesso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,12 +202,28 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(disco)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(varDisco, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(varDisco, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonProcesso)
+                        .addGap(16, 16, 16)
+                        .addComponent(buttonSair)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcessoActionPerformed
+        TelaProcessos tela = new TelaProcessos();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_buttonProcessoActionPerformed
+
+    private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_buttonSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +252,12 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -218,6 +268,8 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonProcesso;
+    private javax.swing.JButton buttonSair;
     private javax.swing.JLabel disco;
     private javax.swing.JLabel dispRam;
     private javax.swing.JLabel memRam;
