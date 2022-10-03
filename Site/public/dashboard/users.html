@@ -56,8 +56,7 @@
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="chart.html" class="nav-item nav-link active"><i
-                            class="fa fa-chart-line me-2"></i>Gráficos</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-laptop me-2"></i>Cadastro</a>
@@ -67,7 +66,8 @@
                             <a href="add-sector.html" class="dropdown-item">Setor</a>
                         </div>
                     </div>
-                    <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
+                    <a href="users.html" class="nav-item nav-link active"><i
+                            class="fa fa-users me-2"></i>Funcionários</a>
 
                 </div>
             </nav>
@@ -125,79 +125,80 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Servidor</h6>
-                            <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-                                <option selected>Selecione um servidor</option>
-                                <option value="1">Máquina 1</option>
-                                <option value="2">Máquina 2</option>
-                                <option value="3">Máquina 3</option>
-                                <option value="4">Máquina 4</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Periodo</h6>
-                            <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-                                <option selected>Selecione um servidor</option>
-                                <option value="1">Diário</option>
-                                <option value="2">Semanal</option>
-                                <option value="3">Mensal</option>
-                                <option value="4">Anual</option>
-                            </select>
+                            <h6 class="mb-4">Pesquisar</h6>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sales Chart Start -->
+            <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">CPU</h6>
-                            </div>
-                            <canvas id="worldwide-sales"></canvas>
-                        </div>
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Usuários</h6>
+                        <a href="">Ver todos</a>
                     </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Temperatura</h6>
-                            </div>
-                            <canvas id="salse-revenue"></canvas>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-white">
+                                    <th scope="col">
+                                        Nome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </th>
+                                    <th scope="col">Cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                    <th scope="col">Gestor</th>
+                                    <th scope="col">E-mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                    <th scope="col">Ação&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Roberto Mamão</td>
+                                    <td>Gestor</td>
+                                    <td>-</td>
+                                    <td>roberto.papaya@rabbit.com</td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Julio Abacate</td>
+                                    <td>Operador</td>
+                                    <td>Roberto Mamão</td>
+                                    <td>julio.avocado@rabbit.com</td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Geraldo Pitaya</td>
+                                    <td>Operador</td>
+                                    <td>Roberto Mamão</td>
+                                    <td>geraldo.dragonfruit@rabbit.com</td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Juliana Pêra</td>
+                                    <td>Operadora</td>
+                                    <td>Roberto Mamão</td>
+                                    <td>juliana.pear@rabbit.com</td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Zênia Coco</td>
+                                    <td>Operadora</td>
+                                    <td>Roberto Mamão</td>
+                                    <td>zenia.coconut@rabbit.com</td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">RAM</h6>
-                            </div>
-                            <canvas id="line-chart"></canvas>
-                        </div>
-                        
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Disco</h6>
-                            </div>
-                            <canvas id="bar-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sales Chart End -->
+            <!-- Recent Sales End -->
 
 
             <!-- Footer Start -->

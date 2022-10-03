@@ -14,9 +14,8 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
+    
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -35,8 +34,7 @@
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner"
-            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -49,26 +47,22 @@
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">
-                        <img class="nav-logo" src="img/logo.png">
-                        </i>Rabbit MS
-                    </h3>
+                    <img class="nav-logo" src="img/logo.png">
+                    </i>Rabbit MS</h3>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="chart.html" class="nav-item nav-link active"><i
-                            class="fa fa-chart-line me-2"></i>Gráficos</a>
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-laptop me-2"></i>Cadastro</a>
-                        <div class="dropdown-menu bg-transparent border-0">
+                        <a href="#" class="nav-link dropdown-toggle active show" aria-expanded="true" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Cadastro</a>
+                        <div class="dropdown-menu bg-transparent border-0 show" data-bs-popper="none">
                             <a href="add-machine.html" class="dropdown-item">Servidor</a>
                             <a href="add-user.html" class="dropdown-item">Funcionário</a>
-                            <a href="add-sector.html" class="dropdown-item">Setor</a>
+                            <a href="add-sector.html" class="dropdown-item active">Setor</a>
                         </div>
                     </div>
                     <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-
+                    
                 </div>
             </nav>
         </div>
@@ -86,7 +80,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
-
+                    
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-triangle-exclamation me-lg-2"></i>
@@ -112,8 +106,7 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                                style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -126,78 +119,6 @@
             </nav>
             <!-- Navbar End -->
 
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Servidor</h6>
-                            <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-                                <option selected>Selecione um servidor</option>
-                                <option value="1">Máquina 1</option>
-                                <option value="2">Máquina 2</option>
-                                <option value="3">Máquina 3</option>
-                                <option value="4">Máquina 4</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Periodo</h6>
-                            <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-                                <option selected>Selecione um servidor</option>
-                                <option value="1">Diário</option>
-                                <option value="2">Semanal</option>
-                                <option value="3">Mensal</option>
-                                <option value="4">Anual</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">CPU</h6>
-                            </div>
-                            <canvas id="worldwide-sales"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Temperatura</h6>
-                            </div>
-                            <canvas id="salse-revenue"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">RAM</h6>
-                            </div>
-                            <canvas id="line-chart"></canvas>
-                        </div>
-                        
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Disco</h6>
-                            </div>
-                            <canvas id="bar-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sales Chart End -->
 
 
             <!-- Footer Start -->
@@ -205,7 +126,7 @@
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Rabbit Monitoring System</a>, All Right Reserved.
+                            &copy; <a href="#">Rabbit Monitoring System</a>, All Right Reserved. 
                         </div>
                     </div>
                 </div>
