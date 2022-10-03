@@ -30,11 +30,5 @@ function showRewritePassword() {
     }
 }
 
-function goToLoginOrSignUp(type) {
-    if (type == 'login') {
-        window.location.href = "./login.html"
-    } else {
-        window.location.href = "./cadastro.html"
-    }
-}
+
 

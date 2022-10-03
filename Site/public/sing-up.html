@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login </title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/cadastro.css">
+  <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 login-section-wrapper">
+          <div class="login-wrapper my-auto">
+            <h1 class="login-title">Seja Bem-Vinde</h1>
+            <small>Loremzão de cria</small>
+          </div>
+          <div class="login-wrapper my-auto">
+
+            <div class="container-fluid">
+              <h5>Dados Pessoais</h5>
+              <hr>
+              <div class="row">
+                <div class="col-lg-6">
+                  <label for="email">NOME</label>
+                  <input type="text" name="nome" id="nome" class="form-control" placeholder="Coloque seu nome">
+                </div>
+                <div class="col-lg-6">
+                  <label for="email">E-MAIL</label>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="email@example.com">
+                </div>
+                <div class="col-lg-6">
+                  <label for="senha">SENHA</label>
+                  <input type="password" name="senha" id="senha" class="form-control" placeholder="Defina uma senha">
+                </div>
+
+                <div class="col-lg-6">
+                  <label for="senha">CONFIRMAR SENHA</label>
+                  <input type="password" name="ConfirmaSenha" id="ConfirmaSenha" class="form-control"
+                    placeholder="Confirme sua senha">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="container-fluid">
+              <h5>Dados Empresariais</h5>
+              <hr>
+              <div class="row">
+                <div class="col-lg-6">
+                  <label for="nomeEmpresa">NOME EMPRESA</label>
+                  <input type="text" name="nomeEmpresa" id="nomeEmpresa" class="form-control"
+                    placeholder="Nome da empresa">
+                </div>
+                <div class="col-lg-6">
+                  <label for="cnpj">CNPJ</label>
+                  <input type="text" name="cnpj" id="cnpj" class="form-control" placeholder="12.345.123/1234-12">
+                </div>
+                <div class="col-lg-12">
+                  <label for="telefone">TELEFONE</label>
+                  <input type="text" name="telefone" id="telefone" class="form-control" placeholder="(11) 91234-9876">
+                </div>
+                <input name="cadastar" id="cadastar" onclick="cadastrar();  " class="btn btn-block login-btn"
+                  type="button" value="Cadastrar">
+              </div>
+            </div>
+
+          </div>
+          <span> <a href="index.html">Voltar</a></span>
+        </div>
+        <div class="col-sm-6 px-0 d-none d-sm-block">
+          <div class="layer login-img"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <script>
+
+    function cadastrar() {
+
+      var nomePessoa = nome.value;
+      fetch(`usuarios/cadastrar`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nomeServer: nomePessoa,
+          emailServer: emailPessoa,
+          senhaServer: senhaPessoa,
+          nomeEmpresaServer: nomeEmpresaEmpresa,
+          cpnjEmpresaServer: cpnjEmpresa,
+          telefoneEmpresaServer: telefoneEmpresa,
+
+        })
+      }).then(function (response) {
+        console.log('Resposta: ', response);
+        if(response.ok){
+          alert("C")
+        }
+      });
+    }
+
+
+  </script>
+</body>
+
+</html>

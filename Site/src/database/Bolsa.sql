@@ -13,14 +13,17 @@ CREATE TABLE usuario (
   nomeUsuario VARCHAR(45) NOT NULL,
   emailUsuario VARCHAR(45) NOT NULL,
   senhaUsuario CHAR(128) NOT NULL,
+  cpfUsuario CHAR(15) NOT NULL,
   tipoUsuario VARCHAR(13), 
   CONSTRAINT CK_usuario_tipoUsuario CHECK(tipoUsuario IN ('gestor', 'técnico')),
   CONSTRAINT UK_usuario_emailUsuario UNIQUE(emailUsuario),
+  CONSTRAINT UK_usuario_cpfUsuario UNIQUE(cpfUsuario),
   fkEmpresa INT NOT NULL,
   CONSTRAINT FK_usuario_fkEmpresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),  
-  fkGestor INT,
+  fkGestor INT NULL,
   CONSTRAINT FK_usuario_fkGestor FOREIGN KEY (fkGestor) REFERENCES usuario (idUsuario)
 ) AUTO_INCREMENT = 10;
+
 
 CREATE TABLE setor (
   idSetor INT PRIMARY KEY AUTO_INCREMENT,

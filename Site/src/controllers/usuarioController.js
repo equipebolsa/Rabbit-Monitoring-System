@@ -1,11 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
-
-var sessoes = [];
-
-function testar(req, res) {
-    console.log("ENTRAMOS NA usuarioController");
-    res.json("ESTAMOS FUNCIONANDO!");
-}
+var sha512 = require('js-sha512');
 
 function listar(req, res) {
     usuarioModel.listar()
@@ -61,12 +55,10 @@ function entrar(req, res) {
 }
 
 function cadastrar(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
-    // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -98,5 +90,4 @@ module.exports = {
     entrar,
     cadastrar,
     listar,
-    testar
 }
