@@ -6,7 +6,7 @@ CREATE TABLE empresa(
   idEmpresa INT  PRIMARY KEY AUTO_INCREMENT,
   nomeEmpresa VARCHAR(45) NOT NULL,
   cnpjEmpresa CHAR(18) UNIQUE NOT NULL,
-  telefoneEmpresa CHAR(15)
+  telefoneEmpresa VARCHAR(20)
 );
 
 CREATE TABLE usuario (
@@ -14,7 +14,7 @@ CREATE TABLE usuario (
   nomeUsuario VARCHAR(45) NOT NULL,
   emailUsuario VARCHAR(45) NOT NULL,
   senhaUsuario CHAR(128) NOT NULL,
-  tipoUsuario VARCHAR(13), 
+  tipoUsuario VARCHAR(13) NOT NULL,
   CONSTRAINT CK_usuario_tipoUsuario CHECK(tipoUsuario IN ('gestor', 'técnico')),
   CONSTRAINT UK_usuario_emailUsuario UNIQUE(emailUsuario),
   fkEmpresa INT NOT NULL,
@@ -31,6 +31,8 @@ CREATE TABLE setor (
   descricaoSetor VARCHAR(255) NULL  
 );
 
+INSERT INTO setor VALUES(NULL,1,"SETOR1","Teste");
+
 CREATE TABLE servidor (
   idServidor INT PRIMARY KEY AUTO_INCREMENT,
   fkSetor INT NOT NULL,
@@ -40,6 +42,8 @@ CREATE TABLE servidor (
   serialNumber VARCHAR(45) NOT NULL
 );
 
+INSERT INTO servidor VALUES(NULL,1,"LINUX","12:12:12:12","TESTE");
+
 CREATE TABLE componenteFisico  (
 	idComponenteFisico  INT PRIMARY KEY AUTO_INCREMENT,
     fkServidor INT NOT NULL,
@@ -47,12 +51,19 @@ CREATE TABLE componenteFisico  (
     tipoComponente VARCHAR(45) NOT NULL
 );
 
+INSERT INTO componenteFisico VALUES(NULL,5,"CPU");
+
 CREATE TABLE metrica (
 	idMetrica  INT PRIMARY KEY AUTO_INCREMENT,
 	nomeMetrica VARCHAR(45),
-	comando VARCHAR(255),
-	unidade_medida CHAR(5)
+	comandoPython VARCHAR(255),
+    comandoJava VARCHAR(255),
+	unidade_medida CHAR(45),
+    isTupla CHAR(1) NOT NULL,
+	CONSTRAINT CK_metrica_isTupla CHECK(isTupla IN ('1', '0'))
 );
+
+INSERT INTO metrica VALUES(NULL,"CPUFrequencia","xxxxx","GHZ");
 
 CREATE TABLE leitura (
   idLeitura INT PRIMARY KEY AUTO_INCREMENT,
@@ -63,6 +74,8 @@ CREATE TABLE leitura (
   fkMetrica INT NOT NULL,
   CONSTRAINT FK_leitura_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica)
 );
+
+INSERT INTO leitura VALUES(NULL,NOW(),'1.50',4,1);
 
 CREATE TABLE alerta (
   idAlerta INT PRIMARY KEY AUTO_INCREMENT,
@@ -82,4 +95,19 @@ CREATE TABLE alerta (
   PRIMARY KEY(fkComponenteFisico, fkMetrica, fkServidor)
  );
  
- SELECT * FROM empresa;
+
+CREATE VIEW leituraView AS SELECT 
+    nomeEmpresa,
+    nomeSetor,
+    idServidor,
+    tipoComponente,
+	horarioLeitura,
+    valorLeitura,
+    unidade_medida
+FROM
+    leitura
+INNER JOIN componenteFisico ON idComponenteFisico =  fkComponenteFisico
+INNER JOIN servidor ON idServidor = fkServidor
+INNER JOIN setor ON idSetor = fkSetor
+INNER JOIN empresa ON idEmpresa = fkEmpresa
+INNER JOIN metrica ON idMetrica = fkMetrica

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,13 +12,14 @@
   <link rel="stylesheet" href="assets/css/login.css">
   <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
 </head>
+
 <body>
   <main>
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6 login-section-wrapper">
           <div class="brand-wrapper">
-            <img src="assets/img/logo.png"alt="logo" class="logo">
+            <img src="assets/img/logo.png" alt="logo" class="logo">
           </div>
           <div class="login-wrapper my-auto">
             <h1 class="login-title">Entrar</h1>
@@ -30,10 +32,12 @@
                 <label for="password">Password</label>
                 <input type="password" name="senha" id="senha" class="form-control" placeholder="enter your passsword">
               </div>
-              <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Login" onclick="entrar()">
+              <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Login"
+                onclick="entrar()">
             </form>
             <a href="#!" class="forgot-password-link">Esqueceu sua senha?</a>
-            <p class="login-wrapper-footer-text">Não possui conta? <a href="#!" class="text-reset">Cadastre-se aqui</a></p>
+            <p class="login-wrapper-footer-text">Não possui conta? <a href="#!" class="text-reset">Cadastre-se aqui</a>
+            </p>
           </div>
           <span> <a href="index.html">Voltar</a></span>
         </div>
@@ -65,6 +69,13 @@
       }).then(function (response) {
         console.log('Resposta: ', response);
         if (response.ok) {
+          resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            sessionStorage.USUARIO = json;
+
+          });
           window.location.href = "../dashboard/index.html";
         }
       });

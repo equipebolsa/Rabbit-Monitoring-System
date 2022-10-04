@@ -15,7 +15,7 @@ today_time = today.strftime("%Y-%m-%d ")
 
 
 # define as propriedades da conexão do banco de dados
-connection = pymysql.connect(host='localhost',user='root',password='Alfajor12',database='dbRabbitMonitoring')
+connection = pymysql.connect(host='localhost',user='aluno',password='sptech',database='bolsa')
 
 # cursor, que nos auxilia a adentrar o banco de dados e inserir no mesmo
 cursor = connection.cursor()
@@ -73,7 +73,7 @@ def get_memory_ram():
     print('\n')
 
     
-    run_sql_command("INSERT INTO tbRam(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataColetaDadosRam, fkServidor, fkSetor) \
+    run_sql_command("INSERT INTO tbLeitura(capacidadeRam, espacoLivreRam, espacoUsadoRam, dataColetaDadosRam, fkServidor, fkSetor) \
          VALUES ('"+str(total)+"','"+str(livre_ram)+"','"+str(uso_ram)+"','"+str(today_time)+"',1,1);")
 
 
