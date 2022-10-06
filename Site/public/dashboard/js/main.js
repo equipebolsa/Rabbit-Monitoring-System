@@ -65,77 +65,6 @@
 
 
 
-
-
-    // Salse & Revenue Chart
-    var ctx2 = $("#salse-revenue").get(0).getContext("2d");
-    var myChart2 = new Chart(ctx2, {
-        type: "line",
-        data: {
-            labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
-            datasets: [{
-                    label: "Salse",
-                    data: [15, 30, 55, 45, 70, 65, 85],
-                    backgroundColor: "#1c003b",
-                    fill: true
-                },
-                {
-                    label: "Revenue",
-                    data: [99, 135, 170, 130, 190, 180, 270],
-                    backgroundColor: "#7f00b2",
-                    fill: true
-                }
-            ]
-            },
-        options: {
-            responsive: true
-        }
-    });
-    
-
-
-    // Single Line Chart
-    var ctx3 = $("#line-chart").get(0).getContext("2d");
-    var myChart3 = new Chart(ctx3, {
-        type: "line",
-        data: {
-            labels: [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150],
-            datasets: [{
-                label: "Salse",
-                fill: false,
-                backgroundColor: "#1c003b",
-                data: [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
-
-
-    // Single Bar Chart
-    var ctx4 = $("#bar-chart").get(0).getContext("2d");
-    var myChart4 = new Chart(ctx4, {
-        type: "bar",
-        data: {
-            labels: ["Italy", "France", "Spain", "USA", "Argentina"],
-            datasets: [{
-                backgroundColor: [
-                    "#1c003b",
-                    "#4b0374",
-                    "#7f00b2",
-                    "#bc4ed8",
-                    "#f988ff"
-                ],
-                data: [55, 49, 44, 24, 15]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
-
-
     /* Pie Chart
     var ctx5 = $("#pie-chart").get(0).getContext("2d");
     var myChart5 = new Chart(ctx5, {
@@ -180,8 +109,96 @@
             responsive: true
         }
     }); */
-
-
+    // CPU
+    var chartCPU = $("#CPU").get(0).getContext("2d");
+    var myChartCPU = new Chart(chartCPU, {
+        type: "line",
+        data: {
+            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00'],
+            datasets: [{
+                label: "% de uso",
+                fill: true,
+                backgroundColor: "#7f00b2",
+                data: [45, 35, 40, 50, 68, 72, 80]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+    // Temp
+    var chartTemp = $("#Temp").get(0).getContext("2d");
+    var myChartTemp = new Chart(chartTemp, {
+        type: "line",
+        data: {
+            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00'],
+            datasets: [{
+                label: "Temperatura em C°",
+                fill: true,
+                backgroundColor: "#7f00b2",
+                data: [45, 45, 42, 56, 68, 72, 62]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+    // RAM
+    var chartRAM = $("#RAM").get(0).getContext("2d");
+    var myChartRAM = new Chart(chartRAM, {
+        type: "line",
+        data: {
+            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00'],
+            datasets: [{
+                label: "% de uso°",
+                fill: true,
+                backgroundColor: "#7f00b2",
+                data: [20, 25, 18, 24, 47, 68, 67]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+    /*
+    var chartHDD = $("#HDD").get(0).getContext("2d");
+    var myChartHDD = new Chart(chartHDD, {
+        type: "pie",
+        data: {
+            labels: ["Livre", "Em uso"],
+            datasets: [{
+                backgroundColor: [
+                    "#1c003b",
+                    "#4b0374",
+                    //"#7f00b2",
+                    //"#bc4ed8",
+                   // "#f988ff"
+                ],
+                data: [33, 67]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+    */
+    // HDD
+    var chartHDD = $("#HDD").get(0).getContext("2d");
+    var myChartHDD = new Chart(chartHDD, {
+        type: "line",
+        data: {
+            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00'],
+            datasets: [{
+                label: "% de uso°",
+                fill: true,
+                backgroundColor: "#7f00b2",
+                data: [40, 44, 44, 44, 45, 47, 48]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
     
 })(jQuery);
 
