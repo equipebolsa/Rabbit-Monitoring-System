@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="./assets/css/index-style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+    <script src="./assets/js/funcoes.js"></script>
+    <title>Home</title>
+</head>
+
+<body>
+    <!-- Navbar e primeira parte -->
+    <div class="background">
+        <nav class="navbar navbar-expand-lg float-right py-2 px-0 m-0">
+            <div class="container-lg">
+                <a class="navbar-brand" href="#">
+                    <img src="./assets/img/logo.png">
+                </a>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-1">
+                            <a href="index.html" class="nav-link text-decoration-none pe-none here fw-bold">Home</a>
+                        </li>
+                        <li class="nav-item px-1">
+                            <a href="#planos" class="nav-link text-decoration-none pe-auto fw-normal">Planos</a>
+                            <!-- Semibold? -->
+                        </li>
+                        <li class="nav-item px-1">
+                            <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Quem Somos</a>
+                            <!-- Semibold? -->
+                        </li>
+
+                        <li class="nav-item px-1">
+                            <a href="sing-up.html" class="nav-link text-decoration-none pe-auto fw-normal">Cadastrar</a>
+                            <!-- Semibold? -->
+                        </li>
+
+                        <li class="nav-item px-1">
+                            <a href="sing-in.html" class="nav-link text-decoration-none pe-auto fw-normal">Entrar</a>
+                            <!-- Semibold? -->
+                        </li>
+                    </ul>
+                </div>
+                <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+            </div>
+        </nav>
+        <!-- Navbar Lateral -->
+        <div class="offcanvas offcanvas-end" id="demo">
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav">
+                    <li class="nav-item px-1">
+                        <a href="index.html" class="nav-link text-decoration-none pe-none here fw-bold">Home</a>
+                    </li>
+                    <li class="nav-item px-1 me-5">
+                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Planos</a>
+                    </li>
+                    <li class="nav-item px-1 me-5">
+                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Quem Somos</a>
+                    </li>
+                    <li class="nav-item px-1 me-5">
+                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Cadastrar</a>
+                    </li>
+                    <li class="nav-item px-1 me-5">
+                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Entrar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Texto do Meio no Início -->
+        <div class="container-fluid h-auto pb-5 ">
+            <div class="container row mx-auto p-0 d-flex align-items-md-center justify-content-between w-75 pb-md-5">
+                <div class="jump1 col pt-0 d-flex flex-column align-items-center justify-content-between text-center text-container"
+                    style="margin-top: 100px">
+                    <p class="h1 m-0 mb-4 fw-bolder text-dark">Rabbit Monitoring System</p>
+                    <p class="h5 mb-4 fw-bold subtitle text-dark">Basta abrir para você transformar a realidade</p>
+                    <p class="h6 mb-4 fw-semibold subtitle">Instalando o nosso aplicativo, você poderá verificar as
+                        principais informações do seu hardware, permitindo o seu monitoramento utilizando o nosso site
+                    </p>
+                    <div class="row d-flex justify-content-evenly align-items-center" style="width: 50% !important;">
+                        <button onclick="redirecionar()" class="cadastrar-button btn fw-semibold">Começar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="visual" version="1.1"
+            viewBox="0 47.21 1400 153.79" class="svg-img" style="bottom: 0;">
+            <path
+                d="M0 93L38.8 84.3C77.7 75.7 155.3 58.3 233.2 63.7C311 69 389 97 466.8 97.7C544.7 98.3 622.3 71.7 700 69.5C777.7 67.3 855.3 89.7 933.2 85.5C1011 81.3 1089 50.7 1166.8 47.5C1244.7 44.3 1322.3 68.7 1361.2 80.8L1400 93L1400 201L1361.2 201C1322.3 201 1244.7 201 1166.8 201C1089 201 1011 201 933.2 201C855.3 201 777.7 201 700 201C622.3 201 544.7 201 466.8 201C389 201 311 201 233.2 201C155.3 201 77.7 201 38.8 201L0 201Z"
+                fill="#8b26bb" />
+            <path
+                d="M0 130L38.8 131.7C77.7 133.3 155.3 136.7 233.2 128.2C311 119.7 389 99.3 466.8 84C544.7 68.7 622.3 58.3 700 58.8C777.7 59.3 855.3 70.7 933.2 80.5C1011 90.3 1089 98.7 1166.8 104.8C1244.7 111 1322.3 115 1361.2 117L1400 119L1400 201L1361.2 201C1322.3 201 1244.7 201 1166.8 201C1089 201 1011 201 933.2 201C855.3 201 777.7 201 700 201C622.3 201 544.7 201 466.8 201C389 201 311 201 233.2 201C155.3 201 77.7 201 38.8 201L0 201Z"
+                fill="#7223ac" />
+            <path
+                d="M0 128L38.8 135.5C77.7 143 155.3 158 233.2 155C311 152 389 131 466.8 131.8C544.7 132.7 622.3 155.3 700 163.8C777.7 172.3 855.3 166.7 933.2 156.8C1011 147 1089 133 1166.8 125.2C1244.7 117.3 1322.3 115.7 1361.2 114.8L1400 114L1400 201L1361.2 201C1322.3 201 1244.7 201 1166.8 201C1089 201 1011 201 933.2 201C855.3 201 777.7 201 700 201C622.3 201 544.7 201 466.8 201C389 201 311 201 233.2 201C155.3 201 77.7 201 38.8 201L0 201Z"
+                fill="#5a1f9c" />
+            <path
+                d="M0 142L38.8 150.2C77.7 158.3 155.3 174.7 233.2 180.3C311 186 389 181 466.8 173.8C544.7 166.7 622.3 157.3 700 155.7C777.7 154 855.3 160 933.2 163.5C1011 167 1089 168 1166.8 166.8C1244.7 165.7 1322.3 162.3 1361.2 160.7L1400 159L1400 201L1361.2 201C1322.3 201 1244.7 201 1166.8 201C1089 201 1011 201 933.2 201C855.3 201 777.7 201 700 201C622.3 201 544.7 201 466.8 201C389 201 311 201 233.2 201C155.3 201 77.7 201 38.8 201L0 201Z"
+                fill="#411a8c" />
+        </svg>
+    </div>
+
+    <!-- Benefícios -->
+    <div class="benefits py-sm-4 py-md-2">
+        <div class="container-fluid p-0 m-0 d-flex justify-content-center">
+            <div class="container row reveal row-cols-auto">
+                <div class="col-sm-12 col-md-7 p-0 d-flex justify-content-center align-items-center">
+                    <img src="./assets/img/working-computer.png" class="w-75">
+                </div>
+                <div class="col-sm-12 w-100 mt-md-0 mt-3 col-md p-0 d-flex align-items-center justify-content-center">
+                    <ul class="w-100 p-0 m-0 text-center d-grid h5 fw-semibold text-light"
+                        style="list-style: none; row-gap: 10px;">
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="w-100 p-0 m-0 text-center d-grid h5 fw-semibold text-light"
+                        style="list-style: none; row-gap: 10px;">
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                        <li class="">
+                            <i class="fa-solid fa-check" style="color: rgb(22, 207, 22);"></i>
+                            <span>
+                                Lorem ipsum dolor sit amet
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Carrossel -->
+    <div class="background-carrossel">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="visual" version="1.1"
+            viewBox="0 0 1400 50.32" class="svg-img" style="top: 0;">
+            <path
+                d="M0 25L77.8 31.7C155.7 38.3 311.3 51.7 466.8 50.2C622.3 48.7 777.7 32.3 933.2 27.3C1088.7 22.3 1244.3 28.7 1322.2 31.8L1400 35L1400 0L1322.2 0C1244.3 0 1088.7 0 933.2 0C777.7 0 622.3 0 466.8 0C311.3 0 155.7 0 77.8 0L0 0Z"
+                fill="#411A8C" stroke-linecap="round" stroke-linejoin="miter" />
+        </svg>
+        <div class="container-fluid d-flex justify-content-center align-items-center py-5 carrossel-container-fluid">
+            <div class="container-lg p-0 carrossel-first-container row">
+                <div class="col-sm-12 col-md-6 p-0 carrossel-container">
+                    <ul class="m-0 d-flex flex-column justify-content-evenly align-items-center carrossel-list">
+                        <li
+                            class="d-flex flex-column justify-content-evenly align-items-center carrossel-item selected">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-1">
+                        </li>
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-2">
+                        </li>
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-3">
+                        </li>
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-4">
+                        </li>
+                        <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
+                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-5">
+                        </li>
+                    </ul>
+                </div>
+                <div
+                    class="col px-4 mt-md-0 mt-3 vh-75 d-flex flex-column justify-content-sm-start justify-content-md-center align-items-md-center">
+                    <p class="h5 fw-bolder carrossel-text selected" id="carrossel-text-1">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-2">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-3">AMordolor sit amet,
+                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-4">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-5">Lorem ipsum dolor sit amet,
+                        consectetur adipiscing</p>
+                </div>
+            </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="visual" version="1.1"
+            viewBox="0 23.27 1400 77.73" class="svg-img" style="bottom: 0;">
+            <path
+                d="M0 92L26 85.8C52 79.7 104 67.3 155.8 58.8C207.7 50.3 259.3 45.7 311.2 49.7C363 53.7 415 66.3 466.8 74.8C518.7 83.3 570.3 87.7 622.2 77.7C674 67.7 726 43.3 777.8 31.8C829.7 20.3 881.3 21.7 933.2 28.5C985 35.3 1037 47.7 1088.8 46.8C1140.7 46 1192.3 32 1244.2 35.8C1296 39.7 1348 61.3 1374 72.2L1400 83L1400 101L1374 101C1348 101 1296 101 1244.2 101C1192.3 101 1140.7 101 1088.8 101C1037 101 985 101 933.2 101C881.3 101 829.7 101 777.8 101C726 101 674 101 622.2 101C570.3 101 518.7 101 466.8 101C415 101 363 101 311.2 101C259.3 101 207.7 101 155.8 101C104 101 52 101 26 101L0 101Z"
+                fill="#240b52" stroke-linecap="round" stroke-linejoin="miter" />
+        </svg>
+    </div>
+
+    <div class="benefits last-benefits pb-sm-2 pb-md-4 position-relative" id="planos">
+        <div class="container-fluid p-0 d-flex justify-content-center">
+            <div class="container py-5 d-flex flex-column align-items-center reveal">
+                <div class="col-6 text-center d-flex align-items-center">
+                    <p class="h1 fw-bolder text-light">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                </div>
+
+                <div class="container jump">
+                    <div class="row planos">
+                        <div class=" planos col-lg-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="planos col-lg-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" planos col-lg-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom: 600px"></div>
+        </div>
+
+
+
+
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="visual" version="1.1"
+            viewBox="0 41.88 1400 59.12" class="svg-img" style="bottom: 0;">
+            <path
+                d="M0 51L58.3 54.5C116.7 58 233.3 65 350 66.5C466.7 68 583.3 64 700 57.2C816.7 50.3 933.3 40.7 1050 42C1166.7 43.3 1283.3 55.7 1341.7 61.8L1400 68L1400 101L1341.7 101C1283.3 101 1166.7 101 1050 101C933.3 101 816.7 101 700 101C583.3 101 466.7 101 350 101C233.3 101 116.7 101 58.3 101L0 101Z"
+                fill="#ffffff" stroke-linecap="round" stroke-linejoin="miter" />
+        </svg>
+
+
+
+        <!-- Footer  -->
+    </div>
+
+    
+
+
+    <footer>
+        <div class="footer-clean">
+            <footer>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>Services</h3>
+                            <ul>
+                                <li><a href="#">Web design</a></li>
+                                <li><a href="#">Development</a></li>
+                                <li><a href="#">Hosting</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>About</h3>
+                            <ul>
+                                <li><a href="#">Company</a></li>
+                                <li><a href="#">Team</a></li>
+                                <li><a href="#">Legacy</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>Careers</h3>
+                            <ul>
+                                <li><a href="#">Job openings</a></li>
+                                <li><a href="#">Employee success</a></li>
+                                <li><a href="#">Benefits</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a
+                                href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i
+                                    class="icon ion-social-snapchat"></i></a><a href="#"><i
+                                    class="icon ion-social-instagram"></i></a>
+                            <p class="copyright">Company Name © 2018</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+<script>
+    var carrosselImgNum = 1;
+    window.addEventListener('scroll', reveal);
+    setImageCarrosselAnimation();
+    setCarrosselTextOnclick();
+
+
+    function reveal() {
+        let reveals = document.getElementsByClassName('reveal'); /* Documento para revelar */
+        for (let i = 0; i < reveals.length; i++) {
+            let windowHeight = window.innerHeight; /* tamanho da página */
+            let revealTop = reveals[i].getBoundingClientRect().top; /* canto superior da div */
+            let revealPoint = 30; /* ponto de revelar */
+
+            if (revealTop < windowHeight - revealPoint) { /* se o topo da div for menor que o ponto de revelar da tela*/
+                reveals[i].classList.add('active'); /* Troca a sua classe */
+            } else {
+                reveals[i].classList.remove('active'); /* Troca a sua idade */
+            }
+        }
+    }
+
+    function setImageCarrosselAnimation() {
+        let carrosselItems = document.getElementsByClassName("carrossel-item");
+        let carrosselList = document.getElementsByClassName("carrossel-list")[0];
+
+        for (let i = 0; i < carrosselItems.length; i++) {
+            let imgCarrosselElement = carrosselItems[i].firstElementChild;
+
+            if (imgCarrosselElement.id[imgCarrosselElement.id.length - 1] != carrosselImgNum) {
+                carrosselItems[i].onclick = (event) => {
+                    let carrosselSelectedElement = event.target.parentElement;
+                    let imgSelectedElement = event.target;
+                    /* console.log(`Old: ${carrosselImgNum}`);
+                    console.log(`New: ${imgSelectedElement.id[imgSelectedElement.id.length - 1]}`); */
+                    let newNumber = parseInt(imgSelectedElement.id[imgSelectedElement.id.length - 1]);
+
+                    moveImageCarrossel(newNumber);
+                    carrosselImgNum = newNumber;
+
+                    setTimeout(() => {
+                        setImageCarrosselAnimation();
+                    }, 1000)
+                }
+            }
+        }
+
+    }
+
+    function moveImageCarrossel(newNumber) {
+        var cssRoot = document.querySelector(':root');
+        let carrosselPosition = parseInt((getComputedStyle(cssRoot)).getPropertyValue('--carrossel-position'));
+
+        /* console.log(`Velha Posição: ${carrosselPosition}`) */
+        //newNumber > carrosselImgNum ? carrosselPosition -= 110 : carrosselPosition += 110;
+        switch (newNumber) {
+            case 1:
+                carrosselPosition = 110;
+                break;
+            case 2:
+                carrosselPosition = 0;
+                break;
+            case 3:
+                carrosselPosition = -110;
+                break;
+            case 4:
+                carrosselPosition = -220;
+                break;
+            case 5:
+                carrosselPosition = -330;
+                break;
+        }
+        /* console.log(`Nova Posição: ${carrosselPosition}`) */
+
+        /* Mudar imagem selecionada */
+        document.getElementsByClassName("carrossel-item selected")[0].classList.remove("selected");
+
+        let carrosselItems = document.getElementsByClassName("carrossel-item");
+        for (let j = 0; j < carrosselItems.length; j++) {
+            carrosselItems[j].onclick = () => { };
+        }
+
+        let carrosselSelectedImg = document.getElementById(`carrossel-img-${newNumber}`).parentElement;
+        carrosselSelectedImg.classList.add("selected");
+
+        /* Mudar texto selecionado */
+        document.getElementsByClassName("carrossel-text selected")[0].classList.remove("selected");
+        let carrosselSelectedText = document.getElementById(`carrossel-text-${newNumber}`);
+        carrosselSelectedText.classList.add("selected");
+
+        cssRoot.style.setProperty('--carrossel-position', `${carrosselPosition}`);
+    }
+
+    function setCarrosselTextOnclick() {
+        let carrosselTexts = document.getElementsByClassName("carrossel-text");
+        for (let i = 0; i < carrosselTexts.length; i++) {
+            let text = carrosselTexts[i];
+            if (text.id[text.id.length - 1] != carrosselImgNum) {
+                text.onclick = (event) => {
+
+                    tradeImageCarrosselUsingText(event.target);
+                }
+            }
+        }
+    }
+
+    function tradeImageCarrosselUsingText(element) {
+        let textNumber = parseInt(element.id[element.id.length - 1]);
+        if (textNumber != carrosselImgNum) {
+            console.log(`Old: ${carrosselImgNum}`);
+            console.log(`New: ${textNumber}`);
+            moveImageCarrossel(textNumber);
+            carrosselImgNum = textNumber;
+
+            setCarrosselTextOnclick();
+            setImageCarrosselAnimation();
+        }
+
+    }
+
+function redirecionar(){
+    window.location.href= "./sing-up.html";
+}
+
+</script>
+
+</html>
