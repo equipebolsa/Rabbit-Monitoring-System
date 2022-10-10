@@ -55,15 +55,13 @@ function entrar(req, res) {
 }
 
 function cadastrar(req, res) {
-    var nome = req.body.nomeSe
-      var nomeEmpresaEmpresa = nomeEmpresa.value;
-      var cpnjEmpresa = cnpj.value;
-      var telefoneEmpresa = telefone.value;rver;
+    var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var nomeEmpresa = req.body.nomeEmpresaServer;
-    var cnpjEmpresa = req.body.cnpjEmpresaServer;
-    var telefone = req.body.telefoneEmpresaServer;
+    var tipoUsuario = req.body.cargoServer;
+    var fkEmpresa = req.body.empresaServer;
+    var fkGestor = req.body.gestorServer;
+   
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -71,16 +69,10 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (nomeEmpresa == undefined) {
-        res.status(400).send("Seu nome Empresa está undefined!");
-    } else if (cnpjEmpresa == undefined) {
-        res.status(400).send("Seu nome cnpj está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Seu nome telefone está undefined!");
-    } else {
-        
+    } else{
+      
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, sha512(senha))
+        usuarioModel.cadastrar(nome, email, sha512(senha), tipoUsuario,fkEmpresa,fkGestor)
             .then(
                 function (resultado) {
                     res.json(resultado);

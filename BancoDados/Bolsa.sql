@@ -15,7 +15,7 @@ CREATE TABLE usuario (
   emailUsuario VARCHAR(45) NOT NULL,
   senhaUsuario CHAR(128) NOT NULL,
   tipoUsuario VARCHAR(13) NOT NULL,
-  CONSTRAINT CK_usuario_tipoUsuario CHECK(tipoUsuario IN ('gestor', 'técnico')),
+  CONSTRAINT CK_usuario_tipoUsuario CHECK(tipoUsuario IN ('Gestor', 'Técnico')),
   CONSTRAINT UK_usuario_emailUsuario UNIQUE(emailUsuario),
   fkEmpresa INT NOT NULL,
   CONSTRAINT FK_usuario_fkEmpresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),  
@@ -51,7 +51,7 @@ CREATE TABLE componenteFisico  (
     tipoComponente VARCHAR(45) NOT NULL
 );
 
-INSERT INTO componenteFisico VALUES(NULL,5,"CPU");
+INSERT INTO componenteFisico VALUES(NULL,1,"CPU");
 
 CREATE TABLE metrica (
 	idMetrica  INT PRIMARY KEY AUTO_INCREMENT,
@@ -75,7 +75,7 @@ CREATE TABLE leitura (
   CONSTRAINT FK_leitura_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica)
 );
 
-INSERT INTO leitura VALUES(NULL,NOW(),'1.50',4,1);
+INSERT INTO leitura VALUES(NULL,NOW(),'1.50',1,1);
 
 CREATE TABLE alerta (
   idAlerta INT PRIMARY KEY AUTO_INCREMENT,
@@ -95,6 +95,7 @@ CREATE TABLE alerta (
   PRIMARY KEY(fkComponenteFisico, fkMetrica, fkServidor)
  );
  
+ SELECT * FROM leituraView;
 
 CREATE VIEW leituraView AS SELECT 
     nomeEmpresa,
@@ -110,4 +111,4 @@ INNER JOIN componenteFisico ON idComponenteFisico =  fkComponenteFisico
 INNER JOIN servidor ON idServidor = fkServidor
 INNER JOIN setor ON idSetor = fkSetor
 INNER JOIN empresa ON idEmpresa = fkEmpresa
-INNER JOIN metrica ON idMetrica = fkMetrica
+INNER JOIN metrica ON idMetrica = fkMetrica;

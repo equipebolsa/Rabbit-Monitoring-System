@@ -1,7 +1,8 @@
 var leituraModel = require("../models/leituraModel");
 
 function listar(req, res) {
-    leituraModel.listar()
+    var idEmpresa = req.params.idEmpresa;
+    leituraModel.listar(idEmpresa)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -18,7 +19,8 @@ function listar(req, res) {
 }
 
 function tempoReal(req, res) {
-    leituraModel.listar()
+    var idEmpresa = req.params.idEmpresa;
+    leituraModel.listar(idEmpresa)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -35,7 +37,8 @@ function tempoReal(req, res) {
 }
 
 function listarMaquinas(req, res) {
-    leituraModel.listarMaquinas()
+    var idEmpresa = req.params.idEmpresa;
+    leituraModel.listarMaquinas(idEmpresa)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);

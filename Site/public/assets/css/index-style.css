@@ -19,6 +19,12 @@
 
     --carrossel-position: 110;
 }
+.background3{
+    display: flex;
+    align-items: center;
+    background-color: #FF00FF;
+    height: 300px;
+}
 
 @keyframes animation {
 	to{

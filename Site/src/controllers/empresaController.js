@@ -29,7 +29,7 @@ function cadastrar(req, res) {
                 function (resultado) {
                     res.json(resultado);
                     var id = resultado.insertId;
-                    usuarioModel.cadastrar(nome,email,sha512(senha),'gestor',id,'NULL');
+                    usuarioModel.cadastrar(nome,email,sha512(senha),'Gestor',id,'NULL');
                 }
             ).catch(
                 function (erro) {

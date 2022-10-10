@@ -110,24 +110,10 @@
         }
     }); */
     // CPU
-    var chartCPU = $("#CPU").get(0).getContext("2d");
-    var myChartCPU = new Chart(chartCPU, {
-        type: "line",
-        data: {
-            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00'],
-            datasets: [{
-                label: "% de uso",
-                fill: true,
-                backgroundColor: "#7f00b2",
-                data: [45, 35, 40, 50, 68, 72, 80]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
+
+  
     // Temp
-    var chartTemp = $("#Temp").get(0).getContext("2d");
+    var chartTemp = $("#temp").get(0).getContext("2d");
     var myChartTemp = new Chart(chartTemp, {
         type: "line",
         data: {
@@ -144,7 +130,7 @@
         }
     });
     // RAM
-    var chartRAM = $("#RAM").get(0).getContext("2d");
+    var chartRAM = $("#ram").get(0).getContext("2d");
     var myChartRAM = new Chart(chartRAM, {
         type: "line",
         data: {
@@ -183,7 +169,7 @@
     });
     */
     // HDD
-    var chartHDD = $("#HDD").get(0).getContext("2d");
+    var chartHDD = $("#hdd").get(0).getContext("2d");
     var myChartHDD = new Chart(chartHDD, {
         type: "line",
         data: {

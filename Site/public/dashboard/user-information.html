@@ -134,21 +134,21 @@
                                 
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Nome</label>
-                                    <input type="text" disabled="" value="Julio Abacate" class="form-control" id="exampleInputEmail1"
+                                    <input type="text" disabled="" value="" class="form-control" id="nome"
                                         aria-describedby="emailHelp">
                                     
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Cargo</label>
-                                    <input type="text" disabled="" value="Analista" class="form-control" id="exampleInputPassword1">
+                                    <input type="text" disabled="" value="" class="form-control" id="cargo">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">E-mail</label>
-                                    <input type="email" disabled="" value="julio.avocado@rabbit.com" class="form-control" id="exampleInputPassword1">
+                                    <input type="email" disabled="" value="" class="form-control" id="email">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Gestor</label>
-                                    <input type="nome" disabled="" value="Roberto Mamão" class="form-control" id="exampleInputPassword1">
+                                    <input type="nome" disabled="" value="" class="form-control" id="gestor">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Alterar Nome</button>
@@ -175,9 +175,6 @@
         </div>
         <!-- Content End -->
 
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -190,9 +187,22 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../assets/js/funcoes.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+          var resultado = obterDados(sessionStorage.USUARIO);
+            nome.value = (resultado.nomeUsuario);
+            email.value = (resultado.emailUsuario);
+            cargo.value = (resultado.tipoUsuario)
+            if(resultado.gestor == null){
+                gestor.value = "Nenhum";
+            }else{
+                gestor.value = resultado.gestor;
+            }
+    </script>
 </body>
 
 </html>

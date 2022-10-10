@@ -1,3 +1,4 @@
+
 function showPassword() {
     let cadeadoElement = document.getElementById('cadeado');
     let senhaElement = document.getElementById('senha');
@@ -31,4 +32,15 @@ function showRewritePassword() {
 }
 
 
+function obterDados(json){
+    
+    jsonToJs = JSON.parse(json);
+    return jsonToJs;
+}
 
+
+
+function limpar(json){
+    jsonToJs= "";
+    json = "";
+}
