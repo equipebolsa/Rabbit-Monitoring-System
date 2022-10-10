@@ -17,6 +17,7 @@ import com.github.britooo.looca.api.group.temperatura.Temperatura;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
@@ -24,6 +25,9 @@ import java.util.TimerTask;
  */
 public class TelaDeMonitoramento extends javax.swing.JFrame {
 
+    ConnectionBD config = new ConnectionBD();
+    JdbcTemplate con = new JdbcTemplate(config.getDatasource());
+    
     Looca looca = new Looca();
     Sistema sistema = looca.getSistema();
     Memoria memoria = looca.getMemoria();
@@ -42,11 +46,26 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         Double uso = looca.getMemoria().getEmUso() / Math.pow(1024.0, 3.0);
         Double disponivel = looca.getMemoria().getDisponivel() / Math.pow(1024.0, 3.0);
 
+        StringBuilder createStatement = new StringBuilder();
+        createStatement.append("CREATE TABLE if not exists monitoramento (");
+        createStatement.append("id INT PRIMARY KEY AUTO_INCREMENT,");
+        createStatement.append("temperatura VARCHAR(255),");
+        createStatement.append("memUso VARCHAR(255),");
+        createStatement.append("memDisp VARCHAR(255),");
+        createStatement.append("memTotal VARCHAR(255)");
+        createStatement.append(")");
+
+        con.execute(createStatement.toString());
+
+        String insertStatement = "INSERT INTO monitoramento VALUES (null, ?, ?, ?, ?)";
+
         varCpu.setText(looca.getTemperatura().getTemperatura().toString());
         varUsoRam.setText(String.format("%.2f GB", uso));
         varDispRam.setText(String.format("%.2f GB", disponivel));
         varTotalRam.setText(String.format("%.2f GB", total));
         varDisco.setText(looca.getGrupoDeDiscos().getDiscos().toString());
+
+        con.update(insertStatement, looca.getTemperatura().getTemperatura().toString(), String.format("%.2f GB", uso), String.format("%.2f GB", disponivel), String.format("%.2f GB", total));
 
         int delay = 5000;
         int interval = 1000;
@@ -59,11 +78,26 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
                 Double uso = looca.getMemoria().getEmUso() / Math.pow(1024.0, 3.0);
                 Double disponivel = looca.getMemoria().getDisponivel() / Math.pow(1024.0, 3.0);
 
+                StringBuilder createStatement = new StringBuilder();
+                createStatement.append("CREATE TABLE if not exists monitoramento (");
+                createStatement.append("id INT PRIMARY KEY AUTO_INCREMENT,");
+                createStatement.append("temperatura VARCHAR(255),");
+                createStatement.append("memUso VARCHAR(255),");
+                createStatement.append("memDisp VARCHAR(255),");
+                createStatement.append("memTotal VARCHAR(255)");
+                createStatement.append(")");
+
+                con.execute(createStatement.toString());
+
+                String insertStatement = "INSERT INTO monitoramento VALUES (null, ?, ?, ?, ?)";
+
                 varCpu.setText(looca.getTemperatura().getTemperatura().toString());
                 varUsoRam.setText(String.format("%.2f GB", uso));
                 varDispRam.setText(String.format("%.2f GB", disponivel));
                 varTotalRam.setText(String.format("%.2f GB", total));
                 varDisco.setText(looca.getGrupoDeDiscos().getDiscos().toString());
+
+                con.update(insertStatement, looca.getTemperatura().getTemperatura().toString(), String.format("%.2f GB", uso), String.format("%.2f GB", disponivel), String.format("%.2f GB", total));
             }
         }, delay, interval);
     }
