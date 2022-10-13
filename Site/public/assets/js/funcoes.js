@@ -44,3 +44,7 @@ function limpar(json){
     jsonToJs= "";
     json = "";
 }
+function sair() {
+    limpar(sessionStorage.USUARIO);
+    window.location.href = "../index.html"
+}
