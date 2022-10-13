@@ -6,24 +6,20 @@
 package com.mycompany.projeto.rabbit;
 
 import com.github.britooo.looca.api.core.Looca;
-import com.github.britooo.looca.api.group.discos.Disco;
-import com.github.britooo.looca.api.group.discos.DiscoGrupo;
-import com.github.britooo.looca.api.group.memoria.Memoria;
-import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
-import com.github.britooo.looca.api.group.servicos.ServicoGrupo;
-import com.github.britooo.looca.api.group.sistema.Sistema;
-import com.github.britooo.looca.api.group.temperatura.Temperatura;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
  * @author blacklherme
  */
 public class TelaProcessos extends javax.swing.JFrame {
-    
+
+    ConnectionBD config = new ConnectionBD();
+    JdbcTemplate con = new JdbcTemplate(config.getDatasource());
+
     Looca looca = new Looca();
     ProcessoGrupo processosGroup = looca.getGrupoDeProcessos();
 
@@ -33,16 +29,29 @@ public class TelaProcessos extends javax.swing.JFrame {
     public TelaProcessos() {
         initComponents();
         
+//        StringBuilder createStatement = new StringBuilder();
+//
+//        createStatement.append("CREATE TABLE if not exists processo (");
+//        createStatement.append("idProcesso INT PRIMARY KEY AUTO_INCREMENT,");
+//        createStatement.append("processo VARCHAR(1000)");
+//        createStatement.append(")");
+        
+//        con.execute(createStatement.toString());
+        
+//        String insertStatement = "INSERT INTO processo VALUES (null, ?)";
+        
         varProcesso.setText(looca.getGrupoDeProcessos().getProcessos().toString());
         
+//        con.update(insertStatement, looca.getGrupoDeProcessos().getProcessos().toString());
+
         int delay = 4000;
         int interval = 1000;
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask(){
+        timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-               varProcesso.setText(looca.getGrupoDeProcessos().getProcessos().toString()); 
+                varProcesso.setText(looca.getGrupoDeProcessos().getProcessos().toString());
             }
-        }, delay, interval); 
+        }, delay, interval);
     }
 
     /**

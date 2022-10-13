@@ -27,7 +27,7 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
 
     ConnectionBD config = new ConnectionBD();
     JdbcTemplate con = new JdbcTemplate(config.getDatasource());
-    
+
     Looca looca = new Looca();
     Sistema sistema = looca.getSistema();
     Memoria memoria = looca.getMemoria();
@@ -47,7 +47,9 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         Double disponivel = looca.getMemoria().getDisponivel() / Math.pow(1024.0, 3.0);
 
         StringBuilder createStatement = new StringBuilder();
-        createStatement.append("CREATE TABLE if not exists monitoramento (");
+        StringBuilder createDisco = new StringBuilder();
+        //tabela da temperatura da cpu e memória ram
+        createStatement.append("CREATE TABLE if not exists cpuMem (");
         createStatement.append("id INT PRIMARY KEY AUTO_INCREMENT,");
         createStatement.append("temperatura VARCHAR(255),");
         createStatement.append("memUso VARCHAR(255),");
@@ -55,9 +57,17 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         createStatement.append("memTotal VARCHAR(255)");
         createStatement.append(")");
 
-        con.execute(createStatement.toString());
+        //tabela do disco
+        createDisco.append("CREATE TABLE if not exists disco (");
+        createDisco.append("idDisco INT PRIMARY KEY AUTO_INCREMENT,");
+        createDisco.append("discoo VARCHAR(255)");
+        createDisco.append(")");
 
-        String insertStatement = "INSERT INTO monitoramento VALUES (null, ?, ?, ?, ?)";
+        con.execute(createStatement.toString());
+        con.execute(createDisco.toString());
+
+        String insertStatement = "INSERT INTO cpuMem VALUES (null, ?, ?, ?, ?)";
+        String insertDisco = "INSERT INTO disco VALUES (null, ?)";
 
         varCpu.setText(looca.getTemperatura().getTemperatura().toString());
         varUsoRam.setText(String.format("%.2f GB", uso));
@@ -66,6 +76,7 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         varDisco.setText(looca.getGrupoDeDiscos().getDiscos().toString());
 
         con.update(insertStatement, looca.getTemperatura().getTemperatura().toString(), String.format("%.2f GB", uso), String.format("%.2f GB", disponivel), String.format("%.2f GB", total));
+        con.update(insertDisco, looca.getGrupoDeDiscos().getDiscos().toString());
 
         int delay = 5000;
         int interval = 1000;
@@ -79,6 +90,9 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
                 Double disponivel = looca.getMemoria().getDisponivel() / Math.pow(1024.0, 3.0);
 
                 StringBuilder createStatement = new StringBuilder();
+                StringBuilder createDisco = new StringBuilder();
+               
+                //tabela da temperatura da cpu e memória ram
                 createStatement.append("CREATE TABLE if not exists monitoramento (");
                 createStatement.append("id INT PRIMARY KEY AUTO_INCREMENT,");
                 createStatement.append("temperatura VARCHAR(255),");
@@ -87,9 +101,17 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
                 createStatement.append("memTotal VARCHAR(255)");
                 createStatement.append(")");
 
+                //tabela do disco
+                createDisco.append("CREATE TABLE if not exists disco (");
+                createDisco.append("idDisco INT PRIMARY KEY AUTO_INCREMENT,");
+                createDisco.append("discoo VARCHAR(255)");
+                createDisco.append(")");
+
                 con.execute(createStatement.toString());
+                con.execute(createDisco.toString());
 
                 String insertStatement = "INSERT INTO monitoramento VALUES (null, ?, ?, ?, ?)";
+                String insertDisco = "INSERT INTO disco VALUES (null, ?)";
 
                 varCpu.setText(looca.getTemperatura().getTemperatura().toString());
                 varUsoRam.setText(String.format("%.2f GB", uso));
@@ -98,12 +120,11 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
                 varDisco.setText(looca.getGrupoDeDiscos().getDiscos().toString());
 
                 con.update(insertStatement, looca.getTemperatura().getTemperatura().toString(), String.format("%.2f GB", uso), String.format("%.2f GB", disponivel), String.format("%.2f GB", total));
+                con.update(insertDisco, looca.getGrupoDeDiscos().getDiscos().toString());
             }
         }, delay, interval);
     }
- 
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -333,7 +354,7 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
             public void run() {
                 new TelaDeMonitoramento().setVisible(true);
             }
-        });   
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
