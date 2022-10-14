@@ -26,7 +26,7 @@ public class ConnectionBD {
 
         this.datasource.setDriverClassName("com.mysql.jdbc.Driver");
 
-        this.datasource.setUrl("jdbc:mysql://127.0.0.1:3306/monitoramentoJava");
+        this.datasource.setUrl("jdbc:mysql://127.0.0.1:3306/bolsa");
         
         // usuário utilizado em um container MySQL
         this.datasource.setUsername("root");
