@@ -147,7 +147,6 @@
                                         <option value="Linux - Red Hat">Linux - Red Hat</option>
                                         <option value="Linux - Debian">Linux - Debian</option>
                                         <option value="Windows Server">Windows Server</option>
-                                        <option value="macOS">macOS</option>
                                         <option value="Outro">Outro</option>
                                     </select>
                                 </div>
@@ -237,20 +236,33 @@
 
 
         function cadastarServidor() {
-            var macCampo = macAddres.value;
-            var serialCampo = serial.value;
+            var macCampo;
+            var serialCampo;
             var soCampo;
             var setorCampo;
-
+            //
+            if (macAddres.value.length <= 5) {
+                alert("Insira um endereço MAC válido")
+                return false;
+            }else{
+                macCampo = macAddres.value;
+            }
+            if (serial.value.length <= 5) {
+                alert("Insira um Serial Number válido")
+                return false;
+            }else{
+                serialCampo = serial.value;
+            }
+            //
             if (so.value == 0) {
-                alert("vALOR VALIDO")
+                alert("Selecione um Sistema Operacional")
                 return false;
             }else{
                 soCampo = so.value;
             }
 
             if (setor.value == 0) {
-                alert("vALOR VALIDO")
+                alert("Selecione um setor")
                 return false;
             }else{
                 setorCampo = setor.value;
@@ -271,7 +283,11 @@
             }).then(
                 function res(resposta) {
                     if (resposta.ok) {
-                        alert("Cadastrado Com Sucesso");
+                        alert("Cadastrado com Sucesso!");
+                        macAddres.value = "";
+                        serial.value = "";
+                        so.value = 0;
+                        setor.value = 0;
                     }
                 }
             )
