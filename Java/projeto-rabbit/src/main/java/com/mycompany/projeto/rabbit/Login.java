@@ -6,13 +6,19 @@
 package com.mycompany.projeto.rabbit;
 
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
  * @author kelvi
  */
 public class Login extends javax.swing.JFrame {
+
+    ConnectionBD config = new ConnectionBD();
+    JdbcTemplate con = new JdbcTemplate(config.getDatasource());
 
     /**
      * Creates new form login
@@ -238,61 +244,67 @@ public class Login extends javax.swing.JFrame {
 
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
 
-    
+
     }//GEN-LAST:event_emailActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    System.exit(0);    
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
-    jButton1.setBackground(new Color(235,235,235)); 
-    jButton1.setForeground(new Color (58,65,84));
+        jButton1.setBackground(new Color(235, 235, 235));
+        jButton1.setForeground(new Color(58, 65, 84));
     }//GEN-LAST:event_jButton1MouseEntered
 
     private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
-    jButton2.setBackground(new Color(235,235,235)); 
-    jButton2.setForeground(new Color (217,81,51));   
+        jButton2.setBackground(new Color(235, 235, 235));
+        jButton2.setForeground(new Color(217, 81, 51));
     }//GEN-LAST:event_jButton2MouseEntered
 
     private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
-    jButton1.setBackground(new Color(58,65,84)); 
-    jButton1.setForeground(Color.WHITE);   
+        jButton1.setBackground(new Color(58, 65, 84));
+        jButton1.setForeground(Color.WHITE);
     }//GEN-LAST:event_jButton1MouseExited
 
     private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-    jButton2.setBackground(new Color(217,81,51)); 
-    jButton2.setForeground(Color.WHITE);    
+        jButton2.setBackground(new Color(217, 81, 51));
+        jButton2.setForeground(Color.WHITE);
     }//GEN-LAST:event_jButton2MouseExited
 
     private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
-    if (email.getText().equals("Email"))
-    {email.setText("");}
+        if (email.getText().equals("Email")) {
+            email.setText("");
+        }
     }//GEN-LAST:event_emailFocusGained
 
     private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
-    if (email.getText().equals(""))
-    {email.setText("Email");}
-    
-    
+        if (email.getText().equals("")) {
+            email.setText("Email");
+        }
+
+
     }//GEN-LAST:event_emailFocusLost
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String senhaVar = new String (senha.getPassword());
-    String emailVar = email.getText();
-    
-    if ((emailVar == null || emailVar.isEmpty()) || senhaVar.isEmpty()){
-        JOptionPane.showMessageDialog(this, "Informe seu email e senha", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
-    }else{
-        if(emailVar.equals("admin") && senhaVar.equals("admin")){
-            TelaDeMonitoramento tela = new TelaDeMonitoramento();
-            tela.setVisible(true);
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "Login e senha incorretos!", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
+        String senhaVar = new String(senha.getPassword());
+        String emailVar = email.getText();
+
+        List<Usuario> validUsuario = con.query("SELECT * FROM usuario", new BeanPropertyRowMapper(Usuario.class));
+
+        for (Usuario usuario : validUsuario) {
+            if ((emailVar == null || emailVar.isEmpty()) || senhaVar.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Informe seu email e senha", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (!emailVar.equals(usuario.getEmailUsuario()) || !senhaVar.equals("admin")) {
+                    JOptionPane.showMessageDialog(this, "Login e senha incorretos!", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    TelaDeMonitoramento tela = new TelaDeMonitoramento();
+                    tela.setVisible(true);
+                    this.dispose();
+                }
+            }
         }
-    }
-    
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaActionPerformed
@@ -300,13 +312,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_senhaActionPerformed
 
     private void senhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaFocusGained
-    if (senha.getText().equals("********"))
-    {senha.setText("");}
+        if (senha.getText().equals("********")) {
+            senha.setText("");
+        }
     }//GEN-LAST:event_senhaFocusGained
 
     private void senhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaFocusLost
-    if (senha.getText().equals(""))
-    {senha.setText("********");}
+        if (senha.getText().equals("")) {
+            senha.setText("********");
+        }
     }//GEN-LAST:event_senhaFocusLost
 
     /**
