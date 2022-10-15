@@ -27,11 +27,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item px-1">
-                            <a href="index.html" class="nav-link text-decoration-none pe-autow-normal">Home</a>
-                        </li>
-                        <li class="nav-item px-1">
-                            <a href="#planos" class="nav-link text-decoration-none pe-auto fw-normal">Planos</a>
-                            <!-- Semibold? -->
+                            <a href="#inicio" class="nav-link text-decoration-none pe-autow-normal">Home</a>
                         </li>
                         <li class="nav-item px-1">
                             <a href="#sobre" class="nav-link text-decoration-none pe-auto fw-normal">Quem Somos</a>
@@ -62,26 +58,23 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav">
-                    <li class="nav-item px-1">
-                        <a href="index.html" class="nav-link text-decoration-none pe-none here fw-bold">Home</a>
+                    <li class="nav-item px-1 me-5">
+                        <a href="#inicio" class="nav-link text-decoration-none pe-auto fw-normal">Home</a>
                     </li>
                     <li class="nav-item px-1 me-5">
-                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Planos</a>
+                        <a href="#sobre" class="nav-link text-decoration-none pe-auto fw-normal">Quem Somos</a>
                     </li>
                     <li class="nav-item px-1 me-5">
-                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Quem Somos</a>
+                        <a href="sing-up.html" class="nav-link text-decoration-none pe-auto fw-normal">Cadastrar</a>
                     </li>
                     <li class="nav-item px-1 me-5">
-                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Cadastrar</a>
-                    </li>
-                    <li class="nav-item px-1 me-5">
-                        <a href="index.html" class="nav-link text-decoration-none pe-auto fw-normal">Entrar</a>
+                        <a href="sing-in.html" class="nav-link text-decoration-none pe-auto fw-normal">Entrar</a>
                     </li>
                 </ul>
             </div>
         </div>
         <!-- Texto do Meio no Início -->
-        <div class="container-fluid h-auto pb-5 ">
+        <div class="container-fluid h-auto pb-5" id="inicio">
             <div class="container row mx-auto p-0 d-flex align-items-md-center justify-content-between w-75 pb-md-5">
                 <div class="jump1 col pt-0 d-flex flex-column align-items-center justify-content-between text-center text-container"
                     style="margin-top: 100px">
@@ -202,34 +195,29 @@
                     <ul class="m-0 d-flex flex-column justify-content-evenly align-items-center carrossel-list">
                         <li
                             class="d-flex flex-column justify-content-evenly align-items-center carrossel-item selected">
-                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-1">
+                            <img src="./assets/img/carrossel1.png" class="rounded" id="carrossel-img-1">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-2">
+                            <img src="./assets/img/carrossel2.png" class="rounded" id="carrossel-img-2">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-3">
+                            <img src="./assets/img/carrossel3.png" class="rounded" id="carrossel-img-3">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-4">
+                            <img src="./assets/img/carrossel4.png" class="rounded" id="carrossel-img-4">
                         </li>
                         <li class="d-flex flex-column justify-content-evenly align-items-center carrossel-item">
-                            <img src="./assets/img/propaganda.png" class="rounded" id="carrossel-img-5">
+                            <img src="./assets/img/carrossel5.png" class="rounded" id="carrossel-img-5">
                         </li>
                     </ul>
                 </div>
                 <div
                     class="col px-4 mt-md-0 mt-3 vh-75 d-flex flex-column justify-content-sm-start justify-content-md-center align-items-md-center">
-                    <p class="h5 fw-bolder carrossel-text selected" id="carrossel-text-1">Lorem ipsum dolor sit amet,
-                        consectetur adipiscing</p>
-                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-2">Lorem ipsum dolor sit amet,
-                        consectetur adipiscing</p>
-                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-3">AMordolor sit amet,
-                        consectetur adipiscing</p>
-                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-4">Lorem ipsum dolor sit amet,
-                        consectetur adipiscing</p>
-                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-5">Lorem ipsum dolor sit amet,
-                        consectetur adipiscing</p>
+                    <p class="h5 fw-bolder carrossel-text selected" id="carrossel-text-1">Monitore sua operação</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-2">Monitoramento personalizado por servidor</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-3">Gerencie seus funcionários</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-4">Cadastre seus servidores</p>
+                    <p class="h5 fw-bolder carrossel-text" id="carrossel-text-5">Cadastre seus funcionários</p>
                 </div>
             </div>
         </div>
@@ -244,17 +232,6 @@
                 d="M0 25L77.8 31.7C155.7 38.3 311.3 51.7 466.8 50.2C622.3 48.7 777.7 32.3 933.2 27.3C1088.7 22.3 1244.3 28.7 1322.2 31.8L1400 35L1400 0L1322.2 0C1244.3 0 1088.7 0 933.2 0C777.7 0 622.3 0 466.8 0C311.3 0 155.7 0 77.8 0L0 0Z"
                 fill="#39147c" stroke-linecap="round" stroke-linejoin="miter" id="sobre"/>
         </svg>
-        <div class="background3" >
-            <div class="container-fluid">
-                <div class="row">
-                        <div>
-                            <h4>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione cumque recusandae minus cupiditate minima sit nihil explicabo. Eaque sunt possimus nulla quis sit, voluptatum perferendis laboriosam saepe accusantium, fugiat inventore.
-                                Lorem ipsum dolor sit amet cossssnsectetur adipisicing elit. Minus vero provident odio repellat similique nulla eaque rem error at voluptatibus, qui aperiam omnis, ducimus eligendi nesciunt doloremque debitis corporis aliquam.
-                            </h4>
-                        </div>
-                    </div>
-            </div>
-        </div>
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="visual" version="1.1"
             viewBox="0 23.27 1400 77.73" class="svg-img" style="bottom: 0;">
             <path
@@ -263,48 +240,61 @@
         </svg>
     </div>
 
-    <div class="benefits last-benefits pb-sm-2 pb-md-4 position-relative" id="planos">
+    <div class="benefits last-benefits pb-sm-2 pb-md-4 position-relative" id="sobre">
         <div class="container-fluid p-0 d-flex justify-content-center">
             <div class="container py-5 d-flex flex-column align-items-center reveal">
-                <div class="col-6 text-center d-flex align-items-center">
-                    <p class="h1 fw-bolder text-light">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-                </div>
+                
+                <p class="h1 fw-bolder text-light">Conheça nossa equipe</p>
+                
 
                 <div class="container jump">
                     <div class="row planos">
                         <div class=" planos col-lg-4">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <a href="#" class="card-link">Card link</a>
-                                    <a href="#" class="card-link">Another link</a>
+                                    <h5 class="card-title">Cauã da Silva Ciconelli</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Desenvolvedor Fullstack</h6>
+                                    <img style="width: 16rem; height: 16rem;" src="https://avatars.githubusercontent.com/u/99812511?v=4">
                                 </div>
                             </div>
                         </div>
                         <div class="planos col-lg-4">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <a href="#" class="card-link">Card link</a>
-                                    <a href="#" class="card-link">Another link</a>
+                                    <h5 class="card-title">Gabriel Vannucchi Corrêa</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Desenvolvedor Fullstack</h6>
+                                    <img style="width: 16rem; height: 16rem;" src="https://avatars.githubusercontent.com/u/99813369?s=400&u=40cf2e12a2889d34cb0877bd8ee9a9a45a4f3d26&v=4">
                                 </div>
                             </div>
                         </div>
                         <div class=" planos col-lg-4">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                    <p class="card-text">Some quick example text to build on the card title and make up
-                                        the bulk of the card's content.</p>
-                                    <a href="#" class="card-link">Card link</a>
-                                    <a href="#" class="card-link">Another link</a>
+                                    <h5 class="card-title">Guilherme H. Angelo Dias</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Desenvolvedor Java</h6>
+                                    <img style="width: 16rem; height: 16rem;" src="https://avatars.githubusercontent.com/u/99812860?v=4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <span style="padding: 40px;"></span>
+                    <div class="row planos">
+                        <div class=" planos col-lg-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Gustavo Antonio</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">DBA</h6>
+                                    <img style="width: 16rem; height: 16rem;" src="https://avatars.githubusercontent.com/u/99812422?v=4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="planos col-lg-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Kelvin Guimarães Gomes</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Desenvolvedor Fullstack</h6>
+                                    <img style="width: 16rem; height: 16rem;" src="https://avatars.githubusercontent.com/u/99811790?v=4">
                                 </div>
                             </div>
                         </div>

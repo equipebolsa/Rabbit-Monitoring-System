@@ -185,6 +185,22 @@
             responsive: true
         }
     });
+    var charthdd2 = $("#hdd2").get(0).getContext("2d");
+    var myCharthdd2 = new Chart(charthdd2, {
+        type: "line",
+        data: {
+            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00'],
+            datasets: [{
+                label: "% de uso°",
+                fill: true,
+                backgroundColor: "#7f00b2",
+                data: [40, 44, 44, 44, 45, 47, 48]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
     
 })(jQuery);
 

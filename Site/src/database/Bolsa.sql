@@ -108,7 +108,7 @@ INSERT INTO servidor VALUES(NULL,1,"LINUX","12:12:12:12","TESTE");
 
 INSERT INTO componenteFisico VALUES(NULL,1,"CPU");
 
-INSERT INTO metrica VALUES(NULL,"CPUFrequencia","xxxxx","GHZ");
+INSERT INTO metrica VALUES(NULL,"CPUFrequencia","xxxxx","xxxx","GHZ","0");
 
 INSERT INTO leitura VALUES(NULL,NOW(),'1.50',1,1);
 

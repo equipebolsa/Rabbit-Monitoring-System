@@ -175,3 +175,18 @@ span{
 	margin-top: 0px;
 }
 /*# sourceMappingURL=login.css.map */
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--third-background)
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--base-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--base-color-purple-dark);
+}
