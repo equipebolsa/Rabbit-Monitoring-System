@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Login </title>
-  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <title>Registro</title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/cadastro.css">
@@ -18,10 +15,18 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6 login-section-wrapper">
-          <div class="login-wrapper my-auto">
-            <h1 class="login-title">Seja Bem-Vindo</h1>
+          <div style="
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    width: 697px;
+    " class="login-wrapper my-auto">
+            <h1 class="login-title">Insira seus dados pessoais e empresariais</h1>
+        <div class="imgLogo"> <img src="./assets/img/logo.png" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;/* padding-top: 30%; */width: 133px;width: 95px;eight: 190px;display: flex">
+        </div>
           </div>
-          <div class="login-wrapper my-auto">
+            
+          <div class="login-wrapper my-auto" style="padding-bottom: 80px;">
 
             <div class="container-fluid">
               <h5>Dados Pessoais</h5>
@@ -42,8 +47,7 @@
 
                 <div class="col-lg-6">
                   <label for="senha">CONFIRMAR SENHA</label>
-                  <input type="password" name="ConfirmaSenha" id="ConfirmaSenha" class="form-control"
-                    placeholder="Confirme sua senha">
+                  <input type="password" name="ConfirmaSenha" id="ConfirmaSenha" class="form-control" placeholder="Confirme sua senha">
                 </div>
               </div>
             </div>
@@ -55,8 +59,7 @@
               <div class="row">
                 <div class="col-lg-6">
                   <label for="nomeEmpresa">NOME EMPRESA</label>
-                  <input type="text" name="nomeEmpresa" id="nomeEmpresa" class="form-control"
-                    placeholder="Nome da empresa">
+                  <input type="text" name="nomeEmpresa" id="nomeEmpresa" class="form-control" placeholder="Nome da empresa">
                 </div>
                 <div class="col-lg-6">
                   <label for="cnpj">CNPJ</label>
@@ -65,9 +68,9 @@
                 <div class="col-lg-12">
                   <label for="telefone">TELEFONE</label>
                   <input type="text" name="telefone" id="telefone" class="form-control" placeholder="(11) 91234-9876">
-                </div>
-                <input name="cadastar" id="cadastar" onclick="cadastrar();  " class="btn btn-block login-btn"
-                  type="button" value="Cadastrar">
+                </div> <br>
+                <br><br><br><input name="cadastar" id="cadastar" onclick="cadastrar();  " class="btn btn-block login-btn" type="button" value="Cadastrar">
+                <p class="mb-5 pb-lg-2" style="color: #393f81;">Já está cadastrado? <a href="sing-up.html" style="color: #3eb4d8;">Faça o login</a></p>
               </div>
             </div>
 
@@ -118,6 +121,6 @@
 
 
   </script>
-</body>
 
-</html>
+
+</body></html>

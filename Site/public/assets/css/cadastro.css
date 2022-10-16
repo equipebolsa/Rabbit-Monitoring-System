@@ -30,7 +30,7 @@ body {
 	-webkit-box-direction: normal;
 	flex-direction: column;
 	padding: 10px 100px;
-	background-color: #fff;
+	background-color: #e7dee8;
 }
 
 @media (max-width: 991px) {
