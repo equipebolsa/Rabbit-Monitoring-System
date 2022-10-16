@@ -129,7 +129,7 @@
             responsive: true
         }
     });
-    // RAM
+    /* RAM
     var chartRAM = $("#ram").get(0).getContext("2d");
     var myChartRAM = new Chart(chartRAM, {
         type: "line",
@@ -146,29 +146,10 @@
             responsive: true
         }
     });
-    /*
-    var chartHDD = $("#HDD").get(0).getContext("2d");
-    var myChartHDD = new Chart(chartHDD, {
-        type: "pie",
-        data: {
-            labels: ["Livre", "Em uso"],
-            datasets: [{
-                backgroundColor: [
-                    "#1c003b",
-                    "#4b0374",
-                    //"#7f00b2",
-                    //"#bc4ed8",
-                   // "#f988ff"
-                ],
-                data: [33, 67]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
-    */
-    // HDD
+    
+ */
+    
+    /* HDD
     var chartHDD = $("#hdd").get(0).getContext("2d");
     var myChartHDD = new Chart(chartHDD, {
         type: "line",
@@ -185,22 +166,6 @@
             responsive: true
         }
     });
-    var charthdd2 = $("#hdd2").get(0).getContext("2d");
-    var myCharthdd2 = new Chart(charthdd2, {
-        type: "line",
-        data: {
-            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00'],
-            datasets: [{
-                label: "% de uso°",
-                fill: true,
-                backgroundColor: "#7f00b2",
-                data: [40, 44, 44, 44, 45, 47, 48]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
-    
+    */
 })(jQuery);
 

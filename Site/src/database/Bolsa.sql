@@ -31,6 +31,8 @@ CREATE TABLE setor (
   descricaoSetor VARCHAR(255) NULL  
 );
 
+INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
+
 CREATE TABLE servidor (
   idServidor INT PRIMARY KEY AUTO_INCREMENT,
   fkSetor INT NOT NULL,
@@ -39,6 +41,7 @@ CREATE TABLE servidor (
   macAddress VARCHAR(45) NOT NULL,
   serialNumber VARCHAR(45) NOT NULL
 );
+
 
 CREATE TABLE componenteFisico  (
 	idComponenteFisico  INT PRIMARY KEY AUTO_INCREMENT,
@@ -49,13 +52,18 @@ CREATE TABLE componenteFisico  (
 
 CREATE TABLE metrica (
 	idMetrica  INT PRIMARY KEY AUTO_INCREMENT,
-	nomeMetrica VARCHAR(45),
+	nomeMetrica VARCHAR(45) NOT NULL,
 	comandoPython VARCHAR(255),
-    comandoJava VARCHAR(255),
-	unidade_medida CHAR(45),
-    isTupla CHAR(1) NOT NULL,
+    unidadeMedida VARCHAR(45) NOT NULL,
+	tratamentoPython VARCHAR(255),
+	isTupla CHAR(1) NOT NULL,
 	CONSTRAINT CK_metrica_isTupla CHECK(isTupla IN ('1', '0'))
 );
+-- Inserir
+INSERT INTO metrica VALUES(NULL,'CPUPercent','psutil.cpu_percent(interval=None, percpu=False)','%',NULL,'0');
+INSERT INTO metrica VALUES(NULL,'RAMPercent','psutil.virtual_memory().percent','%', NULL,'0');
+INSERT INTO metrica VALUES(NULL,'DISCOUso','psutil.disk_usage("/").used','GB', '/(1024**3)','0');
+
 
 CREATE TABLE leitura (
   idLeitura INT PRIMARY KEY AUTO_INCREMENT,
@@ -74,7 +82,7 @@ CREATE TABLE alerta (
   fkLeitura INT NOT NULL,
   CONSTRAINT FK_alerta_fkAlerta FOREIGN KEY (fkLeitura) REFERENCES leitura (idLeitura)
  );
- 
+
  CREATE TABLE parametro(
    fkComponenteFisico INT NOT NULL,
   CONSTRAINT FK_parametro_fkComponenteFisico FOREIGN KEY (fkComponenteFisico) REFERENCES componenteFisico (idComponenteFisico),
@@ -82,17 +90,22 @@ CREATE TABLE alerta (
   CONSTRAINT FK_parametro_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica),
   fkServidor INT NOT NULL,
   CONSTRAINT FK_parametro_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
-  PRIMARY KEY(fkComponenteFisico, fkMetrica, fkServidor)
+  PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor)
  );
+ 
+
+
 
 CREATE VIEW leituraView AS SELECT 
     nomeEmpresa,
+    fkEmpresa,
     nomeSetor,
     idServidor,
+    fkComponenteFisico,
     tipoComponente,
 	horarioLeitura,
     valorLeitura,
-    unidade_medida
+    unidadeMedida
 FROM
     leitura
 INNER JOIN componenteFisico ON idComponenteFisico =  fkComponenteFisico
@@ -101,15 +114,14 @@ INNER JOIN setor ON idSetor = fkSetor
 INNER JOIN empresa ON idEmpresa = fkEmpresa
 INNER JOIN metrica ON idMetrica = fkMetrica;
 
+
+-- DROPS
+
+ DROP VIEW leituraView;
+ drop table alerta;
+ drop table parametro;
+ drop table leitura;
+ drop table metrica;
+ drop table componenteFisico;
+ drop table servidor;
  
-INSERT INTO setor VALUES(NULL,1,"SETOR1","Teste");
-
-INSERT INTO servidor VALUES(NULL,1,"LINUX","12:12:12:12","TESTE");
-
-INSERT INTO componenteFisico VALUES(NULL,1,"CPU");
-
-INSERT INTO metrica VALUES(NULL,"CPUFrequencia","xxxxx","xxxx","GHZ","0");
-
-INSERT INTO leitura VALUES(NULL,NOW(),'1.50',1,1);
-
-SELECT * FROM leituraView;

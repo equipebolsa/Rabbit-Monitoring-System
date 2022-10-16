@@ -203,52 +203,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Recent Sales End -->
 
 
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">CPU</h6>
-                            </div>
-                            <canvas id="cpuChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Temperatura</h6>
-                            </div>
-                            <canvas id="temp"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">RAM</h6>
-                            </div>
-                            <canvas id="ram"></canvas>
-                        </div>
 
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Disco</h6>
-                            </div>
-                            <canvas id="hdd"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sales Chart End -->
+ 
+
 
 
 
@@ -290,11 +249,7 @@
         nome.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = resultado.fkEmpresa;
         tabelaFuncao(idEmpresa);
-        obterDadosGrafico(idEmpresa);
-
-
         
-
         function tabelaFuncao(id) {
             fetch(`/leituras/listarMaquinas/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
@@ -305,108 +260,24 @@
             })
         }
 
-        function obterDadosGrafico(id) {
-
-            fetch(`/leituras/listar/${id}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-
-                        plotarGrafico(resposta,id);
-                    });
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-
-
-        }
-
-        function plotarGrafico(resposta,id) {
-            let labels = [];
-
-            let dados = {
-                labels: labels,
-                datasets: [{
-                    label: 'Ghz',
-                    data: [],
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            };
-
-            for (i = 0; i < resposta.length; i++) {
-                var registro = resposta[i];
-                var horario = registro.horarioLeitura.replace(/T/, ' ').replace(/\..+/, '');
-
-
-                labels.push(horario);
-                dados.datasets[0].data.push(registro.valorLeitura);
-            }
-            const config = {
-                type: 'line',
-                data: dados,
-            };
-            var ctx = document.getElementById("cpuChart").getContext("2d");
-            let myChart = new Chart(
-                ctx,
-                config
-            );
-
-            setTimeout(() => atualizarGrafico(dados, myChart, id), 2000);
-        }
-
-
-        function atualizarGrafico(dados, myChart,id) {
-
-            fetch(`/leituras/tempo-real/${id}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (novoRegistro) {
-
-                        if (novoRegistro[0].horarioLeitura == dados.labels[dados.labels.length - 1]) {
-                        } else {
-                            var registro = novoRegistro[0];
-                            var horario = registro.horarioLeitura.replace(/T/, ' ').replace(/\..+/, '');
-                            dados.labels.shift(); 
-                            dados.labels.push(horario); 
-
-                            dados.datasets[0].data.shift(); 
-                            dados.datasets[0].data.push(novoRegistro[0].valorLeitura); 
-
-                            myChart.update();
-                        }
-                        proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart, id), 2000);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(dados, myChart, id), 2000);
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-
-        }
-
         function renderizarTabela(json) {
 
             for (j in json) {
                 valorJson = json[j];
-                console.log("ASMo", valorJson)
                 tabela.innerHTML += `
                                 <tr>
                                     <td>Máquina ${valorJson.idServidor}</td>
-                                    <td>${valorJson.valorLeitura} ${valorJson.unidade_medida}</td>
+                                    <td>${valorJson.valorLeitura} ${valorJson.unidadeMedida}</td>
                                     <td>50°</td>
                                     <td>18%</td>
                                     <td>46%</td>
-                                    <td><a class="btn btn-sm btn-primary" href="chart.html">Detalhes</a></td>
+                                    <td><a class="btn btn-sm btn-primary" onclick="alterar(${valorJson.idServidor});">Detalhes</a></td>
                                 </tr>`
             }
 
+        }
+        function alterar(index){
+            window.location = `./detalhes.html?idServidor=${index}`;
         }
     </script>
 </body>

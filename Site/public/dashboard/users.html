@@ -86,7 +86,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
-                    
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-triangle-exclamation me-lg-2"></i>
@@ -112,12 +112,13 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex" id="nome">Julio Abacate</span>
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex" id="nome"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="user-information.html" class="dropdown-item">Dados Pessoais</a>
-                            
+
                             <a onclick="sair()" href="#" class="dropdown-item">Sair</a>
                         </div>
                     </div>
@@ -131,7 +132,7 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Pesquisar</h6>
                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                aria-describedby="emailHelp">
                         </div>
                     </div>
                 </div>
@@ -151,47 +152,10 @@
                                         Nome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </th>
                                     <th scope="col">Cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                    <th scope="col">Gestor</th>
                                     <th scope="col">E-mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                    <th scope="col">Ação&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Roberto Mamão</td>
-                                    <td>Gestor</td>
-                                    <td>-</td>
-                                    <td>roberto.papaya@rabbit.com</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Julio Abacate</td>
-                                    <td>Operador</td>
-                                    <td>Roberto Mamão</td>
-                                    <td>julio.avocado@rabbit.com</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Geraldo Pitaya</td>
-                                    <td>Operador</td>
-                                    <td>Roberto Mamão</td>
-                                    <td>geraldo.dragonfruit@rabbit.com</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Juliana Pêra</td>
-                                    <td>Operadora</td>
-                                    <td>Roberto Mamão</td>
-                                    <td>juliana.pear@rabbit.com</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Zênia Coco</td>
-                                    <td>Operadora</td>
-                                    <td>Roberto Mamão</td>
-                                    <td>zenia.coconut@rabbit.com</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detalhes</a></td>
-                                </tr>
+                            <tbody id="tabela">
                             </tbody>
                         </table>
                     </div>
@@ -228,13 +192,43 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="../assets/js/funcoes.js"></script>
+    <script src="../assets/js/funcoes.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
         var resultado = obterDados(sessionStorage.USUARIO);
         nome.innerHTML = (resultado.nomeUsuario);
+        var idGestor = resultado.idUsuario;
+        tabelaFuncao(idGestor);
+
+
+
+        function tabelaFuncao(id) {
+            fetch(`/usuarios/listar/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        renderizarTabela(resposta)
+                    });
+                }
+            })
+        }
+        function renderizarTabela(json) {
+            for (j in json) {
+                var valorJson = json[j];
+
+                tabela.innerHTML += `
+<tr>
+    <td>${valorJson.nomeUsuario}</td>
+    <td>${valorJson.tipoUsuario}</td>
+    <td>${valorJson.emailUsuario}</td>
+
+</tr>`
+            }
+
+        }
     </script>
 </body>
+
 
 </html>

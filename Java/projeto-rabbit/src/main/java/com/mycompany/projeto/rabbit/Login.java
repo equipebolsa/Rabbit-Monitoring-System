@@ -5,6 +5,8 @@
  */
 package com.mycompany.projeto.rabbit;
 
+import com.mycompany.utilitario.Criptografia;
+
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -54,6 +56,8 @@ public class Login extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
+        jPanel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
         jPanel3.setBackground(new java.awt.Color(217, 125, 228));
         jPanel3.setToolTipText("");
 
@@ -61,10 +65,6 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(238, 238, 238));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login do Sistema");
-
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\kelvi\\Desktop\\Rabbit-Monitoring-System\\Java\\projeto-rabbit\\src\\main\\java\\com\\mycompany\\projeto\\icons\\logo.png")); // NOI18N
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\kelvi\\Desktop\\Rabbit-Monitoring-System\\Java\\projeto-rabbit\\src\\main\\java\\com\\mycompany\\projeto\\icons\\logo.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -97,9 +97,9 @@ public class Login extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(58, 65, 84));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Entrar");
+        jButton1.setText("ENTRAR");
         jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton1MouseEntered(evt);
@@ -134,8 +134,8 @@ public class Login extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(217, 81, 51));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Sair");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setText("SAIR");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton2MouseEntered(evt);
@@ -198,10 +198,10 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Entre com seu login");
+        jLabel2.setText("Seja Bem Vindo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -287,24 +287,26 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String senhaVar = new String(senha.getPassword());
+        int count=0;
+        senhaVar = Criptografia.getSHA512(senhaVar);
         String emailVar = email.getText();
 
-        List<Usuario> validUsuario = con.query("SELECT * FROM usuario", new BeanPropertyRowMapper(Usuario.class));
-
-        for (Usuario usuario : validUsuario) {
-            if ((emailVar == null || emailVar.isEmpty()) || senhaVar.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Informe seu email e senha", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
-            } else {
-                if (!emailVar.equals(usuario.getEmailUsuario()) || !senhaVar.equals("admin")) {
-                    JOptionPane.showMessageDialog(this, "Login e senha incorretos!", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    TelaDeMonitoramento tela = new TelaDeMonitoramento();
-                    tela.setVisible(true);
-                    this.dispose();
-                }
-            }
+        if ((emailVar == null || emailVar.isEmpty()) || senhaVar.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe seu email e senha", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
         }
 
+        List<Usuario> validUsuario = con.query("SELECT * FROM usuario", new BeanPropertyRowMapper(Usuario.class));
+        for (Usuario usuario : validUsuario) {
+
+            if (senhaVar.equalsIgnoreCase(usuario.getSenhaUsuario()) && emailVar.equals(usuario.getEmailUsuario())) {
+                TelaDeMonitoramento tela = new TelaDeMonitoramento();
+                tela.setVisible(true);
+                this.dispose();
+            }else{
+                count++;
+            }
+        }
+        if(count == validUsuario.size()) JOptionPane.showMessageDialog(this, "Login e senha incorretos!", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaActionPerformed

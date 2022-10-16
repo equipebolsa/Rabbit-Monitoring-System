@@ -10,7 +10,7 @@ public class Usuario {
     private Integer idUsuario;
     private String nomeUsuario;
     private String emailUsuario;
-    private Integer senhaUsuario;
+    private String senhaUsuario;
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -36,11 +36,11 @@ public class Usuario {
         this.emailUsuario = emailUsuario;
     }
 
-    public Integer getSenhaUsuario() {
+    public String getSenhaUsuario() {
         return senhaUsuario;
     }
 
-    public void setSenhaUsuario(Integer senhaUsuario) {
+    public void setSenhaUsuario(String senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
     }
 

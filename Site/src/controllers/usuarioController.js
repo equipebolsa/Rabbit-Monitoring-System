@@ -2,7 +2,8 @@ var usuarioModel = require("../models/usuarioModel");
 var sha512 = require('js-sha512');
 
 function listar(req, res) {
-    usuarioModel.listar()
+    var idGestor = req.params.idGestor;
+    usuarioModel.listar(idGestor)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);

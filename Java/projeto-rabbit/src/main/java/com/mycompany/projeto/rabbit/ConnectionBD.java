@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.mycompany.projeto.rabbit;
 
+package com.mycompany.projeto.rabbit;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-/**
- *
- * @author blacklherme
- */
+
 public class ConnectionBD {
-
-
-
 
     private BasicDataSource datasource;
 
@@ -26,13 +15,13 @@ public class ConnectionBD {
 
         this.datasource.setDriverClassName("com.mysql.jdbc.Driver");
 
-        this.datasource.setUrl("jdbc:mysql://127.0.0.1:3306/bolsa");
+        this.datasource.setUrl("jdbc:mysql://127.0.0.1:3306/bolsa?useTimezone=true&serverTimezone=UTC");
         
         // usuário utilizado em um container MySQL
-        this.datasource.setUsername("root");
+        this.datasource.setUsername("aluno");
         
         // senha padrao utilizada no container MySQL
-        this.datasource.setPassword("O@kami261004");
+        this.datasource.setPassword("sptech");
     }
 
     public BasicDataSource getDatasource() {
