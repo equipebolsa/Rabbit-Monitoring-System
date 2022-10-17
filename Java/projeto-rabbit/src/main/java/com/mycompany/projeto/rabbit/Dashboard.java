@@ -2,22 +2,28 @@ package com.mycompany.projeto.rabbit;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.util.Conversor;
+import com.mycompany.utilitario.Util;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
  * @author kelvi
  */
 public class Dashboard extends javax.swing.JFrame {
+
+    ConnectionBD config = new ConnectionBD();
+    JdbcTemplate con = new JdbcTemplate(config.getDatasource());
 
     public Dashboard() {
         try {
@@ -31,7 +37,8 @@ public class Dashboard extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
+        Util utiliario = new Util();
+        utiliario.InserirIcone(this);
         initComponents();
 
         Looca looca = new Looca();
@@ -46,17 +53,19 @@ public class Dashboard extends javax.swing.JFrame {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+                 //LocalDate myDateObj = LocalDate.now(); // Create a date object
+                //DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                 //String formattedDate = myDateObj.format(myFormatObj);
                 consumoCpuRealTime(looca);
                 consumoRamRealTime(looca);
-                
+
             }
         };
 
         temporizador.schedule(task, 0, 1000);
-       
-            
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -621,6 +630,7 @@ public class Dashboard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Dashboard().setVisible(true);
+
             }
         });
     }
@@ -632,11 +642,10 @@ public class Dashboard extends javax.swing.JFrame {
         sistemaOperacional = looca.getSistema().getSistemaOperacional();
         fabricanteSistema = looca.getSistema().getFabricante();
         arquiteturaSistema = String.format("%d Bits", looca.getSistema().getArquitetura());
-
         lblSo.setText(sistemaOperacional);
         lblFabricante.setText(fabricanteSistema);
         lblArquitetura.setText(arquiteturaSistema);
-        
+
         String tempoAtvSistema = conversor.formatarSegundosDecorridos(looca.getSistema().getTempoDeAtividade());
         lblTempoAtv.setText(tempoAtvSistema);
     }
@@ -654,16 +663,17 @@ public class Dashboard extends javax.swing.JFrame {
         lblNucleosFisicos.setText(qtdNucleosFisicos.toString());
         lblNucleosLogicos1.setText(qtdNucleosLogicos.toString());
         lblThreads.setText(qtdTotalNucleos.toString());
-        
 
     }
 
     public void consumoCpuRealTime(Looca looca) {
         Double consumoCpu = looca.getProcessador().getUso();
         Long pgBarValueCpu = Math.round(consumoCpu);// Consumo de CPU Arredondado para inserir no setValue() da ProgressBar
-
+        String insertPercentCPU = "INSERT INTO leitura VALUES (NULL,NOW(),?,?,?)";
         String strConsumoCpu = String.format("%.1f %%", consumoCpu);// String Consumo de CPU para inserir no setString() da ProgressBar
-
+        String strconsumoCpuTratada = String.format("%.1f",  consumoCpu);
+        strconsumoCpuTratada =  strconsumoCpuTratada.replace(',', '.');
+        con.update(insertPercentCPU, strconsumoCpuTratada,1,1);
         pgBarCpu.setValue(pgBarValueCpu.intValue());
         pgBarCpu.setString(strConsumoCpu);
         pgBarCpu.setString(strConsumoCpu);
@@ -673,8 +683,11 @@ public class Dashboard extends javax.swing.JFrame {
     public void consumoRamRealTime(Looca looca) {
         Double consumoRam = (looca.getMemoria().getEmUso().doubleValue() * 100) / looca.getMemoria().getTotal(); // Consumo RAM %
         Long pgBarValueRam = Math.round(consumoRam);// Consumo de RAM Arredondado para inserir no setValue() da ProgressBar
-
+        String insertPercentRAM = "INSERT INTO leitura VALUES (NULL,NOW(),?,?,?)";
         String strConsumoRam = String.format("%.1f %%", consumoRam);// String Consumo de RAM para inserir no setString() da ProgressBar
+        String strConsumoRamTratada = String.format("%.1f", consumoRam);
+        strConsumoRamTratada = strConsumoRamTratada.replace(',', '.');
+        con.update(insertPercentRAM,strConsumoRamTratada,2,2);
         pgBarRam.setValue(pgBarValueRam.intValue());
         pgBarRam.setString(strConsumoRam);
     }
@@ -692,7 +705,11 @@ public class Dashboard extends javax.swing.JFrame {
         Double consumoDisco = (espacoDiscoUso.doubleValue() * 100) / espacoDiscoTotal.doubleValue(); // Consumo de Disco em %
         Long pgBarValueDisco = Math.round(consumoDisco); // Consumo de Disco Arredondado para inserir no setValue() da ProgressBar
         String strConsumoDisco = String.format("%.1f %%", consumoDisco); // String Consumo de Disco para inserir no setString() da ProgressBar
-
+        
+         String insertConsumoDisco = "INSERT INTO leitura VALUES (NULL,NOW(),?,?,?)";
+         String strConsumoDiscoTratada = String.format("%.1f", consumoDisco);
+         strConsumoDiscoTratada = strConsumoDiscoTratada.replace(',', '.');
+         System.out.println(con.update(insertConsumoDisco, strConsumoDiscoTratada,3,3));
         lblDiscoTotal.setText(strDiscoTotalGb);
         lblDiscoUso.setText(strDiscoUsadoGb);
         lblDiscoDisp.setText(strDiscoDispGb);

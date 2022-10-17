@@ -23,6 +23,7 @@ var mySqlConfig = {
     database: "bolsa",
     user: "aluno",
     password: "sptech",
+    timezone: "-00:00"
 };
 
 function executar(instrucao) {

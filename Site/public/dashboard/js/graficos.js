@@ -48,7 +48,7 @@ function plotarGraficoDISCO(resposta, id) {
     let dados1 = {
         labels: labels1,
         datasets: [{
-            label: 'Memória Disponivel (GB)',
+            label: 'Memória Usada (GB)',
             data: [],
             borderColor: 'rgb(237, 154, 7)',
             tension: 0.1

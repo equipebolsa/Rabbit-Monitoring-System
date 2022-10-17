@@ -2,15 +2,15 @@ var database = require("../database/config")
 
 
 function listarCPU(id) {
-    var instrucao = `SELECT * FROM leituraView WHERE idServidor = ${id} AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'CPU') LIMIT 25`;
+    var instrucao = `SELECT * FROM leituraView WHERE idServidor = ${id} AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'CPU') ORDER BY horarioLeitura DESC LIMIT 25`;
     return database.executar(instrucao);
 }
 function listarRAM(id) {
-    var instrucao = `SELECT * FROM leituraView WHERE idServidor = ${id} AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') LIMIT 25`;
+    var instrucao = `SELECT * FROM leituraView WHERE idServidor = ${id} AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') ORDER BY horarioLeitura DESC LIMIT 25`;
     return database.executar(instrucao);
 }
 function listarDISCO(id) {
-    var instrucao = `SELECT * FROM leituraView WHERE idServidor = ${id} AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'DISCO') LIMIT 25`;
+    var instrucao = `SELECT * FROM leituraView WHERE idServidor = ${id} AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'DISCO') ORDER BY horarioLeitura DESC LIMIT 25`;
     return database.executar(instrucao);
 }
 function listarMaquinas(id) {

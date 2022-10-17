@@ -31,3 +31,19 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--base-color-purple-dark);
 }
+
+
+.leftSide{
+	display: flex; 
+	justify-content: center;
+	align-items: center; 
+	background: linear-gradient(342deg, rgba(238,174,202,1) 0%, rgba(62,180,216,1) 100%);
+	border-radius: 14px;
+}
+
+.cen{
+	display: flex;
+	margin: 50px;
+	justify-content: center;
+	justify-content: center;
+}

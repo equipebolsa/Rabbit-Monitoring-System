@@ -6,6 +6,7 @@
 package com.mycompany.projeto.rabbit;
 
 import com.mycompany.utilitario.Criptografia;
+import com.mycompany.utilitario.Util;
 
 import java.awt.Color;
 import java.util.List;
@@ -27,6 +28,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        Util utiliario = new Util();
+        utiliario.InserirIcone(this);
     }
 
     /**
@@ -303,7 +306,7 @@ public class Login extends javax.swing.JFrame {
         for (Usuario usuario : validUsuario) {
 
             if (senhaVar.equalsIgnoreCase(usuario.getSenhaUsuario()) && emailVar.equals(usuario.getEmailUsuario())) {
-                TelaDeMonitoramento tela = new TelaDeMonitoramento();
+                Dashboard tela = new Dashboard();
                 tela.setVisible(true);
                 this.dispose();
             }else{

@@ -7,8 +7,11 @@ package com.mycompany.projeto.rabbit;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.ProcessoGrupo;
+import com.mycompany.utilitario.Util;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.table.DefaultTableModel;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -28,28 +31,34 @@ public class TelaProcessos extends javax.swing.JFrame {
      */
     public TelaProcessos() {
         initComponents();
-        
+        Util utiliario = new Util();
+        utiliario.InserirIcone(this);
+
 //        StringBuilder createStatement = new StringBuilder();
 //
 //        createStatement.append("CREATE TABLE if not exists processo (");
 //        createStatement.append("idProcesso INT PRIMARY KEY AUTO_INCREMENT,");
 //        createStatement.append("processo VARCHAR(1000)");
 //        createStatement.append(")");
-        
 //        con.execute(createStatement.toString());
-        
 //        String insertStatement = "INSERT INTO processo VALUES (null, ?)";
-        
-        varProcesso.setText(looca.getGrupoDeProcessos().getProcessos().toString());
-        
+        //varProcesso.setText(looca.getGrupoDeProcessos().getProcessos().toString());
 //        con.update(insertStatement, looca.getGrupoDeProcessos().getProcessos().toString());
-
         int delay = 4000;
         int interval = 1000;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                varProcesso.setText(looca.getGrupoDeProcessos().getProcessos().toString());
+                DefaultTableModel processo =(DefaultTableModel) jTableProcesso.getModel();
+
+                List listaProcesso = (List) looca.getGrupoDeProcessos().getProcessos();
+
+                for (int i = 0; i <listaProcesso.size(); i++) {
+                    Object[] dados = {listaProcesso.get(i)};
+                    processo.addRow(dados);
+                }
+                
+
             }
         }, delay, interval);
     }
@@ -63,9 +72,25 @@ public class TelaProcessos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        varProcesso = new java.awt.TextArea();
         varButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableProcesso = new javax.swing.JTable();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -76,42 +101,46 @@ public class TelaProcessos extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        varProcesso.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         varButton.setBackground(new java.awt.Color(217, 81, 51));
         varButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         varButton.setForeground(new java.awt.Color(255, 255, 255));
         varButton.setText("SAIR");
-        varButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        varButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         varButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 varButtonActionPerformed(evt);
             }
         });
 
+        jTableProcesso.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Processo"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableProcesso);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
-                .addComponent(varProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(varButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(varButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(varProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(varButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(varButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -120,7 +149,7 @@ public class TelaProcessos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void varButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varButtonActionPerformed
-        TelaDeMonitoramento tela = new TelaDeMonitoramento();
+        Dashboard tela = new Dashboard();
         tela.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_varButtonActionPerformed
@@ -165,7 +194,10 @@ public class TelaProcessos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableProcesso;
     private javax.swing.JButton varButton;
-    private java.awt.TextArea varProcesso;
     // End of variables declaration//GEN-END:variables
 }
