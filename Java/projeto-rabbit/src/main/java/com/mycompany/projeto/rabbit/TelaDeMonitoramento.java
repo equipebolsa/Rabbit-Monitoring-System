@@ -189,7 +189,7 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         buttonProcesso.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         buttonProcesso.setForeground(new java.awt.Color(255, 255, 255));
         buttonProcesso.setText("Ver processos");
-        buttonProcesso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonProcesso.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buttonProcesso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonProcessoActionPerformed(evt);
@@ -200,14 +200,14 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         buttonSair.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         buttonSair.setForeground(new java.awt.Color(255, 255, 255));
         buttonSair.setText("Sair");
-        buttonSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonSair.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buttonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSairActionPerformed(evt);
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\kelvi\\Desktop\\Rabbit-Monitoring-System\\Java\\projeto-rabbit\\src\\main\\java\\com\\mycompany\\projeto\\icons\\logo.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
 
         jLabel2.setText("---------------------------------");
 
