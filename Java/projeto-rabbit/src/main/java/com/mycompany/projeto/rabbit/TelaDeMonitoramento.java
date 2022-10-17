@@ -161,7 +161,7 @@ public class TelaDeMonitoramento extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        titulo.setFont(new java.awt.Font("Sitka Display", 1, 24)); // NOI18N
+        titulo.setFont(new java.awt.Font("Sitka Display", 1, 36)); // NOI18N
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setText("Monitoramento");
 
