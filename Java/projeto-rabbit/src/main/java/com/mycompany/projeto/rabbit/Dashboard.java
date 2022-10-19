@@ -1,4 +1,4 @@
-package com.mycompany.projeto.rabbit;
+ package com.mycompany.projeto.rabbit;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.util.Conversor;
