@@ -39,12 +39,25 @@ function obterDados(json){
 }
 
 
-
 function limpar(json){
     jsonToJs= "";
     json = "";
 }
 function sair() {
     limpar(sessionStorage.USUARIO);
-    window.location.href = "../index.html"
+    window.location.href = "../index.html";
+}
+function verificarAcesso(nivelAcesso){
+    //nivel: 0 - Técnico e Gestor;
+    //nivel: 1 - Apenas Gestor;
+    var resultado = obterDados(sessionStorage.USUARIO);
+    var tipo = resultado.tipoUsuario;
+    if(tipo == "Técnico" && nivelAcesso == 0){
+        document.getElementById("gestorOnly").style.display = "none";
+    }
+    else if(tipo == "Técnico" && nivelAcesso == 1){
+        window.location.href = "error.html";
+    }else if(tipo != "Gestor" && tipo != "Técnico"){
+        window.location.href = "error.html";
+    }
 }

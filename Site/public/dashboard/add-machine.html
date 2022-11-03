@@ -57,6 +57,7 @@
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active show" aria-expanded="true"
                             data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Cadastro</a>
@@ -67,6 +68,7 @@
                         </div>
                     </div>
                     <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
+
 
                 </div>
             </nav>
@@ -132,11 +134,11 @@
                             <h6 class="mb-4">Servidor</h6>
                             <form onsubmit="return false">
                                 <div class="mb-3">
-                                    <label  class="form-label">MAC Address</label>
+                                    <label class="form-label">MAC Address</label>
                                     <input type="text" class="form-control" id="macAddres">
                                 </div>
                                 <div class="mb-3">
-                                    <label  class="form-label">Serial Number</label>
+                                    <label class="form-label">Serial Number</label>
                                     <input type="text" class="form-control" id="serial">
                                 </div>
                                 <div class="mb-3">
@@ -198,6 +200,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+        verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
         nomeSpan.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = (resultado.fkEmpresa);
@@ -244,27 +247,27 @@
             if (macAddres.value.length <= 5) {
                 alert("Insira um endereço MAC válido")
                 return false;
-            }else{
+            } else {
                 macCampo = macAddres.value;
             }
             if (serial.value.length <= 5) {
                 alert("Insira um Serial Number válido")
                 return false;
-            }else{
+            } else {
                 serialCampo = serial.value;
             }
             //
             if (so.value == 0) {
                 alert("Selecione um Sistema Operacional")
                 return false;
-            }else{
+            } else {
                 soCampo = so.value;
             }
 
             if (setor.value == 0) {
                 alert("Selecione um setor")
                 return false;
-            }else{
+            } else {
                 setorCampo = setor.value;
             }
 

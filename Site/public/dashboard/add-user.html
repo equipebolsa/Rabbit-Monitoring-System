@@ -57,6 +57,7 @@
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active show" aria-expanded="true"
                             data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Cadastro</a>
@@ -130,16 +131,14 @@
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4 container">
                             <h6 class="mb-4">Cadastrar Funcionário</h6>
-                            <form onsubmit="return false" >
+                            <form onsubmit="return false">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="nome"
-                                        aria-describedby="emailHelp">
+                                    <input type="text" class="form-control" id="nome" aria-describedby="emailHelp">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="email"
-                                        aria-describedby="emailHelp">
+                                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
                                     <div class="mb-3">
                                     </div>
                                     <label for="exampleInputEmail1" class="form-label">Confirme o e-mail</label>
@@ -204,6 +203,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+        verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
         nomeSpan.innerHTML = (resultado.nomeUsuario);
         function sair() {
@@ -214,32 +214,32 @@
 
         function cadastarUsuario() {
             var nomeCampo = nome.value;
-            if(nomeCampo.length <= 5){
+            if (nomeCampo.length <= 5) {
                 alert("Insira um nome válido");
                 return false;
             }
             var emailCampo = email.value;
-            if(emailCampo.length <= 7){
+            if (emailCampo.length <= 7) {
                 alert("Insira um e-mail válido");
                 return false;
-            }else if(emailCampo != confEmail.value){
+            } else if (emailCampo != confEmail.value) {
                 alert("Os dois campos de e-mail devem coincidir");
                 return false;
             }
             var senhaCampo = senha.value;
-            if(senhaCampo.length <= 2){
+            if (senhaCampo.length <= 2) {
                 alert("Insira uma senha válida");
                 return false;
-            }else if(senhaCampo != confSenha.value){
+            } else if (senhaCampo != confSenha.value) {
                 alert("Os dois campos de senha devem coincidir");
                 return false;
             }
             var cargoCampo;
-            if(cargo.value == 1){
+            if (cargo.value == 1) {
                 cargoCampo = 'Gestor';
-            }else if(cargo.value == 2){
+            } else if (cargo.value == 2) {
                 cargoCampo = 'Técnico';
-            } else{
+            } else {
                 alert("Selecione um cargo");
                 return false;
             }

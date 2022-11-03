@@ -197,6 +197,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+        verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
         nome.innerHTML = (resultado.nomeUsuario);
         var idGestor = resultado.idUsuario;

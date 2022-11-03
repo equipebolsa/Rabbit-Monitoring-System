@@ -58,17 +58,18 @@
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="chart.html" class="nav-item nav-link active"><i
                             class="fa fa-chart-line me-2"></i>Gráficos</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-laptop me-2"></i>Cadastro</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="add-machine.html" class="dropdown-item">Servidor</a>
-                            <a href="add-user.html" class="dropdown-item">Funcionário</a>
-                            <a href="add-sector.html" class="dropdown-item">Setor</a>
+                    <span id="gestorOnly">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                    class="fa fa-laptop me-2"></i>Cadastro</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="add-machine.html" class="dropdown-item">Servidor</a>
+                                <a href="add-user.html" class="dropdown-item">Funcionário</a>
+                                <a href="add-sector.html" class="dropdown-item">Setor</a>
+                            </div>
                         </div>
-                    </div>
-                    <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-
+                        <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
+                        <span id="gestorOnly">
                 </div>
             </nav>
         </div>
@@ -118,7 +119,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="user-information.html" class="dropdown-item">Dados Pessoais</a>
-                            
+
                             <a onclick="sair()" href="#" class="dropdown-item">Sair</a>
                         </div>
                     </div>
@@ -131,9 +132,10 @@
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">setor</h6>
-                            <select id="setor" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                            <select id="setor" class="form-select form-select-sm mb-3"
+                                aria-label=".form-select-sm example">
                                 <option selected>Selecione um setor</option>
-    
+
                             </select>
                         </div>
                     </div>
@@ -236,6 +238,7 @@
     <script src="js/graficos.js"></script> <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+        verificarAcesso(0);
         var resultado = obterDados(sessionStorage.USUARIO);
         nome.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = (resultado.fkEmpresa);
@@ -265,7 +268,7 @@
             window.location.href = "../index.html"
         }
 
-         
+
     </script>
 
 </body>

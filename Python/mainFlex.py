@@ -8,7 +8,7 @@ import psutil
 
 
 connection = mysql.connector.connect(
-    host="localhost", user="aluno", password="sptech", database="bolsa")
+    host="localhost", user="root", password="sptech", database="bolsa")
 cursor = connection.cursor()
 
 

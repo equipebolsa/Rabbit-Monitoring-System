@@ -31,8 +31,6 @@ CREATE TABLE setor (
   descricaoSetor VARCHAR(255) NULL  
 );
 
-INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
-
 CREATE TABLE servidor (
   idServidor INT PRIMARY KEY AUTO_INCREMENT,
   fkSetor INT NOT NULL,
@@ -59,11 +57,6 @@ CREATE TABLE metrica (
 	isTupla CHAR(1) NOT NULL,
 	CONSTRAINT CK_metrica_isTupla CHECK(isTupla IN ('1', '0'))
 );
--- Inserir
-INSERT INTO metrica VALUES(NULL,'CPUPercent','psutil.cpu_percent(interval=None, percpu=False)','%',NULL,'0');
-INSERT INTO metrica VALUES(NULL,'RAMPercent','psutil.virtual_memory().percent','%', NULL,'0');
-INSERT INTO metrica VALUES(NULL,'DISCOUso','psutil.disk_usage("/").used','GB', '/(1024**3)','0');
-
 
 CREATE TABLE leitura (
   idLeitura INT PRIMARY KEY AUTO_INCREMENT,
@@ -93,9 +86,6 @@ CREATE TABLE alerta (
   PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor)
  );
  
-
-
-
 CREATE VIEW leituraView AS SELECT 
     nomeEmpresa,
     fkEmpresa,
@@ -113,6 +103,14 @@ INNER JOIN servidor ON idServidor = fkServidor
 INNER JOIN setor ON idSetor = fkSetor
 INNER JOIN empresa ON idEmpresa = fkEmpresa
 INNER JOIN metrica ON idMetrica = fkMetrica;
+
+-- criar um usuario no site antes de fazer os inserts abaixo
+-- inserts
+INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
+
+INSERT INTO metrica VALUES(NULL,'CPUPercent','psutil.cpu_percent(interval=None, percpu=False)','%',NULL,'0');
+INSERT INTO metrica VALUES(NULL,'RAMPercent','psutil.virtual_memory().percent','%', NULL,'0');
+INSERT INTO metrica VALUES(NULL,'DISCOUso','psutil.disk_usage("/").used','GB', '/(1024**3)','0');
 
 
 -- DROPS
