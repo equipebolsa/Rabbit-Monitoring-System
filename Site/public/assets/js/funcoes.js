@@ -53,7 +53,12 @@ function verificarAcesso(nivelAcesso){
     var resultado = obterDados(sessionStorage.USUARIO);
     var tipo = resultado.tipoUsuario;
     if(tipo == "Técnico" && nivelAcesso == 0){
-        document.getElementById("gestorOnly").style.display = "none";
+        try {
+            document.getElementById("gestorOnly").style.display = "none";
+        } catch (error) {
+            
+        }
+        
     }
     else if(tipo == "Técnico" && nivelAcesso == 1){
         window.location.href = "error.html";
