@@ -6,8 +6,8 @@ import numpy as np
 def plotarWordcloud(frases):
 	stopwords = set(STOPWORDS)
 	stopwords.update(["a","o","da", "meu", "em", "de", "ao", "os"])
-	datafromfile=np.loadtxt("stoplists/stopwords_Portugues.txt",dtype="str")
-	stopwords.update(datafromfile)
+	#datafromfile=np.loadtxt("stoplists/stopwords_Portugues.txt",dtype="str")
+	#stopwords.update(datafromfile)
 
 
 	lista = frases.lower()

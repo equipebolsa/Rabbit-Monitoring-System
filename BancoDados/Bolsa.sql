@@ -1,7 +1,7 @@
 CREATE DATABASE bolsa;
 -- DROP DATABASE bolsa;
 USE bolsa;
-
+select * from setor;
 CREATE TABLE empresa(
   idEmpresa INT  PRIMARY KEY AUTO_INCREMENT,
   nomeEmpresa VARCHAR(45) NOT NULL,
@@ -30,7 +30,6 @@ CREATE TABLE setor (
   nomeSetor VARCHAR(45) NOT NULL,
   descricaoSetor VARCHAR(255) NULL  
 );
-
 INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
 
 CREATE TABLE servidor (
@@ -53,15 +52,15 @@ CREATE TABLE componenteFisico  (
 CREATE TABLE metrica (
 	idMetrica  INT PRIMARY KEY AUTO_INCREMENT,
 	nomeMetrica VARCHAR(45) NOT NULL,
-	tratamentoPython VARCHAR(255),
+	unidadeMedida VARCHAR(255),
 	isTupla CHAR(1) NOT NULL,
 	CONSTRAINT CK_metrica_isTupla CHECK(isTupla IN ('1', '0'))
 );
 -- Inserir
-INSERT INTO metrica VALUES(NULL,'CPUPercent','psutil.cpu_percent(interval=None, percpu=False)','%',NULL,'0');
-INSERT INTO metrica VALUES(NULL,'RAMPercent','psutil.virtual_memory().percent','%', NULL,'0');
-INSERT INTO metrica VALUES(NULL,'DISCOUso','psutil.disk_usage("/").used','GB', '/(1024**3)','0');
-
+INSERT INTO metrica VALUES(NULL,'CPUPercent','%','0');
+INSERT INTO metrica VALUES(NULL,'RAMPercent','%','0');
+INSERT INTO metrica VALUES(NULL,'DISCOUso','GB','0');
+ 
 
 CREATE TABLE leitura (
   idLeitura INT PRIMARY KEY AUTO_INCREMENT,
@@ -109,7 +108,7 @@ INNER JOIN setor ON idSetor = fkSetor
 INNER JOIN empresa ON idEmpresa = fkEmpresa
 INNER JOIN metrica ON idMetrica = fkMetrica;
 
-
+SELECT * FROM metrica WHERE idMetrica = 1;
 -- DROPS
 
  DROP VIEW leituraView;
@@ -121,6 +120,3 @@ INNER JOIN metrica ON idMetrica = fkMetrica;
  drop table servidor;
  
  
- select * from usuario;
- 
- update usuario SET tipoUsuario = "Gestor" WHERE idUsuario = 10;
