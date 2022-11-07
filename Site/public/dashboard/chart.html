@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-                        <span id="gestorOnly">
+                    </span>
                 </div>
             </nav>
         </div>
@@ -78,142 +78,146 @@
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <div class="navbar-nav align-items-center ms-auto">
+            <span id="spRestrict" style="display: none;">
+                <!-- Navbar Start -->
+                <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                        <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                    </a>
+                    <a href="#" class="sidebar-toggler flex-shrink-0">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <div class="navbar-nav align-items-center ms-auto">
 
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-triangle-exclamation me-lg-2"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="chart.html" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Máquina 1: CPU 80%</h6>
-                                <small>há 15 minutos</small>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-triangle-exclamation me-lg-2"></i>
                             </a>
-                            <hr class="dropdown-divider">
-                            <a href="chart.html" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Máquina 2: RAM 99%</h6>
-                                <small>há 22 minutos</small>
+                            <div
+                                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                <a href="chart.html" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">Máquina 1: CPU 80%</h6>
+                                    <small>há 15 minutos</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="chart.html" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">Máquina 2: RAM 99%</h6>
+                                    <small>há 22 minutos</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="chart.html" class="dropdown-item">
+                                    <h6 class="fw-normal mb-0">Máquina 3: Temp 72°</h6>
+                                    <small>há 44 minutos</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="chart.html" class="dropdown-item text-center">Ver todos os alertas</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                    style="width: 40px; height: 40px;">
+                                <span id="nome" class="d-none d-lg-inline-flex"></span>
                             </a>
-                            <hr class="dropdown-divider">
-                            <a href="chart.html" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Máquina 3: Temp 72°</h6>
-                                <small>há 44 minutos</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="chart.html" class="dropdown-item text-center">Ver todos os alertas</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                                style="width: 40px; height: 40px;">
-                            <span id="nome" class="d-none d-lg-inline-flex"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="user-information.html" class="dropdown-item">Dados Pessoais</a>
+                            <div
+                                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                <a href="user-information.html" class="dropdown-item">Dados Pessoais</a>
 
-                            <a onclick="sair()" href="#" class="dropdown-item">Sair</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar End -->
-
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Setor</h6>
-                            <select id="setor" class="form-select form-select-sm mb-3"
-                                aria-label=".form-select-sm example">
-                                <option selected>Selecione um setor</option>
-
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Periodo</h6>
-                            <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-                                <option selected>Selecione um período</option>
-                                <option value="1">Diário</option>
-                                <option value="2">Semanal</option>
-                                <option value="3">Mensal</option>
-                                <option value="4">Anual</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">CPU</h6>
+                                <a onclick="sair()" href="#" class="dropdown-item">Sair</a>
                             </div>
-                            <canvas id="cpuChart"></canvas>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Temperatura</h6>
+                </nav>
+                <!-- Navbar End -->
+
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <h6 class="mb-4">Setor</h6>
+                                <select id="setor" class="form-select form-select-sm mb-3"
+                                    aria-label=".form-select-sm example">
+                                    <option selected>Selecione um setor</option>
+
+                                </select>
                             </div>
-                            <canvas id="temp"></canvas>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <h6 class="mb-4">Periodo</h6>
+                                <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                                    <option selected>Selecione um período</option>
+                                    <option value="1">Diário</option>
+                                    <option value="2">Semanal</option>
+                                    <option value="3">Mensal</option>
+                                    <option value="4">Anual</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">RAM</h6>
-                            </div>
-                            <canvas id="ram"></canvas>
-                        </div>
 
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Disco</h6>
+
+
+                <!-- Sales Chart Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">CPU</h6>
+                                </div>
+                                <canvas id="cpuChart"></canvas>
                             </div>
-                            <canvas id="hdd"></canvas>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Temperatura</h6>
+                                </div>
+                                <canvas id="temp"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Sales Chart End -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">RAM</h6>
+                                </div>
+                                <canvas id="ram"></canvas>
+                            </div>
 
-
-
-
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Rabbit Monitoring System</a>, All Right Reserved.
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Disco</h6>
+                                </div>
+                                <canvas id="hdd"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Footer End -->
+                <!-- Sales Chart End -->
+
+
+
+
+                <!-- Footer Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-secondary rounded-top p-4">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 text-center text-sm-start">
+                                &copy; <a href="#">Rabbit Monitoring System</a>, All Right Reserved.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer End -->
+            </span>
         </div>
         <!-- Content End -->
 
@@ -238,11 +242,13 @@
     <script src="js/graficos.js"></script> <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        verificarAcesso(0);
         var resultado = obterDados(sessionStorage.USUARIO);
+        verificarAcesso(0);
         nome.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = (resultado.fkEmpresa);
         servidorFuncao(idEmpresa);
+
+
         function renderizarSetores(json) {
             for (j in json) {
                 valorJson = json[j];
