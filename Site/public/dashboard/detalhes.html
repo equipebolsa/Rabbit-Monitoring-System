@@ -86,7 +86,9 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
-
+                    <div class="nav-item">
+                        <button onclick="enviarEmail();" class="btn btn-primary">Email</button>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-triangle-exclamation me-lg-2"></i>
@@ -122,6 +124,7 @@
                             <a onclick="sair()" href="#" class="dropdown-item">Sair</a>
                         </div>
                     </div>
+
                 </div>
             </nav>
             <!-- Navbar End -->
@@ -208,6 +211,27 @@
     <script src="js/main.js"></script>
     <script src="js/graficos.js"></script>
     <script>
+        function enviarEmail() {
+            fetch(`/usuarios/email`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                  
+                    response.json().then(function (resposta) {
+                        alert("Sucesso")
+                    });
+                }
+                else{
+                    alert("Fracasso");
+                    response.json().then(function (resposta) {
+                        alert(JSON.parse(resposta))
+                    });
+                }
+            })
+                .catch(function (error) {
+                    console.error(`ERRO NA ROTA: ${error.message}`);
+                });
+        }
+
+
         verificarAcesso(0);
         var resultado = obterDados(sessionStorage.USUARIO);
         nome.innerHTML = (resultado.nomeUsuario);

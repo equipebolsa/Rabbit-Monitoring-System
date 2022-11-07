@@ -1,0 +1,12 @@
+query{
+  phase(id:317148281){
+    cards{
+      edges{
+        node{
+          id
+          title
+        }
+      }
+    }
+  }
+}

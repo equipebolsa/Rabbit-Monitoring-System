@@ -1,0 +1,12 @@
+mutation {
+  createCard(input:{
+    pipe_id: 302754703 
+    title: "title of card" 
+    fields_attributes: [{field_id:"what_is_your_request", field_value: "value"}] 
+  }){
+    card {
+      id
+      title
+    }
+  }
+}

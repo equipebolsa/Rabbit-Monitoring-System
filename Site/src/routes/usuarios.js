@@ -1,8 +1,9 @@
 var express = require("express");
+
 var router = express.Router();
 
 var usuarioController = require("../controllers/usuarioController");
-
+var utilEmail = require("../utils/email");
 
 router.get("/listar/:idGestor", function (req, res) {
     usuarioController.listar(req, res);
@@ -15,6 +16,10 @@ router.post("/cadastrar", function (req, res) {
 
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
+});
+
+router.get("/email", function (req, res) {
+    utilEmail.enviarEmail(req, res);
 });
 
 module.exports = router;

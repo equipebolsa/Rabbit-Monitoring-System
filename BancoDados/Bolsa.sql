@@ -53,8 +53,6 @@ CREATE TABLE componenteFisico  (
 CREATE TABLE metrica (
 	idMetrica  INT PRIMARY KEY AUTO_INCREMENT,
 	nomeMetrica VARCHAR(45) NOT NULL,
-	comandoPython VARCHAR(255),
-    unidadeMedida VARCHAR(45) NOT NULL,
 	tratamentoPython VARCHAR(255),
 	isTupla CHAR(1) NOT NULL,
 	CONSTRAINT CK_metrica_isTupla CHECK(isTupla IN ('1', '0'))
@@ -77,8 +75,8 @@ CREATE TABLE leitura (
 
 CREATE TABLE alerta (
   idAlerta INT PRIMARY KEY AUTO_INCREMENT,
-  valorLeitura VARCHAR(255) NOT NULL,
-  tipoLeitura VARCHAR(45),
+  tipoAlerta VARCHAR(45),
+  wordcloudAlerta VARCHAR(255),
   fkLeitura INT NOT NULL,
   CONSTRAINT FK_alerta_fkAlerta FOREIGN KEY (fkLeitura) REFERENCES leitura (idLeitura)
  );
@@ -122,3 +120,7 @@ INNER JOIN metrica ON idMetrica = fkMetrica;
  drop table componenteFisico;
  drop table servidor;
  
+ 
+ select * from usuario;
+ 
+ update usuario SET tipoUsuario = "Gestor" WHERE idUsuario = 10;
