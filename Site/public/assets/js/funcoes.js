@@ -33,9 +33,13 @@ function showRewritePassword() {
 
 
 function obterDados(json){
+    if(json == undefined){
+        window.location.href = "error.html";
+    }else{
+        jsonToJs = JSON.parse(json);
+        return jsonToJs;
+    }
     
-    jsonToJs = JSON.parse(json);
-    return jsonToJs;
 }
 
 
@@ -55,14 +59,18 @@ function verificarAcesso(nivelAcesso){
     if(tipo == "Técnico" && nivelAcesso == 0){
         try {
             document.getElementById("gestorOnly").style.display = "none";
+            document.getElementById("spRestrict").style.display = "block";
         } catch (error) {
             
         }
         
-    }
-    else if(tipo == "Técnico" && nivelAcesso == 1){
+    }else if(tipo == "Técnico" && nivelAcesso == 1){
         window.location.href = "error.html";
-    }else if(tipo != "Gestor" && tipo != "Técnico"){
-        window.location.href = "error.html";
+    }else{
+        try {
+            document.getElementById("spRestrict").style.display = "block";
+        } catch (error) {
+            
+        }
     }
 }

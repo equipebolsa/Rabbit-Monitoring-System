@@ -127,7 +127,10 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        var resultado = obterDados(sessionStorage.USUARIO);
+        if(sessionStorage.USUARIO != undefined){
+
+            var resultado = obterDados(sessionStorage.USUARIO);
+        }
         nome.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = resultado.fkEmpresa;
         tabelaFuncao(idEmpresa);
