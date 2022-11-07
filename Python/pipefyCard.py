@@ -2,6 +2,7 @@ import requests
 import word
 import json
 import psutil
+import pymysql
 
 #TODO: Fazer a condicional para que o chamado tiver com a SLA esgotada remandar o chamado 
 #TODO: Utilizar os pacotes da Microsoft para salvar a imagem do wordcloud na nuvem e não no nosso local 
@@ -31,9 +32,20 @@ def enviarWorldCloud():
         lista += " "
     word.plotarWordcloud(lista)
 
+while(True):
+    if(psutil.virtual_memory().percent>75):
+        connection = mysql.connector.connect(
+    host="localhost", user="aluno", password="sptech", database="bolsa")
+        cursor = connection.cursor()
+        cursor.execute("INSERT INTO alerta VALUES (null, {psutil.virtual_memory().percent}, "Memória ram acima do limite!", 1")
+        reportarAlerta()
+        break;
+
+#TODO: Ainda falta adicionar umas condicionais
 
 while(True):
     if(psutil.virtual_memory().percent>10):
         #TODO: Fazer a comunicação com banco de dados para ver se o tempo passado foi de um dia
         enviarWorldCloud()
         break;
+
