@@ -7,6 +7,9 @@ import pymysql
 #TODO: Fazer a condicional para que o chamado tiver com a SLA esgotada remandar o chamado 
 #TODO: Utilizar os pacotes da Microsoft para salvar a imagem do wordcloud na nuvem e não no nosso local 
 
+connection = pymysql.connect(host='localhost',user='aluno',password='sptech',database='bolsa')
+cursor = connection.cursor()
+
 def reportarAlerta():
     url = "https://api.pipefy.com/graphql"
     payload = {"query": "query{   phase(id:317148281){     cards{       edges{         node{           id  title         }       }     }   } }"}
@@ -31,16 +34,25 @@ def enviarWorldCloud():
         lista += (card['node']['title'])
         lista += " "
     word.plotarWordcloud(lista)
+    
+    # Mandar para o banco de dados e para o pipefy quando a memoria ram ultrapassar o limite
 
 while(True):
     if(psutil.virtual_memory().percent>75):
-        connection = mysql.connector.connect(
-    host="localhost", user="aluno", password="sptech", database="bolsa")
-        cursor = connection.cursor()
-        cursor.execute("INSERT INTO alerta VALUES (null, {psutil.virtual_memory().percent}, "Memória ram acima do limite!", 1")
+        sql = "INSERT INTO alerta VALUES (null, {psutil.virtual_memory().percent}, 'Memória ram acima do limite!', 1)"
+        cursor.execute(sql)
         reportarAlerta()
         break;
+    
+    # Mandar para o banco de dados e para o pipefy quando o processador ultrapassar o limite
 
+while(True):
+    if(psutil.cpu_percent()>75):
+        sql = "INSERT INTO alerta VALUES (null, {psutil.cpu_percent()}, 'Processador acima do limite!', 1)"
+        cursor.execute(sql)
+        reportarAlerta()
+        break;
+    
 #TODO: Ainda falta adicionar umas condicionais
 
 while(True):
@@ -48,4 +60,3 @@ while(True):
         #TODO: Fazer a comunicação com banco de dados para ver se o tempo passado foi de um dia
         enviarWorldCloud()
         break;
-
