@@ -9,7 +9,7 @@ function enviarEmail(req, res) {
     today = (today.toLocaleDateString("pt-BR"));
     today = today.replace("/","-")
     today = today.replace("/","-")
-    const user = """
+    const user = ""
     const pass = ""
 
     const transporter = nodemailer.createTransport({ host: "smtp.office365.com", port: 587, auth: { user, pass } })
