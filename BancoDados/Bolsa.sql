@@ -75,7 +75,6 @@ CREATE TABLE leitura (
 CREATE TABLE alerta (
   idAlerta INT PRIMARY KEY AUTO_INCREMENT,
   tipoAlerta VARCHAR(45),
-  wordcloudAlerta VARCHAR(255),
   fkLeitura INT NOT NULL,
   CONSTRAINT FK_alerta_fkAlerta FOREIGN KEY (fkLeitura) REFERENCES leitura (idLeitura)
  );

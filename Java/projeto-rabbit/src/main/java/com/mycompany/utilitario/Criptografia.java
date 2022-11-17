@@ -4,7 +4,7 @@ package com.mycompany.utilitario;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
-public class Criptografia {
+public abstract class Criptografia {
         public static String getSHA256(String input){
 	String toReturn = null;
 	try {

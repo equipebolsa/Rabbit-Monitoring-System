@@ -1,7 +1,6 @@
 import psutil
 
 def comando(name):
-    print(name)
     if name == 'CPUPercent':
         return psutil.cpu_percent(interval=None, percpu=False)
     elif name == "RAMPercent":

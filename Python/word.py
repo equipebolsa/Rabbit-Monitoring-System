@@ -23,6 +23,9 @@ def plotarWordcloud(frases):
 	plt.imshow(wordcloud)
 	plt.axis("off")
 	plt.tight_layout(pad = 0)
-	nome="wordlcloud "+date.today().strftime("%b-%d-%Y")
+	data_atual = date.today()
+	data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
+	data_em_texto = data_em_texto.replace("/","-")
+	nome="wordlcloud-"+data_em_texto
 	nome +=".png"
-	plt.savefig("../Site/public/dashboard/img/wordcloud/"+nome)
+	plt.savefig("Site/public/dashboard/img/wordcloud/"+nome)

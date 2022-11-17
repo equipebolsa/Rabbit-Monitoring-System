@@ -5,6 +5,7 @@ import sys
 import mysql.connector
 import hashlib
 import psutil
+import pipefyCard
 
 
 connection = mysql.connector.connect(
@@ -89,15 +90,23 @@ def executarMonitoramento(resposta):
             cursor.execute(query, [row[1]])   
             resultado = cursor.fetchall() 
             leitura = dicionarioComandos.comando(resultado[0][1])
-            print(leitura)
+
             isTupla = resultado[0][3]
             query = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(NOW(), %s, %s, %s)")    
             val = (str(leitura),str(row[0]),str(row[1]))
             cursor.execute(query, val)
             connection.commit()
-        sleep(5)
-        print("Executando...")
-        os.system(comandos[0])
+            # if(psutil.virtual_memory().percent>50):
+            #     query = "INSERT INTO alerta(fkLeitura,tipoAlerta) VALUES(%s, %s)"
+            #     lastID = cursor.execute("SELECT last_insert_id();")
+            #     lastID = cursor.fetchall()
+            #     val = (str(lastID[0][0]),str("RAM"))
+            #     cursor.execute(query, val)
+            #     connection.commit()
+            #     pipefyCard.enviarWorldCloud("RAM SOBRECARREGADA")
+            sleep(3)
+            print("Executando...")
+            os.system(comandos[0])
 
 
 
@@ -117,7 +126,6 @@ def captura():
     else:
         cadastar()
         sleep(2)
-        print("FOgo nos nazi")
         #print("Nenhuma componente cadastrado para monitoramento, cadastre na sua dashboard!")
         #sleep(2)
         #exit()

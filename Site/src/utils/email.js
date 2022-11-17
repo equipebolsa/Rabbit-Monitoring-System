@@ -4,12 +4,17 @@ const path = require('path');
 
 function enviarEmail(req, res) {
     //TODO: colocar o ENV
-    const user = ""
+
+    var today  = new Date();
+    today = (today.toLocaleDateString("pt-BR"));
+    today = today.replace("/","-")
+    today = today.replace("/","-")
+    const user = """
     const pass = ""
 
     const transporter = nodemailer.createTransport({ host: "smtp.office365.com", port: 587, auth: { user, pass } })
     const dirPath = path.join(__dirname, '../../public/dashboard/img/wordcloud/');
-    const imgDir = dirPath+"wordlcloud nov-07-2022.png";
+    const imgDir = dirPath+"wordlcloud-"+today+".png";
     transporter.sendMail({
         from: user,
         to: user,
@@ -22,12 +27,10 @@ function enviarEmail(req, res) {
         }],
         text: "Wo"
     }).then(function(resposta){
-        console.log("200 FOIi")
         res.status(200).json(resposta);
         
     }
     ).catch(function(erro){
-        console.log("500 ERRO")
         res.status(500).json(erro);
         
     })
