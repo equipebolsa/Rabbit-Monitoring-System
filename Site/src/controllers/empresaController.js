@@ -27,6 +27,8 @@ function cadastrar(req, res) {
         
         empresaModel.cadastrar(nomeEmpresa,cnpjEmpresa,telefone).then(
                 function (resultado) {
+                    console.log("aaa: " + resultado);
+                    console.log(resultado.insertId);
                     res.json(resultado);
                     var id = resultado.insertId;
                     usuarioModel.cadastrar(nome,email,sha512(senha),'Gestor',id,'NULL');
