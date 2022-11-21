@@ -9,7 +9,7 @@ function listar() {
 
 function cadastrar(nome,cnpj,telefone) {
     var instrucao = `INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, telefoneEmpresa) VALUES ('${nome}', '${cnpj}', '${telefone}') `;
-    instrucao += "SELECT IDENT_CURRENT('empresa') as id;"
+    //instrucao += "SELECT IDENT_CURRENT('empresa') as id;"
     return database.executar(instrucao);
 }
 
