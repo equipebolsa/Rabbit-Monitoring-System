@@ -1,13 +1,15 @@
 CREATE DATABASE bolsa;
--- DROP DATABASE bolsa;
+
 USE bolsa;
-select * from setor;
+
 CREATE TABLE empresa(
   idEmpresa INT  PRIMARY KEY AUTO_INCREMENT,
   nomeEmpresa VARCHAR(45) NOT NULL,
   cnpjEmpresa CHAR(18) UNIQUE NOT NULL,
   telefoneEmpresa VARCHAR(20)
 );
+
+INSERT INTO empresa VALUES(NULL,"Gustavo Empresas","876.123.9870/10","1191234-5678");
 
 CREATE TABLE usuario (
   idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -22,6 +24,9 @@ CREATE TABLE usuario (
   fkGestor INT,
   CONSTRAINT FK_usuario_fkGestor FOREIGN KEY (fkGestor) REFERENCES usuario (idUsuario)
 ) AUTO_INCREMENT = 10;
+
+INSERT INTO usuario VALUES(NULL,"Gustavo Empresas","gustavo12.0000@gmail.com","123","Gestor",1,NULL);
+
 
 CREATE TABLE setor (
   idSetor INT PRIMARY KEY AUTO_INCREMENT,
@@ -60,6 +65,7 @@ CREATE TABLE metrica (
 INSERT INTO metrica VALUES(NULL,'CPUPercent','%','0');
 INSERT INTO metrica VALUES(NULL,'RAMPercent','%','0');
 INSERT INTO metrica VALUES(NULL,'DISCOUso','GB','0');
+ 
  
 
 CREATE TABLE leitura (
@@ -108,6 +114,9 @@ INNER JOIN empresa ON idEmpresa = fkEmpresa
 INNER JOIN metrica ON idMetrica = fkMetrica;
 
 SELECT * FROM metrica WHERE idMetrica = 1;
+SELECT * FROM leituraview;
+SELECT * FROM leitura ORDER BY idLeitura DESC;
+select * from parametro;-
 -- DROPS
 
  DROP VIEW leituraView;

@@ -24,25 +24,23 @@ function cadastrar(req, res) {
     } else if (telefone == undefined) {
         res.status(400).send("Seu nome telefone está undefined!");
     } else {
-        
-        empresaModel.cadastrar(nomeEmpresa,cnpjEmpresa,telefone).then(
-                function (resultado) {
-                    console.log("aaa: " + resultado);
-                    console.log(resultado.insertId);
-                    res.json(resultado);
-                    var id = resultado.insertId;
-                    usuarioModel.cadastrar(nome,email,sha512(senha),'Gestor',id,'NULL');
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+
+        empresaModel.cadastrar(nomeEmpresa, cnpjEmpresa, telefone).then(
+            function (resultado) {
+                res.json(resultado);
+                id = resultado[0].id;
+                usuarioModel.cadastrar(nome, email, sha512(senha), 'Gestor', id, 'NULL');
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
     }
 }
 
