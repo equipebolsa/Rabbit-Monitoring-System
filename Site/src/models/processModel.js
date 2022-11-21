@@ -1,11 +1,21 @@
 var database = require("../database/config")
 
-function listar() {
+function listarAguardando() {
+    var instrucao = `select id, nome from alertaProcesso where estado = 'w';`;
+    return database.select(instrucao);
+}
+function listarWhitelist() {
+    var instrucao = `select id, nome from alertaProcesso where estado = 'w';`;
+    return database.select(instrucao);
+}
+function listarBlacklist() {
     var instrucao = `select id, nome from alertaProcesso where estado = 'w';`;
     return database.select(instrucao);
 }
 
 
 module.exports = {
-    listar
+    listarAguardando,
+    listarWhitelist,
+    listarBlacklist
 };
