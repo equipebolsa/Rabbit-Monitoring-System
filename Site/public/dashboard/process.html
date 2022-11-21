@@ -248,21 +248,16 @@
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    
-                })
+                }
             }).then(function (resposta) {
 
                 console.log("resposta: ", resposta);
 
-                alert("AAAAAAAAAA");
                 if (resposta.ok) {
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
 
-                        alert("BBBBBBBBBBBB");
                     });
 
                 } else {

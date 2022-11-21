@@ -15,6 +15,7 @@ var empresaRouter = require("./src/routes/empresa");
 var leituraRouter = require("./src/routes/leituras");
 var setorRouter = require("./src/routes/setores");
 var cadastarRouter = require("./src/routes/servidores");
+var processRouter = require("./src/routes/process");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,7 +29,7 @@ app.use("/empresa", empresaRouter);
 app.use("/leituras", leituraRouter );
 app.use("/setores", setorRouter );
 app.use("/servidores", cadastarRouter );
-
+app.use("/process", processRouter );
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
