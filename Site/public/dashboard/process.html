@@ -167,7 +167,7 @@
                                         <div class="d-flex w-100 align-items-center justify-content-between">
                                             <span>Short task goes here...............</span>
                                             <button type="button" class="btn btn-primary ms-2">
-                                                << /button>
+                                                <</button>
                                                     <button type="button" class="btn btn-primary ms-2">></button>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                         <div class="d-flex w-100 align-items-center justify-content-between">
                                             <span>Short task goes here...</span>
                                             <button type="button" class="btn btn-primary ms-2">
-                                                << /button>
+                                                <</button>
                                         </div>
                                     </div>
                                 </div>
@@ -241,25 +241,38 @@
         var resultado = obterDados(sessionStorage.USUARIO);
         navNome.innerHTML = (resultado.nomeUsuario);
 
+        popularListas();
         function popularListas() {
 
-            fetch(`/process/listar`, {
-                method: 'POST',
+            fetch("/process/listar", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    
                 })
-            }).then(function (response) {
-                console.log('Resposta: ', response);
-                if (response.ok) {
-                    response.json().then(json => {
-                        console.log(json);
-                        sessionStorage.USUARIO = JSON.stringify(json);
+            }).then(function (resposta) {
 
+                console.log("resposta: ", resposta);
+
+                alert("AAAAAAAAAA");
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        alert("BBBBBBBBBBBB");
                     });
+
+                } else {
+                    throw ("Houve um erro ao tentar realizar a consulta!");
                 }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
             });
+
         }
 
     </script>

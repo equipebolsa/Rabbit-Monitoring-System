@@ -75,22 +75,20 @@ def atualizarListas():
     global blacklist
     global alertas
 
-
     cursor.execute("select * from alertaProcesso")
     alertas = cursor.fetchall()
-
-
-    for itemList in alertas:
-        if itemList[3] == 'y':
-            #whitelist
-            cursor.execute("insert into whitelist values (null, '"+itemList[1]+"')")
-            cursor.execute("update alertaProcesso set estado = 'd' where id = "+ str(itemList[0]))
-            connection.commit()
-        elif itemList[3] == 'n':
-            #blacklist
-            cursor.execute("insert into blacklist values (null, '"+itemList[1]+"')")
-            cursor.execute("update alertaProcesso set estado = 'd' where id = "+ str(itemList[0]))
-            connection.commit()
+   
+    #for itemList in alertas:
+    #    if itemList[3] == 'y':
+    #        #whitelist
+    #        cursor.execute("insert into whitelist values (null, '"+itemList[1]+"')")
+    #        cursor.execute("update alertaProcesso set estado = 'd' where id = "+ str(itemList[0]))
+    #        connection.commit()
+    #    elif itemList[3] == 'n':
+    #        #blacklist
+    #        cursor.execute("insert into blacklist values (null, '"+itemList[1]+"')")
+    #        cursor.execute("update alertaProcesso set estado = 'd' where id = "+ str(itemList[0]))
+    #        connection.commit()
     
     cursor.execute("select * from blacklist")
     blacklist = cursor.fetchall()
