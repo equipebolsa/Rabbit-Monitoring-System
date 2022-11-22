@@ -140,14 +140,9 @@
                                         placeholder="Digite o processo">
                                     <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
                                 </div>
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Short task goes here.................</span>
-                                            <button type="button" class="btn btn-primary ms-2">></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <span id="whitelist_list">
+                                    
+                                </span>
 
 
                             </div>
@@ -162,16 +157,9 @@
                                         placeholder="Digite o processo">
                                     <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
                                 </div>
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Short task goes here...............</span>
-                                            <button type="button" class="btn btn-primary ms-2">
-                                                <</button>
-                                                    <button type="button" class="btn btn-primary ms-2">></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <span id="waitlist_list">
+                                    
+                                </span>
 
                             </div>
                         </div>
@@ -185,15 +173,9 @@
                                         placeholder="Digite o processo">
                                     <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
                                 </div>
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Short task goes here...</span>
-                                            <button type="button" class="btn btn-primary ms-2">
-                                                <</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <span id="blacklist_list">
+                                    
+                                </span>
 
 
 
@@ -243,7 +225,103 @@
 
         popularListas();
         function popularListas() {
+            popularWhite();
+            popularAguardando();
+            popularBlack();
 
+        }
+
+        function popularBlack() {
+            fetch("/process/listarBlacklist", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    
+                    resposta.json().then(json => {
+                        
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        blacklist_list.innerHTML = "";
+                        json.forEach(processo => {
+                            nomeProcesso = processo.nome;
+                            if (nomeProcesso.length > 25) {
+                                nomeProcesso = nomeProcesso.substr(0, 22) + "...";
+                            }
+                            blacklist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
+                                        <div class="w-100 ms-3">
+                                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                                <span>${nomeProcesso}</span>
+                                                <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'blacklist', 'whitelist')">
+                                                    <
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>`;
+
+                        });
+                    }).catch(
+                        blacklist_list.innerHTML = ""
+                    );
+
+                } else {
+                    throw ("Houve um erro ao tentar realizar a consulta!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+        }
+
+        function popularWhite() {
+            fetch("/process/listarWhitelist", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        whitelist_list.innerHTML = "";
+                        json.forEach(processo => {
+                            nomeProcesso = processo.nome;
+                            if (nomeProcesso.length > 25) {
+                                nomeProcesso = nomeProcesso.substr(0, 22) + "...";
+                            }
+                            whitelist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
+                                                            <div class="w-100 ms-3">
+                                                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                                                    <span>${nomeProcesso}</span>
+                                                                    <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'whitelist', 'blacklist')">></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>`;
+
+                        });
+
+                    }).catch(
+                        whitelist_list.innerHTML = ""
+                    );
+
+                } else {
+                    throw ("Houve um erro ao tentar realizar a consulta!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+        }
+
+        function popularAguardando() {
             fetch("/process/listarAguardando", {
                 method: "POST",
                 headers: {
@@ -257,8 +335,32 @@
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
+                        waitlist_list.innerHTML = "";
+                        json.forEach(processo => {
+                            nomeProcesso = processo.nome;
+                            if (nomeProcesso.length > 20) {
+                                nomeProcesso = nomeProcesso.substr(0, 17) + "...";
+                            }
+                            waitlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
+                                                            <div class="w-100 ms-3">
+                                                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                                                    <span>${nomeProcesso}</span>
+                                                                    <span>
+                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'alertaProcesso', 'whitelist')">
+                                                                            <
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'alertaProcesso', 'blacklist')">
+                                                                            >
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>`;
 
-                    });
+                        });
+                    }).catch(
+                        waitlist_list.innerHTML = ""
+                    );
 
                 } else {
                     throw ("Houve um erro ao tentar realizar a consulta!");
@@ -267,9 +369,97 @@
                 console.log(`#ERRO: ${resposta}`);
 
             });
-
         }
 
+        function mover(id, nome, tabelaOrigem, tabelaDestino) {
+            if (tabelaOrigem == 'alertaProcesso') {
+                fetch("/process/adicionar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        tabelaServer: tabelaDestino,
+                        nomeServer: nome
+                    })
+                }).then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        fetch("/process/update", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                idServer: id
+                            })
+                        }).then(function (resposta) {
+                            console.log("resposta: ", resposta);
+
+                            if (resposta.ok) {
+                                popularListas();
+                            } else {
+                                throw ("Houve um erro ao tentar realizar a consulta!");
+                            }
+                        }).catch(function (resposta) {
+                            console.log(`#ERRO: ${resposta}`);
+
+                        });
+
+                    } else {
+                        throw ("Houve um erro ao tentar realizar a consulta!");
+                    }
+                }).catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+            } else {
+                fetch("/process/adicionar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        tabelaServer: tabelaDestino,
+                        nomeServer: nome
+                    })
+                }).then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        fetch("/process/deletar", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                idServer: id,
+                                tabelaServer: tabelaOrigem
+                            })
+                        }).then(function (resposta) {
+                            console.log("resposta: ", resposta);
+
+                            if (resposta.ok) {
+                                popularListas();
+                            } else {
+                                throw ("Houve um erro ao tentar realizar a consulta!");
+                            }
+                        }).catch(function (resposta) {
+                            console.log(`#ERRO: ${resposta}`);
+
+                        });
+
+                    } else {
+                        throw ("Houve um erro ao tentar realizar a consulta!");
+                    }
+                }).catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+
+                });
+            }
+            
+        }
     </script>
 </body>
 

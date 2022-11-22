@@ -14,7 +14,6 @@ precisaAtualizar = False
 
 def getMachine_addr():
     os_type = sys.platform.lower()
-    print(os_type)
     if "win" in os_type:
         import wmi
         SN = wmi.WMI()
@@ -44,15 +43,12 @@ def listarProcessos():
         print('Processo: {} (PID: {})'.format(info['pid'], info['name']))
 
 def estaNaBlack(processo):
-    
     for itemList in blacklist:
         if itemList[1] == processo:
             return True
-    
     return False
 
 def estaNaWhite(processo):
-    print(whitelist)
     for itemList in whitelist:
         if itemList == processo:
             return True
@@ -100,7 +96,7 @@ def atualizarAlertas():
     cursor.execute("select * from alertaProcesso where estado != 'd'")
     alertas = cursor.fetchall()
 
-connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="teste", auth_plugin='mysql_native_password')
+connection = mysql.connector.connect(host="localhost", user="root", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
 cursor = connection.cursor()
 #cursor.execute("insert into blacklist values (null, 'teste')")
 #connection.commit()

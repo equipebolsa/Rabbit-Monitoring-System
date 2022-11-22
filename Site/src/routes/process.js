@@ -16,5 +16,21 @@ router.post("/listarBlacklist", function (req, res) {
     processController.listarBlacklist(req, res);
 })
 
+router.post("/whiteParaBlack", function (req, res) {
+    processController.whiteParaBlack(req, res);
+})
+
+router.post("/deletar", function (req, res) {
+    processController.deletar(req, res);
+})
+
+router.post("/adicionar", function (req, res) {
+    processController.adicionar(req, res);
+})
+
+router.post("/update", function (req, res) {
+    processController.update(req, res);
+})
+
 
 module.exports = router;

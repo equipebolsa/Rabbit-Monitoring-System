@@ -15,7 +15,7 @@ create table alertaProcesso(
     serialNumber varchar(45),
     estado char(1),
     datahora datetime,
-    CHECK (estado = 'y' or estado = 'n' or estado = 'w' or estado = 'd') -- aceito, recusado, aguardando, concluido
+    CHECK (estado = 'w' or estado = 'd') -- aceito, recusado, aguardando, concluido
 );
 
 -- insert into alertaProcesso values (null, itemProcesso['name'], def getMachine_addr(), 'w', now);
