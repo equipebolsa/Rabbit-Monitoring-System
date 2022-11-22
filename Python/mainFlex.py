@@ -7,6 +7,7 @@ import mysql.connector
 import hashlib
 import pymssql
 
+#TODO: Aplicar a funcao cadastrarDoisBanco, ver toda vez que tiver um select se os valores são os mesmos, não sendo a gente alerta para inconsistencia (transaçaõ_)
 
 connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa",auth_plugin='mysql_native_password')
 cursor = connection.cursor()
@@ -14,7 +15,11 @@ cursor = connection.cursor()
 connection2 = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
 cursor2 = connection2.cursor(as_dict=True)
 
-
+def cadastrandoDoisBancos(query,val):
+     cursor.execute(query, val)
+     cursor2.execute(query,val)
+     connection.commit()
+     connection2.commit()
 
 def getMachine_addr():
     os_type = sys.platform.lower()
