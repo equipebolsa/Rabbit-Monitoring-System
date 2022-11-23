@@ -25,11 +25,15 @@ function cadastrar(req, res) {
         res.status(400).send("Seu nome telefone está undefined!");
     } else {
 
-        empresaModel.cadastrar(nomeEmpresa, cnpjEmpresa, telefone).then(
+        empresaModel.cadastrar(nomeEmpresa, cnpjEmpresa, telefone,).then(
             function (resultado) {
                 res.json(resultado);
-                id = resultado.insertId;
-                usuarioModel.cadastrar(nome, email, sha512(senha), 'Gestor', id, 'NULL');
+                if(resultado.insertId){
+                    var id = resultado.insertId;
+                    console.log(id);
+                    usuarioModel.cadastrar(nome, email, sha512(senha), 'Gestor',id,'NULL')
+                }
+
             }
         ).catch(
             function (erro) {

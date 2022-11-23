@@ -2,6 +2,7 @@ CREATE DATABASE bolsa;
 
 USE bolsa;
 
+
 CREATE TABLE empresa(
   idEmpresa INT  PRIMARY KEY AUTO_INCREMENT,
   nomeEmpresa VARCHAR(45) NOT NULL,
@@ -66,7 +67,8 @@ INSERT INTO metrica VALUES(NULL,'CPUPercent','%','0');
 INSERT INTO metrica VALUES(NULL,'RAMPercent','%','0');
 INSERT INTO metrica VALUES(NULL,'DISCOUso','GB','0');
  
- 
+
+select * from empresa;
 
 CREATE TABLE leitura (
   idLeitura INT PRIMARY KEY AUTO_INCREMENT,
@@ -110,21 +112,6 @@ FROM
 INNER JOIN componenteFisico ON idComponenteFisico =  fkComponenteFisico
 INNER JOIN servidor ON idServidor = fkServidor
 INNER JOIN setor ON idSetor = fkSetor
-INNER JOIN empresa ON idEmpresa = fkEmpresa
-INNER JOIN metrica ON idMetrica = fkMetrica;
 
-SELECT * FROM metrica WHERE idMetrica = 1;
-SELECT * FROM leituraview;
-SELECT * FROM leitura ORDER BY idLeitura DESC;
-select * from parametro;-
--- DROPS
-
- DROP VIEW leituraView;
- drop table alerta;
- drop table parametro;
- drop table leitura;
- drop table metrica;
- drop table componenteFisico;
- drop table servidor;
  
  

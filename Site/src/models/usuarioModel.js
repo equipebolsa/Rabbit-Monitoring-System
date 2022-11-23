@@ -4,7 +4,7 @@ var database = require("../database/config")
 function listar(id) {
 
     var instrucao = `SELECT s.*, f.nomeUsuario as gestorNome  FROM usuario as s  LEFT  JOIN usuario as f ON s.fkGestor = f.idUsuario WHERE s.fkGestor = ${id};`;
-    return database.executar(instrucao);
+    return database.select(instrucao);
 }
 
 function entrar(email, senha) {
@@ -13,7 +13,7 @@ function entrar(email, senha) {
 }
 
 function cadastrar(nome,email,senha,tipoUsuario,fkEmpresa,fkGestor) {
-    var instrucao = `INSERT INTO usuario (nomeUsuario, emailUsuario, senhaUsuario,tipoUsuario,fkEmpresa,fkGestor) VALUES ('${nome}','${email}','${senha}','${tipoUsuario}','${fkEmpresa}',${fkGestor});`;
+    var instrucao = `INSERT INTO usuario (nomeUsuario, emailUsuario, senhaUsuario,tipoUsuario,fkEmpresa,fkGestor) VALUES ('${nome}','${email}','${senha}','${tipoUsuario}',${fkEmpresa},${fkGestor});`;
     return database.update(instrucao);
 }
 

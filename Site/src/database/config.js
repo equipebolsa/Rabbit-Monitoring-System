@@ -21,7 +21,7 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "bolsa",
-    user: "root",
+    user: "aluno",
     password: "sptech",
     timezone: "-00:00"
 };
@@ -106,13 +106,13 @@ function update(queryMySQL, queryAzure = queryMySQL) {
                                     reject(erro);
                                 })
                             } else {
-                                console.log('MySQL comitado')
-                                console.log(resultados);
-                                conexao.commit()
-                                conexao.end();
                                 transaction.commit().then(() => {
                                     console.log('Azure Comitada');
                                     resolve(resultados);
+                                    console.log('MySQL comitado')
+                                    console.log(resultados);
+                                    conexao.commit()
+                                    conexao.end();
                                 }).catch(err => {
                                     console.log('AZURE COMMIT ERROR: ', err);
                                 })
@@ -167,10 +167,10 @@ function update(queryMySQL, queryAzure = queryMySQL) {
 function sqlServer() {
     return new Promise(function (resolve, reject) {
         sql.connect(sqlServerConfig).then(function () {
-            //console.log("Conectado");
+            console.log("Conectado");
             resolve(true);
         }).catch(function () {
-            //console.log("Não Conectado");
+            console.log("Não Conectado");
             reject(false);
 
         });
@@ -181,30 +181,25 @@ function mySql() {
     return new Promise(function (resolve, reject) {
         var pool = mysql.createPool(mySqlConfig);
         pool.query("SHOW DATABASES", function (err, rows, fields) {
-            if(typeof rows === "undefined"){
-            //console.log("Não Conectado");
-            reject(false);
-            }else{
-            //console.log("Conectado");
-            resolve(true);
-        }
-            
+            if (typeof rows === "undefined") {
+                console.log("Não Conectado");
+                reject(false);
+            } else {
+                console.log("Conectado");
+                resolve(true);
+            }
+
         });
     }).catch(function () { });
 }
-async function teste() {
-    if (!(await mySql()) && await sqlServer()) {
-        console.log("SQL SERVER");
-    }
-    else if (await mySql() && !(await sqlServer())) {
-        console.log("MY SQL");
-    }
-    else if (await mySql() && await sqlServer()) {
-        console.log("Cadastrando no MYSQL & no SQL SERVER");
-    } else {
-        console.log("FALHA EM TUDO!")
-    }
-}
+
+
+
+
+
+
+
+
 function executar(instrucao) {
 
 
