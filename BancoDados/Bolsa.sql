@@ -2,6 +2,7 @@ CREATE DATABASE bolsa;
 
 USE bolsa;
 
+SELECT * FROM usuario;
 
 CREATE TABLE empresa(
   idEmpresa INT  PRIMARY KEY AUTO_INCREMENT,
@@ -48,6 +49,7 @@ CREATE TABLE servidor (
 );
 
 
+SELECT nomeSetor, count(fkSetor) FROM servidor WHERE idServidor = 1;
 CREATE TABLE componenteFisico  (
 	idComponenteFisico  INT PRIMARY KEY AUTO_INCREMENT,
     fkServidor INT NOT NULL,

@@ -69,7 +69,8 @@
                         </div>
                         <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
                         <a href="process.html" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Processos</a>
-                    
+
+
                     </span>
                 </div>
             </nav>
@@ -89,35 +90,9 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <div class="navbar-nav align-items-center ms-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
 
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-triangle-exclamation me-lg-2"></i>
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 1: CPU 80%</h6>
-                                    <small>há 15 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 2: RAM 99%</h6>
-                                    <small>há 22 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 3: Temp 72°</h6>
-                                    <small>há 44 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item text-center">Ver todos os alertas</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                                    style="width: 40px; height: 40px;">
                                 <span class="d-none d-lg-inline-flex" id="nome"></span>
                             </a>
                             <div
@@ -137,42 +112,38 @@
                     <div class="row g-4">
                         <div class="col-sm-6 col-xl-3">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-evenly p-4">
-                                <i class="fa fa-solid fa-microchip fa-3x text-primary"></i>
+                                <i class="fa fa-solid fa-circle-exclamation fa-3x text-primary"></i>
                                 <div class="ms-3">
-                                    <p class="mb-2">CPU</p>
-                                    <h6 class="mb-0">15%</h6>
-                                    <h6 class="mb-0">56%</h6>
+                                    <p class="mb-2">Total Alertas</p>
+                                    <h6 class="mb-0" id="alerta"> </h6>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-evenly p-4">
-                                <i class="fa fa-temperature-low fa-3x text-primary"></i>
+                                <i class="fa fa-computer fa-3x text-primary"></i>
                                 <div class="ms-3">
-                                    <p class="mb-2">Temperatura</p>
-                                    <h6 class="mb-0">16°</h6>
-                                    <h6 class="mb-0">63°</h6>
+                                    <p class="mb-2">Total Servidores</p>
+                                    <h6 class="mb-0" id="computadores"> </h6>
 
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-evenly p-4">
-                                <i class="fa fa-memory fa-3x text-primary"></i>
+                                <i class="fa-solid fa-up-long fa-3x text-primary"></i>
                                 <div class="ms-3">
-                                    <p class="mb-2">RAM</p>
-                                    <h6 class="mb-0">16%</h6>
-                                    <h6 class="mb-0">61%</h6>
+                                    <p class="mb-2">Setor Mais Utilizado</p>
+                                    <h6 class="mb-0" id="setorMax"></h6>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-evenly p-4">
-                                <i class="fa fa-database fa-3x text-primary"></i>
+                                <i class="fa fa-down-long fa-3x text-primary"></i>
                                 <div class="ms-3">
-                                    <p class="mb-2">Disco</p>
-                                    <h6 class="mb-0">1%</h6>
-                                    <h6 class="mb-0">83%</h6>
+                                    <p class="mb-2">Setor Menos Utilizado</p>
+                                    <h6 class="mb-0" id="setorMin"></h6>
                                 </div>
                             </div>
                         </div>
@@ -195,11 +166,12 @@
                                         <th scope="col">
                                             Nome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </th>
-                                        <th scope="col">CPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                        <th scope="col">Temperatura</th>
-                                        <th scope="col">RAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                        <th scope="col">Disco&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                        <th scope="col">Ação&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Mac Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Serial Number</th>
+                                        <th scope="col">Sistema
+                                            OperacionalM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Ver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Alterar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tabela">
@@ -276,17 +248,65 @@
                 tabela.innerHTML += `
                                 <tr>
                                     <td>Máquina ${valorJson.idServidor}</td>
-                                    <td>${valorJson.valorLeitura} ${valorJson.unidadeMedida}</td>
-                                    <td>50°</td>
-                                    <td>18%</td>
-                                    <td>46%</td>
+                                    <td>${valorJson.macAddress}</td>
+                                    <td>${valorJson.serialNumber}</td>
+                                    <td>${valorJson.sistemaOperacional}</td>
+                                    <td><a class="btn btn-sm btn-primary" onclick="detalhes(${valorJson.idServidor});">Detalhes</a></td>
                                     <td><a class="btn btn-sm btn-primary" onclick="alterar(${valorJson.idServidor});">Detalhes</a></td>
                                 </tr>`
             }
 
         }
-        function alterar(index) {
+
+        function kpis(id) {
+            fetch(`/servidores/maiorSetor/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        renderizarKPI4(resposta)
+                    });
+                }
+            });
+            fetch(`/servidores/menorSetor/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        renderizarKPI3(resposta)
+                    });
+                }
+            });
+            fetch(`/servidores/totalServidor/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        renderizarKPI2(resposta)
+                    });
+                }
+            });
+            fetch(`/alerta/totalAlertas/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        renderizarKPI1(resposta)
+                    });
+                }
+            });
+        }
+
+        function renderizarKPI1(json) {
+            alerta.innerHTML = json[0];
+        }
+        function renderizarKPI2(json) {
+            computadores.innerHTML = json[0];
+        }
+        function renderizarKPI3(json) {
+            setorMax.innerHTML = json[0];
+        }
+        function renderizarKPI4(json) {
+            setorMin.innerHTML = json[0];
+        }
+
+        function detalhes(index) {
             window.location = `./detalhes.html?idServidor=${index}`;
+        }
+        function alterar(index) {
+            window.location = `./alterar.html?idServidor=${index}`;
         }
     </script>
 </body>

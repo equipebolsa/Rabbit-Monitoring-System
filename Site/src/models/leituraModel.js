@@ -14,7 +14,7 @@ function listarDISCO(id) {
     return database.executar(instrucao);
 }
 function listarMaquinas(id) {
-    var instrucao = `SELECT idServidor, unidadeMedida, MAX(horarioLeitura), MAX(valorLeitura) as valorLeitura FROM leituraWHERE;`
+    var instrucao = `SELECT idServidor,sistemaOperacional, macAddress,serialNumber FROM leitura WHERE idEmpresa = ${id};`
     return database.executar(instrucao);
 }
 function listarUltimaCPU(id) {
