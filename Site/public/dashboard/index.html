@@ -232,7 +232,7 @@
 
 
         function tabelaFuncao(id) {
-            fetch(`/leituras/listarMaquinas/${id}`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/servidores/listarMaquinas/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         renderizarTabela(resposta)
@@ -245,14 +245,17 @@
 
             for (j in json) {
                 valorJson = json[j];
+                if(valorJson.serialNumber==""){
+                    var serialNumber = "SECRETO";
+                }else{serialNumber = valorJson.serialNumber}
                 tabela.innerHTML += `
                                 <tr>
                                     <td>Máquina ${valorJson.idServidor}</td>
                                     <td>${valorJson.macAddress}</td>
-                                    <td>${valorJson.serialNumber}</td>
+                                    <td>${serialNumber}</td>
                                     <td>${valorJson.sistemaOperacional}</td>
                                     <td><a class="btn btn-sm btn-primary" onclick="detalhes(${valorJson.idServidor});">Detalhes</a></td>
-                                    <td><a class="btn btn-sm btn-primary" onclick="alterar(${valorJson.idServidor});">Detalhes</a></td>
+                                    <td><a class="btn btn-sm btn-primary" onclick="alterar(${valorJson.idServidor});">Alterar</a></td>
                                 </tr>`
             }
 

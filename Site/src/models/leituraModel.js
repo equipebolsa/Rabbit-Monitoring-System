@@ -14,18 +14,19 @@ function listarDISCO(id) {
     return database.executar(instrucao);
 }
 function listarMaquinas(id) {
-    var instrucao = `SELECT idServidor,sistemaOperacional, macAddress,serialNumber FROM leitura WHERE idEmpresa = ${id};`
-    return database.executar(instrucao);
+    var instrucao = `SELECT * FROM leitura WHERE idEmpresa = ${id};`
+    return database.select(instrucao);
 }
 function listarUltimaCPU(id) {
-    var instrucao = `
-    SELECT valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'CPU') ORDER BY horarioLeitura DESC LIMIT 1;`;
-    return database.executar(instrucao);
+    var instrucao1 = `SELECT valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'CPU') ORDER BY horarioLeitura DESC LIMIT 1;`;
+    var instrucao2 = `SELECT TOP 1 valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT TOP 1 idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'CPU') ORDER BY horarioLeitura DESC;`;
+    
+    return database.executar(instrucao2);
 }
 function listarUltimaRAM(id) {
-    var instrucao = `
-    SELECT valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') ORDER BY horarioLeitura DESC LIMIT 1;`;
-    return database.executar(instrucao);
+    var instrucao1 = `SELECT valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') ORDER BY horarioLeitura DESC LIMIT 1;`;
+    var instrucao2 = `SELECT TOP 1valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') ORDER BY horarioLeitura DESC;`;
+    return database.executar(instrucao2);
 }
 
 

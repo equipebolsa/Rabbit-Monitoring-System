@@ -6,8 +6,8 @@ import dicionarioComandos
 import mysql.connector
 import hashlib
 import pymssql
+import psutil
 
-#TODO: Aplicar a funcao cadastrarDoisBanco, ver toda vez que tiver um select se os valores são os mesmos, não sendo a gente alerta para inconsistencia (transaçaõ_)
 
 connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa",auth_plugin='mysql_native_password')
 cursor = connection.cursor()
@@ -15,11 +15,13 @@ cursor = connection.cursor()
 connection2 = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
 cursor2 = connection2.cursor(as_dict=True)
 
-def cadastrandoDoisBancos(query,val):
-     cursor.execute(query, val)
-     cursor2.execute(query,val)
-     connection.commit()
-     connection2.commit()
+def comando(name):
+    if name == 'CPUPercent':
+        return psutil.cpu_percent(interval=None, percpu=False)
+    elif name == "RAMPercent":
+        return (psutil.virtual_memory().percent)
+    elif name == "DISCOUso":
+        return round((psutil.disk_usage("/").used)/(1024**3),2)
 
 def getMachine_addr():
     os_type = sys.platform.lower()
@@ -27,7 +29,7 @@ def getMachine_addr():
         command = "wmic bios get serialnumber"
     elif "linux" in os_type:
         command = "hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid"
-    return os.popen(command).read().replace("\n", "").replace("	", "").replace(" ", "")
+    return os.popen(command).read().replace("\n", "").replace(" ", "").replace(" ", "")
 
 
 def typeOS():
@@ -43,8 +45,8 @@ def verificar(email, senha):
     hash = hashlib.sha512(str(senha).encode("utf-8")).hexdigest()
     query = ('SELECT * FROM usuario  WHERE emailUsuario = %s AND senhaUsuario = %s;')
     params = (email, hash)
-    cursor.execute(query, params)
-    if (cursor.fetchall()):
+    cursor2.execute(query, params)
+    if (cursor2.fetchall()):
         return True
 
 
@@ -52,25 +54,18 @@ def executarMonitoramento(resposta):
     while True:
         for row in resposta:
             query = ("SELECT * FROM metrica WHERE idMetrica = %s")
-            cursor.execute(query, [row[1]])   
-            resultado = cursor.fetchall() 
-            leitura = dicionarioComandos.comando(resultado[0][1])
-
-            isTupla = resultado[0][3]
-            query = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(NOW(), %s, %s, %s)")    
+            cursor.execute(query, [row[1]])
+            resultado = cursor.fetchall()
+            leitura = comando(resultado[0][1])
+            query = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(NOW(), %s, %s, %s)")
+            query2 = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(CURRENT_TIMESTAMP, %s, %s, %s)")
             val = (str(leitura),str(row[0]),str(row[1]))
             cursor.execute(query, val)
+            cursor2.execute(query2, val)
             connection.commit()
-            # if(psutil.virtual_memory().percent>50):
-            #     query = "INSERT INTO alerta(fkLeitura,tipoAlerta) VALUES(%s, %s)"
-            #     lastID = cursor.execute("SELECT last_insert_id();")
-            #     lastID = cursor.fetchall()
-            #     val = (str(lastID[0][0]),str("RAM"))
-            #     cursor.execute(query, val)
-            #     connection.commit()
-            #     pipefyCard.enviarWorldCloud("RAM SOBRECARREGADA")
+            connection2.commit()
+            print("Executando")
             sleep(3)
-            print("Executando...")
             os.system(comandos[0])
 
 
@@ -84,23 +79,23 @@ def captura():
     else:
         cadastar()
         sleep(2)
-        #print("Nenhuma componente cadastrado para monitoramento, cadastre na sua dashboard!")
-        #sleep(2)
-        #exit()
-
 
 def cadastrarParametro(fkServidor, fkComponente, fkMetrica):
     query = "INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (%s,%s, %s)"
     params = (fkServidor, fkComponente, fkMetrica)
     cursor.execute(query, params)
+    #cursor2.execute(query, params)
     connection.commit()
+    #connection2.commit()
 
 
 def cadastrarComponente(fkServidor, componente):
     query = "INSERT INTO componenteFisico (fkServidor,tipoComponente) VALUES (%s, %s)"
     params = (fkServidor, componente)
     cursor.execute(query, params)
+    #cursor2.execute(query,params)
     connection.commit()
+    #connection2.commit()
 
 
 def cadastar():
@@ -114,7 +109,9 @@ def cadastar():
         query = "INSERT INTO servidor(fkSetor,sistemaOperacional,macAddress,serialNumber) VALUES (%s, %s, %s, %s);"
         params = (setor, comandos[1], str(gma()), str(getMachine_addr()))
         cursor.execute(query, params)
+        cursor2.execute(query,params)
         connection.commit()
+        connection2.commit()
         fkServidor = cursor.lastrowid
         cadastrarComponente(fkServidor, "CPU")
         cadastrarParametro(fkServidor, cursor.lastrowid, 1)
@@ -152,4 +149,3 @@ while (True):
         print("Usuario Não Identificado")
         sleep(3)
         os.system(comandos[0])
-

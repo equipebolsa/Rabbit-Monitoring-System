@@ -12,6 +12,12 @@ function listar() {
     return database.executar(instrucao);
 }
 
+function listarMaquinas(id) {
+    var instrucao = `SELECT * FROM servidor INNER JOIN setor ON fkSetor = idSetor INNER JOIN empresa ON fkEmpresa = idEmpresa WHERE idEmpresa = ${id};`;
+    console.log(instrucao);
+    return database.select(instrucao);
+}
+
 function totalServidor(id) {
     var instrucao = `SELECT count(*) FROM servidor WHERE idServidor = ${id};`;
     console.log(instrucao);
@@ -33,6 +39,7 @@ function maiorSetor(id) {
 module.exports = {
     cadastrar,
     listar,
+    listarMaquinas,
     maiorSetor,
     menorSetor,
     totalServidor,

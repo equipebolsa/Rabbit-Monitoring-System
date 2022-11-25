@@ -1,20 +1,12 @@
-CREATE DATABASE bolsa;
-
-USE bolsa;
-
-SELECT * FROM usuario;
-
 CREATE TABLE empresa(
-  idEmpresa INT  PRIMARY KEY AUTO_INCREMENT,
+  idEmpresa INT  PRIMARY KEY IDENTITY(1,1),
   nomeEmpresa VARCHAR(45) NOT NULL,
   cnpjEmpresa CHAR(18) UNIQUE NOT NULL,
   telefoneEmpresa VARCHAR(20)
 );
 
-INSERT INTO empresa VALUES(NULL,"Gustavo Empresas","876.123.9870/10","1191234-5678");
-
 CREATE TABLE usuario (
-  idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+  idUsuario INT PRIMARY KEY IDENTITY(10,1),
   nomeUsuario VARCHAR(45) NOT NULL,
   emailUsuario VARCHAR(45) NOT NULL,
   senhaUsuario CHAR(128) NOT NULL,
@@ -25,22 +17,18 @@ CREATE TABLE usuario (
   CONSTRAINT FK_usuario_fkEmpresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),  
   fkGestor INT,
   CONSTRAINT FK_usuario_fkGestor FOREIGN KEY (fkGestor) REFERENCES usuario (idUsuario)
-) AUTO_INCREMENT = 10;
-
-INSERT INTO usuario VALUES(NULL,"Gustavo Empresas","gustavo12.0000@gmail.com","123","Gestor",1,NULL);
-
+);
 
 CREATE TABLE setor (
-  idSetor INT PRIMARY KEY AUTO_INCREMENT,
+  idSetor INT PRIMARY KEY IDENTITY(1,1),
   fkEmpresa INT NOT NULL,
   CONSTRAINT FK_setor_fkEmpresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),
   nomeSetor VARCHAR(45) NOT NULL,
   descricaoSetor VARCHAR(255) NULL  
 );
-INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
 
 CREATE TABLE servidor (
-  idServidor INT PRIMARY KEY AUTO_INCREMENT,
+  idServidor INT PRIMARY KEY IDENTITY(1,1),
   fkSetor INT NOT NULL,
   CONSTRAINT FK_servidor_fkSetor FOREIGN KEY (fkSetor) REFERENCES setor (idSetor),
   sistemaOperacional VARCHAR(45) NOT NULL,
@@ -49,31 +37,23 @@ CREATE TABLE servidor (
 );
 
 
-SELECT nomeSetor, count(fkSetor) FROM servidor WHERE idServidor = 1;
 CREATE TABLE componenteFisico  (
-	idComponenteFisico  INT PRIMARY KEY AUTO_INCREMENT,
+	idComponenteFisico  INT PRIMARY KEY IDENTITY(1,1),
     fkServidor INT NOT NULL,
     CONSTRAINT FK_componenteFisico_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
     tipoComponente VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE metrica (
-	idMetrica  INT PRIMARY KEY AUTO_INCREMENT,
+	idMetrica  INT PRIMARY KEY IDENTITY(1,1),
 	nomeMetrica VARCHAR(45) NOT NULL,
-	unidadeMedida VARCHAR(255),
+    unidadeMedida VARCHAR(45) NOT NULL,
 	isTupla CHAR(1) NOT NULL,
 	CONSTRAINT CK_metrica_isTupla CHECK(isTupla IN ('1', '0'))
 );
--- Inserir
-INSERT INTO metrica VALUES(NULL,'CPUPercent','%','0');
-INSERT INTO metrica VALUES(NULL,'RAMPercent','%','0');
-INSERT INTO metrica VALUES(NULL,'DISCOUso','GB','0');
- 
-
-select * from empresa;
 
 CREATE TABLE leitura (
-  idLeitura INT PRIMARY KEY AUTO_INCREMENT,
+  idLeitura INT PRIMARY KEY IDENTITY(1,1),
   horarioLeitura DATETIME NOT NULL,
   valorLeitura VARCHAR(255) NOT NULL,
   fkComponenteFisico INT NOT NULL,
@@ -83,8 +63,9 @@ CREATE TABLE leitura (
 );
 
 CREATE TABLE alerta (
-  idAlerta INT PRIMARY KEY AUTO_INCREMENT,
-  tipoAlerta VARCHAR(45),
+  idAlerta INT PRIMARY KEY IDENTITY(1,1),
+  valorLeitura VARCHAR(255) NOT NULL,
+  tipoLeitura VARCHAR(45),
   fkLeitura INT NOT NULL,
   CONSTRAINT FK_alerta_fkAlerta FOREIGN KEY (fkLeitura) REFERENCES leitura (idLeitura)
  );
@@ -98,7 +79,17 @@ CREATE TABLE alerta (
   CONSTRAINT FK_parametro_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
   PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor)
  );
+ 
 
+ 
+INSERT INTO empresa VALUES('SPTECH','802.996.720-93','(63) 2430-8532');
+INSERT INTO usuario(nomeUsuario,emailUsuario,senhaUsuario,tipoUsuario,fkEmpresa) VALUES('URUBU','urubu@gmail.com',CONVERT(varchar(max), HASHBYTES ('SHA2_512', '123') ,2) ,'Gestor',1);
+INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Região de São Paulo');
+INSERT INTO metrica VALUES('CPUPercent','%','0');
+INSERT INTO metrica VALUES('RAMPercent','%','0');
+INSERT INTO metrica VALUES('DISCOUso','GB','0'); 
+
+ 
 CREATE VIEW leituraView AS SELECT 
     nomeEmpresa,
     fkEmpresa,
@@ -114,6 +105,18 @@ FROM
 INNER JOIN componenteFisico ON idComponenteFisico =  fkComponenteFisico
 INNER JOIN servidor ON idServidor = fkServidor
 INNER JOIN setor ON idSetor = fkSetor
+INNER JOIN empresa ON idEmpresa = fkEmpresa
+INNER JOIN metrica ON idMetrica = fkMetrica;
 
- 
- 
+
+DROP TABLE alerta;
+DROP TABLE leitura;
+DROP TABLE parametro;
+DROP TABLE componenteFisico;
+DROP TABLE metrica;
+DROP TABLE servidor;
+DROP TABLE setor;
+DROP TABLE usuario;
+DROP TABLE empresa;
+DROP VIEW leituraView;
+

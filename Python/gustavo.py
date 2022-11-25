@@ -9,7 +9,7 @@ import mysql.connector
 #connection2 = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
 #cursor2 = connection2.cursor(as_dict=True)
 
-print(net_if_addrs()["Ethernet 2"])
+print(net_if_addrs())
 #print(net_if_stats())
 #print(net_io_counters())
 #print(net_connections)

@@ -173,9 +173,7 @@ CREATE TABLE componenteFisico  (
 CREATE TABLE metrica (
 	idMetrica  INT PRIMARY KEY IDENTITY(1,1),
 	nomeMetrica VARCHAR(45) NOT NULL,
-	comandoPython VARCHAR(255),
     unidadeMedida VARCHAR(45) NOT NULL,
-	tratamentoPython VARCHAR(255),
 	isTupla CHAR(1) NOT NULL,
 	CONSTRAINT CK_metrica_isTupla CHECK(isTupla IN ('1', '0'))
 );

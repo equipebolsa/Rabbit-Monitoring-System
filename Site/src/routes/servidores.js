@@ -21,7 +21,9 @@ router.get("/menorSetor/:idEmpresa", function (req, res) {
 router.get("/maiorSetor/:idEmpresa", function (req, res) {
     servidorController.maiorSetor(req, res);
 });
-
+router.get("/listarMaquinas/:idEmpresa", function (req, res) {
+    servidorController.listarMaquinas(req, res);
+});
 
 
 module.exports = router;
