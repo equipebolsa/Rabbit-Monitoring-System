@@ -88,6 +88,8 @@ INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Regi√£o de S√
 INSERT INTO metrica VALUES('CPUPercent','%','0');
 INSERT INTO metrica VALUES('RAMPercent','%','0');
 INSERT INTO metrica VALUES('DISCOUso','GB','0'); 
+INSERT INTO metrica VALUES('Cooler','RPM','0');
+INSERT INTO metrica VALUES('Bateria','%','0');
 
  
 CREATE VIEW leituraView AS SELECT 

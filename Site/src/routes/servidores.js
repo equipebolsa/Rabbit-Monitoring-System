@@ -24,8 +24,11 @@ router.get("/maiorSetor/:idEmpresa", function (req, res) {
 router.get("/listarMaquinas/:idEmpresa", function (req, res) {
     servidorController.listarMaquinas(req, res);
 });
-router.get("/listarMetricas", function (req, res) {
+router.post("/listarMetricas", function (req, res) {
     servidorController.listarMetricas(req, res);
+});
+router.post("/cadastrarComponente", function (req, res) {
+    servidorController.cadastrarComponente(req, res);
 });
 
 

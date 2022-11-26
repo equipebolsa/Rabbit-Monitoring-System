@@ -36,9 +36,20 @@ function maiorSetor(id) {
 }
 
 function listarMetricas() {
-    var instrucao = `SELECT * FROM metrica`;
+    var instrucao = `SELECT * FROM metrica order by nomeMetrica`;
     console.log(instrucao);
     return database.select(instrucao);
+}
+
+function cadastrarComponente(servidor, componente) {
+    var instrucao = `INSERT INTO componenteFisico (fkServidor,tipoComponente) VALUES (${servidor}, '${componente}')`;
+    console.log(instrucao);
+    return database.executar(instrucao);
+}
+function cadastrarParametro(servidor, componente, metrica) {
+    var instrucao = `INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (${servidor},${componente}, ${metrica})`;
+    console.log(instrucao);
+    return database.executar(instrucao);
 }
 
 module.exports = {
@@ -49,4 +60,6 @@ module.exports = {
     maiorSetor,
     menorSetor,
     totalServidor,
+    cadastrarComponente,
+    cadastrarParametro
 }

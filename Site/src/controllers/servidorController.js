@@ -5,6 +5,9 @@ function cadastrar(req, res) {
     var serial= req.body.serialServer;
     var so = req.body.soServer;
     var setor = req.body.setorServer;
+    var metricasId = req.body.metricasIdServer;
+    var metricasNome = req.body.metricasNomeServer;
+    
  
 
     if (mac == undefined) {
@@ -21,7 +24,17 @@ function cadastrar(req, res) {
         servidorModel.cadastrar(setor,so,mac,serial)
             .then(
                 function (resultado) {
+                    console.log(resultado);
                     res.json(resultado);
+                    if(resultado.insertId){
+                        for (let i = 0; i < metricasId.length; i++) {
+                            servidorModel.cadastrarComponente(resultado.insertId, metricasNome[i]).then(function (resultado2) {
+                                if(resultado2.insertId){
+                                    servidorModel.cadastrarParametro(resultado.insertId, resultado2.insertId, metricasId[i]);
+                                }
+                            });
+                        }
+                    }
                 }
             ).catch(
                 function (erro) {
@@ -139,7 +152,26 @@ function listarMetricas(req, res) {
             }
         );
 }
-
+function cadastrarComponente(req, res) {
+    var servidor = req.body.servidorServer;
+    var componente = req.body.componenteServer;
+    servidorModel.cadastrarComponente(servidor, componente)
+        .then(function (resultado) {
+            console.log("AAAAAAAAAAAA");
+            console.log(resultado);
+            if (resultado.length > 0) {
+                res.json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 module.exports = {
     cadastrar,
@@ -148,5 +180,6 @@ module.exports = {
     menorSetor,
     totalServidor,
     listarMaquinas,
-    listarMetricas
+    listarMetricas,
+    cadastrarComponente
 }

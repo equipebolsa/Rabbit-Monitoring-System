@@ -166,30 +166,7 @@
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Leituras</label>
                                         <span id="checkLeituras">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked">Memória RAM
-                                                    - % de Uso</label>
-                                            </div>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked">Processador
-                                                    - % de Uso</label>
-                                            </div>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label"
-                                                    for="flexSwitchCheckChecked">Armazenamento - Espaço livre</label>
-                                            </div>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckDefault">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">Processador
-                                                    - Frequencia</label>
-                                            </div>
+
                                         </span>
                                     </div>
 
@@ -234,12 +211,61 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
+        var metricasId = [];
+        var metricasNome = [];
+        var metricasIdChecked = [];
+        var metricasNomeChecked = [];
         verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
         nomeSpan.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = (resultado.fkEmpresa);
         setorFuncao(idEmpresa);
-        
+        renderizarMetricas();
+
+        function renderizarMetricas() {
+            fetch("/servidores/listarMetricas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        checkLeituras.innerHTML = "";
+                        metricasId = [];
+                        metricasNome = [];
+                        json.forEach(metrica => {
+                            metricasId.push(metrica.idMetrica);
+                            metricasNome.push(metrica.nomeMetrica);
+                            nomeMetrica = metrica.nomeMetrica;
+                            if (metrica.nomeMetrica == 'CPUPercent' || metrica.nomeMetrica == 'RAMPercent' || metrica.nomeMetrica == 'DISCOUso') {
+                                checkLeituras.innerHTML += `<div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                                    id="metricaId${metrica.idMetrica}" checked>
+                                                                <label" for="flexSwitchCheckDefault">${nomeMetrica}</label>
+                                                            </div>`;
+                            } else {
+                                checkLeituras.innerHTML += `<div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                                    id="metricaId${metrica.idMetrica}">
+                                                                <label" class="form-check-label" for="flexSwitchCheckDefault">${nomeMetrica}</label>
+                                                            </div>`;
+                            }
+                        });
+                    }).catch(
+                        checkLeituras.innerHTML = ""
+                    );
+
+                } else {
+                    throw ("Houve um erro ao tentar realizar a consulta!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+        }
+
         function renderizarSetores(json) {
             for (j in json) {
                 valorJson = json[j];
@@ -297,6 +323,14 @@
                 setorCampo = setor.value;
             }
 
+            metricasIdChecked = [];
+            metricasNomeChecked = [];
+            for (let i = 0; i < metricasId.length; i++) {
+                if (document.getElementById("metricaId" + metricasId[i]).checked) {
+                    metricasIdChecked.push(metricasId[i]);
+                    metricasNomeChecked.push(metricasNome[i]);
+                }
+            }
 
             fetch(`/servidores/cadastrar/`, {
                 method: 'POST',
@@ -307,12 +341,15 @@
                     macServer: macCampo,
                     serialServer: serialCampo,
                     soServer: soCampo,
-                    setorServer: setorCampo
+                    setorServer: setorCampo,
+                    metricasIdServer: metricasIdChecked,
+                    metricasNomeServer: metricasNomeChecked
                 })
             }).then(
                 function res(resposta) {
                     if (resposta.ok) {
                         alert("Cadastrado com Sucesso!");
+                        renderizarMetricas();
                         macAddres.value = "";
                         serial.value = "";
                         so.value = 0;
@@ -323,7 +360,6 @@
 
             return false;
         }
-
     </script>
 
 </body>
