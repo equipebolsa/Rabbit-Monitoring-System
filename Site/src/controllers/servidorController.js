@@ -124,8 +124,7 @@ function listarMaquinas(req, res) {
         );
 }
 function listarMetricas(req, res) {
-    var idEmpresa = req.params.idEmpresa;
-    servidorModel.listarMetricas(idEmpresa)
+    servidorModel.listarMetricas()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
