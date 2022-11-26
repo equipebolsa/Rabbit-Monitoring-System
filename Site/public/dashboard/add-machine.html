@@ -163,6 +163,35 @@
                                             <option selected value="0">Selecione o setor</option>
                                         </select>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Leituras</label>
+                                        <span id="checkLeituras">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" checked>
+                                                <label class="form-check-label" for="flexSwitchCheckChecked">Memória RAM
+                                                    - % de Uso</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" checked>
+                                                <label class="form-check-label" for="flexSwitchCheckChecked">Processador
+                                                    - % de Uso</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" checked>
+                                                <label class="form-check-label"
+                                                    for="flexSwitchCheckChecked">Armazenamento - Espaço livre</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckDefault">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Processador
+                                                    - Frequencia</label>
+                                            </div>
+                                        </span>
+                                    </div>
 
                                     <button onclick="cadastarServidor();" class="btn btn-primary">Cadastrar</button>
                                 </form>
@@ -210,6 +239,7 @@
         nomeSpan.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = (resultado.fkEmpresa);
         setorFuncao(idEmpresa);
+        
         function renderizarSetores(json) {
             for (j in json) {
                 valorJson = json[j];
@@ -229,19 +259,10 @@
             })
         }
 
-
         function sair() {
             limpar(sessionStorage.USUARIO);
             window.location.href = "../index.html"
         }
-
-
-
-
-
-
-
-
 
         function cadastarServidor() {
             var macCampo;
