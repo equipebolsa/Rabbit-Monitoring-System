@@ -3,7 +3,9 @@ var database = require("../database/config")
 
 function cadastrar(setor,so,mac,serial) {
     var instrucao = `INSERT INTO servidor (fkSetor,sistemaOperacional,macAddress,serialNumber) VALUES (${setor},'${so}','${mac}','${serial}');`;
-    return database.executar(instrucao);
+    var instrucao2 = `INSERT INTO servidor (fkSetor,sistemaOperacional,macAddress,serialNumber) VALUES (${setor},'${so}','${mac}','${serial}');`;
+    instrucao2+=`SELECT IDENT_CURRENT('servidor') as id;`
+    return database.update(instrucao,instrucao2);
 }
 
 function listar() {
@@ -43,13 +45,19 @@ function listarMetricas() {
 
 function cadastrarComponente(servidor, componente) {
     var instrucao = `INSERT INTO componenteFisico (fkServidor,tipoComponente) VALUES (${servidor}, '${componente}')`;
-    console.log(instrucao);
-    return database.executar(instrucao);
+    var instrucao2 = `DECLARE @idServidor INT = (SELECT IDENT_CURRENT('servidor'));`
+    instrucao2 += `INSERT INTO componenteFisico (fkServidor,tipoComponente) VALUES (@idServidor, '${componente}')`;
+    console.log('MYSQL:',instrucao);
+    console.log('AZURE:',instrucao2);
+    return database.update(instrucao,instrucao2);
 }
 function cadastrarParametro(servidor, componente, metrica) {
     var instrucao = `INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (${servidor},${componente}, ${metrica})`;
-    console.log(instrucao);
-    return database.executar(instrucao);
+    var instrucao2 = `DECLARE @idServidor INT = (SELECT IDENT_CURRENT('servidor'));`
+    instrucao2 += `DECLARE @idComponente INT = (SELECT IDENT_CURRENT('componenteFisico'));`
+    instrucao2 += `INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (@idServidor,@idComponente, ${metrica})`;
+    console.log('AZURE:',instrucao2);
+    return database.update(instrucao,instrucao2);
 }
 
 module.exports = {

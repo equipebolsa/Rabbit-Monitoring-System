@@ -2,13 +2,13 @@ var servidorModel = require("../models/servidorModel");
 
 function cadastrar(req, res) {
     var mac = req.body.macServer;
-    var serial= req.body.serialServer;
+    var serial = req.body.serialServer;
     var so = req.body.soServer;
     var setor = req.body.setorServer;
     var metricasId = req.body.metricasIdServer;
     var metricasNome = req.body.metricasNomeServer;
-    
- 
+
+
 
     if (mac == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -16,23 +16,23 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (so == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    }  else if (setor == undefined) {
+    } else if (setor == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else{
-      
+    } else {
 
-        servidorModel.cadastrar(setor,so,mac,serial)
+
+        servidorModel.cadastrar(setor, so, mac, serial)
             .then(
                 function (resultado) {
-                    console.log(resultado);
+                    console.log("OLHA EU", resultado);
                     res.json(resultado);
-                    if(resultado.insertId){
+                    if (resultado.insertId) {
                         for (let i = 0; i < metricasId.length; i++) {
                             servidorModel.cadastrarComponente(resultado.insertId, metricasNome[i]).then(function (resultado2) {
-                                if(resultado2.insertId){
+                                if (resultado2.insertId) {
                                     servidorModel.cadastrarParametro(resultado.insertId, resultado2.insertId, metricasId[i]);
                                 }
-                            });
+                            })
                         }
                     }
                 }
