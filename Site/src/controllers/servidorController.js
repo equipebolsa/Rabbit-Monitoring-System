@@ -193,46 +193,41 @@ function listarParametros(req, res) {
 function atualizar(req, res) {
     var servidor = req.body.servidorServer;
     var metricasId = req.body.metricasIdServer;
+    var metricasIdNon = req.body.metricasIdNonServer;
     var metricasNome = req.body.metricasNomeServer;
     var metricasParametro = req.body.metricasParametroServer
-
     if (servidor == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else {
-        metricasParametro.forEach(metricaParametro => {
-            metricasId.forEach(metricaNova => {
-                
-            });
-        });
-        
-        
-        
-        /////
-        servidorModel.atualizar(setor, so, mac, serial)
-            .then(
-                function (resultado) {
-                    console.log("OLHA EU", resultado);
-                    res.json(resultado);
-                    if (resultado.insertId) {
-                        for (let i = 0; i < metricasId.length; i++) {
-                            servidorModel.cadastrarComponente(resultado.insertId, metricasNome[i]).then(function (resultado2) {
-                                if (resultado2.insertId) {
-                                    servidorModel.cadastrarParametro(resultado.insertId, resultado2.insertId, metricasId[i]);
-                                }
-                            })
-                        }
+        for (let i = 0; i < metricasId.length; i++) {
+            var achou = false;
+            metricasParametro.forEach(metricaParametro => {
+                //
+                if(metricasId[i] == metricaParametro.fkMetrica){
+                    if(metricaParametro.parametroAtivo == 0){
+                        servidorModel.atualizarParametro(servidor, metricasId[i], 1);
                     }
+                    achou = true;
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
+            });  
+            if(!achou){
+                servidorModel.cadastrarComponente(servidor, metricasNome[i]).then(function (resultado2) {
+                    if (resultado2.insertId) {
+                        servidorModel.cadastrarParametro(servidor, resultado2.insertId, metricasId[i]);
+                    }
+                })
+            }
+            
+        }
+        
+        metricasIdNon.forEach(metricaNova => {
+            metricasParametro.forEach(metricaParametro => {
+                if(metricaNova == metricaParametro.fkMetrica && metricaParametro.parametroAtivo == 1){
+                    servidorModel.atualizarParametro(servidor, metricaNova, 0);
                 }
-            );
+            });  
+        });
+        res.json();
     }
 }
 

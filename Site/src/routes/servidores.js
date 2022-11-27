@@ -8,7 +8,7 @@ router.post("/cadastrar", function (req, res) {
     servidorController.cadastrar(req, res);
 });
 router.post("/atualizar", function (req, res) {
-    servidorController.cadastrar(req, res);
+    servidorController.atualizar(req, res);
 });
 
 router.get("/listar/:idEmpresa", function (req, res) {

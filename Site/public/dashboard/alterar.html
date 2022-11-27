@@ -176,7 +176,6 @@
         var idServidor = url.get("idServidor");
         metricasId = [];
         metricasNome = [];
-        metricasParametroId = [];
 
         renderizarMetricas();
 
@@ -198,9 +197,7 @@
                         console.log('UASHUAHSUAHSUAHSUHAUSHAUHSUASUHAUSH')
                         console.log(json);
                         console.log(JSON.stringify(json));
-                        json.forEach(metrica => {
-                            metricasParametroId.push(metrica.idMetrica)
-                        });
+                        metricasParametro = json;
                         fetch("/servidores/listarMetricas", {
                             method: "POST",
                             headers: {
@@ -218,10 +215,9 @@
                                         metricasNome.push(metrica.nomeMetrica);
                                         nomeMetrica = metrica.nomeMetrica;
                                         metricaChecked = false;
-                                        
-                                        metricasParametroId.forEach(id1 => {
+                                        metricasParametro.forEach(id1 => {
                                             
-                                            if(id1 == metrica.idMetrica){
+                                            if(id1.idMetrica == metrica.idMetrica && id1.parametroAtivo == 1){
                                                 metricaChecked = true;
                                             }
                                         });
@@ -266,14 +262,16 @@
 
         function atualizarServidor(){
             metricasIdChecked = [];
+            metricasIdNonChecked = [];
             metricasNomeChecked = [];
             for (let i = 0; i < metricasId.length; i++) {
                 if (document.getElementById("metricaId" + metricasId[i]).checked) {
                     metricasIdChecked.push(metricasId[i]);
                     metricasNomeChecked.push(metricasNome[i]);
+                }else{
+                    metricasIdNonChecked.push(metricasId[i]);
                 }
             }
-
             fetch(`/servidores/atualizar/`, {
                 method: 'POST',
                 headers: {
@@ -282,14 +280,14 @@
                 body: JSON.stringify({
                     servidorServer: url.get("idServidor"),
                     metricasIdServer: metricasIdChecked,
+                    metricasIdNonServer: metricasIdNonChecked,
                     metricasNomeServer: metricasNomeChecked,
-                    metricasParametroServer: metricasParametroId
+                    metricasParametroServer: metricasParametro
                 })
             }).then(
                 function res(resposta) {
                     if (resposta.ok) {
                         alert("Atualizado com Sucesso!");
-                        renderizarMetricas();
                     }
                 }
             )

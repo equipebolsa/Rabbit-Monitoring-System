@@ -43,7 +43,7 @@ function listarMetricas() {
     return database.select(instrucao);
 }
 function listarParametros(servidor) {
-    var instrucao = `select * from parametro, metrica where fkMetrica = idMetrica and fkservidor = ${servidor} and parametroAtivo = true;`;
+    var instrucao = `select * from parametro, metrica where fkMetrica = idMetrica and fkservidor = ${servidor}`;
     console.log(instrucao);
     return database.select(instrucao);
 }
@@ -64,6 +64,11 @@ function cadastrarParametro(servidor, componente, metrica) {
     console.log('AZURE:',instrucao2);
     return database.update(instrucao,instrucao2);
 }
+function atualizarParametro(servidor, metrica, status) {
+    var instrucao = `update parametro set parametroAtivo = ${status} where fkMetrica = ${metrica} and fkServidor = ${servidor};`;
+    console.log(instrucao);
+    return database.update(instrucao);
+}
 
 module.exports = {
     cadastrar,
@@ -75,5 +80,6 @@ module.exports = {
     totalServidor,
     cadastrarComponente,
     cadastrarParametro,
-    listarParametros
+    listarParametros,
+    atualizarParametro
 }
