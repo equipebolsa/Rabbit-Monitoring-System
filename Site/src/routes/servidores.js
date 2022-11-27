@@ -7,6 +7,9 @@ var servidorController = require("../controllers/servidorController");
 router.post("/cadastrar", function (req, res) {
     servidorController.cadastrar(req, res);
 });
+router.post("/atualizar", function (req, res) {
+    servidorController.cadastrar(req, res);
+});
 
 router.get("/listar/:idEmpresa", function (req, res) {
     servidorController.listar(req, res);
@@ -29,6 +32,9 @@ router.post("/listarMetricas", function (req, res) {
 });
 router.post("/cadastrarComponente", function (req, res) {
     servidorController.cadastrarComponente(req, res);
+});
+router.post("/listarParametros", function (req, res) {
+    servidorController.listarParametros(req, res);
 });
 
 

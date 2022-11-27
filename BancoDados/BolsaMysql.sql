@@ -77,7 +77,8 @@ CREATE TABLE alerta (
   CONSTRAINT FK_parametro_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica),
   fkServidor INT NOT NULL,
   CONSTRAINT FK_parametro_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
-  PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor)
+  PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor),
+  parametroAtivo BOOLEAN NOT NULL
  );
  
  -- Inserir
@@ -87,6 +88,8 @@ INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região 
 INSERT INTO metrica VALUES(NULL,'CPUPercent','%','0');
 INSERT INTO metrica VALUES(NULL,'RAMPercent','%','0');
 INSERT INTO metrica VALUES(NULL,'DISCOUso','GB','0');
+INSERT INTO metrica VALUES(NULL,'Cooler','RPM','0');
+INSERT INTO metrica VALUES(NULL,'Bateria','%','0');
 
 CREATE VIEW leituraView AS SELECT 
     nomeEmpresa,

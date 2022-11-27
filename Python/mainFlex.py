@@ -70,7 +70,7 @@ def executarMonitoramento(resposta):
 
 
 def captura():
-    query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s")
+    query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
     cursor.execute(query, [gma()])
     resposta = cursor.fetchall()
 
@@ -81,7 +81,7 @@ def captura():
         sleep(2)
 
 def cadastrarParametro(fkServidor, fkComponente, fkMetrica):
-    query = "INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (%s,%s, %s)"
+    query = "INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica, parametroAtivo) VALUES (%s,%s, %s, 1)"
     params = (fkServidor, fkComponente, fkMetrica)
     cursor.execute(query, params)
     #cursor2.execute(query, params)

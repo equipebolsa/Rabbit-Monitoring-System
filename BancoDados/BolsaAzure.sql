@@ -77,7 +77,8 @@ CREATE TABLE alerta (
   CONSTRAINT FK_parametro_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica),
   fkServidor INT NOT NULL,
   CONSTRAINT FK_parametro_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
-  PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor)
+  PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor),
+  parametroAtivo BOOLEAN NOT NULL
  );
  
 
@@ -121,4 +122,3 @@ DROP TABLE setor;
 DROP TABLE usuario;
 DROP TABLE empresa;
 DROP VIEW leituraView;
-
