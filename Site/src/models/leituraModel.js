@@ -25,7 +25,7 @@ function listarUltimaCPU(id) {
 }
 function listarUltimaRAM(id) {
     var instrucao1 = `SELECT valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') ORDER BY horarioLeitura DESC LIMIT 1;`;
-    var instrucao2 = `SELECT TOP 1valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') ORDER BY horarioLeitura DESC;`;
+    var instrucao2 = `SELECT TOP 1 valorLeitura, horarioLeitura, idServidor FROM leituraView WHERE idServidor = ${id}  AND fkComponenteFisico = (SELECT idComponenteFisico FROM componenteFisico  WHERE fkServidor = ${id} AND tipoComponente LIKE 'RAM') ORDER BY horarioLeitura DESC;`;
     return database.executar(instrucao2);
 }
 

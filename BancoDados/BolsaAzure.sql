@@ -77,9 +77,30 @@ CREATE TABLE alerta (
   CONSTRAINT FK_parametro_fkMetrica FOREIGN KEY (fkMetrica) REFERENCES metrica (idMetrica),
   fkServidor INT NOT NULL,
   CONSTRAINT FK_parametro_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
-  PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor)
+  PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor),
+  parametroAtivo BOOLEAN NOT NULL
  );
  
+  -- Projeto Individual: Gustavo Antonio
+ CREATE TABLE rede(
+	idRede INT PRIMARY KEY AUTO_INCREMENT,
+    fkServidor INT NOT NULL,
+    CONSTRAINT FK_rede_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
+    tipoConexao CHAR(15) NOT NULL,
+	CONSTRAINT CK_rede_tipoConexao CHECK(tipoConexao IN ('Wi-Fi', 'Ethernet')),
+    address VARCHAR(45)    
+ );
+  CREATE TABLE dadosRede(
+	idDadosRede INT PRIMARY KEY AUTO_INCREMENT,
+    fkRede INT NOT NULL,
+    CONSTRAINT FK_dadosRede_fkRede FOREIGN KEY (fkRede) REFERENCES rede (idRede),
+    packetsRecv INT,
+    packetsSent INT,
+    bytesSent DECIMAL(7,2),
+    bytesRecv DECIMAL(7,2),
+	horarioLeitura DATETIME NOT NULL
+ );
+ -- Projeto Individual: Gustavo Antonio
 
  
 INSERT INTO empresa VALUES('SPTECH','802.996.720-93','(63) 2430-8532');
@@ -121,4 +142,3 @@ DROP TABLE setor;
 DROP TABLE usuario;
 DROP TABLE empresa;
 DROP VIEW leituraView;
-

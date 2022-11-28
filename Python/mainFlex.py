@@ -6,6 +6,7 @@ import dicionarioComandos
 import mysql.connector
 import hashlib
 import pymssql
+import gustavo
 import psutil
 
 
@@ -70,7 +71,7 @@ def executarMonitoramento(resposta):
 
 
 def captura():
-    query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s")
+    query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
     cursor.execute(query, [gma()])
     resposta = cursor.fetchall()
 
@@ -81,7 +82,7 @@ def captura():
         sleep(2)
 
 def cadastrarParametro(fkServidor, fkComponente, fkMetrica):
-    query = "INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (%s,%s, %s)"
+    query = "INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica, parametroAtivo) VALUES (%s,%s, %s, 1)"
     params = (fkServidor, fkComponente, fkMetrica)
     cursor.execute(query, params)
     #cursor2.execute(query, params)
@@ -104,8 +105,14 @@ def cadastar():
     if (entrada.lower() == "n"):
         return False
     elif (entrada.lower() == "y"):
-        setor = str(
-            input("Por favor digite o id do setor que deseja cadastar a maquina "))
+        setor = str(input("Por favor digite o id do setor que deseja cadastar a maquina "))
+        rede = str(input("Servidor utiliza Wi-Fi(1) ou Ethernet(2)"))
+        if(rede==1):
+            rede = "Wi-Fi"
+        elif(rede==2):
+            rede = "Ethernet"
+        else:
+            cadastar()
         query = "INSERT INTO servidor(fkSetor,sistemaOperacional,macAddress,serialNumber) VALUES (%s, %s, %s, %s);"
         params = (setor, comandos[1], str(gma()), str(getMachine_addr()))
         cursor.execute(query, params)
@@ -113,6 +120,8 @@ def cadastar():
         connection.commit()
         connection2.commit()
         fkServidor = cursor.lastrowid
+        fkServidor = cursor2.lastrowid
+        gustavo.cadastarRede(fkServidor,rede)
         cadastrarComponente(fkServidor, "CPU")
         cadastrarParametro(fkServidor, cursor.lastrowid, 1)
         cadastrarComponente(fkServidor, "RAM")
@@ -122,6 +131,7 @@ def cadastar():
         captura()
     else:
         cadastar()
+
 
 
 def estado():

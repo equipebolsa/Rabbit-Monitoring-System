@@ -17,6 +17,7 @@ var setorRouter = require("./src/routes/setores");
 var cadastarRouter = require("./src/routes/servidores");
 var alertaRouter = require("./src/routes/alerta");
 var processRouter = require("./src/routes/process");
+var dadosRedeRouter = require("./src/routes/dadosRede");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +33,7 @@ app.use("/setores", setorRouter );
 app.use("/servidores", cadastarRouter );
 app.use("/alerta", alertaRouter );
 app.use("/process", processRouter );
+app.use("/dadosRede", dadosRedeRouter );
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
