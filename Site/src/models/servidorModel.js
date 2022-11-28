@@ -42,6 +42,11 @@ function listarMetricas() {
     console.log(instrucao);
     return database.select(instrucao);
 }
+function listarParametros(servidor) {
+    var instrucao = `select * from parametro, metrica where fkMetrica = idMetrica and fkservidor = ${servidor}`;
+    console.log(instrucao);
+    return database.select(instrucao);
+}
 
 function cadastrarComponente(servidor, componente) {
     var instrucao = `INSERT INTO componenteFisico (fkServidor,tipoComponente) VALUES (${servidor}, '${componente}')`;
@@ -52,12 +57,17 @@ function cadastrarComponente(servidor, componente) {
     return database.update(instrucao,instrucao2);
 }
 function cadastrarParametro(servidor, componente, metrica) {
-    var instrucao = `INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (${servidor},${componente}, ${metrica})`;
+    var instrucao = `INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica, parametroAtivo) VALUES (${servidor},${componente}, ${metrica}, 1)`;
     var instrucao2 = `DECLARE @idServidor INT = (SELECT IDENT_CURRENT('servidor'));`
     instrucao2 += `DECLARE @idComponente INT = (SELECT IDENT_CURRENT('componenteFisico'));`
-    instrucao2 += `INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica) VALUES (@idServidor,@idComponente, ${metrica})`;
+    instrucao2 += `INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica, parametroAtivo) VALUES (@idServidor,@idComponente, ${metrica}, 1)`;
     console.log('AZURE:',instrucao2);
     return database.update(instrucao,instrucao2);
+}
+function atualizarParametro(servidor, metrica, status) {
+    var instrucao = `update parametro set parametroAtivo = ${status} where fkMetrica = ${metrica} and fkServidor = ${servidor};`;
+    console.log(instrucao);
+    return database.update(instrucao);
 }
 
 module.exports = {
@@ -69,5 +79,7 @@ module.exports = {
     menorSetor,
     totalServidor,
     cadastrarComponente,
-    cadastrarParametro
+    cadastrarParametro,
+    listarParametros,
+    atualizarParametro
 }
