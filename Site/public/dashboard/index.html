@@ -69,7 +69,8 @@
                         </div>
                         <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
                         <a href="process.html" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Processos</a>
-                        <a href="noticias.html" class="nav-item nav-link"><i class="fa fa-newspaper me-2"></i> Notícias</a>
+                        <a href="noticias.html" class="nav-item nav-link"><i class="fa fa-newspaper me-2"></i>
+                            Notícias</a>
 
 
 
@@ -135,7 +136,7 @@
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-evenly p-4">
                                 <i class="fa-solid fa-up-long fa-3x text-primary"></i>
                                 <div class="ms-3">
-                                    <p class="mb-2">Setor Mais Utilizado</p>
+                                    <p class="mb-2">Setor + Utilizado</p>
                                     <h6 class="mb-0" id="setorMax"></h6>
                                 </div>
                             </div>
@@ -144,7 +145,7 @@
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-evenly p-4">
                                 <i class="fa fa-down-long fa-3x text-primary"></i>
                                 <div class="ms-3">
-                                    <p class="mb-2">Setor Menos Utilizado</p>
+                                    <p class="mb-2">Setor - Utilizado</p>
                                     <h6 class="mb-0" id="setorMin"></h6>
                                 </div>
                             </div>
@@ -231,6 +232,7 @@
         nome.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = resultado.fkEmpresa;
         tabelaFuncao(idEmpresa);
+        kpis(idEmpresa);
 
 
         function tabelaFuncao(id) {
@@ -247,9 +249,9 @@
 
             for (j in json) {
                 valorJson = json[j];
-                if(valorJson.serialNumber==""){
+                if (valorJson.serialNumber == "") {
                     var serialNumber = "SECRETO";
-                }else{serialNumber = valorJson.serialNumber}
+                } else { serialNumber = valorJson.serialNumber }
                 tabela.innerHTML += `
                                 <tr>
                                     <td>Máquina ${valorJson.idServidor}</td>
@@ -267,44 +269,45 @@
             fetch(`/servidores/maiorSetor/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        renderizarKPI4(resposta)
+                        renderizarKPI4(resposta[0].nomeSetor)
                     });
                 }
             });
             fetch(`/servidores/menorSetor/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        renderizarKPI3(resposta)
+                        renderizarKPI3(resposta[0].nomeSetor)
                     });
                 }
             });
             fetch(`/servidores/totalServidor/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        renderizarKPI2(resposta)
+                        renderizarKPI2(resposta[0].total)
                     });
                 }
             });
             fetch(`/alerta/totalAlertas/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        renderizarKPI1(resposta)
+                        renderizarKPI1(resposta[0].total)
                     });
                 }
             });
+
         }
 
         function renderizarKPI1(json) {
-            alerta.innerHTML = json[0];
+            alerta.innerHTML = json;
         }
         function renderizarKPI2(json) {
-            computadores.innerHTML = json[0];
+            computadores.innerHTML = json;
         }
         function renderizarKPI3(json) {
-            setorMax.innerHTML = json[0];
+            setorMin.innerHTML = json;
         }
         function renderizarKPI4(json) {
-            setorMin.innerHTML = json[0];
+            setorMax.innerHTML = json;
         }
 
         function detalhes(index) {

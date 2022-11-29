@@ -3,8 +3,8 @@ var router = express.Router();
 
 var alertaController = require("../controllers/alertaController");
 
-router.post("/cadastrar/:idEmpresa", function (req, res) {
-    alertaController.cadastrar(req, res);
+router.get("/totalAlertas/:idEmpresa", function (req, res) {
+    alertaController.listar(req, res);
 })
 
 module.exports = router;

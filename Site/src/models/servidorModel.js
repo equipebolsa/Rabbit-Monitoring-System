@@ -21,20 +21,19 @@ function listarMaquinas(id) {
 }
 
 function totalServidor(id) {
-    var instrucao = `SELECT count(*) FROM servidor WHERE idServidor = ${id};`;
+    var instrucao = `SELECT count(*) as total FROM servidor INNER JOIN  setor ON fkSetor = idSetor INNER JOIN empresa ON fkEmpresa = idEmpresa WHERE idEmpresa = ${id};`;
     console.log(instrucao);
-    return database.select(instrucao);
+    return database.executar(instrucao);
 }
 function menorSetor(id) {
-    var instrucao = `SELECT nomeSetor, count(fkSetor) FROM servidor INNER JOIN setor ON setor.idSetor = servidor.fkSetor WHERE idServidor = ${id} ORDER BY count(fkSetor) ASC LIMIT 1;
-    `;
+    var instrucao = `SELECT TOP 1 nomeSetor, count(fkSetor) FROM servidor INNER JOIN setor ON setor.idSetor = servidor.fkSetor WHERE fkEmpresa = 1 GROUP BY nomeSetor ORDER BY COUNT(fkSetor) ASC;`;
     console.log(instrucao);
-    return database.select(instrucao);
+    return database.executar(instrucao);
 }
 function maiorSetor(id) {
-    var instrucao = `SELECT nomeSetor, count(fkSetor) FROM servidor INNER JOIN setor ON setor.idSetor = servidor.fkSetor WHERE idServidor = ${id} ORDER BY count(fkSetor) DESC LIMIT 1;`;
-    console.log(instrucao);
-    return database.select(instrucao);
+    var instrucaoAzure = `SELECT TOP 1 nomeSetor, count(fkSetor) FROM servidor INNER JOIN setor ON setor.idSetor = servidor.fkSetor WHERE fkEmpresa = ${id} GROUP BY nomeSetor ORDER BY COUNT(fkSetor) DESC;`;
+    console.log(instrucaoAzure);
+    return database.executar(instrucaoAzure);
 }
 
 function listarMetricas() {

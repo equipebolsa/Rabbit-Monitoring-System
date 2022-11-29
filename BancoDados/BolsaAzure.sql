@@ -83,7 +83,7 @@ CREATE TABLE alerta (
  
   -- Projeto Individual: Gustavo Antonio
  CREATE TABLE rede(
-	idRede INT PRIMARY KEY AUTO_INCREMENT,
+	idRede INT PRIMARY KEY IDENTITY(1,1),
     fkServidor INT NOT NULL,
     CONSTRAINT FK_rede_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
     tipoConexao CHAR(15) NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE alerta (
     address VARCHAR(45)    
  );
   CREATE TABLE dadosRede(
-	idDadosRede INT PRIMARY KEY AUTO_INCREMENT,
+	idDadosRede INT PRIMARY KEY IDENTITY(1,1),
     fkRede INT NOT NULL,
     CONSTRAINT FK_dadosRede_fkRede FOREIGN KEY (fkRede) REFERENCES rede (idRede),
     packetsRecv INT,
@@ -106,11 +106,15 @@ CREATE TABLE alerta (
 INSERT INTO empresa VALUES('SPTECH','802.996.720-93','(63) 2430-8532');
 INSERT INTO usuario(nomeUsuario,emailUsuario,senhaUsuario,tipoUsuario,fkEmpresa) VALUES('URUBU','urubu@gmail.com',CONVERT(varchar(max), HASHBYTES ('SHA2_512', '123') ,2) ,'Gestor',1);
 INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Região de São Paulo');
-INSERT INTO metrica VALUES('CPUPercent','%','0');
-INSERT INTO metrica VALUES('RAMPercent','%','0');
-INSERT INTO metrica VALUES('DISCOUso','GB','0'); 
-INSERT INTO metrica VALUES('Cooler','RPM','0');
-INSERT INTO metrica VALUES('Bateria','%','0');
+
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da CPU','%','0');
+INSERT INTO metrica VALUES(NULL,'Memória Usada','GB','0');
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da RAM','%','0');
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Do DISCO','%','0');
+INSERT INTO metrica VALUES(NULL,'Quantidade De Leitura Por Segundo','s','0');
+INSERT INTO metrica VALUES(NULL,'Quantidade De Escrita Por Segundo','s','0');
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da Memória Virtual','%','0');
+INSERT INTO metrica VALUES(NULL,'Temperatura Da CPU em ','C°','0');
 
  
 CREATE VIEW leituraView AS SELECT 
