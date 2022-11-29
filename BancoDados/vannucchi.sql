@@ -1,27 +1,54 @@
-drop database teste;
-create database teste;
-use teste;
-create table whitelist(
-	id int primary key auto_increment,
-    nome varchar(100)
+-- ----------------------MYSQL
+
+CREATE TABLE whitelist(
+	id INT PRIMARY KEY auto_increment,
+    nome VARCHAR(100)
 );
-create table blacklist(
-	id int primary key auto_increment,
-    nome varchar(100)
+CREATE TABLE blacklist(
+	id INT PRIMARY KEY auto_increment,
+    nome VARCHAR(100)
 );
-create table alertaProcesso(
-	id int primary key auto_increment,
-    nome varchar(100),
-    serialNumber varchar(45),
+CREATE TABLE alertaProcesso(
+	id INT PRIMARY KEY auto_increment,
+    nome VARCHAR(100),
+    serialNumber VARCHAR(45),
     estado char(1),
     datahora datetime,
     CHECK (estado = 'w' or estado = 'd')
 );
-create table filterlist(
-    id int primary key auto_increment,
-    nome varchar(100)
+CREATE TABLE filterlist(
+    id INT PRIMARY KEY auto_increment,
+    nome VARCHAR(100)
 );
-insert into filterlist(nome) values 
+
+-- ----------------------AZURE
+CREATE TABLE whitelist(
+	id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100)
+);
+CREATE TABLE blacklist(
+	id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100)
+);
+CREATE TABLE alertaProcesso(
+	id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100),
+    serialNumber VARCHAR(45),
+    estado char(1),
+    datahora datetime,
+    CHECK (estado = 'w' or estado = 'd')
+);
+CREATE TABLE filterlist(
+    id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100)
+);
+
+
+
+-- ----------------------INSERT FILTER
+
+
+INSERT INTO filterlist(nome) VALUES 
 ("python*"),
 ("kworker*"),
 ("card0*"),

@@ -152,7 +152,7 @@ while True:
                 itemToStr = itemList[1]
                 itemToStr = ''.join(itemList[1])
                 itemToStr = itemToStr[:-1]
-                if  str(itemProcesso).find(itemToStr) > 0:
+                if str(itemProcesso).find(itemToStr) > 0:
                     estaNaLista = True
             else:
                 if itemList[1] == itemProcesso['name']:
