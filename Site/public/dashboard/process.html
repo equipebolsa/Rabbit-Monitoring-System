@@ -126,16 +126,25 @@
                 </nav>
                 <!-- Navbar End -->
                 <div class="container-fluid pt-4 px-4">
+                    <div class="bg-secondary text-center rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Processos</h6>
+                        </div>
+                        <div class="d-flex mb-2">
+                            <input class="form-control bg-transparent" type="text"
+                                placeholder="Digite o processo">
+                            <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
                         <div class="col-sm-12 col-md-6 col-xl-4">
                             <div class="h-100 bg-secondary rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                
+                                <div class="d-flex align-items-center border-bottom py-2">
                                     <h6 class="mb-0">Whitelist</h6>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <input class="form-control bg-transparent" type="text"
-                                        placeholder="Digite o processo">
-                                    <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
                                 </div>
                                 <span id="whitelist_list">
                                 </span>
@@ -143,13 +152,9 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-4">
                             <div class="h-100 bg-secondary rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                
+                                <div class="d-flex align-items-center border-bottom py-2">
                                     <h6 class="mb-0">Pendente</h6>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <input class="form-control bg-transparent" type="text"
-                                        placeholder="Digite o processo">
-                                    <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
                                 </div>
                                 <span id="waitlist_list">
                                 </span>
@@ -157,13 +162,9 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-4">
                             <div class="h-100 bg-secondary rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                
+                                <div class="d-flex align-items-center border-bottom py-2">
                                     <h6 class="mb-0">Blacklist</h6>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <input class="form-control bg-transparent" type="text"
-                                        placeholder="Digite o processo">
-                                    <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
                                 </div>
                                 <span id="blacklist_list">
                                 </span>
@@ -276,7 +277,7 @@
                             whitelist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                                                    <span>${nomeProcesso}</span>
+                                                                    <span alt="${processo.nome}">${nomeProcesso}</span>
                                                                     <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'whitelist', 'blacklist')">></button>
                                                                 </div>
                                                             </div>
