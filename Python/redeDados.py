@@ -1,5 +1,3 @@
-from ast import While
-from operator import ne
 from psutil import net_io_counters, net_if_addrs
 from time import sleep
 import pymssql
@@ -14,7 +12,7 @@ cursor2 = connection2.cursor(as_dict=True)
 
 
 
-def cadastarRede(fkServidor,tipo):
+def cadastrarRede(fkServidor,tipo):
     query = "INSERT INTO rede (fkServidor,tipoConexao,address) VALUES (%s,%s,%s)"
     address = net_if_addrs()[tipo][0].address
     params = (fkServidor,tipo,address)
@@ -64,5 +62,6 @@ cursor.execute(query, [1])
 resposta = cursor.fetchall()
 resposta = resposta[0][0]
 
+
 while(True):
-   net_usage(resposta)
+    net_usage(resposta)

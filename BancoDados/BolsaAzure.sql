@@ -96,8 +96,8 @@ CREATE TABLE alerta (
     CONSTRAINT FK_dadosRede_fkRede FOREIGN KEY (fkRede) REFERENCES rede (idRede),
     packetsRecv INT,
     packetsSent INT,
-    bytesSent DECIMAL(7,2),
-    bytesRecv DECIMAL(7,2),
+    bytesSent INT,
+    bytesRecv INT,
 	horarioLeitura DATETIME NOT NULL
  );
  -- Projeto Individual: Gustavo Antonio

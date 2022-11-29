@@ -1,17 +1,23 @@
 package com.mycompany.projeto.rabbit;
 
 // import java.awt.Color;
+import com.mycompany.utilitario.Criptografia;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.JOptionPane;
 // import javax.swing.BorderFactory;
 import javax.swing.Timer;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 // import javax.swing.border.Border;
 
 public class Login extends javax.swing.JFrame {
+    ConnectionBD config = new ConnectionBD();
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(config.getDatasource());
+   
 
-    /**
-     * Creates new form Login_Form
-     */
     public Login() {
         initComponents();
         
@@ -238,6 +244,56 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_closeMouseClicked
+        // close this form
+        this.dispose();
+    }//GEN-LAST:event_jLabel_closeMouseClicked
+
+    private void jLabel_upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_upMouseClicked
+        // hide the jpanel message
+        timerUp.start();
+    }//GEN-LAST:event_jLabel_upMouseClicked
+
+    private void jCheckBox_showPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_showPassActionPerformed
+        // show and hide password chars
+        if(jCheckBox_showPass.isSelected())
+        {
+            jPasswordField_password.setEchoChar((char)0);
+        }
+        else
+        {
+            jPasswordField_password.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jCheckBox_showPassActionPerformed
+
+    // the login button
+    private void jButton_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_loginActionPerformed
+
+        String email = jTextField_username.getText().trim();
+        String senha = String.valueOf(jPasswordField_password.getPassword()).trim();
+        int count = 0;
+        String senhaSHA512 = Criptografia.getSHA512(senha);
+
+        if (email.equals("")) {
+            jLabel_message_text.setText("Digite seu E-mail");
+        } else if (senha.equals("")) {
+            jLabel_message_text.setText("Digite sua senha");
+        } else {
+            List<Usuario> validUsuario = jdbcTemplate.query("SELECT * FROM usuario;", new BeanPropertyRowMapper(Usuario.class));
+            for (Usuario usuario : validUsuario) {
+                if (senhaSHA512.equalsIgnoreCase(usuario.getSenhaUsuario()) && email.equals(usuario.getEmailUsuario())) {
+                    Dashboard tela = new Dashboard();
+                    tela.setVisible(true);
+                    this.dispose();
+                } else {
+                    count++;
+                }
+            } if(count == validUsuario.size())   jLabel_message_text.setText("Credenciais inválidas");
+        }
+
+        timerDown.start();
+    }//GEN-LAST:event_jButton_loginActionPerformed
+
     // timer to hide the message panel
     Timer timerUp = new Timer(10, new ActionListener() {
         @Override
@@ -271,59 +327,6 @@ public class Login extends javax.swing.JFrame {
     });
     
     
-    // the login button
-    private void jButton_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_loginActionPerformed
-        
-        String username  = jTextField_username.getText().trim();
-        String password = String.valueOf(jPasswordField_password.getPassword()).trim();
-        
-        if(username.equals(""))
-        {
-            jLabel_message_text.setText("Enter Your Username First");
-        }
-        else if(password.equals(""))
-        {
-           jLabel_message_text.setText("You Need To Enter Your Password"); 
-        }
-        else if(username.equals("admin") && password.equals("pass123"))
-        {
-           this.dispose();
-           Dashboard dashboard = new Dashboard();
-           dashboard.setVisible(true);
-        }
-        else
-        {
-           jLabel_message_text.setText("Incorrect Username or Password");  
-        }
-        
-        // show the jpanel message
-        timerDown.start();
-        
-    }//GEN-LAST:event_jButton_loginActionPerformed
-
-    private void jCheckBox_showPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_showPassActionPerformed
-        // show and hide password chars
-        if(jCheckBox_showPass.isSelected())
-        {
-            jPasswordField_password.setEchoChar((char)0);
-        }
-        else
-        {
-            jPasswordField_password.setEchoChar('*');
-        }
-    }//GEN-LAST:event_jCheckBox_showPassActionPerformed
-
-    private void jLabel_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_closeMouseClicked
-        // close this form
-        this.dispose();
-        
-    }//GEN-LAST:event_jLabel_closeMouseClicked
-
-    private void jLabel_upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_upMouseClicked
-        // hide the jpanel message
-        timerUp.start();
-    }//GEN-LAST:event_jLabel_upMouseClicked
-
     /**
      * @param args the command line arguments
      */

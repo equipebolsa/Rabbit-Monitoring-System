@@ -6,8 +6,9 @@ import dicionarioComandos
 import mysql.connector
 import hashlib
 import pymssql
-import gustavo
+import redeDados
 import psutil
+
 
 
 connection = mysql.connector.connect(host="localhost", user="root", password="sptech", database="bolsa",auth_plugin='mysql_native_password')
@@ -57,7 +58,7 @@ def executarMonitoramento(resposta):
             query = ("SELECT * FROM metrica WHERE idMetrica = %s")
             cursor.execute(query, [row[1]])
             resultado = cursor.fetchall()
-            leitura = comando(resultado[0][1])
+            leitura = dicionarioComandos.comando(resultado[0][0],comandos[1])
             query = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(NOW(), %s, %s, %s)")
             query2 = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(CURRENT_TIMESTAMP, %s, %s, %s)")
             val = (str(leitura),str(row[0]),str(row[1]))
@@ -121,7 +122,7 @@ def cadastar():
         connection2.commit()
         fkServidor = cursor.lastrowid
         fkServidor = cursor2.lastrowid
-        gustavo.cadastarRede(fkServidor,rede)
+        redeDados.cadastrarRede(fkServidor,rede)
         cadastrarComponente(fkServidor, "CPU")
         cadastrarParametro(fkServidor, cursor.lastrowid, 1)
         cadastrarComponente(fkServidor, "RAM")

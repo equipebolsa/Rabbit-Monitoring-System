@@ -96,8 +96,8 @@ CREATE TABLE alerta (
     CONSTRAINT FK_dadosRede_fkRede FOREIGN KEY (fkRede) REFERENCES rede (idRede),
     packetsRecv INT,
     packetsSent INT,
-    bytesSent DECIMAL(7,2),
-    bytesRecv DECIMAL(7,2),
+    bytesSent INT,
+    bytesRecv INT,
 	horarioLeitura DATETIME NOT NULL
  );
  -- Projeto Individual: Gustavo Antonio
@@ -106,11 +106,15 @@ CREATE TABLE alerta (
 INSERT INTO empresa VALUES(NULL,"SPTECH","802.996.720-93","(63) 2430-8532");
 INSERT INTO usuario VALUES(NULL,"URUBU","urubu@gmail.com","123","Gestor",1,NULL);
 INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
-INSERT INTO metrica VALUES(NULL,'CPUPercent','%','0');
-INSERT INTO metrica VALUES(NULL,'RAMPercent','%','0');
-INSERT INTO metrica VALUES(NULL,'DISCOUso','GB','0');
-INSERT INTO metrica VALUES(NULL,'Cooler','RPM','0');
-INSERT INTO metrica VALUES(NULL,'Bateria','%','0');
+
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da CPU','%','0');
+INSERT INTO metrica VALUES(NULL,'Memória Usada','GB','0');
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da RAM','%','0');
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Do DISCO','%','0');
+INSERT INTO metrica VALUES(NULL,'Quantidade De Leitura Por Segundo','s','0');
+INSERT INTO metrica VALUES(NULL,'Quantidade De Escrita Por Segundo','s','0');
+INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da Memória Virtual','%','0');
+INSERT INTO metrica VALUES(NULL,'Temperatura Da CPU em ','C°','0');
 
 CREATE VIEW leituraView AS SELECT 
     nomeEmpresa,

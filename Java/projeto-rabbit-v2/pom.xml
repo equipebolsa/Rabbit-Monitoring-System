@@ -49,7 +49,7 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE120</version>
         </dependency>
-                        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -74,6 +74,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.22</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>7.2.2.jre8</version>
+            <!-- ou versão 7.2.2.jre11, se sua JDK for a 11 -->
+            <!-- ou versão que já existir na .m2 local -->
         </dependency>
     </dependencies>
     <name>projeto-rabbit-v2</name>
