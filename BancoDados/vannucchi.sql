@@ -22,6 +22,7 @@ create table filterlist(
     nome varchar(100)
 );
 insert into filterlist(nome) values 
+("python*"),
 ("kworker*"),
 ("card0*"),
 ("cpuhp*"),
@@ -58,6 +59,7 @@ insert into filterlist(nome) values
 ("bash"),
 ("blkcg_punt_bio"),
 ("bluetoothd"),
+("dbus"),
 ("cat"),
 ("catchsegv"),
 ("cfg80211"),

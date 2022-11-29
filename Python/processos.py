@@ -9,6 +9,7 @@ import pymssql
 
 blacklist = []
 whitelist = []
+filterlist = []
 prelist = []
 processos = []
 precisaAtualizar = False
@@ -67,6 +68,11 @@ def estaEmAlertas(processo):
             return True
     return False
 
+def receberFilterlist():
+    global filterlist
+    cursor.execute("select * from filterlist")
+    filterlist = cursor.fetchall()
+
 def atualizarListas():
     global whitelist
     global blacklist
@@ -74,19 +80,6 @@ def atualizarListas():
 
     cursor.execute("select * from alertaProcesso")
     alertas = cursor.fetchall()
-   
-    #for itemList in alertas:
-    #    if itemList[3] == 'y':
-    #        #whitelist
-    #        cursor.execute("insert into whitelist values (null, '"+itemList[1]+"')")
-    #        cursor.execute("update alertaProcesso set estado = 'd' where id = "+ str(itemList[0]))
-    #        connection.commit()
-    #    elif itemList[3] == 'n':
-    #        #blacklist
-    #        cursor.execute("insert into blacklist values (null, '"+itemList[1]+"')")
-    #        cursor.execute("update alertaProcesso set estado = 'd' where id = "+ str(itemList[0]))
-    #        connection.commit()
-    
     cursor.execute("select * from blacklist")
     blacklist = cursor.fetchall()
     cursor.execute("select * from whitelist")
@@ -115,7 +108,7 @@ cursor = connection.cursor()
 ############################################################
 
 atualizarListas()
-
+receberFilterlist()
 tempo = int(datetime.datetime.now().strftime('%M'))
 
 #verificando black/whitelist atual
@@ -154,6 +147,16 @@ while True:
         for itemList in whitelist:
             if itemList[1] == itemProcesso['name']:
                 estaNaLista = True
+        for itemList in filterlist:
+            if itemList[1][-1] == "*":
+                itemToStr = itemList[1]
+                itemToStr = ''.join(itemList[1])
+                itemToStr = itemToStr[:-1]
+                if  str(itemProcesso).find(itemToStr) > 0:
+                    estaNaLista = True
+            else:
+                if itemList[1] == itemProcesso['name']:
+                    estaNaLista = True
         if estaNaLista == False:
             resposta = ""
             print(itemProcesso['name'])
