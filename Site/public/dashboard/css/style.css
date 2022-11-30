@@ -323,3 +323,15 @@ input:disabled{
 ::-webkit-scrollbar-thumb:hover {
     background: var(--base-color-purple-dark);
 }
+
+/*** Kelvin ***/
+.servidores {
+    display: inline-flex;
+    width: 100px;
+    border-radius: 10px;
+    height: 70px;
+    margin: 8px;
+    background-color: #306dc773;
+    justify-content: space-around;
+    align-items: center;
+}
