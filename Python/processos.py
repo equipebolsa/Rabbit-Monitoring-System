@@ -6,6 +6,10 @@ from time import sleep
 import time
 import datetime 
 import pymssql
+import json
+
+#ambiente = 'producao'
+ambiente = 'desenvolvimento'
 
 blacklist = []
 whitelist = []
@@ -23,7 +27,6 @@ def getMachine_addr():
     elif "linux" in os_type:
         command = "hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid"
         return os.popen(command).read().replace("\n", "").replace("	", "").replace(" ", "")
-    
 
 def matarProcesso(pid):
     os_type = sys.platform.lower()
@@ -33,15 +36,14 @@ def matarProcesso(pid):
         os.system('TASKKILL /PID ' + str(pid) + ' /F')
     elif "linux" in os_type:
         os.system('kill '+str(pid))    
-    
 
 def listarProcessos():
     print('Lista de processos em execução:')
     for proc in ps.process_iter():
-        info = proc.as_dict(attrs=['pid', 'name'])
-        #cursor.execute("insert into whitelist values (null, '"+info['name']+"')")
-        
-        processos.append(info)
+        info = proc.as_dict(attrs=['pid', 'name', 'username'])
+        #testar isso no windows
+        if info['username'] != 'root':
+            processos.append(info)
         print('Processo: {} (PID: {})'.format(info['pid'], info['name']))
 
 def estaNaBlack(processo):
@@ -68,10 +70,14 @@ def estaEmAlertas(processo):
             return True
     return False
 
+########
 def receberFilterlist():
     global filterlist
+    #selectBanco("select * from filterlist")
     cursor.execute("select * from filterlist")
     filterlist = cursor.fetchall()
+    #if ambiente == 'producao':
+    #    filterlist = json.loads(filterlist)
 
 def atualizarListas():
     global whitelist
@@ -90,12 +96,18 @@ def atualizarAlertas():
     cursor.execute("select * from alertaProcesso where estado != 'd'")
     alertas = cursor.fetchall()
 
-connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
-cursor = connection.cursor()
-#connection = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
-#cursor = connection.cursor(as_dict=True)
+def conectarBanco():
+    global connection
+    global cursor
+    
+    if(ambiente == 'producao'):
+        connection = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
+        cursor = connection.cursor(as_dict=True)
+    elif(ambiente == 'desenvolvimento'):
+        connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
+        cursor = connection.cursor()
 
-
+conectarBanco()
 
 #cursor.execute("insert into blacklist values (null, 'teste')")
 #connection.commit()
@@ -110,6 +122,10 @@ cursor = connection.cursor()
 atualizarListas()
 receberFilterlist()
 tempo = int(datetime.datetime.now().strftime('%M'))
+
+print("GALO")
+print(filterlist)
+print(type(filterlist))
 
 #verificando black/whitelist atual
 while True:

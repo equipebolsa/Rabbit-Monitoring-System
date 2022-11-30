@@ -1,3 +1,6 @@
+
+-- ATENÇÃO! BANCO OBSOLETO!!! --
+
 CREATE DATABASE bolsa;
 -- DROP DATABASE bolsa;
 USE bolsa;

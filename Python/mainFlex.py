@@ -12,7 +12,7 @@ import psutil
 
 def cadastrarRede(fkServidor,tipo):
     query = "INSERT INTO rede (fkServidor,tipoConexao,address) VALUES (%s,%s,%s)"
-    address =  psutil.net_if_addrs()[tipo][0].address
+    address =  psutil.net_if_addrs()['eth0'][0].address
     params = (fkServidor,tipo,address)
     cursor.execute(query, params)
     cursor2.execute(query,params)
@@ -128,7 +128,7 @@ def cadastar():
         connection2.commit()
         fkServidor = cursor.lastrowid
         fkServidor = cursor2.lastrowid
-        cadastrarRede(fkServidor,rede)
+        #cadastrarRede(fkServidor,rede)
         cadastrarComponente(fkServidor, "CPU")
         cadastrarParametro(fkServidor, cursor.lastrowid, 1)
         cadastrarComponente(fkServidor, "RAM")
