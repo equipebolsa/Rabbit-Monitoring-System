@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-                        <a href="rede.html" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Rede</a>
+                        <a onclick="rede()" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Rede</a>
                     </span>
                 </div>
             </nav>
@@ -91,7 +91,7 @@
                         <div class="nav-item">
                             <button onclick="enviarEmail();" class="btn btn-primary">Email</button>
                         </div>
- 
+
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -113,7 +113,7 @@
                 <!-- Sales Chart Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <div class="col-sm-12 col-xl-6">
+                        <div class="col-sm-12 col-xl-6" style="display: none;" id="metrica1">
                             <div class="bg-secondary text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <h6 class="mb-0">CPU</h6>
@@ -121,19 +121,19 @@
                                 <canvas id="cpuChart"></canvas>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-xl-6">
+                        <div class="col-sm-12 col-xl-6" style="display: none;" id="metrica2">
                             <div class="bg-secondary text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">Temperatura</h6>
+                                    <h6 class="mb-0">DISCO</h6>
                                 </div>
-                                <canvas id="temp"></canvas>
+                                <canvas id="hddGB"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <div class="col-sm-12 col-xl-6">
+                        <div class="col-sm-12 col-xl-6" style="display: none;" id="metrica3">
                             <div class="bg-secondary text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <h6 class="mb-0">RAM</h6>
@@ -142,12 +142,54 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-xl-6">
+                        <div class="col-sm-12 col-xl-6" style="display: none;" id="metrica4">
                             <div class="bg-secondary text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">Disco</h6>
+                                    <h6 class="mb-0">DISCO</h6>
                                 </div>
-                                <canvas id="hdd"></canvas>
+                                <canvas id="hddPercent"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6" style="display: none;" id="metrica5">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">LEITURA</h6>
+                                </div>
+                                <canvas id="hddRead"></canvas>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-xl-6" style="display: none" id="metrica6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">ESCRITA</h6>
+                                </div>
+                                <canvas id="hddWrite"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6" style="display: none;" id="metrica7">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Memória Virtual</h6>
+                                </div>
+                                <canvas id="swap"></canvas>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-xl-6" style="display: none;" id="metrica8">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Temperatura</h6>
+                                </div>
+                                <canvas id="temp"></canvas>
                             </div>
                         </div>
                     </div>
@@ -219,16 +261,146 @@
         var idEmpresa = resultado.fkEmpresa;
         const url = new URLSearchParams(window.location.search);
         var idServidor = url.get("idServidor");
-        obterDadosGrafico(idServidor);
+        validarParametros(idServidor);
+        //obterDadosGrafico(idServidor);
 
-        function obterDadosGrafico(id) {
 
-            fetch(`/leituras/listarCPU/${id}`, { cache: 'no-store' }).then(function (response) {
+
+        function obterDadosGraficoCpu(id) {
+            fetch(`/leituras/leiturasCpuPercent/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        console.log(JSON.stringify(resposta));
                         resposta.reverse();
-                        plotarGraficoCPU(resposta, id);
+                        plotarGraficoCpuPercent(resposta, id);
+
+                    }).catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+                }
+            });
+        }
+
+        function obterDadosGraficoDisco1(id) {
+            fetch(`/leituras/leiturasDiscoPercent/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(JSON.stringify(resposta));
+                        resposta.reverse();
+                        plotarGraficoDiscoPercent(resposta, id);
+
+                    }).catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+                }
+            });
+        }
+
+        function obterDadosGraficoRam(id) {
+            fetch(`/leituras/leiturasRamPercent/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(JSON.stringify(resposta));
+                        resposta.reverse();
+                        plotarGraficoRamPercent(resposta, id);
+
+                    }).catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+                }
+            });
+        }
+
+        function obterDadosGraficoDisco2(id) {
+            fetch(`/leituras/leiturasDiscoGb/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(JSON.stringify(resposta));
+                        resposta.reverse();
+                        plotarGraficoDiscoGb(resposta, id);
+
+                    }).catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+                }
+            });
+        }
+
+        function obterDadosGraficoLeituraSegundo(id) {
+            fetch(`/leituras/leiturasLeitura/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(JSON.stringify(resposta));
+                        resposta.reverse();
+                        plotarGraficoLeituraSegundo(resposta, id);
+
+                    }).catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+                }
+            });
+        }
+
+        function obterDadosGraficoEscritaSegundo(id) {
+            fetch(`/leituras/leiturasEscrita/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        plotarGraficoEscritaSegundo(resposta, id);
+
+                    }).catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+                }
+            });
+        }
+
+        function obterDadosGraficoSwapPercent(id) {
+            fetch(`/leituras/leiturasSwapPercent/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        plotarGraficoSwapPercent(resposta, id);
+
+                    }).catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+                }
+            });
+        }
+
+
+
+        function validarParametros(id) {
+
+            fetch(`/parametro/listar/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        for (let index = 0; index < resposta.length; index++) {
+                            if (resposta[index].fkMetrica == 1) {
+                                metrica1.style.display = "block";
+                                obterDadosGraficoCpu(idServidor);
+                            } else if (resposta[index].fkMetrica == 2) {
+                                metrica2.style.display = "block";
+                                obterDadosGraficoDisco2(idServidor);
+                            } else if (resposta[index].fkMetrica == 3) {
+                                metrica3.style.display = "block";
+                                obterDadosGraficoRam(idServidor)
+                            } else if (resposta[index].fkMetrica == 4) {
+                                metrica4.style.display = "block";
+                                obterDadosGraficoDisco1(idServidor)
+                            } else if (resposta[index].fkMetrica == 5) {
+                                metrica5.style.display = "block";
+                                obterDadosGraficoLeituraSegundo(idServidor)
+                            } else if (resposta[index].fkMetrica == 6) {
+                                metrica6.style.display = "block";
+                                obterDadosGraficoEscritaSegundo(idServidor)
+                            } else if (resposta[index].fkMetrica == 7) {
+                                metrica7.style.display = "block";
+                                obterDadosGraficoSwapPercent(idServidor)
+                            } else if (resposta[index].fkMetrica == 8) {
+                                metrica8.style.display = "block";
+                            }
+
+                        }
                     });
                 }
             })
@@ -236,37 +408,12 @@
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
 
-            fetch(`/leituras/listarRAM/${id}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
 
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-
-                        plotarGraficoRAM(resposta, id);
-                    });
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-
-            fetch(`/leituras/listarDISCO/${id}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-
-                        plotarGraficoDISCO(resposta, id);
-                    });
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
 
         }
+
+
+
         function rede() {
             window.location = `./rede.html?idServidor=${idServidor}`;
         }

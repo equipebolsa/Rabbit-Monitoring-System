@@ -62,13 +62,12 @@
                         <a href="#" class="nav-link dropdown-toggle active show" aria-expanded="true"
                             data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Cadastro</a>
                         <div class="dropdown-menu bg-transparent border-0 show" data-bs-popper="none">
-                            <a href="add-machine.html" class="dropdown-item active">Servidor</a>
-                            <a href="add-user.html" class="dropdown-item">Funcionário</a>
+                            <a href="add-machine.html" class="dropdown-item">Servidor</a>
+                            <a href="add-user.html" class="dropdown-item active">Funcionário</a>
                             <a href="add-sector.html" class="dropdown-item">Setor</a>
                         </div>
                     </div>
                     <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-
 
                 </div>
             </nav>
@@ -134,56 +133,41 @@
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary rounded h-100 p-4 container">
-                                <h6 class="mb-4">Servidor</h6>
+                                <h6 class="mb-4">Cadastrar Funcionário</h6>
                                 <form onsubmit="return false">
                                     <div class="mb-3">
-                                        <label class="form-label">MAC Address</label>
-                                        <input type="text" class="form-control" id="macAddres">
+                                        <label for="exampleInputEmail1" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="nome" aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Serial Number</label>
-                                        <input type="text" class="form-control" id="serial">
+                                        <label for="exampleInputEmail1" class="form-label">E-mail</label>
+                                        <input type="email" class="form-control" id="email"
+                                            aria-describedby="emailHelp">
+                                        <div class="mb-3">
+                                        </div>
+                                        <label for="exampleInputEmail1" class="form-label">Confirme o e-mail</label>
+                                        <input type="email" class="form-control" id="confEmail"
+                                            aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Sistema
-                                            Operacional</label>
-                                        <select id="so" class="form-select form-select-sm mb-3"
+                                        <label for="exampleInputPassword1" class="form-label">Senha</label>
+                                        <input type="password" class="form-control" id="senha">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Confirme a senha</label>
+                                        <input type="password" class="form-control" id="confSenha">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Cargo</label>
+                                        <select id="cargo" class="form-select form-select-sm mb-3"
                                             aria-label=".form-select-sm example">
-                                            <option selected value="0">Selecione um SO</option>
-                                            <option value="Linux - Red Hat">Linux - Red Hat</option>
-                                            <option value="Linux - Debian">Linux - Debian</option>
-                                            <option value="Windows Server">Windows Server</option>
-                                            <option value="Outro">Outro</option>
+                                            <option selected value="0">Selecione um cargo</option>
+                                            <option value="1">Gestor</option>
+                                            <option value="2">Técnico</option>
                                         </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Conexão</label>
-                                        <select id="rede" class="form-select form-select-sm mb-3"
-                                            aria-label=".form-select-sm example">
-                                            <option selected value="0">Selecione Tipo de Conexão</option>
-                                            <option value="Wi-Fi">Wi-Fi</option>
-                                            <option value="Ethernet">Ethernet</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Endereço da Interface de Rede</label>
-                                        <input type="text" class="form-control" id="add">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Setor</label>
-                                        <select id="setor" class="form-select form-select-sm mb-3"
-                                            aria-label=".form-select-sm example">
-                                            <option selected value="0">Selecione o setor</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Leituras</label>
-                                        <span id="checkLeituras">
-
-                                        </span>
                                     </div>
 
-                                    <button onclick="cadastarServidor();" class="btn btn-primary">Cadastrar</button>
+                                    <button onclick="cadastarUsuario();" class="btn btn-primary">Cadastrar</button>
                                 </form>
                             </div>
                         </div>
@@ -224,165 +208,79 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        var metricasId = [];
-        var metricasNome = [];
-        var metricasIdChecked = [];
-        var metricasNomeChecked = [];
         verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
         nomeSpan.innerHTML = (resultado.nomeUsuario);
-        var idEmpresa = (resultado.fkEmpresa);
-        setorFuncao(idEmpresa);
-        renderizarMetricas();
-
-        function renderizarMetricas() {
-            fetch("/servidores/listarMetricas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
-                if (resposta.ok) {
-                    resposta.json().then(json => {
-                        checkLeituras.innerHTML = "";
-                        metricasId = [];
-                        metricasNome = [];
-                        json.forEach(metrica => {
-                            metricasId.push(metrica.idMetrica);
-                            metricasNome.push(metrica.nomeMetrica);
-                            nomeMetrica = metrica.nomeMetrica;
-                            if (metrica.nomeMetrica == 'CPUPercent' || metrica.nomeMetrica == 'RAMPercent' || metrica.nomeMetrica == 'DISCOUso') {
-                                checkLeituras.innerHTML += `<div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                                    id="metricaId${metrica.idMetrica}" checked>
-                                                                <label" for="flexSwitchCheckDefault">${nomeMetrica}</label>
-                                                            </div>`;
-                            } else {
-                                checkLeituras.innerHTML += `<div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                                    id="metricaId${metrica.idMetrica}">
-                                                                <label" class="form-check-label" for="flexSwitchCheckDefault">${nomeMetrica}</label>
-                                                            </div>`;
-                            }
-                        });
-                    }).catch(
-                        checkLeituras.innerHTML = ""
-                    );
-
-                } else {
-                    throw ("Houve um erro ao tentar realizar a consulta!");
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-
-            });
-        }
-
-        function renderizarSetores(json) {
-            for (j in json) {
-                valorJson = json[j];
-                setor.innerHTML += `
-                <option value="${valorJson.idSetor}">${valorJson.nomeSetor}</option>`
-            }
-        }
-
-        function setorFuncao(id) {
-            fetch(`/setores/listar/${id}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    console.log(response)
-                    response.json().then(function (resposta) {
-                        renderizarSetores(resposta)
-                    });
-                }
-            })
-        }
-
         function sair() {
             limpar(sessionStorage.USUARIO);
             window.location.href = "../index.html"
         }
 
-        function cadastarServidor() {
-            var macCampo;
-            var serialCampo;
-            var soCampo;
-            var setorCampo;
-            var addMac = add.value;
-            var conex = rede.value;
 
-            //
-            if (macAddres.value.length <= 5) {
-                alert("Insira um endereço MAC válido")
+        function cadastarUsuario() {
+            var nomeCampo = nome.value;
+            if (nomeCampo.length <= 5) {
+                alert("Insira um nome válido");
                 return false;
+            }
+            var emailCampo = email.value;
+            if (emailCampo.length <= 7) {
+                alert("Insira um e-mail válido");
+                return false;
+            } else if (emailCampo != confEmail.value) {
+                alert("Os dois campos de e-mail devem coincidir");
+                return false;
+            }
+            var senhaCampo = senha.value;
+            if (senhaCampo.length <= 2) {
+                alert("Insira uma senha válida");
+                return false;
+            } else if (senhaCampo != confSenha.value) {
+                alert("Os dois campos de senha devem coincidir");
+                return false;
+            }
+            var cargoCampo;
+            if (cargo.value == 1) {
+                cargoCampo = 'Gestor';
+            } else if (cargo.value == 2) {
+                cargoCampo = 'Técnico';
             } else {
-                macCampo = macAddres.value;
-            }
-            if (serial.value.length <= 5) {
-                alert("Insira um Serial Number válido")
+                alert("Selecione um cargo");
                 return false;
-            } else {
-                serialCampo = serial.value;
             }
-            //
-            if (so.value == 0) {
-                alert("Selecione um Sistema Operacional")
-                return false;
-            } else {
-                soCampo = so.value;
-            }
+            var gestorCampo = resultado.idUsuario;
+            var empresaCampo = resultado.fkEmpresa;
 
-            if (setor.value == 0) {
-                alert("Selecione um setor")
-                return false;
-            } else {
-                setorCampo = setor.value;
-            }
-
-            if (rede.value == 0) {
-                alert("Selecione um tipo de conexão")
-                return false;
-            } 
-
-            metricasIdChecked = [];
-            metricasNomeChecked = [];
-            for (let i = 0; i < metricasId.length; i++) {
-                if (document.getElementById("metricaId" + metricasId[i]).checked) {
-                    metricasIdChecked.push(metricasId[i]);
-                    metricasNomeChecked.push(metricasNome[i]);
-                }
-            }
-
-            fetch(`/servidores/cadastrar/`, {
+            fetch(`/usuarios/cadastrar/`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    conexServer: conex,
-                    addMacServer: addMac,
-                    macServer: macCampo,
-                    serialServer: serialCampo,
-                    soServer: soCampo,
-                    setorServer: setorCampo,
-                    metricasIdServer: metricasIdChecked,
-                    metricasNomeServer: metricasNomeChecked
+                    emailServer: emailCampo,
+                    senhaServer: senhaCampo,
+                    nomeServer: nomeCampo,
+                    cargoServer: cargoCampo,
+                    empresaServer: empresaCampo,
+                    gestorServer: gestorCampo
                 })
             }).then(
                 function res(resposta) {
                     if (resposta.ok) {
-                        alert("Cadastrado com Sucesso!");
-                        renderizarMetricas();
-                        macAddres.value = "";
-                        serial.value = "";
-                        so.value = 0;
-                        setor.value = 0;
+                        alert("Cadastrado Com Sucesso");
+                        nome.value = "";
+                        email.value = "";
+                        confEmail.value = "";
+                        senha.value = "";
+                        confSenha.value = "";
+                        cargo.value = "0";
                     }
                 }
             )
 
             return false;
         }
+
     </script>
 
 </body>

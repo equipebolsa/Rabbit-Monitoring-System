@@ -7,6 +7,7 @@ var sqlServerConfig = {
     database: "RabbitBanco",
     user: "rabbit",
     password: "RabMonSys@",
+    timezone: "-00:00",
     pool: {
         max: 10,
         min: 0,

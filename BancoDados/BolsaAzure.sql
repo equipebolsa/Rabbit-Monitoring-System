@@ -78,7 +78,7 @@ CREATE TABLE alerta (
   fkServidor INT NOT NULL,
   CONSTRAINT FK_parametro_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
   PRIMARY KEY(fkComponenteFisico, fkMetrica,fkServidor),
-  parametroAtivo BOOLEAN NOT NULL
+  parametroAtivo TINYINT NOT NULL
  );
  
   -- Projeto Individual: Gustavo Antonio
@@ -96,8 +96,8 @@ CREATE TABLE alerta (
     CONSTRAINT FK_dadosRede_fkRede FOREIGN KEY (fkRede) REFERENCES rede (idRede),
     packetsRecv INT,
     packetsSent INT,
-    bytesSent INT,
-    bytesRecv INT,
+    bytesSent DECIMAL(7,2),
+    bytesRecv DECIMAL(7,2),
 	horarioLeitura DATETIME NOT NULL
  );
  -- Projeto Individual: Gustavo Antonio
@@ -107,14 +107,14 @@ INSERT INTO empresa VALUES('SPTECH','802.996.720-93','(63) 2430-8532');
 INSERT INTO usuario(nomeUsuario,emailUsuario,senhaUsuario,tipoUsuario,fkEmpresa) VALUES('URUBU','urubu@gmail.com',CONVERT(varchar(max), HASHBYTES ('SHA2_512', '123') ,2) ,'Gestor',1);
 INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Região de São Paulo');
 
-INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da CPU','%','0');
-INSERT INTO metrica VALUES(NULL,'Memória Usada','GB','0');
-INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da RAM','%','0');
-INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Do DISCO','%','0');
-INSERT INTO metrica VALUES(NULL,'Quantidade De Leitura Por Segundo','s','0');
-INSERT INTO metrica VALUES(NULL,'Quantidade De Escrita Por Segundo','s','0');
-INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da Memória Virtual','%','0');
-INSERT INTO metrica VALUES(NULL,'Temperatura Da CPU em ','C°','0');
+INSERT INTO metrica VALUES('Porcentagem De Uso Da CPU','%','0');
+INSERT INTO metrica VALUES('Memória Usada','GB','0');
+INSERT INTO metrica VALUES('Porcentagem De Uso Da RAM','%','0');
+INSERT INTO metrica VALUES('Porcentagem De Uso Do DISCO','%','0');
+INSERT INTO metrica VALUES('Quantidade De Leitura Por Segundo','s','0');
+INSERT INTO metrica VALUES('Quantidade De Escrita Por Segundo','s','0');
+INSERT INTO metrica VALUES('Porcentagem De Uso Da Memória Virtual','%','0');
+INSERT INTO metrica VALUES('Temperatura Da CPU em ','C°','0');
 
  
 CREATE VIEW leituraView AS SELECT 
@@ -135,12 +135,23 @@ INNER JOIN setor ON idSetor = fkSetor
 INNER JOIN empresa ON idEmpresa = fkEmpresa
 INNER JOIN metrica ON idMetrica = fkMetrica;
 
+CREATE VIEW redeView AS SELECT 
+	packetsSent,
+    packetsRecv,
+    bytesSent,
+    bytesRecv,
+    horarioLeitura,
+    fkServidor
+FROM dadosrede
+    INNER JOIN rede ON fkRede = idRede;
 
 DROP TABLE alerta;
 DROP TABLE leitura;
 DROP TABLE parametro;
 DROP TABLE componenteFisico;
 DROP TABLE metrica;
+DROP TABLE dadosRede;
+DROP TABLE rede;
 DROP TABLE servidor;
 DROP TABLE setor;
 DROP TABLE usuario;

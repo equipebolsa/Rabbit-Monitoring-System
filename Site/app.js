@@ -1,5 +1,5 @@
-process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-//process.env.AMBIENTE_PROCESSO = "producao";
+//process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 
@@ -18,6 +18,8 @@ var cadastarRouter = require("./src/routes/servidores");
 var alertaRouter = require("./src/routes/alerta");
 var processRouter = require("./src/routes/process");
 var dadosRedeRouter = require("./src/routes/dadosRede");
+var parametroRouter = require("./src/routes/parametro");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +36,7 @@ app.use("/servidores", cadastarRouter );
 app.use("/alerta", alertaRouter );
 app.use("/process", processRouter );
 app.use("/dadosRede", dadosRedeRouter );
+app.use("/parametro",parametroRouter)
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

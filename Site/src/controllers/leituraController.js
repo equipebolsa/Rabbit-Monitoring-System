@@ -1,80 +1,8 @@
 var leituraModel = require("../models/leituraModel");
 
-function listarCPU(req, res) {
-    var idMaquina = req.params.idMaquina;
-    leituraModel.listarCPU(idMaquina)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
-
-function listarRAM(req, res) {
-    var idMaquina = req.params.idMaquina;
-    leituraModel.listarRAM(idMaquina)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
-
-function listarDISCO(req, res) {
-    var idMaquina = req.params.idMaquina;
-    leituraModel.listarDISCO(idMaquina)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
-
-function tempoRealCPU(req, res) {
-    var idMaquina = req.params.idMaquina;
-    leituraModel.listarUltimaCPU(idMaquina)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
-
-function tempoRealRAM(req, res) {
-    var idMaquina = req.params.idMaquina;
-    leituraModel.listarUltimaRAM(idMaquina)
+function leiturasCpuPercent(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasCpuPercent(idServidor)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -91,6 +19,226 @@ function tempoRealRAM(req, res) {
 }
 
 
+
+function leiturasCpuPercentTempoReal(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasCpuPercentTempoReal(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasDiscoPercent(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasDiscoPercent(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasLeitura(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasLeitura(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasDiscoPercentTempoReal(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasDiscoPercentTempoReal(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasRamPercent(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel. leiturasRamPercent(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasRamPercentTempoReal(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasRamPercentTempoReal(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function leiturasDiscoGb(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasDiscoGb(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasDiscoGbTempoReal(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasDiscoGbTempoReal(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasLeituraTempoReal(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasLeituraTempoReal(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function leiturasEscrita(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasEscrita(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function leiturasEscritaTempoReal(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasEscritaTempoReal(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function listarDados(req, res) {
+    var idServidor= req.params.idServidor;
+    leituraModel.listarDados(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 function listarMaquinas(req, res) {
     var idEmpresa = req.params.idEmpresa;
     leituraModel.listarMaquinas(idEmpresa)
@@ -108,13 +256,58 @@ function listarMaquinas(req, res) {
             }
         );
 }
+function leiturasSwapPercent(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasSwapPercent(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function leiturasSwapPercentTempoReal(req, res) {
+    var idServidor = req.params.idServidor;
+    leituraModel.leiturasSwapPercentTempoReal(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 
 module.exports = {
-    listarCPU,
-    listarRAM,
-    listarDISCO,
-    tempoRealRAM,
-    tempoRealCPU,
-    listarMaquinas
+    listarDados,
+    listarMaquinas,
+    leiturasCpuPercentTempoReal,
+    leiturasDiscoPercentTempoReal,
+    leiturasRamPercentTempoReal,
+    leiturasDiscoGbTempoReal,
+    leiturasEscritaTempoReal,
+    leiturasLeituraTempoReal,
+    leiturasCpuPercent,
+    leiturasDiscoPercent,
+    leiturasRamPercent,
+    leiturasDiscoGb,
+    leiturasLeitura,
+    leiturasEscrita,
+    leiturasSwapPercent,
+    leiturasSwapPercentTempoReal
 }

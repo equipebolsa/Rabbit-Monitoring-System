@@ -112,7 +112,7 @@
     // CPU
 
   
-    // Temp
+    /*
     var chartTemp = $("#temp").get(0).getContext("2d");
     var myChartTemp = new Chart(chartTemp, {
         type: "line",

@@ -1,4 +1,5 @@
 from time import sleep
+from unittest import result
 from getmac import get_mac_address as gma
 import os
 import sys
@@ -6,24 +7,24 @@ import dicionarioComandos
 import mysql.connector
 import hashlib
 import pymssql
-import redeDados
 import psutil
 
 
+def cadastrarRede(fkServidor,tipo):
+    query = "INSERT INTO rede (fkServidor,tipoConexao,address) VALUES (%s,%s,%s)"
+    address =  psutil.net_if_addrs()[tipo][0].address
+    params = (fkServidor,tipo,address)
+    cursor.execute(query, params)
+    cursor2.execute(query,params)
+    connection.commit()
+    connection2.commit()
 
-connection = mysql.connector.connect(host="localhost", user="root", password="sptech", database="bolsa",auth_plugin='mysql_native_password')
+connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa",auth_plugin='mysql_native_password')
 cursor = connection.cursor()
 
 connection2 = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
 cursor2 = connection2.cursor(as_dict=True)
 
-def comando(name):
-    if name == 'CPUPercent':
-        return psutil.cpu_percent(interval=None, percpu=False)
-    elif name == "RAMPercent":
-        return (psutil.virtual_memory().percent)
-    elif name == "DISCOUso":
-        return round((psutil.disk_usage("/").used)/(1024**3),2)
 
 def getMachine_addr():
     os_type = sys.platform.lower()
@@ -37,9 +38,9 @@ def getMachine_addr():
 def typeOS():
     os_type = sys.platform.lower()
     if "win" in os_type:
-        comandos = ["cls", "Windows"]
+        comandos = ["cls", "Windows",'Ethernet','Loopback Pseudo-Interface 1']
     elif "linux" in os_type:
-        comandos = ["clear", "Linux"]
+        comandos = ["clear", "Linux", 'eth0','lo']
     return comandos
 
 
@@ -52,32 +53,37 @@ def verificar(email, senha):
         return True
 
 
-def executarMonitoramento(resposta):
+def executarMonitoramento():
     while True:
+        query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
+        cursor2.execute(query, gma())
+        resposta = cursor2.fetchall()
+        print(resposta)
         for row in resposta:
+
             query = ("SELECT * FROM metrica WHERE idMetrica = %s")
-            cursor.execute(query, [row[1]])
-            resultado = cursor.fetchall()
-            leitura = dicionarioComandos.comando(resultado[0][0],comandos[1])
+            cursor2.execute(query, row['fkMetrica'])
+            resultado = cursor2.fetchall()
+            leitura = dicionarioComandos.comando(resultado[0]['idMetrica'],comandos[1])
             query = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(NOW(), %s, %s, %s)")
             query2 = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(CURRENT_TIMESTAMP, %s, %s, %s)")
-            val = (str(leitura),str(row[0]),str(row[1]))
+            val = (str(leitura),str(row['fkComponenteFisico']),str(row['fkMetrica']))
             cursor.execute(query, val)
             cursor2.execute(query2, val)
             connection.commit()
             connection2.commit()
             print("Executando")
-            sleep(3)
+            sleep(1)
             os.system(comandos[0])
 
 
 def captura():
     query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
-    cursor.execute(query, [gma()])
-    resposta = cursor.fetchall()
+    cursor2.execute(query, gma())
+    resposta = cursor2.fetchall()
 
     if (len(resposta) > 0):
-        executarMonitoramento(resposta)
+        executarMonitoramento()
     else:
         cadastar()
         sleep(2)
@@ -86,18 +92,18 @@ def cadastrarParametro(fkServidor, fkComponente, fkMetrica):
     query = "INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica, parametroAtivo) VALUES (%s,%s, %s, 1)"
     params = (fkServidor, fkComponente, fkMetrica)
     cursor.execute(query, params)
-    #cursor2.execute(query, params)
+    cursor2.execute(query, params)
     connection.commit()
-    #connection2.commit()
+    connection2.commit()
 
 
 def cadastrarComponente(fkServidor, componente):
     query = "INSERT INTO componenteFisico (fkServidor,tipoComponente) VALUES (%s, %s)"
     params = (fkServidor, componente)
     cursor.execute(query, params)
-    #cursor2.execute(query,params)
+    cursor2.execute(query,params)
     connection.commit()
-    #connection2.commit()
+    connection2.commit()
 
 
 def cadastar():
@@ -108,9 +114,9 @@ def cadastar():
     elif (entrada.lower() == "y"):
         setor = str(input("Por favor digite o id do setor que deseja cadastar a maquina "))
         rede = str(input("Servidor utiliza Wi-Fi(1) ou Ethernet(2)"))
-        if(rede==1):
+        if(rede=="1"):
             rede = "Wi-Fi"
-        elif(rede==2):
+        elif(rede=="2"):
             rede = "Ethernet"
         else:
             cadastar()
@@ -122,13 +128,13 @@ def cadastar():
         connection2.commit()
         fkServidor = cursor.lastrowid
         fkServidor = cursor2.lastrowid
-        redeDados.cadastrarRede(fkServidor,rede)
+        cadastrarRede(fkServidor,rede)
         cadastrarComponente(fkServidor, "CPU")
         cadastrarParametro(fkServidor, cursor.lastrowid, 1)
         cadastrarComponente(fkServidor, "RAM")
-        cadastrarParametro(fkServidor, cursor.lastrowid, 2)
-        cadastrarComponente(fkServidor, "DISCO")
         cadastrarParametro(fkServidor, cursor.lastrowid, 3)
+        cadastrarComponente(fkServidor, "DISCO")
+        cadastrarParametro(fkServidor, cursor.lastrowid, 2)
         captura()
     else:
         cadastar()
@@ -148,7 +154,7 @@ def estado():
 comandos = typeOS()
 while (True):
     print("Bem Vindo ao Rabbit Monitoring System")
-    print("Por favor insira eu Email & Senha (Digite 0 para os dois sair)")
+    print("Por favor insira eu Email & Senha (Digite 0 para os dois para sair)")
     email = str(input("Email:"))
     senha = str(input("Senha:"))
     if (email == "0" and senha == "0"):

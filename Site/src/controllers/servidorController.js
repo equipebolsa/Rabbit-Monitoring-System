@@ -1,4 +1,5 @@
 var servidorModel = require("../models/servidorModel");
+var redeModel = require("../models/redeModel");
 
 function cadastrar(req, res) {
     var mac = req.body.macServer;
@@ -7,6 +8,8 @@ function cadastrar(req, res) {
     var setor = req.body.setorServer;
     var metricasId = req.body.metricasIdServer;
     var metricasNome = req.body.metricasNomeServer;
+    var rede1 = req.body.conexServer;
+    var rede2 = req.body.addMacServer
 
 
 
@@ -27,6 +30,7 @@ function cadastrar(req, res) {
                     console.log("OLHA EU", resultado);
                     res.json(resultado);
                     if (resultado.insertId) {
+                    
                         for (let i = 0; i < metricasId.length; i++) {
                             servidorModel.cadastrarComponente(resultado.insertId, metricasNome[i]).then(function (resultado2) {
                                 if (resultado2.insertId) {
@@ -34,7 +38,10 @@ function cadastrar(req, res) {
                                 }
                             })
                         }
-                    }
+                        redeModel.cadastrar(resultado.insertId,rede1,rede2).then((res)=>{
+                            console.log("resultado",res)
+                        }).catch((error)=> console.log("Erro na rede",error));
+                    } 
                 }
             ).catch(
                 function (erro) {

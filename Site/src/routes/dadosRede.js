@@ -3,12 +3,16 @@ var router = express.Router();
 
 var dadosRedeController = require("../controllers/dadosRedeController");
 
-router.get("/listarBytesRecebidos/:idServidor", function (req, res) {
- dadosRedeController.listarBytesRecebidos(req, res);
-})
+router.get("/listarDadosRede/:idServidor", function (req, res) {
+    dadosRedeController.listarDadodRede(req, res);
+});
+router.get("/listarDadosRedeTempoReal/:idServidor", function (req, res) {
+    dadosRedeController.listarDadodRedeTempoReal(req, res);
+});
+
 router.get("/tempoRealBytesRecv/:idServidor", function (req, res) {
     dadosRedeController.tempoRealBytesRecv(req, res);
-   })
+});
 
 module.exports = router;
 

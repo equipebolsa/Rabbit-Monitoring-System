@@ -96,8 +96,8 @@ CREATE TABLE alerta (
     CONSTRAINT FK_dadosRede_fkRede FOREIGN KEY (fkRede) REFERENCES rede (idRede),
     packetsRecv INT,
     packetsSent INT,
-    bytesSent INT,
-    bytesRecv INT,
+    bytesSent DECIMAL(7,2),
+    bytesRecv DECIMAL(7,2),
 	horarioLeitura DATETIME NOT NULL
  );
  -- Projeto Individual: Gustavo Antonio
@@ -108,13 +108,13 @@ INSERT INTO usuario VALUES(NULL,"URUBU","urubu@gmail.com","123","Gestor",1,NULL)
 INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
 
 INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da CPU','%','0');
-INSERT INTO metrica VALUES(NULL,'Memória Usada','GB','0');
+INSERT INTO metrica VALUES(NULL,'Memória De Uso Do DISCO','GB','0');
 INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da RAM','%','0');
 INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Do DISCO','%','0');
 INSERT INTO metrica VALUES(NULL,'Quantidade De Leitura Por Segundo','s','0');
 INSERT INTO metrica VALUES(NULL,'Quantidade De Escrita Por Segundo','s','0');
 INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da Memória Virtual','%','0');
-INSERT INTO metrica VALUES(NULL,'Temperatura Da CPU em ','C°','0');
+INSERT INTO metrica VALUES(NULL,'Temperatura Da CPU em C°','C°','0');
 
 CREATE VIEW leituraView AS SELECT 
     nomeEmpresa,
@@ -122,8 +122,10 @@ CREATE VIEW leituraView AS SELECT
     nomeSetor,
     idServidor,
     fkComponenteFisico,
+    fkMetrica,
     tipoComponente,
 	horarioLeitura,
+
     valorLeitura,
     unidadeMedida
 FROM
@@ -133,3 +135,22 @@ INNER JOIN servidor ON idServidor = fkServidor
 INNER JOIN setor ON idSetor = fkSetor
 INNER JOIN empresa ON fkEmpresa = idEmpresa
 INNER JOIN metrica ON fKMetrica = idMetrica;
+
+
+CREATE VIEW redeView AS SELECT 
+	packetsSent,
+    packetsRecv,
+    bytesSent,
+    bytesRecv,
+    horarioLeitura,
+    fkServidor
+FROM dadosrede
+    INNER JOIN rede ON fkRede = idRede;
+SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE idServidor = 1 AND parametroAtivo = 1;
+ 
+SELECT horarioLeitura,valorLeitura,parametro.fkMetrica FROM leitura 
+INNER JOIN componentefisico ON fkComponenteFisico = idComponenteFisico 
+INNER JOIN parametro ON parametro.fkComponenteFisico = idComponenteFisico 
+INNER JOIN servidor ON parametro.fkServidor = idServidor
+WHERE parametro.fkServidor = 3 AND parametroAtivo = 1 ORDER BY horarioLeitura asc;
+

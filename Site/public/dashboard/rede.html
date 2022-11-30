@@ -133,20 +133,21 @@
                         <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Pacotes Enviados</h6>
+                                </div>
+                                <canvas id="packageSendChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
                                     <h6 class="mb-0">Pacotes Recebidos</h6>
                                 </div>
                                 <canvas id="packageRecvChart"></canvas>
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-xl-6">
-                            <div class="bg-secondary text-center rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">Pacotes Enviados</h6>
-                                </div>
-                                <canvas id="packageSendChart"></canvas>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <!-- Sales Chart End -->
@@ -200,12 +201,15 @@
 
 
         function obterDadosGrafico(id) {
-            fetch(`/dadosRede/listarBytesRecebidos/${id}`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/dadosRede/listarDadosRede/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta.reverse();
+                        plotarGraficoBytesSent(resposta, id);
                         plotarGraficoBytesRecv(resposta, id);
+                        plotarGraficPacoteSent(resposta, id);
+                        plotarGraficPacoteRecv(resposta, id);
                     });
                 }
             })

@@ -25,7 +25,7 @@ def comando(metricaId,plat):
         return psutil.cpu_percent(interval=None, percpu=False)
     elif metricaId == 2:
         # DISCO USADO GB
-        return (psutil.disk_usage('/').used/1024**3)
+        return round((psutil.disk_usage('/').used/1024**3),2)
     elif metricaId == 3:
         # RAM USADO  %
         return (psutil.virtual_memory().percent)
