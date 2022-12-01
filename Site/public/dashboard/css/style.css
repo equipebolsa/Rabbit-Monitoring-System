@@ -337,7 +337,25 @@ input:disabled{
 }
 
 .servidores:hover {
-        transition: 0.90s;
+        transition: 0.50s;
+        border: 2px solid #26729e;
+        color: white;
+        background: #26729e;
+}
+
+.servidores2 {
+    width: 100px;
+    border-radius: 6px;
+    margin-top: 1rem;
+    height: 40px;
+    background-color: #bfbfcd;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid #bfbfcd
+}
+
+.servidores2:hover {
+        transition: 0.50s;
         border: 2px solid #1b8829;
         color: white;
         background: #1b8829;
@@ -347,12 +365,23 @@ input:disabled{
     display: flex;
     margin: 0px;
     height: 0px;
-    width: 30vh;
+    width: 60vh;
+    flex-direction: column;
+    margin-right: 10vh;
+}
+
+.chart-container2 {
+    display: flex;
+    margin: 0px;
+    height: 0px;
+    width: 85vh;
     flex-direction: column;
     margin-right: 10vh;
 }
 
 .frase {
     color: white;
-    font-size: 2vh;
+    font-size: 3vh;
+    font-style: inherit;
 }
+
