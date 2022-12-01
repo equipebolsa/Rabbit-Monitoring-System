@@ -335,3 +335,24 @@ input:disabled{
     justify-content: space-around;
     align-items: center;
 }
+
+.servidores:hover {
+        transition: 0.90s;
+        border: 2px solid #1b8829;
+        color: white;
+        background: #1b8829;
+}
+
+.chart-container {
+    display: flex;
+    margin: 0px;
+    height: 0px;
+    width: 30vh;
+    flex-direction: column;
+    margin-right: 10vh;
+}
+
+.frase {
+    color: white;
+    font-size: 2vh;
+}
