@@ -22,7 +22,9 @@ def temperatura(plataforma):
 def comando(metricaId,plat):
     if metricaId == 1:
         # CPU USADO  %
+
         return psutil.cpu_percent(interval=None, percpu=False)
+
     elif metricaId == 2:
         # DISCO USADO GB
         return round((psutil.disk_usage('/').used/1024**3),2)

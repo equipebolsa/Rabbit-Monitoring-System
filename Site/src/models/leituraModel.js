@@ -189,6 +189,18 @@ function leiturasSwapPercentTempoReal(id) {
 }
 
 
+
+function mergeData(id) {
+    var instrucao1 = `SELECT * FROM mergeData WHERE fkEmpresa = ${id};`;
+    return database.select(instrucao1);
+}
+
+function mergeDataMaquina(id) {
+    var instrucao1 = `SELECT horarioLeitura,valorLeitura,nomeMetrica FROM mergeDataMaquina WHERE fkServidor = ${id};`;
+    return database.select(instrucao1);
+}
+
+
 module.exports = {
     listarMaquinas,
     listarDados,
@@ -205,5 +217,7 @@ module.exports = {
     leiturasDiscoGb,
     leiturasLeitura,
     leiturasSwapPercent,
-    leiturasEscrita
+    leiturasEscrita,
+    mergeData,
+    mergeDataMaquina
 };

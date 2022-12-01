@@ -22,6 +22,7 @@ def retornoAlerta():
     return response.text
 
 def enviarWorldCloud(titulo):
+
     lista = ""
     resposta = reportarAlerta(titulo)
     print("Enviando Alerta Para Service Desk")

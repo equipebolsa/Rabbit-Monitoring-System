@@ -66,5 +66,12 @@ router.get("/listarMaquinas/:idEmpresa", function (req, res) {
     leituraController.listarMaquinas(req, res);
 });
 
+router.get("/mergeDataMaquina/:idServidor", function (req, res) {
+    leituraController.mergeDataMaquina(req, res);
+});
+
+router.get("/mergeData/:idEmpresa", function (req, res) {
+    leituraController.mergeData(req, res);
+});
 
 module.exports = router;

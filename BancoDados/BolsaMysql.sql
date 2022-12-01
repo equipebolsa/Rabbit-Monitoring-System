@@ -154,3 +154,31 @@ INNER JOIN parametro ON parametro.fkComponenteFisico = idComponenteFisico
 INNER JOIN servidor ON parametro.fkServidor = idServidor
 WHERE parametro.fkServidor = 3 AND parametroAtivo = 1 ORDER BY horarioLeitura asc;
 
+CREATE VIEW mergeData AS SELECT 
+	idServidor,
+    fkEmpresa,
+    nomeSetor,
+    COUNT(idAlerta) AS qtdAlertas,
+    (SELECT nomeMetrica FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura  INNER JOIN metrica ON fkMetrica = idMetrica GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC LIMIT 1) AS nomeMaxQtdMetrica,
+    (SELECT COUNT(fkMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC LIMIT 1) maxQtdMetrica,
+	(SELECT ROUND(AVG(valorLeitura),2) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC LIMIT 1) avgMaxQtdMetrica,
+    (SELECT nomeMetrica FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura INNER JOIN metrica ON fkMetrica = idMetrica GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC LIMIT 1) AS nomeMinQtdMetrica,
+    (SELECT COUNT(fkMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC LIMIT 1) AS minQtdMetrica,
+    (SELECT ROUND(AVG(valorLeitura),2) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC LIMIT 1) avgMinQtdMetrica
+FROM  alerta
+	INNER JOIN leitura ON fKLeitura = idLeitura
+    INNER JOIN metrica ON fkMetrica = idMetrica
+    INNER JOIN componenteFisico ON fkComponenteFisico = idComponenteFisico
+    INNER JOIN servidor ON fkServidor = idServidor
+    INNER JOIN setor ON fkSetor = idSetor
+    GROUP BY idServidor;
+    
+CREATE VIEW mergeDataMaquina AS SELECT 
+    horarioLeitura,
+    valorLeitura,
+    nomeMetrica
+FROM  alerta
+	INNER JOIN leitura ON fKLeitura = idLeitura
+    INNER JOIN metrica ON fkMetrica = idMetrica;
+    
+   SELECT * FROM mergeData;

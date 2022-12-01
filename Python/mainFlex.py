@@ -8,14 +8,39 @@ import mysql.connector
 import hashlib
 import pymssql
 import psutil
+import pipefyCard
+from datetime import datetime
+
+def alertarComponente(tipo,fkMysql,fkAzure):
+    query = "INSERT INTO alerta(tipoAlerta,fkLeitura) VALUES(%s, %s)"
+    val1 = (str(tipo),str(fkMysql))
+    val2 = (str(tipo),str(fkAzure))
+    cursor.execute(query, val1)
+    cursor2.execute(query, val2)
+    connection.commit()
+    connection2.commit()
+    data_e_hora_atuais = datetime.now()
+    data_e_hora_em_texto = data_e_hora_atuais.strftime('%d/%m/%Y %H:%M')
+    msg = "Consumo " +tipo+" - " + data_e_hora_em_texto
+    pipefyCard.enviarWorldCloud(msg)
+
+def alertarRAM(fkMysql,fkAzure):
+    if(psutil.virtual_memory().percent>50):
+        alertarComponente("RAM",fkMysql,fkAzure)
+
+def alertarCPU(fkMysql,fkAzure):
+    if(psutil.cpu_percent(interval=None, percpu=False)>1):
+        alertarComponente("CPU",fkMysql,fkAzure)
+        
 
 
-def cadastrarRede(fkServidor,tipo):
+def cadastrarRede(fkServidor1,fkServidor2,tipo):
     query = "INSERT INTO rede (fkServidor,tipoConexao,address) VALUES (%s,%s,%s)"
-    address =  psutil.net_if_addrs()['eth0'][0].address
-    params = (fkServidor,tipo,address)
-    cursor.execute(query, params)
-    cursor2.execute(query,params)
+    address =  psutil.net_if_addrs()[tipo][0].address
+    params1 = (fkServidor1,tipo,address)
+    params2 = (fkServidor2,tipo,address)
+    cursor.execute(query, params1)
+    cursor2.execute(query,params2)
     connection.commit()
     connection2.commit()
 
@@ -58,7 +83,6 @@ def executarMonitoramento():
         query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
         cursor2.execute(query, gma())
         resposta = cursor2.fetchall()
-        print(resposta)
         for row in resposta:
 
             query = ("SELECT * FROM metrica WHERE idMetrica = %s")
@@ -72,6 +96,13 @@ def executarMonitoramento():
             cursor2.execute(query2, val)
             connection.commit()
             connection2.commit()
+            lastIDAZURE = cursor2.lastrowid
+            lastIDMYSQL = cursor.lastrowid
+            print(resultado)
+            if(resultado[0]['idMetrica']==3):
+                alertarRAM(lastIDMYSQL,lastIDAZURE)
+            if(resultado[0]['idMetrica']==1):
+                alertarCPU(lastIDMYSQL,lastIDAZURE)
             print("Executando")
             sleep(1)
             os.system(comandos[0])
@@ -115,9 +146,15 @@ def cadastar():
         setor = str(input("Por favor digite o id do setor que deseja cadastar a maquina "))
         rede = str(input("Servidor utiliza Wi-Fi(1) ou Ethernet(2)"))
         if(rede=="1"):
-            rede = "Wi-Fi"
+            if(comandos[1] == "Linux"):
+                rede = "lo"
+            else:
+                rede = "Wi-Fi"
         elif(rede=="2"):
-            rede = "Ethernet"
+            if(comandos[1] == "Linux"):
+                rede = "eth0"
+            else:
+                rede = "Ethernet"
         else:
             cadastar()
         query = "INSERT INTO servidor(fkSetor,sistemaOperacional,macAddress,serialNumber) VALUES (%s, %s, %s, %s);"
@@ -126,15 +163,15 @@ def cadastar():
         cursor2.execute(query,params)
         connection.commit()
         connection2.commit()
-        fkServidor = cursor.lastrowid
-        fkServidor = cursor2.lastrowid
-        #cadastrarRede(fkServidor,rede)
-        cadastrarComponente(fkServidor, "CPU")
-        cadastrarParametro(fkServidor, cursor.lastrowid, 1)
-        cadastrarComponente(fkServidor, "RAM")
-        cadastrarParametro(fkServidor, cursor.lastrowid, 3)
-        cadastrarComponente(fkServidor, "DISCO")
-        cadastrarParametro(fkServidor, cursor.lastrowid, 2)
+        fkServidor1 = cursor.lastrowid
+        fkServidor2 = cursor2.lastrowid
+        cadastrarRede(fkServidor1,fkServidor2,rede)
+        cadastrarComponente(fkServidor1, "CPU")
+        cadastrarParametro(fkServidor1, cursor.lastrowid, 1)
+        cadastrarComponente(fkServidor1, "RAM")
+        cadastrarParametro(fkServidor1, cursor.lastrowid, 3)
+        cadastrarComponente(fkServidor1, "DISCO")
+        cadastrarParametro(fkServidor1, cursor.lastrowid, 2)
         captura()
     else:
         cadastar()

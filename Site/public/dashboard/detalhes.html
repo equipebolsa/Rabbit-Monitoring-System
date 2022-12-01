@@ -245,7 +245,7 @@
                 else {
                     alert("Fracasso");
                     response.json().then(function (resposta) {
-                        alert(JSON.parse(resposta))
+                        console.log(JSON.stringify(resposta))
                     });
                 }
             })

@@ -9,8 +9,13 @@ def plotarWordcloud(frases):
 	#datafromfile=np.loadtxt("stoplists/stopwords_Portugues.txt",dtype="str")
 	#stopwords.update(datafromfile)
 
+	valor = frases
+	valorFinal = ""
+	for x in range(len(valor)):
+		if(valor[x]=='-'):
+			valorFinal =  valor.replace(valor[x:len(valor)],"")
 
-	lista = frases.lower()
+	lista = valorFinal.lower()
 	comment_words = str(lista)
 
 	wordcloud = WordCloud(width = 800, height = 800,
