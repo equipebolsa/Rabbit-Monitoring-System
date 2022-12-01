@@ -16,8 +16,8 @@ function listarAguardando(req, res) {
             }
         );
 }
-function listarWhitelist(req, res) {
-    processModel.listarWhitelist()
+function listarAllowlist(req, res) {
+    processModel.listarAllowlist()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -48,11 +48,11 @@ function listarBlacklist(req, res) {
             }
         );
 }
-function whiteParaBlack(req, res) {
+function allowParaBlock(req, res) {
     
     var id = req.body.idServer;
     var nome = req.body.nomeServer;
-    processModel.whiteParaBlack(id, nome)
+    processModel.allowParaBlock(id, nome)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -131,9 +131,9 @@ function update(req, res) {
 
 module.exports = {
     listarAguardando,
-    listarWhitelist,
+    listarAllowlist,
     listarBlacklist,
-    whiteParaBlack,
+    allowParaBlock,
     deletar,
     adicionar,
     update

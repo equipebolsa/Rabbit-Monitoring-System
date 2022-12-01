@@ -169,7 +169,7 @@
                                     </div>
 
                                 </div>
-                                <span id="whitelist_list">
+                                <span id="allowlist_list">
                                 </span>
                             </div>
                         </div>
@@ -241,7 +241,7 @@
         navNome.innerHTML = (resultado.nomeUsuario);
         popularListas();
         function popularListas() {
-            popularWhite();
+            popularAllow();
             popularAguardando();
             popularBlack();
         }
@@ -267,7 +267,7 @@
                                         <div class="w-100 ms-3">
                                             <div class="d-flex w-100 align-items-center justify-content-between">
                                                 <span>${nomeProcesso}</span>
-                                                <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'blacklist', 'whitelist')">
+                                                <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'blacklist', 'allowlist')">
                                                     <
                                                 </button>
                                             </div>
@@ -285,8 +285,8 @@
             });
         }
 
-        function popularWhite() {
-            fetch("/process/listarWhitelist", {
+        function popularAllow() {
+            fetch("/process/listarAllowlist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -299,17 +299,17 @@
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
-                        whitelist_list.innerHTML = "";
+                        allowlist_list.innerHTML = "";
                         json.forEach(processo => {
                             nomeProcesso = processo.nome;
                             if (nomeProcesso.length > 22) {
                                 nomeProcesso = nomeProcesso.substr(0, 19) + "...";
                             }
-                            whitelist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
+                            allowlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
                                                                     <span alt="${processo.nome}">${nomeProcesso}</span>
-                                                                    <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'whitelist', 'blacklist')">></button>
+                                                                    <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'allowlist', 'blacklist')">></button>
                                                                 </div>
                                                             </div>
                                                         </div>`;
@@ -317,7 +317,7 @@
                         });
 
                     }).catch(
-                        whitelist_list.innerHTML = ""
+                        allowlist_list.innerHTML = ""
                     );
 
                 } else {
@@ -354,7 +354,7 @@
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
                                                                     <span>${nomeProcesso}</span>
                                                                     <span>
-                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'alertaProcesso', 'whitelist')">
+                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'alertaProcesso', 'allowlist')">
                                                                             <
                                                                         </button>
                                                                         <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'alertaProcesso', 'blacklist')">

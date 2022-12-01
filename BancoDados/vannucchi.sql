@@ -1,14 +1,14 @@
 -- ----------------------MYSQL
 
-CREATE TABLE whitelist(
+CREATE TABLE allowlist(
 	id INT PRIMARY KEY auto_increment,
     nome VARCHAR(100)
 );
-CREATE TABLE blacklist(
+CREATE TABLE blocklist(
 	id INT PRIMARY KEY auto_increment,
     nome VARCHAR(100)
 );
-CREATE TABLE alertaProcesso(
+CREATE TABLE waitlist(
 	id INT PRIMARY KEY auto_increment,
     nome VARCHAR(100)
 );
@@ -18,15 +18,15 @@ CREATE TABLE filterlist(
 );
 
 -- ----------------------AZURE
-CREATE TABLE whitelist(
+CREATE TABLE allowlist(
 	id INT PRIMARY KEY IDENTITY,
     nome VARCHAR(100)
 );
-CREATE TABLE blacklist(
+CREATE TABLE blocklist(
 	id INT PRIMARY KEY IDENTITY,
     nome VARCHAR(100)
 );
-CREATE TABLE alertaProcesso(
+CREATE TABLE waitlist(
 	id INT PRIMARY KEY IDENTITY,
     nome VARCHAR(100)
 );
@@ -179,7 +179,7 @@ INSERT INTO filterlist(nome) VALUES
 -- insert into alertaProcesso values (null, itemProcesso['name'], def getMachine_addr(), 'w', now);
 
 -- asduashdaushduashdhasd
-select * from whitelist;
+select * from allowlist;
 select * from blacklist;
 truncate blacklist;
 select * from alertaProcesso;
@@ -187,4 +187,4 @@ truncate alertaProcesso;
 update alertaProcesso set estado = 'y' where id = 1;
 insert into blacklist values(null,'Tibia.exe');
 insert into blacklist values(null,'Spotify.exe');
-delete from whitelist where id = 156;
+delete from allowlist where id = 156;

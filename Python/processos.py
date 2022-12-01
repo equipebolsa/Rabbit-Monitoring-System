@@ -11,7 +11,7 @@ import pymssql
 ambiente = 'desenvolvimento'
 
 blacklist = []
-whitelist = []
+allowlist = []
 filterlist = []
 prelist = []
 processos = []
@@ -52,8 +52,8 @@ def estaNaBlack(processo):
             return True
     return False
 
-def estaNaWhite(processo):
-    for itemList in whitelist:
+def estaNaAllow(processo):
+    for itemList in allowlist:
         if itemList == processo:
             return True
     return False
@@ -85,7 +85,7 @@ def receberFilterlist():
         filterlist = templist
         
 def atualizarListas():
-    global whitelist
+    global allowlist
     global blacklist
     global alertas
 
@@ -93,8 +93,8 @@ def atualizarListas():
     alertas = cursor.fetchall()
     cursor.execute("select * from blacklist")
     blacklist = cursor.fetchall()
-    cursor.execute("select * from whitelist")
-    whitelist = cursor.fetchall()
+    cursor.execute("select * from allowlist")
+    allowlist = cursor.fetchall()
     print("ANTES")
     print(alertas)
     if ambiente == 'producao':
@@ -107,9 +107,9 @@ def atualizarListas():
             templist.append([processo['id'],processo['nome']])
         blacklist = templist
         templist = []
-        for processo in whitelist:
+        for processo in allowlist:
             templist.append([processo['id'],processo['nome']])
-        whitelist = templist
+        allowlist = templist
     print("DEPOIS")
     print(alertas)
 
@@ -156,7 +156,7 @@ tempo = int(datetime.datetime.now().strftime('%M'))
 #print(processos)
 #print(type(filterlist))
 
-#verificando black/whitelist atual
+#verificando black/allowlist atual
 while True:
     #atualização a cada 5 min:
     cdParaRequisicao = 0
@@ -169,7 +169,7 @@ while True:
     if tempoAgora >= tempoFuturo:
         tempo = tempoAgora
         blacklist = []
-        whitelist = []
+        allowlist = []
         atualizarListas()
 
     #listando processos
@@ -186,10 +186,10 @@ while True:
         if estaNaLista == True:
             matarProcesso(itemProcesso['pid'])
 
-    #verificando se há algum processo está na whitelist
+    #verificando se há algum processo está na allowlist
     for itemProcesso in processos:
         estaNaLista = False
-        for itemList in whitelist:
+        for itemList in allowlist:
             if itemList[1] == itemProcesso['name']:
                 estaNaLista = True
         for itemList in filterlist:
@@ -206,7 +206,7 @@ while True:
             resposta = ""
             print(itemProcesso['name'])
             processo = itemProcesso['name']
-            if estaNaBlack(processo) == False and estaNaWhite(processo) == False and estaNaPreList(processo) == False and estaEmAlertas(processo) == False:
+            if estaNaBlack(processo) == False and estaNaAllow(processo) == False and estaNaPreList(processo) == False and estaEmAlertas(processo) == False:
                 atualizarAlertas()
                 if estaEmAlertas(processo) == False:
                     print("enviando alerta")

@@ -4,15 +4,15 @@ function listarAguardando() {
     var instrucao = `select id, nome from alertaProcesso order by nome;`;
     return database.select(instrucao);
 }
-function listarWhitelist() {
-    var instrucao = `select id, nome from whitelist order by nome;`;
+function listarAllowlist() {
+    var instrucao = `select id, nome from Allowlist order by nome;`;
     return database.select(instrucao);
 }
 function listarBlacklist() {
     var instrucao = `select id, nome from blacklist order by nome;`;
     return database.select(instrucao);
 }
-function whiteParaBlack(id, nome) {
+function allowParaBlock(id, nome) {
     var instrucao = `insert into blacklist (nome) values ('${nome}');`;
     return database.select(instrucao);
 }
@@ -32,9 +32,9 @@ function update(id) {
 
 module.exports = {
     listarAguardando,
-    listarWhitelist,
+    listarAllowlist,
     listarBlacklist,
-    whiteParaBlack,
+    allowParaBlock,
     deletar,
     adicionar,
     update

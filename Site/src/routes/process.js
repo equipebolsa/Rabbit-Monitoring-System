@@ -8,16 +8,16 @@ router.post("/listarAguardando", function (req, res) {
     processController.listarAguardando(req, res);
 })
 
-router.post("/listarWhitelist", function (req, res) {
-    processController.listarWhitelist(req, res);
+router.post("/listarAllowlist", function (req, res) {
+    processController.listarAllowlist(req, res);
 })
 
 router.post("/listarBlacklist", function (req, res) {
     processController.listarBlacklist(req, res);
 })
 
-router.post("/whiteParaBlack", function (req, res) {
-    processController.whiteParaBlack(req, res);
+router.post("/allowParaBlock", function (req, res) {
+    processController.allowParaBlock(req, res);
 })
 
 router.post("/deletar", function (req, res) {
