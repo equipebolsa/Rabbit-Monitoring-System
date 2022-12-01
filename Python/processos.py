@@ -7,8 +7,8 @@ import time
 import datetime 
 import pymssql
 
-ambiente = 'producao'
-#ambiente = 'desenvolvimento'
+#ambiente = 'producao'
+ambiente = 'desenvolvimento'
 
 blacklist = []
 whitelist = []
@@ -115,7 +115,7 @@ def atualizarListas():
 
 def atualizarAlertas():
     global alertas
-    cursor.execute("select * from alertaProcesso where estado != 'd'")
+    cursor.execute("select * from alertaProcesso")
     alertas = cursor.fetchall()
     if ambiente == 'producao':
         templist = []
@@ -215,7 +215,7 @@ while True:
 
                     prelist.append(itemProcesso['name'])
                     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    cursor.execute("insert into alertaProcesso(nome, serialNumber, estado, datahora) values ('"+ itemProcesso['name'] + "','" + sn+"', 'w', '"+now+"');")
+                    cursor.execute("insert into alertaProcesso(nome) values ('"+ itemProcesso['name'] + "')")
                     
 
     connection.commit()

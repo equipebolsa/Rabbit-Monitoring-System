@@ -10,11 +10,7 @@ CREATE TABLE blacklist(
 );
 CREATE TABLE alertaProcesso(
 	id INT PRIMARY KEY auto_increment,
-    nome VARCHAR(100),
-    serialNumber VARCHAR(45),
-    estado char(1),
-    datahora datetime,
-    CHECK (estado = 'w' or estado = 'd')
+    nome VARCHAR(100)
 );
 CREATE TABLE filterlist(
     id INT PRIMARY KEY auto_increment,
@@ -32,11 +28,7 @@ CREATE TABLE blacklist(
 );
 CREATE TABLE alertaProcesso(
 	id INT PRIMARY KEY IDENTITY,
-    nome VARCHAR(100),
-    serialNumber VARCHAR(45),
-    estado char(1),
-    datahora datetime,
-    CHECK (estado = 'w' or estado = 'd')
+    nome VARCHAR(100)
 );
 CREATE TABLE filterlist(
     id INT PRIMARY KEY IDENTITY,

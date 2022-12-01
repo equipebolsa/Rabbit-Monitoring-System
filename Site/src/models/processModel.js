@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
 function listarAguardando() {
-    var instrucao = `select id, nome from alertaProcesso where estado = 'w' order by nome;`;
+    var instrucao = `select id, nome from alertaProcesso order by nome;`;
     return database.select(instrucao);
 }
 function listarWhitelist() {

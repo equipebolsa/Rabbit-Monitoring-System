@@ -52,7 +52,6 @@ function whiteParaBlack(req, res) {
     
     var id = req.body.idServer;
     var nome = req.body.nomeServer;
-    console.log("aaaaaaaaaaaaa");
     processModel.whiteParaBlack(id, nome)
         .then(function (resultado) {
             if (resultado.length > 0) {
@@ -111,7 +110,7 @@ function adicionar(req, res) {
 function update(req, res) {
     
     var id = req.body.idServer;
-    processModel.update(id)
+    processModel.deletar(id, 'alertaProcesso')
         .then(function (resultado) {
             res.status(200).json(resultado);
             /*
