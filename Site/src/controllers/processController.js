@@ -88,16 +88,17 @@ function deletar(req, res) {
         );
 }
 function adicionar(req, res) {
-    
     var nome = req.body.nomeServer;
     var tabela = req.body.tabelaServer;
     processModel.adicionar(nome, tabela)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            console.log("AOS AUS AIUS IAUSH AIUSH AIUSH AIUSH AISUH" + resultado)
+            res.status(200).json(resultado);
+            /*if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
                 res.status(204).send("Nenhum resultado encontrado!")
-            }
+            }*/
         }).catch(
             function (erro) {
                 console.log(erro);
@@ -112,11 +113,13 @@ function update(req, res) {
     var id = req.body.idServer;
     processModel.update(id)
         .then(function (resultado) {
+            res.status(200).json(resultado);
+            /*
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
                 res.status(204).send("Nenhum resultado encontrado!")
-            }
+            }*/
         }).catch(
             function (erro) {
                 console.log(erro);

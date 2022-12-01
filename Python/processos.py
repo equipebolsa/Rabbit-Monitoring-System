@@ -6,10 +6,9 @@ from time import sleep
 import time
 import datetime 
 import pymssql
-import json
 
-#ambiente = 'producao'
-ambiente = 'desenvolvimento'
+ambiente = 'producao'
+#ambiente = 'desenvolvimento'
 
 blacklist = []
 whitelist = []
@@ -38,13 +37,14 @@ def matarProcesso(pid):
         os.system('kill '+str(pid))    
 
 def listarProcessos():
+    global processos
     print('Lista de processos em execução:')
     for proc in ps.process_iter():
         info = proc.as_dict(attrs=['pid', 'name', 'username'])
         #testar isso no windows
         if info['username'] != 'root':
             processos.append(info)
-        print('Processo: {} (PID: {})'.format(info['pid'], info['name']))
+        ##print('Processo: {} (PID: {})'.format(info['pid'], info['name']))
 
 def estaNaBlack(processo):
     for itemList in blacklist:
@@ -65,6 +65,8 @@ def estaNaPreList(processo):
     return False
 
 def estaEmAlertas(processo):
+    print("ASDASDDASDSADSADSD")
+    print(alertas)
     for itemList in alertas:
         if itemList[1] == processo:
             return True
@@ -73,12 +75,15 @@ def estaEmAlertas(processo):
 ########
 def receberFilterlist():
     global filterlist
-    #selectBanco("select * from filterlist")
     cursor.execute("select * from filterlist")
     filterlist = cursor.fetchall()
-    #if ambiente == 'producao':
-    #    filterlist = json.loads(filterlist)
-
+    
+    if ambiente == 'producao':
+        templist = []
+        for processo in filterlist:
+            templist.append([processo['id'],processo['nome']])
+        filterlist = templist
+        
 def atualizarListas():
     global whitelist
     global blacklist
@@ -90,11 +95,33 @@ def atualizarListas():
     blacklist = cursor.fetchall()
     cursor.execute("select * from whitelist")
     whitelist = cursor.fetchall()
+    print("ANTES")
+    print(alertas)
+    if ambiente == 'producao':
+        templist = []
+        for processo in alertas:
+            templist.append([processo['id'],processo['nome']])
+        alertas = templist
+        templist = []
+        for processo in blacklist:
+            templist.append([processo['id'],processo['nome']])
+        blacklist = templist
+        templist = []
+        for processo in whitelist:
+            templist.append([processo['id'],processo['nome']])
+        whitelist = templist
+    print("DEPOIS")
+    print(alertas)
 
 def atualizarAlertas():
     global alertas
     cursor.execute("select * from alertaProcesso where estado != 'd'")
     alertas = cursor.fetchall()
+    if ambiente == 'producao':
+        templist = []
+        for processo in alertas:
+            templist.append([processo['id'],processo['nome']])
+        alertas = templist
 
 def conectarBanco():
     global connection
@@ -123,9 +150,11 @@ atualizarListas()
 receberFilterlist()
 tempo = int(datetime.datetime.now().strftime('%M'))
 
-print("GALO")
-print(filterlist)
-print(type(filterlist))
+#print("GALO")
+#print(filterlist)
+#print("SNIPER")
+#print(processos)
+#print(type(filterlist))
 
 #verificando black/whitelist atual
 while True:
@@ -186,7 +215,7 @@ while True:
 
                     prelist.append(itemProcesso['name'])
                     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    cursor.execute("insert into alertaProcesso values (null, '"+ itemProcesso['name'] + "','" + sn+"', 'w', '"+now+"');")
+                    cursor.execute("insert into alertaProcesso(nome, serialNumber, estado, datahora) values ('"+ itemProcesso['name'] + "','" + sn+"', 'w', '"+now+"');")
                     
 
     connection.commit()
