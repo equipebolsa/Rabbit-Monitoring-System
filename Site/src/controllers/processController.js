@@ -32,8 +32,8 @@ function listarAllowlist(req, res) {
             }
         );
 }
-function listarBlacklist(req, res) {
-    processModel.listarBlacklist()
+function listarBlocklist(req, res) {
+    processModel.listarBlocklist()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -110,7 +110,7 @@ function adicionar(req, res) {
 function update(req, res) {
     
     var id = req.body.idServer;
-    processModel.deletar(id, 'alertaProcesso')
+    processModel.deletar(id, 'waitlist')
         .then(function (resultado) {
             res.status(200).json(resultado);
             /*
@@ -132,7 +132,7 @@ function update(req, res) {
 module.exports = {
     listarAguardando,
     listarAllowlist,
-    listarBlacklist,
+    listarBlocklist,
     allowParaBlock,
     deletar,
     adicionar,

@@ -10,12 +10,25 @@ import pymssql
 #ambiente = 'producao'
 ambiente = 'desenvolvimento'
 
-blacklist = []
+blocklist = []
 allowlist = []
 filterlist = []
 prelist = []
 processos = []
 precisaAtualizar = False
+
+
+def conectarBanco():
+    global connection
+    global cursor
+    
+    if(ambiente == 'producao'):
+        connection = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
+        cursor = connection.cursor(as_dict=True)
+    elif(ambiente == 'desenvolvimento'):
+        connection = mysql.connector.connect(host="localhost", user="root", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
+        cursor = connection.cursor()
+
 
 def getMachine_addr():
     os_type = sys.platform.lower()
@@ -46,8 +59,8 @@ def listarProcessos():
             processos.append(info)
         ##print('Processo: {} (PID: {})'.format(info['pid'], info['name']))
 
-def estaNaBlack(processo):
-    for itemList in blacklist:
+def estaNaBlock(processo):
+    for itemList in blocklist:
         if itemList[1] == processo:
             return True
     return False
@@ -64,10 +77,8 @@ def estaNaPreList(processo):
             return True
     return False
 
-def estaEmAlertas(processo):
-    print("ASDASDDASDSADSADSD")
-    print(alertas)
-    for itemList in alertas:
+def estaNaWait(processo):
+    for itemList in waitlist:
         if itemList[1] == processo:
             return True
     return False
@@ -86,60 +97,45 @@ def receberFilterlist():
         
 def atualizarListas():
     global allowlist
-    global blacklist
-    global alertas
+    global blocklist
+    global waitlist
 
-    cursor.execute("select * from alertaProcesso")
-    alertas = cursor.fetchall()
-    cursor.execute("select * from blacklist")
-    blacklist = cursor.fetchall()
+    cursor.execute("select * from waitlist")
+    waitlist = cursor.fetchall()
+    cursor.execute("select * from blocklist")
+    blocklist = cursor.fetchall()
     cursor.execute("select * from allowlist")
     allowlist = cursor.fetchall()
-    print("ANTES")
-    print(alertas)
     if ambiente == 'producao':
         templist = []
-        for processo in alertas:
+        for processo in waitlist:
             templist.append([processo['id'],processo['nome']])
-        alertas = templist
+        waitlist = templist
         templist = []
-        for processo in blacklist:
+        for processo in blocklist:
             templist.append([processo['id'],processo['nome']])
-        blacklist = templist
+        blocklist = templist
         templist = []
         for processo in allowlist:
             templist.append([processo['id'],processo['nome']])
         allowlist = templist
-    print("DEPOIS")
-    print(alertas)
 
 def atualizarAlertas():
-    global alertas
-    cursor.execute("select * from alertaProcesso")
-    alertas = cursor.fetchall()
+    global waitlist
+    cursor.execute("select * from waitlist")
+    waitlist = cursor.fetchall()
     if ambiente == 'producao':
         templist = []
-        for processo in alertas:
+        for processo in waitlist:
             templist.append([processo['id'],processo['nome']])
-        alertas = templist
-
-def conectarBanco():
-    global connection
-    global cursor
-    
-    if(ambiente == 'producao'):
-        connection = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
-        cursor = connection.cursor(as_dict=True)
-    elif(ambiente == 'desenvolvimento'):
-        connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
-        cursor = connection.cursor()
+        waitlist = templist
 
 conectarBanco()
 
-#cursor.execute("insert into blacklist values (null, 'teste')")
+#cursor.execute("insert into blocklist values (null, 'teste')")
 #connection.commit()
 
-#cursor.execute("select * from blacklist")
+#cursor.execute("select * from blocklist")
 #linha = cursor.fetchone()
 #print("Conectado ao banco de dados ",linha) 
 
@@ -168,7 +164,7 @@ while True:
 
     if tempoAgora >= tempoFuturo:
         tempo = tempoAgora
-        blacklist = []
+        blocklist = []
         allowlist = []
         atualizarListas()
 
@@ -176,10 +172,10 @@ while True:
     processos = []
     listarProcessos()
 
-    #verificando se há algum processo que está na blacklist
+    #verificando se há algum processo que está na blocklist
     for itemProcesso in processos:
         estaNaLista = False
-        for itemList in blacklist:
+        for itemList in blocklist:
             if itemList[1] == itemProcesso['name']:
                 print("achou: ", itemProcesso['name'])
                 estaNaLista = True
@@ -206,16 +202,16 @@ while True:
             resposta = ""
             print(itemProcesso['name'])
             processo = itemProcesso['name']
-            if estaNaBlack(processo) == False and estaNaAllow(processo) == False and estaNaPreList(processo) == False and estaEmAlertas(processo) == False:
+            if estaNaBlock(processo) == False and estaNaAllow(processo) == False and estaNaPreList(processo) == False and estaNaWait(processo) == False:
                 atualizarAlertas()
-                if estaEmAlertas(processo) == False:
+                if estaNaWait(processo) == False:
                     print("enviando alerta")
                     sn = getMachine_addr()
                     print(sn)
 
                     prelist.append(itemProcesso['name'])
                     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    cursor.execute("insert into alertaProcesso(nome) values ('"+ itemProcesso['name'] + "')")
+                    cursor.execute("insert into waitlist(nome) values ('"+ itemProcesso['name'] + "')")
                     
 
     connection.commit()

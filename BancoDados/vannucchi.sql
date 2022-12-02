@@ -160,7 +160,71 @@ INSERT INTO filterlist(nome) VALUES
 ('switcheroo-control'),
 ('thermald'),
 ('tpm_dev_wq'),
+('ApplicationFrameHost.exe'),
+('audiodg.exe'),
+('bash.exe'),
+('Calculator.exe'),
+('cmd.exe'),
+('conhost.exe'),
+('core.exe'),
+('csrss.exe'),
+('ctfmon.exe'),
+('dasHost.exe'),
+('dllhost.exe'),
+('dwm.exe'),
+('EPCP.exe'),
+('escsvc64.exe'),
+('explorer.exe'),
+('fontdrvhost.exe'),
+('gameinputsvc.exe'),
+('gamingservices.exe'),
+('gamingservicesnet.exe'),
+('GoogleCrashHandler.exe'),
+('GoogleCrashHandler64.exe'),
+('lsass.exe'),
+('MemCompression'),
+('Microsoft.Photos.exe'),
+('Microsoft.SharePoint.exe'),
+('mintty.exe'),
+('MpCopyAccelerator.exe'),
+('MsMpEng.exe'),
+('mysqld.exe'),
+('NisSrv.exe'),
+('node.exe'),
+('NVDisplay.Container.exe'),
+('OriginWebHelperService.exe'),
+('powershell.exe'),
+('Registry'),
+('remoting_host.exe'),
+('RuntimeBroker.exe'),
+('SearchApp.exe'),
+('SearchIndexer.exe'),
+('SecurityHealthService.exe'),
+('services.exe'),
+('SgrmBroker.exe'),
+('ShellExperienceHost.exe'),
+('sihost.exe'),
+('smartscreen.exe'),
+('smss.exe'),
+('SndVol.exe'),
+('spoolsv.exe'),
+('StartMenuExperienceHost.exe'),
+('svchost.exe'),
+('System'),
+('System Idle Process'),
+('SystemSettings.exe'),
+('taskhostw.exe'),
+('TextInputHost.exe'),
+('uhssvc.exe'),
+('vgtray.exe'),
+('Video.UI.exe'),
+('wininit.exe'),
+('winlogon.exe'),
+('WmiPrvSE.exe'),
 ('tracker-miner-fs'),
+('GameBarPresenceWritte.exe'),
+('SearchFilterHost.exe'),
+('SearchProtocolHost.exe'),
 ('udisksd'),
 ('unattended-upgr'),
 ('update-notifier'),
@@ -176,15 +240,15 @@ INSERT INTO filterlist(nome) VALUES
 ('mysql-workbench-bin'),
 ('zswap-shrink');
 
--- insert into alertaProcesso values (null, itemProcesso['name'], def getMachine_addr(), 'w', now);
+-- insert into waitlist values (null, itemProcesso['name'], def getMachine_addr(), 'w', now);
 
 -- asduashdaushduashdhasd
 select * from allowlist;
-select * from blacklist;
-truncate blacklist;
-select * from alertaProcesso;
-truncate alertaProcesso;
-update alertaProcesso set estado = 'y' where id = 1;
-insert into blacklist values(null,'Tibia.exe');
-insert into blacklist values(null,'Spotify.exe');
+select * from blocklist;
+truncate blocklist;
+select * from waitlist;
+truncate waitlist;
+update waitlist set estado = 'y' where id = 1;
+insert into blocklist values(null,'Tibia.exe');
+insert into blocklist values(null,'Spotify.exe');
 delete from allowlist where id = 156;

@@ -12,8 +12,8 @@ router.post("/listarAllowlist", function (req, res) {
     processController.listarAllowlist(req, res);
 })
 
-router.post("/listarBlacklist", function (req, res) {
-    processController.listarBlacklist(req, res);
+router.post("/listarBlocklist", function (req, res) {
+    processController.listarBlocklist(req, res);
 })
 
 router.post("/allowParaBlock", function (req, res) {

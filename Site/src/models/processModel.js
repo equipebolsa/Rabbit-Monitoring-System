@@ -1,19 +1,19 @@
 var database = require("../database/config")
 
 function listarAguardando() {
-    var instrucao = `select id, nome from alertaProcesso order by nome;`;
+    var instrucao = `select id, nome from waitlist order by nome;`;
     return database.select(instrucao);
 }
 function listarAllowlist() {
     var instrucao = `select id, nome from Allowlist order by nome;`;
     return database.select(instrucao);
 }
-function listarBlacklist() {
-    var instrucao = `select id, nome from blacklist order by nome;`;
+function listarBlocklist() {
+    var instrucao = `select id, nome from blocklist order by nome;`;
     return database.select(instrucao);
 }
 function allowParaBlock(id, nome) {
-    var instrucao = `insert into blacklist (nome) values ('${nome}');`;
+    var instrucao = `insert into blocklist (nome) values ('${nome}');`;
     return database.select(instrucao);
 }
 function deletar(id, tabela) {
@@ -25,7 +25,7 @@ function adicionar(nome, tabela) {
     return database.select(instrucao);
 }
 function update(id) {
-    var instrucao = `update alertaProcesso set estado = 'd' where id = ${id}`;
+    var instrucao = `update waitlist set estado = 'd' where id = ${id}`;
     return database.select(instrucao);
 }
 
@@ -33,7 +33,7 @@ function update(id) {
 module.exports = {
     listarAguardando,
     listarAllowlist,
-    listarBlacklist,
+    listarBlocklist,
     allowParaBlock,
     deletar,
     adicionar,

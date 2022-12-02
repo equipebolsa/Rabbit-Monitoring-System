@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="d-flex mb-2" style="justify-content: space-between;">
                                     <div style="display: flex; justify-content: space-between;">
-                                        Processos mortos hoje: 
+                                        Processos mortos hoje:
                                         <span>0</span>
                                     </div>
                                     <button type="button" class="btn btn-primary ms-2">Ver Mais</button>
@@ -161,11 +161,11 @@
                     <div class="row g-4">
                         <div class="col-sm-12 col-md-6 col-xl-4">
                             <div class="h-100 bg-secondary rounded p-4">
-                                
+
                                 <div class="border-bottom py-2">
                                     <div style="display: flex; justify-content: space-between;">
                                         <h6 class="mb-0">Processos Permitidos</h6>
-                                        <h6>0</h6>
+                                        <h6 id="allowlist_kpi">0</h6>
                                     </div>
 
                                 </div>
@@ -175,12 +175,12 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-4">
                             <div class="h-100 bg-secondary rounded p-4">
-                                
+
                                 <div class="border-bottom py-2">
-                                    
+
                                     <div style="display: flex; justify-content: space-between;">
                                         <h6 class="mb-0">Aguardando Ação</h6>
-                                        <h6>0</h6>
+                                        <h6 id="waitlist_kpi">0</h6>
                                     </div>
                                 </div>
                                 <span id="waitlist_list">
@@ -189,15 +189,15 @@
                         </div>
                         <div class="col-sm-12 col-md-6 col-xl-4">
                             <div class="h-100 bg-secondary rounded p-4">
-                                
+
                                 <div class="border-bottom py-2">
-                                    
+
                                     <div style="display: flex; justify-content: space-between;">
                                         <h6 class="mb-0">Processos Bloqueados</h6>
-                                        <h6>0</h6>
+                                        <h6 id="blocklist_kpi">0</h6>
                                     </div>
                                 </div>
-                                <span id="blacklist_list">
+                                <span id="blocklist_list">
                                 </span>
                             </div>
                         </div>
@@ -243,10 +243,10 @@
         function popularListas() {
             popularAllow();
             popularAguardando();
-            popularBlack();
+            popularBlock();
         }
-        function popularBlack() {
-            fetch("/process/listarBlacklist", {
+        function popularBlock() {
+            fetch("/process/listarBlocklist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -257,25 +257,28 @@
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
-                        blacklist_list.innerHTML = "";
+                        blocklist_list.innerHTML = "";
                         json.forEach(processo => {
                             nomeProcesso = processo.nome;
                             if (nomeProcesso.length > 25) {
                                 nomeProcesso = nomeProcesso.substr(0, 22) + "...";
                             }
-                            blacklist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
+                            blocklist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                         <div class="w-100 ms-3">
                                             <div class="d-flex w-100 align-items-center justify-content-between">
                                                 <span>${nomeProcesso}</span>
-                                                <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'blacklist', 'allowlist')">
+                                                <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'blocklist', 'allowlist')">
                                                     <
                                                 </button>
                                             </div>
                                         </div>
                                     </div>`;
                         });
+                        blocklist_kpi.innerHTML = json.length;
                     }).catch(
-                        blacklist_list.innerHTML = ""
+                        blocklist_list.innerHTML = "",
+                        blocklist_kpi.innerHTML = "0"
+
                     );
                 } else {
                     throw ("Houve um erro ao tentar realizar a consulta!");
@@ -309,15 +312,17 @@
                                                             <div class="w-100 ms-3">
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
                                                                     <span alt="${processo.nome}">${nomeProcesso}</span>
-                                                                    <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'allowlist', 'blacklist')">></button>
+                                                                    <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'allowlist', 'blocklist')">></button>
                                                                 </div>
                                                             </div>
                                                         </div>`;
 
                         });
+                        allowlist_kpi.innerHTML = json.length;
 
                     }).catch(
-                        allowlist_list.innerHTML = ""
+                        allowlist_list.innerHTML = "",
+                        allowlist_kpi.innerHTML = "0"
                     );
 
                 } else {
@@ -354,10 +359,10 @@
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
                                                                     <span>${nomeProcesso}</span>
                                                                     <span>
-                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'alertaProcesso', 'allowlist')">
+                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'waitlist', 'allowlist')">
                                                                             <
                                                                         </button>
-                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'alertaProcesso', 'blacklist')">
+                                                                        <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'waitlist', 'blocklist')">
                                                                             >
                                                                         </button>
                                                                     </span>
@@ -365,9 +370,12 @@
                                                             </div>
                                                         </div>`;
 
+
                         });
+                        waitlist_kpi.innerHTML = json.length;
                     }).catch(
-                        waitlist_list.innerHTML = ""
+                        waitlist_list.innerHTML = "",
+                        waitlist_kpi.innerHTML = "0"
                     );
 
                 } else {
@@ -380,7 +388,7 @@
         }
 
         function mover(id, nome, tabelaOrigem, tabelaDestino) {
-            if (tabelaOrigem == 'alertaProcesso') {
+            if (tabelaOrigem == 'waitlist') {
                 fetch("/process/adicionar", {
                     method: "POST",
                     headers: {
@@ -466,7 +474,7 @@
 
                 });
             }
-            
+
         }
     </script>
 </body>
