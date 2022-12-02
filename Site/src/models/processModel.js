@@ -5,7 +5,7 @@ function listarAguardando() {
     return database.select(instrucao);
 }
 function listarAllowlist() {
-    var instrucao = `select id, nome from Allowlist order by nome;`;
+    var instrucao = `select id, nome from allowlist order by nome;`;
     return database.select(instrucao);
 }
 function listarBlocklist() {

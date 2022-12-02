@@ -244,6 +244,7 @@
             popularAllow();
             popularAguardando();
             popularBlock();
+            setInterval(popularListas, 5000);
         }
         function popularBlock() {
             fetch("/process/listarBlocklist", {

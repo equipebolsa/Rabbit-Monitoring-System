@@ -238,6 +238,7 @@ INSERT INTO filterlist(nome) VALUES
 ('Xorg'),
 ('mysqld'),
 ('mysql-workbench-bin'),
+('gpgconf'),
 ('zswap-shrink');
 
 -- insert into waitlist values (null, itemProcesso['name'], def getMachine_addr(), 'w', now);
