@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 import psutil as ps
 import mysql.connector
 import os
@@ -6,6 +7,7 @@ from time import sleep
 import time
 import datetime 
 import pymssql
+from getmac import get_mac_address as gma
 
 #ambiente = 'producao'
 ambiente = 'desenvolvimento'
@@ -40,14 +42,20 @@ def getMachine_addr():
         command = "hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid"
         return os.popen(command).read().replace("\n", "").replace("	", "").replace(" ", "")
 
-def matarProcesso(pid):
-    os_type = sys.platform.lower()
+def matarProcesso(pid, nome):
+    insertBanco = True
     
+    cursor.execute("insert into deathLog(nome,dataHora,macAddress) values ('"+ nome + "', NOW(),'"+gma()+"')")
+
+    
+    os_type = sys.platform.lower()
     print("matando o processo: "+ str(pid))
     if "win" in os_type:
         os.system('TASKKILL /PID ' + str(pid) + ' /F')
     elif "linux" in os_type:
         os.system('kill '+str(pid))    
+    
+    
 
 def listarProcessos():
     global processos
@@ -180,7 +188,7 @@ while True:
                 print("achou: ", itemProcesso['name'])
                 estaNaLista = True
         if estaNaLista == True:
-            matarProcesso(itemProcesso['pid'])
+            matarProcesso(itemProcesso['pid'], itemProcesso['name'])
 
     #verificando se há algum processo está na allowlist
     for itemProcesso in processos:

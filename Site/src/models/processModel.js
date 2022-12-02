@@ -1,15 +1,15 @@
 var database = require("../database/config")
 
-function listarAguardando() {
-    var instrucao = `select id, nome from waitlist order by nome;`;
+function listarAguardando(nome) {
+    var instrucao = `select id, nome from waitlist where nome like '%${nome}%' order by nome;`;
     return database.select(instrucao);
 }
-function listarAllowlist() {
-    var instrucao = `select id, nome from allowlist order by nome;`;
+function listarAllowlist(nome) {
+    var instrucao = `select id, nome from allowlist where nome like '%${nome}%' order by nome;`;
     return database.select(instrucao);
 }
-function listarBlocklist() {
-    var instrucao = `select id, nome from blocklist order by nome;`;
+function listarBlocklist(nome) {
+    var instrucao = `select id, nome from blocklist where nome like '%${nome}%' order by nome;`;
     return database.select(instrucao);
 }
 function allowParaBlock(id, nome) {

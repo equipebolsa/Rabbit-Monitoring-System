@@ -131,12 +131,13 @@
                         <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">Processos</h6>
+                                    <h6 class="mb-0">Pesquisar Processos</h6>
                                 </div>
                                 <div class="d-flex mb-2">
-                                    <input class="form-control bg-transparent" type="text"
+                                    <input oninput="pesquisarProcesso()" id="inpPesquisa" class="form-control bg-transparent" type="text"
                                         placeholder="Digite o processo">
-                                    <button type="button" class="btn btn-primary ms-2">Pesquisar</button>
+                                    <button onclick="limparPesquisa()" type="button"
+                                        class="btn btn-primary ms-2">Limpar</button>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +148,7 @@
                                 </div>
                                 <div class="d-flex mb-2" style="justify-content: space-between;">
                                     <div style="display: flex; justify-content: space-between;">
-                                        Processos mortos hoje:
+                                        Processos mortos hoje:&nbsp
                                         <span>0</span>
                                     </div>
                                     <button type="button" class="btn btn-primary ms-2">Ver Mais</button>
@@ -239,19 +240,31 @@
         verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
         navNome.innerHTML = (resultado.nomeUsuario);
-        popularListas();
-        function popularListas() {
-            popularAllow();
-            popularAguardando();
-            popularBlock();
-            setInterval(popularListas, 5000);
+        atualizarPagina();
+        var podeAtualizar = true;
+
+        function atualizarPagina() {
+            popularListas("")
+            if (podeAtualizar) {
+                setTimeout(atualizarPagina, 5000);
+            }
         }
-        function popularBlock() {
+
+        function popularListas(nome) {
+            popularAllow(nome);
+            popularAguardando(nome);
+            popularBlock(nome);
+        }
+
+        function popularBlock(nome) {
             fetch("/process/listarBlocklist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                body: JSON.stringify({
+                    nomeServer: nome
+                })
             }).then(function (resposta) {
                 console.log("resposta: ", resposta);
                 if (resposta.ok) {
@@ -267,7 +280,7 @@
                             blocklist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                         <div class="w-100 ms-3">
                                             <div class="d-flex w-100 align-items-center justify-content-between">
-                                                <span>${nomeProcesso}</span>
+                                                <span style="cursor: pointer" onclick="modalDeath('${processo.nome}')">${nomeProcesso}</span>
                                                 <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'blocklist', 'allowlist')">
                                                     <
                                                 </button>
@@ -289,12 +302,15 @@
             });
         }
 
-        function popularAllow() {
+        function popularAllow(nome) {
             fetch("/process/listarAllowlist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                body: JSON.stringify({
+                    nomeServer: nome
+                })
             }).then(function (resposta) {
 
                 console.log("resposta: ", resposta);
@@ -312,7 +328,7 @@
                             allowlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                                                    <span alt="${processo.nome}">${nomeProcesso}</span>
+                                                                    <span style="cursor: pointer" onclick="modalDeath('${processo.nome}')">${nomeProcesso}</span>
                                                                     <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'allowlist', 'blocklist')">></button>
                                                                 </div>
                                                             </div>
@@ -335,12 +351,15 @@
             });
         }
 
-        function popularAguardando() {
+        function popularAguardando(nome) {
             fetch("/process/listarAguardando", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                body: JSON.stringify({
+                    nomeServer: nome
+                })
             }).then(function (resposta) {
 
                 console.log("resposta: ", resposta);
@@ -358,7 +377,7 @@
                             waitlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                                                    <span>${nomeProcesso}</span>
+                                                                    <span style="cursor: pointer" onclick="modalDeath('${processo.nome}')">${nomeProcesso}</span>
                                                                     <span>
                                                                         <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'waitlist', 'allowlist')">
                                                                             <
@@ -415,7 +434,7 @@
                             console.log("resposta: ", resposta);
 
                             if (resposta.ok) {
-                                popularListas();
+                                popularListas(inpPesquisa.value);
                             } else {
                                 throw ("Houve um erro ao tentar realizar a consulta!");
                             }
@@ -458,7 +477,7 @@
                             console.log("resposta: ", resposta);
 
                             if (resposta.ok) {
-                                popularListas();
+                                popularListas(inpPesquisa.value);
                             } else {
                                 throw ("Houve um erro ao tentar realizar a consulta!");
                             }
@@ -476,6 +495,24 @@
                 });
             }
 
+
+        }
+        function pesquisarProcesso() {
+            var pesquisa = inpPesquisa.value;
+            if (pesquisa == "") {
+                podeAtualizar = true;
+            } else {
+                podeAtualizar = false;
+            }
+            popularListas(pesquisa);
+        }
+        function limparPesquisa() {
+            inpPesquisa.value = "";
+            podeAtualizar = true;
+            popularListas("");
+        }
+        function modalDeath(nome) {
+            alert(nome);
         }
     </script>
 </body>

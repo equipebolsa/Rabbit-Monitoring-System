@@ -1,7 +1,8 @@
 var processModel = require("../models/processModel");
 
 function listarAguardando(req, res) {
-    processModel.listarAguardando()
+    var nome = req.body.nomeServer;
+    processModel.listarAguardando(nome)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -17,7 +18,8 @@ function listarAguardando(req, res) {
         );
 }
 function listarAllowlist(req, res) {
-    processModel.listarAllowlist()
+    var nome = req.body.nomeServer;
+    processModel.listarAllowlist(nome)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -33,7 +35,8 @@ function listarAllowlist(req, res) {
         );
 }
 function listarBlocklist(req, res) {
-    processModel.listarBlocklist()
+    var nome = req.body.nomeServer;
+    processModel.listarBlocklist(nome)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
