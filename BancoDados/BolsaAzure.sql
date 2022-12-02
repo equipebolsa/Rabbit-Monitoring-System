@@ -86,7 +86,7 @@ CREATE TABLE alerta (
     fkServidor INT NOT NULL,
     CONSTRAINT FK_rede_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
     tipoConexao CHAR(15) NOT NULL,
-	CONSTRAINT CK_rede_tipoConexao CHECK(tipoConexao IN ('Wi-Fi', 'Ethernet')),
+	CONSTRAINT CK_rede_tipoConexao CHECK(tipoConexao IN ('Wi-Fi', 'Ethernet')  OR tipoConexao LIKE 'w%'),
     address VARCHAR(45)    
  );
   CREATE TABLE dadosRede(

@@ -29,6 +29,7 @@ CREATE TABLE setor (
   nomeSetor VARCHAR(45) NOT NULL,
   descricaoSetor VARCHAR(255) NULL  
 );
+
 CREATE TABLE servidor (
   idServidor INT PRIMARY KEY AUTO_INCREMENT,
   fkSetor INT NOT NULL,
@@ -87,9 +88,12 @@ CREATE TABLE alerta (
     fkServidor INT NOT NULL,
     CONSTRAINT FK_rede_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
     tipoConexao CHAR(15) NOT NULL,
-	CONSTRAINT CK_rede_tipoConexao CHECK(tipoConexao IN ('Wi-Fi', 'Ethernet')),
+	CONSTRAINT CK_rede_tipoConexao CHECK(tipoConexao IN ('Wi-Fi', 'Ethernet')  OR tipoConexao LIKE 'w%'),
     address VARCHAR(45)    
  );
+ 
+ 
+ INSERT INTO rede VALUES(null,1,'ww','teste123');
   CREATE TABLE dadosRede(
 	idDadosRede INT PRIMARY KEY AUTO_INCREMENT,
     fkRede INT NOT NULL,
@@ -144,15 +148,9 @@ CREATE VIEW redeView AS SELECT
     bytesRecv,
     horarioLeitura,
     fkServidor
-FROM dadosrede
+FROM dadosRede
     INNER JOIN rede ON fkRede = idRede;
-SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE idServidor = 1 AND parametroAtivo = 1;
- 
-SELECT horarioLeitura,valorLeitura,parametro.fkMetrica FROM leitura 
-INNER JOIN componentefisico ON fkComponenteFisico = idComponenteFisico 
-INNER JOIN parametro ON parametro.fkComponenteFisico = idComponenteFisico 
-INNER JOIN servidor ON parametro.fkServidor = idServidor
-WHERE parametro.fkServidor = 3 AND parametroAtivo = 1 ORDER BY horarioLeitura asc;
+
 
 CREATE VIEW mergeData AS SELECT 
 	idServidor,
@@ -180,5 +178,3 @@ CREATE VIEW mergeDataMaquina AS SELECT
 FROM  alerta
 	INNER JOIN leitura ON fKLeitura = idLeitura
     INNER JOIN metrica ON fkMetrica = idMetrica;
-    
-   SELECT * FROM mergeData;
