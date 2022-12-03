@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 CREATE TABLE empresa(
   idEmpresa INT  PRIMARY KEY IDENTITY(1,1),
   nomeEmpresa VARCHAR(45) NOT NULL,
@@ -495,6 +494,3 @@ DROP TABLE waitlist;
 DROP TABLE deathLog;
 DROP TABLE clima;
 DROP TABLE historicoClima;
-
->>>>>>> f9b96c85297eb5256183dd057b0130fcd159f215
-DROP VIEW leituraView;
