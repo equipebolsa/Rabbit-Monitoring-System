@@ -28,7 +28,7 @@ def conectarBanco():
         connection = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
         cursor = connection.cursor(as_dict=True)
     elif(ambiente == 'desenvolvimento'):
-        connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
+        connection = mysql.connector.connect(host="localhost", user="root", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
         cursor = connection.cursor()
 
 
