@@ -28,24 +28,19 @@ def conectarBanco():
         connection = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
         cursor = connection.cursor(as_dict=True)
     elif(ambiente == 'desenvolvimento'):
-        connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
+        connection = mysql.connector.connect(host="localhost", user="root", password="sptech", database="bolsa", auth_plugin='mysql_native_password')
         cursor = connection.cursor()
-
-
-def getMachine_addr():
-    os_type = sys.platform.lower()
-    if "win" in os_type:
-        import wmi
-        SN = wmi.WMI()
-        return SN.Win32_BaseBoard()[0].SerialNumber
-    elif "linux" in os_type:
-        command = "hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid"
-        return os.popen(command).read().replace("\n", "").replace("	", "").replace(" ", "")
 
 def matarProcesso(pid, nome):
     insertBanco = True
     
-    cursor.execute("insert into deathLog(nome,dataHora,macAddress) values ('"+ nome + "', NOW(),'"+gma()+"')")
+    
+    if ambiente == "producao":
+        cursor.execute("insert into deathLog(nome,dataHora,macAddress) values ('"+ nome + "', getdate(),'"+gma()+"')")
+    elif ambiente == "desenvolvimento":
+        cursor.execute("insert into deathLog(nome,dataHora,macAddress) values ('"+ nome + "', NOW(),'"+gma()+"')")
+
+    
 
     
     os_type = sys.platform.lower()
@@ -214,8 +209,6 @@ while True:
                 atualizarAlertas()
                 if estaNaWait(processo) == False:
                     print("enviando alerta")
-                    sn = getMachine_addr()
-                    print(sn)
 
                     prelist.append(itemProcesso['name'])
                     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')

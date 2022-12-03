@@ -33,7 +33,10 @@
 </head>
 
 <body>
+
+
     <div class="container-fluid position-relative d-flex p-0">
+
         <!-- Spinner Start -->
         <div id="spinner"
             class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -75,6 +78,7 @@
 
         <!-- Content Start -->
         <div class="content">
+
             <span id="spRestrict" style="display: none;">
                 <!-- Navbar Start -->
                 <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
@@ -134,8 +138,8 @@
                                     <h6 class="mb-0">Pesquisar Processos</h6>
                                 </div>
                                 <div class="d-flex mb-2">
-                                    <input oninput="pesquisarProcesso()" id="inpPesquisa" class="form-control bg-transparent" type="text"
-                                        placeholder="Digite o processo">
+                                    <input oninput="pesquisarProcesso()" id="inpPesquisa"
+                                        class="form-control bg-transparent" type="text" placeholder="Digite o processo">
                                     <button onclick="limparPesquisa()" type="button"
                                         class="btn btn-primary ms-2">Limpar</button>
                                 </div>
@@ -144,14 +148,15 @@
                         <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary text-center rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">Processos Mortos</h6>
+                                    <h6 class="mb-0">Processos Encerrados</h6>
                                 </div>
                                 <div class="d-flex mb-2" style="justify-content: space-between;">
                                     <div style="display: flex; justify-content: space-between;">
-                                        Processos mortos hoje:&nbsp
-                                        <span>0</span>
+                                        Processos encerrados hoje:&nbsp
+                                        <b style="font-weight: bolder;" id="spProcessosMortos">0</b>
                                     </div>
-                                    <button type="button" class="btn btn-primary ms-2">Ver Mais</button>
+                                    <button onclick="popularModalDeath('%%')" type="button"
+                                        class="btn btn-primary ms-2">Ver Mais</button>
                                 </div>
                             </div>
                         </div>
@@ -206,6 +211,58 @@
                 </div>
                 <!-- aqui -->
 
+                <div id="divModalDeath" class="container-fluid pt-4 px-4"
+                    style="position: fixed; top: 11vh; left: 25vw; display: none;">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <button onclick="fecharModalDeath()" style="float: right;" type="button"
+                                class="btn btn-primary ms-2"> X</button>
+                            <div class="bg-secondary text-center rounded p-4"
+                                style="display: flex; flex-direction: column; justify-content: space-around; margin: 10px;">
+                                <div id="divNomeModalDeath"
+                                    style="text-align: left; display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                    <div style="margin: 9px;">
+                                        Processo:
+                                    </div>
+                                    <input id="inpNomeModalDeath" class="form-control bg-transparent" type="text"
+                                        value="Nome do Processo" style="margin-right: 6px; color: white;" disabled="">
+                                </div>
+                                <div style="display: flex; justify-content: space-around;margin-bottom: 15px;">
+                                    <div
+                                        style="background-color: rgb(144, 65, 150); border-radius: 6px; padding: 8px; color: white; width: 30%;">
+                                        <h1 id="kpiModalHoje">
+                                            99999
+                                        </h1>
+                                        <div>
+                                            Hoje
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background-color: rgb(144, 65, 150); border-radius: 6px; padding: 8px; color: white; width: 30%;">
+                                        <h1 id="kpiModalTotal">
+                                            99999
+                                        </h1>
+                                        <div>
+                                            Total
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="background-color: rgb(144, 65, 150); border-radius: 6px; padding: 8px; color: white; width: 30%;">
+                                        <h1 id="kpiModalLast30">
+                                            99999
+                                        </h1>
+                                        <div>
+                                            Ultimos 30 dias
+                                        </div>
+                                    </div>
+                                </div>
+                                <canvas id="deathChart" style="width:100%;max-width:700px"></canvas>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Footer Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-secondary rounded-top p-4">
@@ -243,6 +300,24 @@
         atualizarPagina();
         var podeAtualizar = true;
 
+
+        //criando chart deathlog
+        var xValues = ["27/11", "28/11", "29/11", "30/11", "01/12", "02/12", "03/12"];
+        var yValues = [55, 49, 44, 24, 15, 32, 23];
+
+        new Chart("deathChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: 'Processos encerrados',
+                    backgroundColor: "#7f00b2",
+                    data: yValues,
+                    tension: 0.1
+                }]
+            }
+        });
+
         function atualizarPagina() {
             popularListas("")
             if (podeAtualizar) {
@@ -254,6 +329,32 @@
             popularAllow(nome);
             popularAguardando(nome);
             popularBlock(nome);
+            popularMorte();
+        }
+        function popularMorte() {
+            fetch("/process/countDeath", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                })
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        spProcessosMortos.innerHTML = json[0].qtdMorte;
+                    }).catch(
+                        blocklist_list.innerHTML = "",
+                        blocklist_kpi.innerHTML = "0"
+
+                    );
+                } else {
+                    throw ("Houve um erro ao tentar realizar a consulta!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
         }
 
         function popularBlock(nome) {
@@ -280,7 +381,7 @@
                             blocklist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                         <div class="w-100 ms-3">
                                             <div class="d-flex w-100 align-items-center justify-content-between">
-                                                <span style="cursor: pointer" onclick="modalDeath('${processo.nome}')">${nomeProcesso}</span>
+                                                <span style="cursor: pointer" onclick="popularModalDeath('${processo.nome}')">${nomeProcesso}</span>
                                                 <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'blocklist', 'allowlist')">
                                                     <
                                                 </button>
@@ -328,7 +429,7 @@
                             allowlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                                                    <span style="cursor: pointer" onclick="modalDeath('${processo.nome}')">${nomeProcesso}</span>
+                                                                    <span style="cursor: pointer" onclick="popularModalDeath('${processo.nome}')">${nomeProcesso}</span>
                                                                     <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'allowlist', 'blocklist')">></button>
                                                                 </div>
                                                             </div>
@@ -377,7 +478,7 @@
                             waitlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
                                                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                                                    <span style="cursor: pointer" onclick="modalDeath('${processo.nome}')">${nomeProcesso}</span>
+                                                                    <span style="cursor: pointer" onclick="popularModalDeath('${processo.nome}')">${nomeProcesso}</span>
                                                                     <span>
                                                                         <button type="button" class="btn btn-primary ms-2" onclick="mover(${processo.id}, '${processo.nome}', 'waitlist', 'allowlist')">
                                                                             <
@@ -511,9 +612,106 @@
             podeAtualizar = true;
             popularListas("");
         }
-        function modalDeath(nome) {
-            alert(nome);
+        function fecharModalDeath() {
+            divModalDeath.style.display = "none";
         }
+        function popularModalDeath(nome) {
+            if (nome == "%%") {
+                divNomeModalDeath.style.display = "none"
+            } else {
+                divNomeModalDeath.style.display = "flex";
+            }
+            inpNomeModalDeath.value = nome;
+            dadosGraficoDeath = [];
+            fetch("/process/popularModalDeath", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nome
+                })
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {  
+                    resposta.json().then(json => {
+                        json.forEach(data => {
+                            //alert(data.dataMorte);
+                            dadosGraficoDeath.push(data.dataMorte);
+                        });
+                        fetch("/process/kpiDeath", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                nomeServer: nome
+                            })
+                        }).then(function (resposta2) {
+                            console.log("resposta: ", resposta2);
+
+                            if (resposta2.ok) {
+                                var totalDeath = 0;
+                                var mensalDeath = 0;
+                                var today = new Date();
+                                var dd = String(today.getDate()).padStart(2, '0');
+                                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                                var yyyy = today.getFullYear();
+                                resposta2.json().then(json2 => {
+                                    json2.forEach(contador => {
+                                        //alert(contador.qtdMorte);
+                                        var splitter = contador.dataHora.split('-');
+                                        var aux = splitter[2].split('T');
+                                        splitter[2] = aux[0];
+                                        if (splitter[0] == yyyy) {
+                                            if (splitter[1] == mm) {
+                                                if (splitter[2] == dd) {
+                                                    kpiModalHoje.innerHTML = contador.qtdMorte;
+                                                    mensalDeath += contador.qtdMorte;
+                                                } else if (splitter[2] <= dd) {
+                                                    mensalDeath += contador.qtdMorte;
+                                                }
+                                            } else if (splitter[1] == mm - 1) {
+                                                if (splitter[2] > dd) {
+                                                    mensalDeath += contador.qtdMorte;
+                                                }
+                                            }
+
+                                        }
+
+                                        totalDeath += contador.qtdMorte;
+                                    });
+                                    kpiModalTotal.innerHTML = totalDeath;
+                                    kpiModalLast30.innerHTML = mensalDeath;
+
+
+                                }).catch(
+
+                                );
+
+                            } else {
+                                throw ("Houve um erro ao tentar realizar a consulta!");
+                            }
+                        }).catch(function (resposta) {
+                            alert("Algo deu errado, contate o suporte Rabbit");
+                            divModalDeath.style.display = "block";
+
+                        });
+                        divModalDeath.style.display = "block";
+                    }).catch(
+                    );
+
+                } else {
+                    throw ("Houve um erro ao tentar realizar a consulta!");
+                }
+            }).catch(function (resposta) {
+                alert("Algo deu errado, contate o suporte Rabbit");
+                divModalDeath.style.display = "block";
+
+            });
+        }
+
     </script>
 </body>
 

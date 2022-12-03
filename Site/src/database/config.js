@@ -22,7 +22,7 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "bolsa",
-    user: "aluno",
+    user: "root",
     password: "sptech",
     timezone: "-00:00"
 };
