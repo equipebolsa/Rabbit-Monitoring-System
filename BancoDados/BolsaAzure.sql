@@ -24,7 +24,10 @@ CREATE TABLE setor (
   fkEmpresa INT NOT NULL,
   CONSTRAINT FK_setor_fkEmpresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),
   nomeSetor VARCHAR(45) NOT NULL,
-  descricaoSetor VARCHAR(255) NULL  
+  descricaoSetor VARCHAR(255) NULL,
+  cidade VARCHAR(255) NOT NULL ,
+  estado char(2) NOT NULL  
+
 );
 
 CREATE TABLE servidor (
@@ -101,10 +104,26 @@ CREATE TABLE alerta (
  );
  -- Projeto Individual: Gustavo Antonio
 
+ -- Projeto Individual: Cauã Ciconelli
+ CREATE TABLE clima(
+  idClima INT PRIMARY KEY IDENTITY(1,1),
+  estado CHAR(2),
+  temperatura INT NOT NULL,
+  horaClima DATETIME NOT NULL
+);
+
+CREATE TABLE historicoClima(
+  idHist INT PRIMARY KEY IDENTITY(1,1),
+  estado CHAR(2),
+  media DECIMAL(3,2) NOT NULL,
+  horaHist DATETIME NOT NULL
+);
+-- Projeto Individual: Cauã Ciconelli
+
  
 INSERT INTO empresa VALUES('SPTECH','802.996.720-93','(63) 2430-8532');
 INSERT INTO usuario(nomeUsuario,emailUsuario,senhaUsuario,tipoUsuario,fkEmpresa) VALUES('URUBU','urubu@gmail.com',CONVERT(varchar(max), HASHBYTES ('SHA2_512', '123') ,2) ,'Gestor',1);
-INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Região de São Paulo');
+INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Região de São Paulo', 'São Paulo', 'SP');
 
 INSERT INTO metrica VALUES('Porcentagem De Uso Da CPU','%','0');
 INSERT INTO metrica VALUES('Memória Usada','GB','0');
@@ -221,5 +240,7 @@ DROP TABLE blocklist;
 DROP TABLE filterlist;
 DROP TABLE waitlist;
 DROP TABLE deathLog;
+DROP TABLE clima;
+DROP TABLE historicoClima;
 
 DROP VIEW leituraView;
