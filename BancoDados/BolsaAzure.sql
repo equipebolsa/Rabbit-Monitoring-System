@@ -83,7 +83,7 @@ CREATE TABLE alerta (
   parametroAtivo TINYINT NOT NULL
  );
  
-  -- Projeto Individual: Gustavo Antonio
+    -- Projeto Individual: Gustavo Antonio
  CREATE TABLE rede(
 	idRede INT PRIMARY KEY IDENTITY(1,1),
     fkServidor INT NOT NULL,
@@ -102,6 +102,7 @@ CREATE TABLE alerta (
     bytesRecv DECIMAL(7,2),
 	horarioLeitura DATETIME NOT NULL
  );
+ 
  -- Projeto Individual: Gustavo Antonio
 
  -- Projeto Individual: Cauã Ciconelli
@@ -191,6 +192,8 @@ CREATE VIEW mergeDataMaquina AS SELECT
 FROM  alerta
 	INNER JOIN leitura ON fKLeitura = idLeitura
     INNER JOIN metrica ON fkMetrica = idMetrica;
+    
+    
     
 
 -- projeto individual vannucchi 
