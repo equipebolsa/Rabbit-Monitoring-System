@@ -27,7 +27,9 @@ CREATE TABLE setor (
   fkEmpresa INT NOT NULL,
   CONSTRAINT FK_setor_fkEmpresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),
   nomeSetor VARCHAR(45) NOT NULL,
-  descricaoSetor VARCHAR(255) NULL  
+  descricaoSetor VARCHAR(255) NULL,  
+  cidade VARCHAR(255) NOT NULL ,
+  estado char(2) NOT NULL
 );
 
 CREATE TABLE servidor (
@@ -106,10 +108,26 @@ CREATE TABLE alerta (
  );
  -- Projeto Individual: Gustavo Antonio
  
+-- Projeto Individual: Cauã Ciconelli
+CREATE TABLE clima(
+  idClima INT PRIMARY KEY AUTO_INCREMENT,
+  estado CHAR(2),
+  temperatura INT NOT NULL,
+  horaClima DATETIME NOT NULL
+);
+
+CREATE TABLE historicoClima(
+  idHist INT PRIMARY KEY AUTO_INCREMENT,
+  estado CHAR(2),
+  media DECIMAL(3,2) NOT NULL,
+  horaHist DATETIME NOT NULL
+);
+-- Projeto Individual: Cauã Ciconelli
+
  -- Inserir
 INSERT INTO empresa VALUES(NULL,"SPTECH","802.996.720-93","(63) 2430-8532");
 INSERT INTO usuario VALUES(NULL,"URUBU","urubu@gmail.com","123","Gestor",1,NULL);
-INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo");
+INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo", "São Paulo", "SP");
 
 INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da CPU','%','0');
 INSERT INTO metrica VALUES(NULL,'Memória De Uso Do DISCO','GB','0');
