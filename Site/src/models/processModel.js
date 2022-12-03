@@ -28,7 +28,18 @@ function update(id) {
     var instrucao = `update waitlist set estado = 'd' where id = ${id}`;
     return database.select(instrucao);
 }
-
+function popularModalDeath(nome) {
+    var instrucao = `select count(nome) as dataMorte, dataHora from deathLog where nome like '${nome}' group by dataHora order by dataHora;`;
+    return database.select(instrucao);
+}
+function kpiDeath(nome) {
+    var instrucao = `select count(dataHora) as qtdMorte, dataHora from deathLog where nome like '${nome}' group by dataHora;`;
+    return database.select(instrucao);
+}
+function countDeath() {
+    var instrucao = `select count(nome) as qtdMorte from deathLog;`;
+    return database.select(instrucao);
+}
 
 module.exports = {
     listarAguardando,
@@ -37,5 +48,8 @@ module.exports = {
     allowParaBlock,
     deletar,
     adicionar,
-    update
+    update,
+    popularModalDeath,
+    kpiDeath,
+    countDeath
 };

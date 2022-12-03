@@ -194,7 +194,7 @@ CREATE TABLE filterlist(
 CREATE TABLE deathLog(
     id INT PRIMARY KEY IDENTITY,
     nome VARCHAR(100),
-    dataHora DATETIME,
+    dataLog DATE,
     macAddress CHAR(45)
 );
 
