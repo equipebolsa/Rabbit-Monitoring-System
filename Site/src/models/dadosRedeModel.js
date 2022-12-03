@@ -28,6 +28,12 @@ function  listarDadodRede(id) {
     var instrucao2 = `SELECT TOP 25 * FROM redeView WHERE fkServidor = ${id} ORDER BY horarioLeitura DESC ;`;
     return database.executar(instrucao2);
 }
+function  listarDadodRedeCSV(id) {
+    var instrucao = `SELECT bytesSent,bytesRecv,packetsRecv,packetsSent,horarioLeitura FROM redeView WHERE fkServidor = ${id} ORDER BY horarioLeitura DESC LIMIT 25;`;
+    var instrucao2 = `SELECT TOP 25 bytesSent,bytesRecv,packetsRecv,packetsSent,horarioLeitura FROM redeView WHERE fkServidor = ${id} ORDER BY horarioLeitura DESC ;`;
+    return database.executar(instrucao2);
+}
+
 function  listarDadodRedeTempoReal(id) {
     var instrucao = `SELECT * FROM redeView WHERE fkServidor = ${id} ORDER BY horarioLeitura DESC LIMIT 1;`;
     var instrucao2 = `SELECT TOP 1 * FROM redeView WHERE fkServidor = ${id} ORDER BY horarioLeitura DESC ;`;
@@ -42,5 +48,7 @@ module.exports = {
     listarBytesRecebidos,
     listarDadodRedeTempoReal,
     listarDadodRede,
+    listarDadodRedeCSV,
     tempoRealBytesRecv
+    
 };

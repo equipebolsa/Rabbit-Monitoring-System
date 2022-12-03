@@ -44,8 +44,8 @@
         <!-- Spinner End -->
 
 
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+         <!-- Sidebar Start -->
+         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">
@@ -54,22 +54,24 @@
                     </h3>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
-
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active show" aria-expanded="true"
-                            data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Cadastro</a>
-                        <div class="dropdown-menu bg-transparent border-0 show" data-bs-popper="none">
-                            <a href="add-machine.html" class="dropdown-item active">Servidor</a>
-                            <a href="add-user.html" class="dropdown-item">Funcionário</a>
-                            <a href="add-sector.html" class="dropdown-item">Setor</a>
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <span id="gestorOnly">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle  active" data-bs-toggle="dropdown"><i
+                                    class="fa fa-laptop me-2 "></i>Cadastro</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="add-machine.html" class="dropdown-item">Servidor</a>
+                                <a href="add-user.html" class="dropdown-item">Funcionário</a>
+                                <a href="add-sector.html" class="dropdown-item">Setor</a>
+                            </div>
                         </div>
-                    </div>
-                    <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-
-
+                        <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
+                        <a href="process.html" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Processos</a>
+                       <!-- <a href="noticias.html" class="nav-item nav-link"><i class="fa fa-newspaper me-2"></i>
+                            Notícias</a>-->
+                           <a href="dados.html" class="nav-item nav-link"><i class="fa fa-database me-2"></i>
+                            Dados</a>
+                    </span>
                 </div>
             </nav>
         </div>
@@ -91,32 +93,6 @@
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-triangle-exclamation me-lg-2"></i>
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 1: CPU 80%</h6>
-                                    <small>há 15 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 2: RAM 99%</h6>
-                                    <small>há 22 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 3: Temp 72°</h6>
-                                    <small>há 44 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item text-center">Ver todos os alertas</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                                    style="width: 40px; height: 40px;">
                                 <span class="d-none d-lg-inline-flex" id="nomeSpan"></span>
                             </a>
                             <div
@@ -126,6 +102,7 @@
                                 <a onclick="sair()" href="#" class="dropdown-item">Sair</a>
                             </div>
                         </div>
+
                     </div>
                 </nav>
                 <!-- Navbar End -->

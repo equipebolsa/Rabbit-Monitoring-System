@@ -1,5 +1,4 @@
 from time import sleep
-from unittest import result
 from getmac import get_mac_address as gma
 import os
 import sys
@@ -22,7 +21,7 @@ def alertarComponente(tipo,fkMysql,fkAzure):
     data_e_hora_atuais = datetime.now()
     data_e_hora_em_texto = data_e_hora_atuais.strftime('%d/%m/%Y %H:%M')
     msg = "Consumo " +tipo+" - " + data_e_hora_em_texto
-    pipefyCard.enviarWorldCloud(msg)
+    #pipefyCard.enviarWorldCloud(msg)
 
 def alertarRAM(fkMysql,fkAzure):
     if(psutil.virtual_memory().percent>50):
@@ -31,11 +30,11 @@ def alertarRAM(fkMysql,fkAzure):
 def alertarCPU(fkMysql,fkAzure):
     if(psutil.cpu_percent(interval=None, percpu=False)>1):
         alertarComponente("CPU",fkMysql,fkAzure)
-        
 
 
 def cadastrarRede(fkServidor1,fkServidor2,tipo):
     query = "INSERT INTO rede (fkServidor,tipoConexao,address) VALUES (%s,%s,%s)"
+    print(tipo)
     address =  psutil.net_if_addrs()[tipo][0].address
     params1 = (fkServidor1,tipo,address)
     params2 = (fkServidor2,tipo,address)
@@ -52,6 +51,7 @@ cursor2 = connection2.cursor(as_dict=True)
 
 
 def getMachine_addr():
+    command=""
     os_type = sys.platform.lower()
     if "win" in os_type:
         command = "wmic bios get serialnumber"
@@ -61,6 +61,7 @@ def getMachine_addr():
 
 
 def typeOS():
+    comandos=""
     os_type = sys.platform.lower()
     if "win" in os_type:
         comandos = ["cls", "Windows",'Ethernet','Loopback Pseudo-Interface 1']
@@ -110,34 +111,39 @@ def executarMonitoramento():
 
 def captura():
     query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
+    cursor.execute(query, [gma(),])
+    resposta1 = cursor.fetchall()
     cursor2.execute(query, gma())
-    resposta = cursor2.fetchall()
+    resposta2 = cursor2.fetchall()
 
-    if (len(resposta) > 0):
+    if (len(resposta1) > 0 and (len(resposta2) > 0)):
         executarMonitoramento()
     else:
         cadastar()
         sleep(2)
 
-def cadastrarParametro(fkServidor, fkComponente, fkMetrica):
+def cadastrarParametro(fkServidor1,fkServidor2, fkComponente1,fkComponente2, fkMetrica):
     query = "INSERT INTO parametro (fkServidor,fkComponenteFisico,fkMetrica, parametroAtivo) VALUES (%s,%s, %s, 1)"
-    params = (fkServidor, fkComponente, fkMetrica)
-    cursor.execute(query, params)
-    cursor2.execute(query, params)
+    params1 = (fkServidor1, fkComponente1, fkMetrica)
+    params2 = (fkServidor2, fkComponente2, fkMetrica)
+    cursor.execute(query, params1)
+    cursor2.execute(query, params2)
     connection.commit()
     connection2.commit()
 
 
-def cadastrarComponente(fkServidor, componente):
+def cadastrarComponente(fkServidor1,fkServidor2, componente):
     query = "INSERT INTO componenteFisico (fkServidor,tipoComponente) VALUES (%s, %s)"
-    params = (fkServidor, componente)
-    cursor.execute(query, params)
-    cursor2.execute(query,params)
+    params1 = (fkServidor1, componente)
+    params2 = (fkServidor2, componente)
+    cursor.execute(query, params1)
+    cursor2.execute(query,params2)
     connection.commit()
     connection2.commit()
 
 
 def cadastar():
+    interfaceNet=""
     entrada = str(input(
         "A presente maquina não está cadastrada no sistema, deseja cadastar (y/n) "))
     if (entrada.lower() == "n"):
@@ -147,14 +153,15 @@ def cadastar():
         rede = str(input("Servidor utiliza Wi-Fi(1) ou Ethernet(2)"))
         if(rede=="1"):
             if(comandos[1] == "Linux"):
-                rede = "lo"
+                rede = "/sbin/ip -4 -o a | cut -d ' ' -f 2,7 | cut -d '/' -f  1 | grep w | cut -d ' ' -f 1"
+                interfaceNet = os.popen(rede).read().replace("\n", "").replace(" ", "").replace(" ", "")
             else:
-                rede = "Wi-Fi"
+                interfaceNet = "Wi-Fi"
         elif(rede=="2"):
             if(comandos[1] == "Linux"):
-                rede = "eth0"
+                interfaceNet = "eth0"
             else:
-                rede = "Ethernet"
+                interfaceNet = "Ethernet"
         else:
             cadastar()
         query = "INSERT INTO servidor(fkSetor,sistemaOperacional,macAddress,serialNumber) VALUES (%s, %s, %s, %s);"
@@ -165,13 +172,13 @@ def cadastar():
         connection2.commit()
         fkServidor1 = cursor.lastrowid
         fkServidor2 = cursor2.lastrowid
-        cadastrarRede(fkServidor1,fkServidor2,rede)
-        cadastrarComponente(fkServidor1, "CPU")
-        cadastrarParametro(fkServidor1, cursor.lastrowid, 1)
-        cadastrarComponente(fkServidor1, "RAM")
-        cadastrarParametro(fkServidor1, cursor.lastrowid, 3)
-        cadastrarComponente(fkServidor1, "DISCO")
-        cadastrarParametro(fkServidor1, cursor.lastrowid, 2)
+        cadastrarRede(fkServidor1,fkServidor2,interfaceNet)
+        cadastrarComponente(fkServidor1,fkServidor2, "CPU")
+        cadastrarParametro(fkServidor1,fkServidor2,(cursor.lastrowid),(cursor2.lastrowid),1)
+        cadastrarComponente(fkServidor1,fkServidor2, "RAM")
+        cadastrarParametro(fkServidor1,fkServidor2,(cursor.lastrowid),(cursor2.lastrowid),3)
+        cadastrarComponente(fkServidor1,fkServidor2,"DISCO")
+        cadastrarParametro(fkServidor1,fkServidor2,(cursor.lastrowid),(cursor2.lastrowid),2)
         captura()
     else:
         cadastar()

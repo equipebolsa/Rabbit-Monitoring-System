@@ -149,6 +149,37 @@
                 </div>
                 <!-- Sale & Revenue End -->
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="color: red;">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+</script>
 
                 <!-- Recent Sales Start -->
                 <div class="container-fluid pt-4 px-4">
@@ -157,7 +188,7 @@
                             <h6 class="mb-0">Histórico</h6>
                             <form class="form-inline my-2 my-lg-0">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar"
-                                    aria-label="Pesquisar" id="pesquisa">
+                                    aria-label="Pesquisar" id="pesquisa" oninput="pesquisando()">
                             </form>
                             <a class="btn btn-sm btn-primary" onclick="baixarCSV()">Download CSV</a>
 
@@ -168,8 +199,10 @@
                                     <tr class="text-white">
                                         <th scope="col">Horário da
                                             Leitura&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                        <th scope="col">Valor da Leitura&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                        <th scope="col">Metrica&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Pacotes Enviados&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Pacotes Recebidos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Bytes Enviados (KB) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Bytes Recebidos (KB) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tabela">
@@ -220,15 +253,18 @@
         var resultado = obterDados(sessionStorage.USUARIO);
         nome.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = resultado.fkEmpresa;
-        tabelaFuncao(idEmpresa);
-        var csv = 'horarioLeitura,valorLeitura,nomeMetrica\n';
+        const url = new URLSearchParams(window.location.search);
+        var idServidor = url.get("idServidor");
+        tabelaFuncao(idServidor);
+        var csv = 'bytesEnviados,bytesRecebidos,pacotesRecebidos,pacotesEnviadaos,horarioLeitura,\n';
         var csvFileData = [];
-        var csvFileDataExport =[];
+        var csvFileDataExport = [];
 
 
         function baixarCSV() {
+            console.log(csvFileDataExport);
             for (let index = 0; index < csvFileDataExport.length; index++) {
-                csvFileDataExport[index][0] = csvFileDataExport[index][0].replace(/T/, ' ').replace(/\..+/, '')
+                csvFileDataExport[index][4] = csvFileDataExport[index][4].replace(/T/, ' ').replace(/\..+/, '')
             }
 
             csvFileDataExport.forEach(function (row) {
@@ -241,53 +277,71 @@
             hiddenElement.download = 'Rabbit-Monitoring-System';
             hiddenElement.click();
         }
-        pesquisa.addEventListener("input", function (evt) {
-            csvFileDataExport= [];
-            var vetor = [];
-            var procura = this.value
-            for (let index = 0; index < csvFileData.length; index++) {
-                const result = csvFileData[index].filter(word => word.includes(procura));
-                if (result.length != 0) {
-                    objeto = {
-                        horarioLeitura:  csvFileData[index][0],
-                        valorLeitura: csvFileData[index][1],
-                        nomeMetrica: csvFileData[index][2]
-                    }
-                    vetor.push(objeto)
-                    csvFileDataExport.push(Object.values(objeto))
-                }
+
+
+        async function pesquisando(evt) {
+            csvFileDataExport = [];
+            var vetorzao = [];
+            var procura = await pesquisa.value;
+            if (procura != "") {
+                const result = csvFileData.filter(word => word.includes(procura))
+                if (result != "") {
+                    result.forEach(function (vetor) {
+
+                        objeto = {
+                            bytesSent: vetor[0],
+                            bytesRecv: vetor[1],
+                            packetsRecv: vetor[2],
+                            packetsSent: vetor[3],
+                            horarioLeitura: vetor[4],
+                        }
+                        vetorzao.push(objeto)
+                        csvFileDataExport.push(Object.values(objeto));
+                        renderizarTabela(vetorzao)
+                    });
+                
             }
-            //console.log(vetor);
-            //console.log(csvFileDataExport);
-            renderizarTabela(vetor)
+        }else{
+              tabelaFuncao(idServidor);
+        }}
 
-        });
 
-        function tabelaFuncao(id) {
-            fetch(`/leituras/mergeDataMaquina/${id}`, { cache: 'no-store' }).then(function (response) {
+        function toString2(obj) {
+            Object.keys(obj).forEach(k => {
+                obj[k] = '' + obj[k];
+            });
+
+            return obj;
+        }
+
+        async function tabelaFuncao(id) {
+            fetch(`/dadosRede/listarDadosRedeCSV/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        resposta.forEach(element => {
 
-                            csvFileData.push(Object.values(element));
-                            csvFileDataExport.push(Object.values(element));
+                        resposta.forEach(element => {
+                            csvFileData.push(Object.values(Object.values(toString2(element))));
+                            csvFileDataExport.push(Object.values(Object.values(toString2(element))));
                         });
 
-                        renderizarTabela(resposta)
+
+                        renderizarTabela(resposta);
                     });
                 }
             })
         }
 
         function renderizarTabela(json) {
-            tabela.innerHTML ="";
+            tabela.innerHTML = "";
             for (j in json) {
                 valorJson = json[j];
                 tabela.innerHTML += `
                                 <tr>
                                     <td>${valorJson.horarioLeitura.replace(/T/, ' ').replace(/\..+/, '')}</td>
-                                    <td>${valorJson.valorLeitura}</td>
-                                    <td>${valorJson.nomeMetrica}</td>
+                                    <td>${valorJson.packetsSent}</td>
+                                    <td>${valorJson.packetsRecv}</td>
+                                    <td>${valorJson.bytesSent}</td>
+                                    <td>${valorJson.bytesRecv}</td>
                                 </tr>`
             }
 
@@ -297,7 +351,12 @@
             window.location = `./detalhesDados.html?idServidor=${index}`;
         }
 
+        var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
 
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
 
     </script>
 </body>

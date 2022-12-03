@@ -20,6 +20,24 @@ function listarDadodRede(req, res) {
         );
 }
 
+function listarDadodRedeCSV(req, res) {
+    var idServidor = req.params.idServidor;
+    dadosRedeModel.listarDadodRedeCSV(idServidor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function listarDadodRedeTempoReal(req, res) {
     var idServidor = req.params.idServidor;
     dadosRedeModel.listarDadodRedeTempoReal(idServidor)
@@ -40,5 +58,6 @@ function listarDadodRedeTempoReal(req, res) {
 
 module.exports = {
     listarDadodRedeTempoReal,
-    listarDadodRede
+    listarDadodRede,
+    listarDadodRedeCSV
 };

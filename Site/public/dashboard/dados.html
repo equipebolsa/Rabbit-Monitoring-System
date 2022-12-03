@@ -56,11 +56,10 @@
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
                     <span id="gestorOnly">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                    class="fa fa-laptop me-2"></i>Cadastro</a>
+                            <a href="#" class="nav-link dropdown-toggle  " data-bs-toggle="dropdown"><i
+                                    class="fa fa-laptop me-2 "></i>Cadastro</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="add-machine.html" class="dropdown-item">Servidor</a>
                                 <a href="add-user.html" class="dropdown-item">Funcionário</a>
@@ -69,18 +68,12 @@
                         </div>
                         <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
                         <a href="process.html" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Processos</a>
-                        <!-- <a href="noticias.html" class="nav-item nav-link"><i class="fa fa-newspaper me-2"></i>
-                            Notícias</a>-->
-                        <a href="dados.html" class="nav-item nav-link active"><i class="fa fa-database me-2"></i>
-                            Dados</a>
-
-
-
+                        <a href="dados.html" class="nav-item nav-link active"><i
+                                class="fa fa-database me-2"></i>Dados</a>
                     </span>
                 </div>
             </nav>
         </div>
-        <!-- Sidebar End -->
 
 
         <!-- Content Start -->
@@ -162,7 +155,7 @@
                     <div class="bg-secondary text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Alertas</h6>
-                            <a class="btn btn-sm btn-primary" onclick="baixar()">Download CSV</a>
+                            <a class="btn btn-sm btn-primary" onclick="baixarCSV()">Download CSV</a>
 
                         </div>
                         <div class="table-responsive">
@@ -182,7 +175,7 @@
                                         </th>
                                         <th scope="col">Quantidade</th>
                                         <th scope="col">Média</th>
-                                        <th scope="col">Ver&nbsp;&nbsp;Detalhes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th scope="col">Detalhes</th>
 
                                     </tr>
                                 </thead>
@@ -238,6 +231,16 @@
         var csvFileData = [];
 
 
+        function baixarCSV(){
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+
+            //provide the name for the CSV file to be downloaded
+            hiddenElement.download = 'Rabbit-Monitoring-System';
+            hiddenElement.click();
+        }
+
         function tabelaFuncao(id) {
             fetch(`/leituras/mergeData/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
@@ -250,13 +253,7 @@
                             csv += row.join(',');
                             csv += "\n";
                         });
-                        var hiddenElement = document.createElement('a');
-                        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-                        hiddenElement.target = '_blank';
 
-                        //provide the name for the CSV file to be downloaded
-                        hiddenElement.download = 'Rabbit-Monitoring-Systemcsv';
-                        hiddenElement.click();
                         renderizarTabela(resposta)
                     });
                 }
@@ -280,7 +277,7 @@
                                     <td>${valorJson.avgMaxQtdMetrica.toFixed(1)}</td>
                                     <td>${valorJson.nomeMinQtdMetrica}</td>
                                     <td>${valorJson.minQtdMetrica}</td>
-                                    <td>${valorJson.avgMinQtdMetrica}</td>
+                                    <td>${valorJson.avgMinQtdMetrica.toFixed(1)}</td>
                                     <td><a class="btn btn-sm btn-primary" onclick="detalhes(${valorJson.idServidor});">Detalhes</a></td>
                                 </tr>`
             }

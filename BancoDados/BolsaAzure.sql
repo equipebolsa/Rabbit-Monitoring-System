@@ -24,7 +24,10 @@ CREATE TABLE setor (
   fkEmpresa INT NOT NULL,
   CONSTRAINT FK_setor_fkEmpresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),
   nomeSetor VARCHAR(45) NOT NULL,
-  descricaoSetor VARCHAR(255) NULL  
+  descricaoSetor VARCHAR(255) NULL,
+  cidade VARCHAR(255) NOT NULL ,
+  estado char(2) NOT NULL  
+
 );
 
 CREATE TABLE servidor (
@@ -80,7 +83,7 @@ CREATE TABLE alerta (
   parametroAtivo TINYINT NOT NULL
  );
  
-  -- Projeto Individual: Gustavo Antonio
+    -- Projeto Individual: Gustavo Antonio
  CREATE TABLE rede(
 	idRede INT PRIMARY KEY IDENTITY(1,1),
     fkServidor INT NOT NULL,
@@ -99,12 +102,29 @@ CREATE TABLE alerta (
     bytesRecv DECIMAL(7,2),
 	horarioLeitura DATETIME NOT NULL
  );
+ 
  -- Projeto Individual: Gustavo Antonio
+
+ -- Projeto Individual: Cauã Ciconelli
+ CREATE TABLE clima(
+  idClima INT PRIMARY KEY IDENTITY(1,1),
+  estado CHAR(2),
+  temperatura INT NOT NULL,
+  horaClima DATETIME NOT NULL
+);
+
+CREATE TABLE historicoClima(
+  idHist INT PRIMARY KEY IDENTITY(1,1),
+  estado CHAR(2),
+  media DECIMAL(3,2) NOT NULL,
+  horaHist DATETIME NOT NULL
+);
+-- Projeto Individual: Cauã Ciconelli
 
  
 INSERT INTO empresa VALUES('SPTECH','802.996.720-93','(63) 2430-8532');
 INSERT INTO usuario(nomeUsuario,emailUsuario,senhaUsuario,tipoUsuario,fkEmpresa) VALUES('URUBU','urubu@gmail.com',CONVERT(varchar(max), HASHBYTES ('SHA2_512', '123') ,2) ,'Gestor',1);
-INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Região de São Paulo');
+INSERT INTO setor VALUES(1,'SETOR1','Destinado Aos Computadores da Região de São Paulo', 'São Paulo', 'SP');
 
 INSERT INTO metrica VALUES('Porcentagem De Uso Da CPU','%','0');
 INSERT INTO metrica VALUES('Memória Usada','GB','0');
@@ -173,7 +193,39 @@ FROM  alerta
 	INNER JOIN leitura ON fKLeitura = idLeitura
     INNER JOIN metrica ON fkMetrica = idMetrica;
     
+    
+    
 
+-- projeto individual vannucchi 
+CREATE TABLE allowlist(
+	id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100)
+);
+CREATE TABLE blocklist(
+	id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100)
+);
+CREATE TABLE waitlist(
+	id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100)
+);
+CREATE TABLE filterlist(
+    id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100)
+);
+CREATE TABLE deathLog(
+    id INT PRIMARY KEY IDENTITY,
+    nome VARCHAR(100),
+    dataLog DATE,
+    macAddress CHAR(45)
+);
+
+
+-- ----------------------INSERT FILTER
+
+INSERT INTO filterlist(nome) VALUES ('python*'),('kworker*'),('card0*'),('cpuhp*'),('gnome*'),('gsd-*'),('gvfs*'),('idle*'),('ksoftirqd*'),('loop*'),('migration*'),('rcu*'),('system*'),('xdg*'),('cryptd'),('evolution-*'),('ath10k*'),('gdm*'),('git*'),('ibus-*'),('irq*'),('iprt*'),('scsi*'),('(fwupdmgr)'),('(sd-pam)'),('accounts-daemon'),('acpi_thermal_pm'),('acpid'),('apache2'),('at-spi-bus-launcher'),('at-spi2-registryd'),('ata_sff'),('avahi-daemon'),('bash'),('gpg'),('blkcg_punt_bio'),('bluetoothd'),('dbus'),('cat'),('catchsegv'),('cfg80211'),('evince'),('grep'),('gst-plugin-scanner'),('javaldx'),('lspci'),('oosplash'),('QtWebEngineProcess'),('R'),('rsession'),('soffice.bin'),('tracker-extract'),('tracker-store'),('charger_manager'),('chrome_crashpad_handler'),('colord'),('cpuUsage.sh'),('cron'),('cups-browsed'),('cupsd'),('dbus-daemon'),('dconf-service'),('devfreq_wq'),('dio/sda1'),('ecryptfs-kthrea'),('edac-poller'),('ext4-rsv-conver'),('fwupd'),('gjs'),('goa-daemon'),('goa-identity-service'),('inet_frag_wq'),('ipv6_addrconf'),('jbd2/sda1-8'),('kauditd'),('kblockd'),('kcompactd0'),('kdevtmpfs'),('kerneloops'),('khugepaged'),('khungtaskd'),('kintegrityd'),('kmemstick'),('krfcommd'),('QtWebEngineProcess'),('ksmd'),('kstrp'),('kswapd0'),('kthreadd'),('kthrotld'),('md'),('mld'),('mm_percpu_wq'),('ModemManager'),('nacl_helper'),('nautilus'),('netns'),('networkd-dispat'),('NetworkManager'),('node'),('npm run dev'),('oom_reaper'),('org.gnome.Chara'),('polkitd'),('pulseaudio'),('python'),('rserver'),('rsyslogd'),('rtkit-daemon'),('seahorse'),('sh'),('sleep'),('snap-store'),('snapd'),('sqlservr'),('ssh-agent'),('switcheroo-control'),('thermald'),('tpm_dev_wq'),('ApplicationFrameHost.exe'),('audiodg.exe'),('bash.exe'),('Calculator.exe'),('cmd.exe'),('conhost.exe'),('core.exe'),('csrss.exe'),('ctfmon.exe'),('dasHost.exe'),('dllhost.exe'),('dwm.exe'),('EPCP.exe'),('escsvc64.exe'),('explorer.exe'),('fontdrvhost.exe'),('gameinputsvc.exe'),('gamingservices.exe'),('gamingservicesnet.exe'),('GoogleCrashHandler.exe'),('GoogleCrashHandler64.exe'),('lsass.exe'),('MemCompression'),('Microsoft.Photos.exe'),('Microsoft.SharePoint.exe'),('mintty.exe'),('MpCopyAccelerator.exe'),('MsMpEng.exe'),('mysqld.exe'),('NisSrv.exe'),('node.exe'),('NVDisplay.Container.exe'),('OriginWebHelperService.exe'),('powershell.exe'),('Registry'),('remoting_host.exe'),('RuntimeBroker.exe'),('SearchApp.exe'),('SearchIndexer.exe'),('SecurityHealthService.exe'),('services.exe'),('SgrmBroker.exe'),('ShellExperienceHost.exe'),('sihost.exe'),('smartscreen.exe'),('smss.exe'),('SndVol.exe'),('spoolsv.exe'),('StartMenuExperienceHost.exe'),('svchost.exe'),('System'),('System Idle Process'),('SystemSettings.exe'),('taskhostw.exe'),('TextInputHost.exe'),('uhssvc.exe'),('vgtray.exe'),('Video.UI.exe'),('wininit.exe'),('winlogon.exe'),('WmiPrvSE.exe'),('tracker-miner-fs'),('GameBarPresenceWritte.exe'),('SearchFilterHost.exe'),('SearchProtocolHost.exe'),('udisksd'),('unattended-upgr'),('update-notifier'),('upowerd'),('uuidd'),('vfio-irqfd-clea'),('watchdogd'),('whoopsie'),('wpa_supplicant'),('writeback'),('Xorg'),('mysqld'),('cut'),('fc-list'),('sort'),('uniq'),('mysql-workbench-bin'),('gpgconf'),('zswap-shrink');
+
+-- DROPS
 
 DROP TABLE alerta;
 DROP TABLE leitura;
@@ -186,4 +238,12 @@ DROP TABLE servidor;
 DROP TABLE setor;
 DROP TABLE usuario;
 DROP TABLE empresa;
+DROP TABLE allowlist;
+DROP TABLE blocklist;
+DROP TABLE filterlist;
+DROP TABLE waitlist;
+DROP TABLE deathLog;
+DROP TABLE clima;
+DROP TABLE historicoClima;
+
 DROP VIEW leituraView;
