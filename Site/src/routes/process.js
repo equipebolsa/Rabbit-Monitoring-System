@@ -32,14 +32,5 @@ router.post("/update", function (req, res) {
     processController.update(req, res);
 })
 
-router.post("/popularModalDeath", function (req, res) {
-    processController.popularModalDeath(req, res);
-})
-router.post("/kpiDeath", function (req, res) {
-    processController.kpiDeath(req, res);
-})
-router.post("/countDeath", function (req, res) {
-    processController.countDeath(req, res);
-})
 
 module.exports = router;

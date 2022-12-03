@@ -116,8 +116,9 @@ CREATE TABLE alerta (
 CREATE TABLE historicoClima(
   idHist INT PRIMARY KEY IDENTITY(1,1),
   estado CHAR(2),
-  media DECIMAL(3,2) NOT NULL,
-  horaHist DATETIME NOT NULL
+  dia1 DECIMAL(3,1) NOT NULL,
+  dia2 DECIMAL(3,1) NOT NULL,
+  dia3 DECIMAL(3,1) NOT NULL
 );
 -- Projeto Individual: Cauã Ciconelli
 
@@ -365,8 +366,9 @@ CREATE TABLE alerta (
 CREATE TABLE historicoClima(
   idHist INT PRIMARY KEY IDENTITY(1,1),
   estado CHAR(2),
-  media DECIMAL(3,2) NOT NULL,
-  horaHist DATETIME NOT NULL
+  dia1 DECIMAL(3,1) NOT NULL,
+  dia2 DECIMAL(3,1) NOT NULL,
+  dia3 DECIMAL(3,1) NOT NULL
 );
 -- Projeto Individual: Cauã Ciconelli
 

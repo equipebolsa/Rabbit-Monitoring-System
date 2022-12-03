@@ -22,18 +22,22 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var descricao = req.body.descServer;
     var fkEmpresa = req.body.empresaServer;
+    var cidade = req.body.cidadeServer;
+    var estado = req.body.estadoServer;
    
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (descricao == undefined) {
         res.status(400).send("Sua descrição está undefined!");
+    } else if (cidade == undefined) {
+        res.status(400).send("Sua cidade está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa está undefined!");
     } else{
       
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        setorModel.cadastrar(nome, descricao,fkEmpresa)
+        setorModel.cadastrar(nome, descricao,fkEmpresa, cidade, estado)
             .then(
                 function (resultado) {
                     res.json(resultado);

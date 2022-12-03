@@ -44,8 +44,8 @@
         <!-- Spinner End -->
 
 
-         <!-- Sidebar Start -->
-         <div class="sidebar pe-4 pb-3">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">
@@ -54,12 +54,15 @@
                     </h3>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="caua.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráfico Climático</a>
+                    <a href="index.html" class="nav-item nav-link"><i
+                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="chart.html" class="nav-item nav-link active"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
+                    <a href="caua.html" class="nav-item nav-link"><i
+                        class="fa fa-cloud-sun me-2 active"></i>Climáticos</a>
                     <span id="gestorOnly">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle  active" data-bs-toggle="dropdown"><i
-                                    class="fa fa-laptop me-2 "></i>Cadastro</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                    class="fa fa-laptop me-2"></i>Cadastro</a>
                             <div class="dropdown-menu bg-transparent border-0">
                                 <a href="add-machine.html" class="dropdown-item">Servidor</a>
                                 <a href="add-user.html" class="dropdown-item">Funcionário</a>
@@ -72,6 +75,9 @@
                             Notícias</a>-->
                            <a href="dados.html" class="nav-item nav-link"><i class="fa fa-database me-2"></i>
                             Dados</a>
+
+
+
                     </span>
                 </div>
             </nav>
@@ -120,7 +126,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
                                     style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex" id="navNome">Julio Abacate</span>
+                                <span id="nome" class="d-none d-lg-inline-flex"></span>
                             </a>
                             <div
                                 class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -133,65 +139,80 @@
                 </nav>
                 <!-- Navbar End -->
 
-                <div class="container-fluid pt-4 px-4 central">
+                <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-6">
-                            <div class="bg-secondary rounded h-100 p-4 container">
+                            <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4">Setor</h6>
-                                <form onsubmit="return false">
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="nome" aria-describedby="emailHelp">
+                                <select id="setor" class="form-select form-select-sm mb-3"
+                                    aria-label=".form-select-sm example">
+                                    <option selected>Selecione um setor</option>
 
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Descrição</label>
-                                        <textarea class="form-control" id="descricao" style="height: 150px;"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputCidade1" class="form-label">Cidade</label>
-                                        <input type="text" class="form-control" id="cidade">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleSelectEstado1" class="form-label">Estado</label>
-                                        <select name="estado" id="estado" class="form-control" placeholder="Selecione o estado">
-                                            <option value="SP">São Paulo</option>
-                                            <option value="AC">Acre</option>
-                                            <option value="AL">Alagoas</option>
-                                            <option value="AP">Amapá</option>
-                                            <option value="AM">Amazonas</option>
-                                            <option value="BA">Bahia</option>
-                                            <option value="CE">Ceará</option>
-                                            <option value="DF">Distrito Federal</option>
-                                            <option value="ES">Espírito Santo</option>
-                                            <option value="GO">Goiás</option>
-                                            <option value="MT">Mato Grosso</option>
-                                            <option value="MS">Mato Grosso do Sul</option>
-                                            <option value="MA">Maranhão</option>
-                                            <option value="MG">Minas Gerais</option>
-                                            <option value="PA">Pará</option>
-                                            <option value="PB">Paraíba</option>
-                                            <option value="PR">Paraná</option>
-                                            <option value="PE">Pernambuco</option>
-                                            <option value="PI">Piauí</option>
-                                            <option value="RJ">Rio de Janeiro</option>
-                                            <option value="RN">Rio Grande do Norte</option>
-                                            <option value="RS">Rio Grande do Sul</option>
-                                            <option value="RO">Rondônia</option>
-                                            <option value="RR">Roraima</option>
-                                            <option value="SC">Santa Catarina</option>
-                                            <option value="SE">Sergipe</option>
-                                            <option value="TO">Tocantins</option>
-                                          </select>
-                                    </div>
-                                    <button type="submit" onclick="cadastrarSetor()" class="btn btn-primary">Cadastrar
-                                    </button>
-
-                                </form>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <h6 class="mb-4">Periodo</h6>
+                                <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                                    <option selected>Selecione um período</option>
+                                    <option value="1">Diário</option>
+                                    <option value="2">Semanal</option>
+                                    <option value="3">Mensal</option>
+                                    <option value="4">Anual</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
+                <!-- Sales Chart Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">CPU</h6>
+                                </div>
+                                <canvas id="cpuChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Temperatura</h6>
+                                </div>
+                                <canvas id="temp"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">RAM</h6>
+                                </div>
+                                <canvas id="ram"></canvas>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary text-center rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <h6 class="mb-0">Disco</h6>
+                                </div>
+                                <canvas id="hdd"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sales Chart End -->
+
+
 
 
                 <!-- Footer Start -->
@@ -210,6 +231,7 @@
         <!-- Content End -->
 
 
+
     </div>
 
     <!-- JavaScript Libraries -->
@@ -225,58 +247,45 @@
     <script src="../assets/js/funcoes.js"></script>
 
     <!-- Template Javascript -->
+    <script src="js/main.2js.js"></script>
+    <script src="js/graficos.js"></script> <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
-        navNome.innerHTML = (resultado.nomeUsuario);
+        verificarAcesso(0);
+        nome.innerHTML = (resultado.nomeUsuario);
+        var idEmpresa = (resultado.fkEmpresa);
+        servidorFuncao(idEmpresa);
 
-        function cadastrarSetor() {
-            var nomeCampo = nome.value;
-            if (nomeCampo.length <= 5) {
-                alert("Insira um nome válido");
-                return false;
+
+        function renderizarSetores(json) {
+            for (j in json) {
+                valorJson = json[j];
+                setor.innerHTML += `
+                <option value="${valorJson.idSetor}">${valorJson.nomeSetor}</option>`
             }
-            var descCampo = descricao.value;
-            if (descCampo.length <= 3) {
-                alert("Insira uma descrição válida");
-                return false;
-            }
-            var cidadeCampo = cidade.value;
-            if (cidadeCampo.length <= 3) {
-                alert("Insira uma cidade válida");
-                return false;
-            }
-            var estadoCampo = estado.value;
-            var empresaCampo = resultado.fkEmpresa;
-
-            fetch(`/setores/cadastrar/`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    empresaServer: empresaCampo,
-                    descServer: descCampo,
-                    nomeServer: nomeCampo,
-                    cidadeServer: cidadeCampo,
-                    estadoServer: estadoCampo
-
-                })
-            }).then(
-                function res(resposta) {
-                    if (resposta.ok) {
-                        alert("Cadastrado Com Sucesso");
-                        nome.value = "";
-                        descricao.value = "";
-                    }
-                }
-            )
-
-            return false;
         }
 
+        function servidorFuncao(id) {
+            fetch(`/setores/listar/${id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    console.log(response)
+                    response.json().then(function (resposta) {
+                        renderizarSetores(resposta)
+                    });
+                }
+            })
+        }
+
+
+        function sair() {
+            limpar(sessionStorage.USUARIO);
+            window.location.href = "../index.html"
+        }
+
+
     </script>
+
 </body>
 
 </html>

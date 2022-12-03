@@ -74,4 +74,15 @@ router.get("/mergeData/:idEmpresa", function (req, res) {
     leituraController.mergeData(req, res);
 });
 
+router.get("/listarTemperatura/:idSetor", function (req, res) {
+    leituraController.listarTemperatura(req, res);
+});
+
+router.get("/leiturasTemperatura/:idSetor", function (req, res) {
+    leituraController.leiturasTemperatura(req, res);
+});
+router.get("/leiturasTemperaturaH/:idSetor", function (req, res) {
+    leituraController.leiturasTemperaturaH(req, res);
+});
+
 module.exports = router;

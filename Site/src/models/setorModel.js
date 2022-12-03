@@ -6,8 +6,8 @@ function listar(id) {
     console.log(instrucao);
     return database.executar(instrucao);
 }
-function cadastrar(nome,descricao,fkEmpresa) {
-    var instrucao = `INSERT INTO setor (fkEmpresa, nomeSetor, descricaoSetor) VALUES(${fkEmpresa},"${nome}","${descricao}");`;
+function cadastrar(nome,descricao,fkEmpresa, cidade, estado) {
+    var instrucao = `INSERT INTO setor (fkEmpresa, nomeSetor, descricaoSetor, cidade, estado) VALUES(${fkEmpresa},'${nome}','${descricao}','${cidade}','${estado}');`;
     return database.executar(instrucao);
 }
 
