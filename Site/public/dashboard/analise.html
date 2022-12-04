@@ -1,0 +1,636 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <title>Análise de Dados</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/logo.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;family=Roboto:wght@500;700&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <style id="__web-inspector-hide-shortcut-style__">
+        .__web-inspector-hide-shortcut__,
+        .__web-inspector-hide-shortcut__ *,
+        .__web-inspector-hidebefore-shortcut__::before,
+        .__web-inspector-hideafter-shortcut__::after {
+            visibility: hidden !important;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <style>
+        .servidores {
+            display: inline-flex;
+            width: 100px;
+            border-radius: 10px;
+            height: 70px;
+            margin: 8px;
+            background-color: #306dc773;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .servidores:hover {
+                transition: 0.50s;
+                border: 2px solid #26729e;
+                color: white;
+                background: #26729e;
+        }
+        
+        .servidores2 {
+            width: 100px;
+            border-radius: 6px;
+            margin-top: 1rem;
+            height: 40px;
+            background-color: #bfbfcd;
+            justify-content: space-around;
+            align-items: center;
+            border: 2px solid #bfbfcd
+        }
+        
+        .servidores2:hover {
+                transition: 0.50s;
+                border: 2px solid #1b8829;
+                color: white;
+                background: #1b8829;
+        }
+        
+        .chart-container {
+            display: flex;
+            margin: 0px;
+            height: 0px;
+            width: 60rem;
+            flex-direction: column;
+            margin-right: 10vh;
+        }
+        
+        .chart-container2 {
+            display: flex;
+            margin: 0px;
+            height: 22rem;
+            width: 85rem;
+            flex-direction: column;
+            margin-right: 10vh;
+        }        
+        .frase {
+            color: white;
+            font-size: 3vh;
+            font-style: inherit;
+        }
+        .font{ 
+            font-size: 3vh; color: white;
+            font-weight: bolder;
+        }
+        .linha {
+            height: 0.2rem;
+            width: 100%;
+            background-color: #617c89
+        }
+        .linha2 {
+            height: 40px;
+            width: 1px;
+            background-color: #617c89;
+        }
+        .linha3 {
+            height: 35rem;
+            width: 1px;
+            background-color: #617c89;
+        }
+        .separador {
+            display: flex; 
+            justify-content: space-around; 
+            height: 31rem;
+        }
+        .alterarTempo {
+            margin-top: 1rem;
+            background-color: #bfbfcd;;
+            width: 7rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+    </style>
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner"
+            class="bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-secondary navbar-dark">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary">
+                        <img class="nav-logo" src="img/logo.png">
+                        Rabbit MS
+                    </h3>
+                </a>
+                <div class="navbar-nav w-100">
+                    <a href="index.html" class="nav-item nav-link active"><i
+                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
+                    <span id="gestorOnly">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                    class="fa fa-laptop me-2"></i>Cadastro</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+                                <a href="add-machine.html" class="dropdown-item">Servidor</a>
+                                <a href="add-user.html" class="dropdown-item">Funcionário</a>
+                                <a href="add-sector.html" class="dropdown-item">Setor</a>
+                            </div>
+                        </div>
+                        <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
+                    </span>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-triangle-exclamation me-lg-2"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                            <a href="chart.html" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Máquina 1: CPU 80%</h6>
+                                <small>há 15 minutos</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="chart.html" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Máquina 2: RAM 99%</h6>
+                                <small>há 22 minutos</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="chart.html" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Máquina 3: Temp 72°</h6>
+                                <small>há 44 minutos</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="chart.html" class="dropdown-item text-center">Ver todos os alertas</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex" id="nome"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                            <a href="user-information.html" class="dropdown-item">Dados Pessoais</a>
+
+                            <a onclick="sair()" href="#" class="dropdown-item">Sair</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+
+            <!-- Sale & Revenue Start -->
+
+            <!-- Sale & Revenue End -->
+
+
+            <!-- Recent Sales Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary text-center rounded p-4"
+                    style="width: 100%;height: 45rem;display: flex;flex-direction: column;">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h4 class="mb-0">Servidores</h4>
+                    </div>
+                    <div id="servidoresMain" value=1 class="servidoresMain">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary text-center rounded p-4"
+                    style="width: 100%;height: 87rem;display: flex;flex-direction: column;">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h4 class="mb-0">Relatorio Gráfico</h4>
+                    </div>
+                    <div class="linha"></div><br>   
+                    <div id="informacoesGraficas" class="informacoes" style="display: flex; 
+                    justify-content: space-around">
+                        <div class="font" >CPU: </div>
+                        <div class="linha2"></div>
+                        <div class="font" >RAM: </div>
+                        <div class="linha2"></div>
+                        <div class="font" >Disco: </div>
+                    </div><br>
+                    <div class="linha"></div><br>             
+                    <div class="separador">
+                    <div style="height: 15rem; width: 40rem" class="chart-container2">
+                    <div class="frase">Semanal</div>
+                    <br>
+                    <canvas style="height: 30rem; width: 20rem" id="graficos24h"></canvas>
+                    </div>
+                    </div>
+                    <div class="linha"></div><br>
+                    <div class="separador">
+                        <div class="chart-container2">
+                        <div class="frase">Mensal</div>
+                        <br>
+                        <canvas style="height: 40rem; width: 30rem" id="graficosSemanal"></canvas>
+                        </div>
+                        <div class="chart-container2">
+                        <div class="frase">Semestral</div>
+                        <br>
+                        <canvas style="height: 40rem; width: 30rem" id="graficosMensal"></canvas>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="linha"></div><br>
+                        <div class="container-tempo">
+                        <div class="frase1">Selecione o intervalo de tempo: </div>
+                        <select onchange="escolherTempo()" class="alterarTempo">
+                        <option value="diario">Semanal</option>
+                        <option value="semanal">Mensal</option>
+                        <option value="mensal">Semestral</option>
+                    </select><br>
+                    <button class="servidores2">Baixar CSV</button>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary text-center rounded p-4"
+                    style="width: 100%;height: 45rem;display: flex;flex-direction: column;">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h4 class="mb-0">Relatório Estatístico</h4>
+                    </div>
+                    <div class="linha"></div><br>
+                    <div class="informacoesEst" style="display: flex; justify-content: space-between; height: 50rem">
+                        <div class="usoMensalCpu" style="display: flex; flex-direction: column;align-items: flex-start; margin-right: 2rem">
+                            <h5>Media mensal da CPU: </h5>
+                            <div class="linha"></div>
+                            <p style="color:white ; margin-top: 1rem">Janeiro: <span id="cpuMensalJaneiro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Fevereiro: <span id="cpuMensalFevereiro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Março: <span id="cpuMensalMarco"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Abril: <span id="cpuMensalAbril"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Maio: <span id="cpuMensalMaio"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Junho: <span id="cpuMensalJunho"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Julho: <span id="cpuMensalJulho"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Agosto: <span id="cpuMensalAgosto"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Setembro: <span id="cpuMensalSetembro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Outubro: <span id="cpuMensalOutubro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Novembro: <span id="cpuMensalNovembro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Dezembro: <span id="cpuMensalDezembro"></span>%</p>
+                        </div>
+                        <div class="linha3"></div>
+                        <div class="usoMensalRam" style="display: flex; flex-direction: column;align-items: flex-start; margin-right: 2rem; margin-left: 2rem">
+                            <h5>Media mensal da RAM: </h5>
+                            <div class="linha"></div>
+                            <p style="color:white ; margin-top: 1rem">Janeiro: <span id="RamMensalJaneiro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Fevereiro: <span id="RamMensalFevereiro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Março: <span id="RamMensalMarco"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Abril: <span id="RamMensalAbril"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Maio: <span id="RamMensalMaio"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Junho: <span id="RamMensalJunho"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Julho: <span id="RamMensalJulho"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Agosto: <span id="RamMensalAgosto"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Setembro: <span id="RamMensalSetembro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Outubro: <span id="RamMensalOutubro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Novembro: <span id="RamMensalNovembro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Dezembro: <span id="RamMensalDezembro"></span>%</p>
+                        </div>
+                        <div class="linha3"></div>
+                        <div class="usoMensalDisco" style="display: flex; flex-direction: column;align-items: flex-start; margin-right: 2rem; margin-left: 2rem">
+                            <h5>Media mensal do Disco: </h5>
+                            <div class="linha"></div>
+                            <p style="color:white ; margin-top: 1rem">Janeiro: <span id="DiscoMensalJaneiro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Fevereiro: <span id="DiscoMensalFevereiro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Março: <span id="DiscoMensalMarco"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Abril: <span id="DiscoMensalAbril"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Maio: <span id="DiscoMensalMaio"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Junho: <span id="DiscoMensalJunho"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Julho: <span id="DiscoMensalJulho"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Agosto: <span id="DiscoMensalAgosto"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Setembro: <span id="DiscoMensalSetembro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Outubro: <span id="DiscoMensalOutubro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Novembro: <span id="DiscoMensalNovembro"></span>%</p>
+                            <p style="color:white ; margin-top: 0.5rem">Dezembro: <span id="DiscoMensalDezembro"></span>%</p>
+                        </div>
+                        <div class="linha3"></div>
+                        <div class="cpuLimite" style="display: flex; flex-direction: column;align-items: flex-start; margin-right: 2rem; margin-left: 2rem">
+                            <h5>CPU no limite: </h5>
+                            <div class="linha"></div>
+                            <p style="color:white ; margin-top: 1rem">Janeiro: <span id="cpuJaneiro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Fevereiro: <span id="cpuFevereiro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Março: <span id="cpuMarco"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Abril: <span id="cpuAbril"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Maio: <span id="cpuMaio"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Junho: <span id="cpuJunho"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Julho: <span id="cpuJulho"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Agosto: <span id="cpuAgosto"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Setembro: <span id="cpuSetembro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Outubro: <span id="cpuOutubro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Novembro: <span id="cpuNovembro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Dezembro: <span id="cpuDezembro"></span></p>
+                        </div>
+                        <div class="linha3"></div>
+                        <div class="ramLimite" style="display: flex; flex-direction: column;align-items: flex-start; margin-right: 2rem; margin-left: 2rem">
+                            <h5>RAM no limite: </h5>
+                            <div class="linha"></div>
+                            <p style="color:white ; margin-top: 1rem">Janeiro: <span id="RamJaneiro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Fevereiro: <span id="RamFevereiro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Março: <span id="RamMarco"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Abril: <span id="RamAbril"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Maio: <span id="RamMaio"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Junho: <span id="RamJunho"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Julho: <span id="RamJulho"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Agosto: <span id="RamAgosto"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Setembro: <span id="RamSetembro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Outubro: <span id="RamOutubro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Novembro: <span id="RamNovembro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Dezembro: <span id="RamDezembro"></span></p>
+                        </div>
+                        <div class="linha3"></div>
+                        <div class="discoLimite" style="display: flex; flex-direction: column;align-items: flex-start; margin-right: 2rem; margin-left: 2rem">
+                            <h5>Disco no limite: </h5>
+                            <div class="linha"></div>
+                            <p style="color:white ; margin-top: 1rem">Janeiro: <span id="DiscoJaneiro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Fevereiro: <span id="DiscoFevereiro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Março: <span id="DiscoMarco"></span></p>                           
+                            <p style="color:white ; margin-top: 0.5rem">Abril: <span id="DiscoAbril"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Maio: <span id="DiscoMaio"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Junho: <span id="DiscoJunho"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Julho: <span id="DiscoJulho"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Agosto: <span id="DiscoAgosto"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Setembro: <span id="DiscoSetembro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Outubro: <span id="DiscoOutubro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Novembro: <span id="DiscoNovembro"></span></p>
+                            <p style="color:white ; margin-top: 0.5rem">Dezembro: <span id="DiscoDezembro"></span></p>
+                        </div>
+                        <div class="linha3"></div>
+
+                    </div> 
+                    
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            © <a href="#">Rabbit Monitoring System</a>, All Right Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../assets/js/funcoes.js"></script>
+    <script src="js/analiseFuncoes.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script>
+
+        /*verificarAcesso(0);
+        var resultado = obterDados(sessionStorage.USUARIO);
+        nome.innerHTML = (resultado.nomeUsuario);
+        var idEmpresa = resultado.fkEmpresa;
+        tabelaFuncao(idEmpresa); */
+
+        function criarServidor() {
+            for (let i = 0; i < 56; i++) {
+                servidoresMain.innerHTML += `<div id='servidor${i+1}' class='servidores' onclick="pegarDadosServidor${i+1}()" type='button'value=${i + 1}>${i + 1}</div>`;
+
+            }
+        }
+
+        criarServidor();
+
+
+
+    </script>
+
+
+</body>
+
+</html>
+<script>
+
+    
+    var servidor = 0;
+
+    graficoAoVivo();
+    grafico24h();
+    graficoSemanal();
+    graficoMensal();
+
+    function graficoAoVivo() {
+        const data = {
+            labels: [
+                'RAM',
+                'CPU',
+                'GPU',
+                'DISCO'
+            ],
+            datasets: [{
+                label: 'Uso de Hardware',
+                data: [1, 1, 1, 1],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(225, 45, 12)'
+
+                ],
+            }]
+        };
+
+        const config = {
+            type: 'doughnut',
+            data: data,
+        };
+
+        const graficosAoVivo = new Chart(
+            document.getElementById('graficosAoVivo'),
+            config);
+    }
+
+    function grafico24h() {
+        const labels = [
+        'Segunda',
+        'Terça',
+        'Quarta',
+        'Quinta',
+        'Sexta',
+        'Sabado',
+        'Domingo',
+    ];
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: 'CPU',
+            data: [65, 59, 80, 81, 56, 55],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }]
+        };
+
+        const config1 = {
+            type: 'line',
+            data: data,
+        };
+
+        const graficos24h = new Chart(
+            document.getElementById('graficos24h'),
+            config1);
+    }
+
+    function graficoSemanal() {
+        const labels = [
+        '1',
+        '2',
+        '3',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
+        '12',
+        '13',
+        '14',
+        '15',
+        '16',
+        '17',
+        '18',
+        '19',
+        '20',
+        '21',
+        '22',
+        '23',
+        '24',
+        '25',
+        '26',
+        '27',
+        '28',
+        '29',
+        '30',
+        '31',
+    ];
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: 'CPU',
+            data: [65, 59, 80, 81, 56, 55],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }]
+        };
+
+        const config2 = {
+            type: 'line',
+            data: data,
+        };
+
+        const graficosSemanal = new Chart(
+            document.getElementById('graficosSemanal'),
+            config2);
+    }
+
+    function graficoMensal() {
+        const labels = [
+        'Julho',
+        'Agosto',
+        'Setembro',
+        'Outubro',
+        'Novembro',
+        'Dezembro',
+    ];
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: 'CPU',
+            data: [65, 59, 80, 81, 56, 55],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }]
+        };
+
+        const config3 = {
+            type: 'line',
+            data: data,
+        };
+
+        const graficosSemanal = new Chart(
+            document.getElementById('graficosMensal'),
+            config3);
+    }
+
+</script>
