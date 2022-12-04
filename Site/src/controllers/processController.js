@@ -131,6 +131,55 @@ function update(req, res) {
         );
 }
 
+function popularModalDeath(req, res) {
+    
+    var nome = req.body.nomeServer;
+    processModel.popularModalDeath(nome)
+        .then(function (resultado) {
+            res.status(200).json(resultado);
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+function kpiDeath(req, res) {
+    var nome = req.body.nomeServer;
+    processModel.kpiDeath(nome)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function countDeath(req, res) {
+    processModel.countDeath()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 
 module.exports = {
     listarAguardando,
@@ -139,5 +188,8 @@ module.exports = {
     allowParaBlock,
     deletar,
     adicionar,
-    update
+    update,
+    popularModalDeath,
+    kpiDeath,
+    countDeath
 }

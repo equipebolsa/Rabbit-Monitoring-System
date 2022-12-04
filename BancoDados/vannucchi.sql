@@ -10,7 +10,12 @@ CREATE TABLE blocklist(
 );
 CREATE TABLE waitlist(
 	id INT PRIMARY KEY auto_increment,
-    nome VARCHAR(100)
+    nome VARCHAR(100),
+    mac CHAR(17),
+    cpuProcess VARCHAR(45),
+    ramProcess VARCHAR(45),
+    cpuMachine VARCHAR(45),
+    ramMachine VARCHAR(45)
 );
 CREATE TABLE filterlist(
     id INT PRIMARY KEY auto_increment,
@@ -19,7 +24,7 @@ CREATE TABLE filterlist(
 CREATE TABLE deathLog(
     id INT PRIMARY KEY auto_increment,
     nome VARCHAR(100),
-    dataHora DATETIME,
+    dataHora DATE,
     macAddress CHAR(45)
 );
 
@@ -34,7 +39,12 @@ CREATE TABLE blocklist(
 );
 CREATE TABLE waitlist(
 	id INT PRIMARY KEY IDENTITY,
-    nome VARCHAR(100)
+    nome VARCHAR(100),
+    mac CHAR(17),
+    cpuProcess VARCHAR(45),
+    ramProcess VARCHAR(45),
+    cpuMachine VARCHAR(45),
+    ramMachine VARCHAR(45)
 );
 CREATE TABLE filterlist(
     id INT PRIMARY KEY IDENTITY,
@@ -43,7 +53,7 @@ CREATE TABLE filterlist(
 CREATE TABLE deathLog(
     id INT PRIMARY KEY IDENTITY,
     nome VARCHAR(100),
-    dataHora DATETIME,
+    dataHora DATE,
     macAddress CHAR(45)
 );
 
@@ -55,13 +65,3 @@ INSERT INTO filterlist(nome) VALUES ('python*'),('kworker*'),('card0*'),('cpuhp*
 
 -- insert into waitlist values (null, itemProcesso['name'], def getMachine_addr(), 'w', now);
 
--- asduashdaushduashdhasd
-select * from allowlist;
-select * from blocklist;
-truncate blocklist;
-select * from waitlist;
-truncate waitlist;
-update waitlist set estado = 'y' where id = 1;
-insert into blocklist values(null,'Tibia.exe');
-insert into blocklist values(null,'Spotify.exe');
-delete from allowlist where id = 156;

@@ -32,16 +32,6 @@ def conectarBanco():
         cursor = connection.cursor()
 
 
-def getMachine_addr():
-    os_type = sys.platform.lower()
-    if "win" in os_type:
-        import wmi
-        SN = wmi.WMI()
-        return SN.Win32_BaseBoard()[0].SerialNumber
-    elif "linux" in os_type:
-        command = "hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid"
-        return os.popen(command).read().replace("\n", "").replace("	", "").replace(" ", "")
-
 def matarProcesso(pid, nome):
     insertBanco = True
     
@@ -61,7 +51,7 @@ def listarProcessos():
     global processos
     print('Lista de processos em execução:')
     for proc in ps.process_iter():
-        info = proc.as_dict(attrs=['pid', 'name', 'username'])
+        info = proc.as_dict(attrs=['pid', 'name', 'username','cpu_percent','memory_percent'])
         #testar isso no windows
         if info['username'] != 'root':
             processos.append(info)
@@ -163,6 +153,9 @@ tempo = int(datetime.datetime.now().strftime('%M'))
 #verificando black/allowlist atual
 while True:
     #atualização a cada 5 min:
+    cpuMaquina = ps.cpu_percent(interval=None, percpu=False)
+    ramMaquina = ps.virtual_memory().percent
+            
     cdParaRequisicao = 0
     tempoAgora = int(datetime.datetime.now().strftime('%M'))
     tempoFuturo = tempo + cdParaRequisicao
@@ -214,12 +207,10 @@ while True:
                 atualizarAlertas()
                 if estaNaWait(processo) == False:
                     print("enviando alerta")
-                    sn = getMachine_addr()
-                    print(sn)
 
                     prelist.append(itemProcesso['name'])
                     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    cursor.execute("insert into waitlist(nome) values ('"+ itemProcesso['name'] + "')")
+                    cursor.execute("insert into waitlist(nome, mac,cpuProcess, ramProcess, cpuMachine, ramMachine) values ('"+ itemProcesso['name'] + "','"+gma()+"', '"+str(round(itemProcesso['cpu_percent'],2))+"', '"+str(round(itemProcesso['memory_percent'],2))+"', '"+str(round(cpuMaquina,2))+"','"+str(round(ramMaquina,2))+"')")
                     
 
     connection.commit()
