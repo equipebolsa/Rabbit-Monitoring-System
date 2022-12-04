@@ -116,9 +116,8 @@ CREATE TABLE alerta (
 CREATE TABLE historicoClima(
   idHist INT PRIMARY KEY IDENTITY(1,1),
   estado CHAR(2),
-  dia1 DECIMAL(3,1) NOT NULL,
-  dia2 DECIMAL(3,1) NOT NULL,
-  dia3 DECIMAL(3,1) NOT NULL
+  media DECIMAL(3,2) NOT NULL,
+  horaHist DATETIME NOT NULL
 );
 -- Projeto Individual: Cauã Ciconelli
 
@@ -366,9 +365,8 @@ CREATE TABLE alerta (
 CREATE TABLE historicoClima(
   idHist INT PRIMARY KEY IDENTITY(1,1),
   estado CHAR(2),
-  dia1 DECIMAL(3,1) NOT NULL,
-  dia2 DECIMAL(3,1) NOT NULL,
-  dia3 DECIMAL(3,1) NOT NULL
+  media DECIMAL(3,2) NOT NULL,
+  horaHist DATETIME NOT NULL
 );
 -- Projeto Individual: Cauã Ciconelli
 
@@ -421,19 +419,15 @@ CREATE VIEW mergeData AS SELECT
 	MIN(fkEmpresa) AS fkEmpresa,
     MIN(nomeSetor) AS nomeSetor,
     COUNT(idAlerta) AS qtdAlertas,
-    (SELECT TOP 1 MIN(nomeMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura  INNER JOIN metrica ON fkMetrica = idMetrica GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC) AS nomeMaxQtdMetrica,
-    (SELECT TOP 1 COUNT(fkMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC) maxQtdMetrica,
-	(SELECT TOP 1 AVG(CAST(valorLeitura as DECIMAL(10,2))) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC) avgMaxQtdMetrica,
-    (SELECT TOP 1 MIN(nomeMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura INNER JOIN metrica ON fkMetrica = idMetrica GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC) AS nomeMinQtdMetrica,
-    (SELECT TOP 1 COUNT(fkMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC) AS minQtdMetrica,
-    (SELECT TOP 1 AVG(CAST(valorLeitura as DECIMAL(5,2))) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC ) avgMinQtdMetrica
+	MAX(nomeMetrica) AS nomeMaxQtdMetrica,
+	AVG(CAST(valorLeitura as DECIMAL(10,2))) AS avgMaxQtdMetrica
 FROM  alerta
 	INNER JOIN leitura ON fKLeitura = idLeitura
     INNER JOIN metrica ON fkMetrica = idMetrica
     INNER JOIN componenteFisico ON fkComponenteFisico = idComponenteFisico
     INNER JOIN servidor ON fkServidor = idServidor
     INNER JOIN setor ON fkSetor = idSetor
-    GROUP BY idServidor;
+    GROUP BY idServidor,fkServidor;
     
     
 CREATE VIEW mergeDataMaquina AS SELECT 

@@ -1,4 +1,4 @@
-CREATE DATABASE bolsa;
+-- CREATE DATABASE bolsa;
 USE bolsa;
 
 CREATE TABLE empresa(
@@ -84,18 +84,16 @@ CREATE TABLE alerta (
   parametroAtivo BOOLEAN NOT NULL
  );
  
-  -- Projeto Individual: Gustavo Antonio
  CREATE TABLE rede(
 	idRede INT PRIMARY KEY AUTO_INCREMENT,
     fkServidor INT NOT NULL,
     CONSTRAINT FK_rede_fkServidor FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
     tipoConexao CHAR(15) NOT NULL,
-	CONSTRAINT CK_rede_tipoConexao CHECK(tipoConexao IN ('Wi-Fi', 'Ethernet')  OR tipoConexao LIKE 'w%'),
+	CONSTRAINT CK_rede_tipoConexao CHECK(tipoConexao IN ('Wi-Fi', 'Ethernet') OR tipoConexao LIKE 'e%' OR tipoConexao LIKE 'w%'),
     address VARCHAR(45)    
  );
  
  
- INSERT INTO rede VALUES(null,1,'ww','teste123');
   CREATE TABLE dadosRede(
 	idDadosRede INT PRIMARY KEY AUTO_INCREMENT,
     fkRede INT NOT NULL,
@@ -106,9 +104,7 @@ CREATE TABLE alerta (
     bytesRecv DECIMAL(7,2),
 	horarioLeitura DATETIME NOT NULL
  );
- -- Projeto Individual: Gustavo Antonio
- 
--- Projeto Individual: Cauã Ciconelli
+
 CREATE TABLE clima(
   idClima INT PRIMARY KEY AUTO_INCREMENT,
   estado CHAR(2),
@@ -119,13 +115,10 @@ CREATE TABLE clima(
 CREATE TABLE historicoClima(
   idHist INT PRIMARY KEY AUTO_INCREMENT,
   estado CHAR(2),
-  dia1 DECIMAL(3,1) NOT NULL,
-  dia2 DECIMAL(3,1) NOT NULL,
-  dia3 DECIMAL(3,1) NOT NULL
+  media DECIMAL(3,2) NOT NULL,
+  horaHist DATETIME NOT NULL
 );
--- Projeto Individual: Cauã Ciconelli
 
- -- Inserir
 INSERT INTO empresa VALUES(NULL,"SPTECH","802.996.720-93","(63) 2430-8532");
 INSERT INTO usuario VALUES(NULL,"URUBU","urubu@gmail.com","123","Gestor",1,NULL);
 INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo", "São Paulo", "SP");
@@ -148,7 +141,6 @@ CREATE VIEW leituraView AS SELECT
     fkMetrica,
     tipoComponente,
 	horarioLeitura,
-
     valorLeitura,
     unidadeMedida
 FROM
@@ -158,7 +150,6 @@ INNER JOIN servidor ON idServidor = fkServidor
 INNER JOIN setor ON idSetor = fkSetor
 INNER JOIN empresa ON fkEmpresa = idEmpresa
 INNER JOIN metrica ON fKMetrica = idMetrica;
-
 
 CREATE VIEW redeView AS SELECT 
 	packetsSent,
@@ -170,25 +161,20 @@ CREATE VIEW redeView AS SELECT
 FROM dadosRede
     INNER JOIN rede ON fkRede = idRede;
 
-
 CREATE VIEW mergeData AS SELECT 
 	idServidor,
-    fkEmpresa,
-    nomeSetor,
+	MIN(fkEmpresa) AS fkEmpresa,
+    MIN(nomeSetor) AS nomeSetor,
     COUNT(idAlerta) AS qtdAlertas,
-    (SELECT nomeMetrica FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura  INNER JOIN metrica ON fkMetrica = idMetrica GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC LIMIT 1) AS nomeMaxQtdMetrica,
-    (SELECT COUNT(fkMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC LIMIT 1) maxQtdMetrica,
-	(SELECT ROUND(AVG(valorLeitura),2) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) DESC LIMIT 1) avgMaxQtdMetrica,
-    (SELECT nomeMetrica FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura INNER JOIN metrica ON fkMetrica = idMetrica GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC LIMIT 1) AS nomeMinQtdMetrica,
-    (SELECT COUNT(fkMetrica) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC LIMIT 1) AS minQtdMetrica,
-    (SELECT ROUND(AVG(valorLeitura),2) FROM alerta INNER JOIN leitura ON fkLeitura = idLeitura GROUP BY fkMetrica ORDER BY  COUNT(fkMetrica) ASC LIMIT 1) avgMinQtdMetrica
+	MAX(nomeMetrica) AS nomeMaxQtdMetrica,
+	AVG(CAST(valorLeitura as DECIMAL(10,2))) AS avgMaxQtdMetrica
 FROM  alerta
 	INNER JOIN leitura ON fKLeitura = idLeitura
     INNER JOIN metrica ON fkMetrica = idMetrica
     INNER JOIN componenteFisico ON fkComponenteFisico = idComponenteFisico
     INNER JOIN servidor ON fkServidor = idServidor
     INNER JOIN setor ON fkSetor = idSetor
-    GROUP BY idServidor;
+    GROUP BY idServidor,fkServidor;
     
 CREATE VIEW mergeDataMaquina AS SELECT 
     horarioLeitura,
@@ -198,7 +184,6 @@ FROM  alerta
 	INNER JOIN leitura ON fKLeitura = idLeitura
     INNER JOIN metrica ON fkMetrica = idMetrica;
 
--- PROJETO INDIVIDUAL VANNUCCHI
 
 CREATE TABLE allowlist(
 	id INT PRIMARY KEY auto_increment,
@@ -219,7 +204,7 @@ CREATE TABLE filterlist(
 CREATE TABLE deathLog(
     id INT PRIMARY KEY auto_increment,
     nome VARCHAR(100),
-    dataHora DATETIME,
+    dataLog DATE,
     macAddress CHAR(45)
 );
 INSERT INTO filterlist(nome) VALUES ('python*'),('kworker*'),('card0*'),('cpuhp*'),('gnome*'),('gsd-*'),('gvfs*'),('idle*'),('ksoftirqd*'),('loop*'),('migration*'),('rcu*'),('system*'),('xdg*'),('cryptd'),('evolution-*'),('ath10k*'),('gdm*'),('git*'),('ibus-*'),('irq*'),('iprt*'),('scsi*'),('(fwupdmgr)'),('(sd-pam)'),('accounts-daemon'),('acpi_thermal_pm'),('acpid'),('apache2'),('at-spi-bus-launcher'),('at-spi2-registryd'),('ata_sff'),('avahi-daemon'),('bash'),('gpg'),('blkcg_punt_bio'),('bluetoothd'),('dbus'),('cat'),('catchsegv'),('cfg80211'),('evince'),('grep'),('gst-plugin-scanner'),('javaldx'),('lspci'),('oosplash'),('QtWebEngineProcess'),('R'),('rsession'),('soffice.bin'),('tracker-extract'),('tracker-store'),('charger_manager'),('chrome_crashpad_handler'),('colord'),('cpuUsage.sh'),('cron'),('cups-browsed'),('cupsd'),('dbus-daemon'),('dconf-service'),('devfreq_wq'),('dio/sda1'),('ecryptfs-kthrea'),('edac-poller'),('ext4-rsv-conver'),('fwupd'),('gjs'),('goa-daemon'),('goa-identity-service'),('inet_frag_wq'),('ipv6_addrconf'),('jbd2/sda1-8'),('kauditd'),('kblockd'),('kcompactd0'),('kdevtmpfs'),('kerneloops'),('khugepaged'),('khungtaskd'),('kintegrityd'),('kmemstick'),('krfcommd'),('QtWebEngineProcess'),('ksmd'),('kstrp'),('kswapd0'),('kthreadd'),('kthrotld'),('md'),('mld'),('mm_percpu_wq'),('ModemManager'),('nacl_helper'),('nautilus'),('netns'),('networkd-dispat'),('NetworkManager'),('node'),('npm run dev'),('oom_reaper'),('org.gnome.Chara'),('polkitd'),('pulseaudio'),('python'),('rserver'),('rsyslogd'),('rtkit-daemon'),('seahorse'),('sh'),('sleep'),('snap-store'),('snapd'),('sqlservr'),('ssh-agent'),('switcheroo-control'),('thermald'),('tpm_dev_wq'),('ApplicationFrameHost.exe'),('audiodg.exe'),('bash.exe'),('Calculator.exe'),('cmd.exe'),('conhost.exe'),('core.exe'),('csrss.exe'),('ctfmon.exe'),('dasHost.exe'),('dllhost.exe'),('dwm.exe'),('EPCP.exe'),('escsvc64.exe'),('explorer.exe'),('fontdrvhost.exe'),('gameinputsvc.exe'),('gamingservices.exe'),('gamingservicesnet.exe'),('GoogleCrashHandler.exe'),('GoogleCrashHandler64.exe'),('lsass.exe'),('MemCompression'),('Microsoft.Photos.exe'),('Microsoft.SharePoint.exe'),('mintty.exe'),('MpCopyAccelerator.exe'),('MsMpEng.exe'),('mysqld.exe'),('NisSrv.exe'),('node.exe'),('NVDisplay.Container.exe'),('OriginWebHelperService.exe'),('powershell.exe'),('Registry'),('remoting_host.exe'),('RuntimeBroker.exe'),('SearchApp.exe'),('SearchIndexer.exe'),('SecurityHealthService.exe'),('services.exe'),('SgrmBroker.exe'),('ShellExperienceHost.exe'),('sihost.exe'),('smartscreen.exe'),('smss.exe'),('SndVol.exe'),('spoolsv.exe'),('StartMenuExperienceHost.exe'),('svchost.exe'),('System'),('System Idle Process'),('SystemSettings.exe'),('taskhostw.exe'),('TextInputHost.exe'),('uhssvc.exe'),('vgtray.exe'),('Video.UI.exe'),('wininit.exe'),('winlogon.exe'),('WmiPrvSE.exe'),('tracker-miner-fs'),('GameBarPresenceWritte.exe'),('SearchFilterHost.exe'),('SearchProtocolHost.exe'),('udisksd'),('unattended-upgr'),('update-notifier'),('upowerd'),('uuidd'),('vfio-irqfd-clea'),('watchdogd'),('whoopsie'),('wpa_supplicant'),('writeback'),('Xorg'),('mysqld'),('cut'),('fc-list'),('sort'),('uniq'),('mysql-workbench-bin'),('gpgconf'),('zswap-shrink');
