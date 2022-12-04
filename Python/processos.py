@@ -9,8 +9,8 @@ import datetime
 import pymssql
 from getmac import get_mac_address as gma
 
-#ambiente = 'producao'
-ambiente = 'desenvolvimento'
+ambiente = 'producao'
+#ambiente = 'desenvolvimento'
 
 blocklist = []
 allowlist = []
@@ -33,9 +33,11 @@ def conectarBanco():
 
 
 def matarProcesso(pid, nome):
-    insertBanco = True
-    
-    cursor.execute("insert into deathLog(nome,dataHora,macAddress) values ('"+ nome + "', NOW(),'"+gma()+"')")
+    if ambiente == 'desenvolvimento':
+        cursor.execute("insert into deathLog(nome,dataHora,macAddress) values ('"+ nome + "', NOW(),'"+gma()+"')")
+    elif ambiente == 'producao':
+        cursor.execute("insert into deathLog(nome,dataHora,macAddress) values ('"+ nome + "', GETDATE (),'"+gma()+"')")
+        
 
     
     os_type = sys.platform.lower()

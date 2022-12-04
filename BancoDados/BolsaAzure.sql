@@ -207,7 +207,12 @@ CREATE TABLE blocklist(
 );
 CREATE TABLE waitlist(
 	id INT PRIMARY KEY IDENTITY,
-    nome VARCHAR(100)
+    nome VARCHAR(100),
+    mac CHAR(17),
+    cpuProcess VARCHAR(45),
+    ramProcess VARCHAR(45),
+    cpuMachine VARCHAR(45),
+    ramMachine VARCHAR(45)
 );
 CREATE TABLE filterlist(
     id INT PRIMARY KEY IDENTITY,
@@ -216,7 +221,7 @@ CREATE TABLE filterlist(
 CREATE TABLE deathLog(
     id INT PRIMARY KEY IDENTITY,
     nome VARCHAR(100),
-    dataLog DATE,
+    dataHora DATE,
     macAddress CHAR(45)
 );
 

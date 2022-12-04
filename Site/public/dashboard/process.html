@@ -59,18 +59,19 @@
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
+                    <a href="caua.html" class="nav-item nav-link"><i class="fa fa-cloud-sun me-2"></i>Climáticos</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active show" aria-expanded="true"
-                            data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Cadastro</a>
-                        <div class="dropdown-menu bg-transparent border-0 show" data-bs-popper="none">
+                        <a href="#" class="nav-link dropdown-toggle  " data-bs-toggle="dropdown"><i
+                                class="fa fa-laptop me-2 "></i>Cadastro</a>
+                        <div class="dropdown-menu bg-transparent border-0">
                             <a href="add-machine.html" class="dropdown-item">Servidor</a>
                             <a href="add-user.html" class="dropdown-item">Funcionário</a>
-                            <a href="add-sector.html" class="dropdown-item active">Setor</a>
+                            <a href="add-sector.html" class="dropdown-item">Setor</a>
                         </div>
                     </div>
                     <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-
+                    <a href="process.html" class="nav-item nav-link active"><i class="fa fa-cog me-2"></i>Processos</a>
+                    <a href="dados.html" class="nav-item nav-link"><i class="fa fa-database me-2"></i>Dados</a>
                 </div>
             </nav>
         </div>
@@ -377,8 +378,8 @@
         verificarAcesso(1);
         var resultado = obterDados(sessionStorage.USUARIO);
         navNome.innerHTML = (resultado.nomeUsuario);
+        var podeAtualizar = true
         atualizarPagina();
-        var podeAtualizar = true;
 
 
         //criando chart deathlog
@@ -415,19 +416,18 @@
                 }
             });
             */
-
         function atualizarPagina() {
             popularListas("")
             if (podeAtualizar) {
-                setTimeout(atualizarPagina, 5000);
+                setTimeout(atualizarPagina, 10000);
             }
         }
 
         function popularListas(nome) {
-            popularAllow(nome);
-            popularAguardando(nome);
             popularBlock(nome);
-            popularMorte();
+            popularAguardando(nome);
+            popularMorte(nome);
+            popularAllow(nome);
         }
         function popularMorte() {
             fetch("/process/countDeath", {
@@ -797,13 +797,13 @@
 
                                         }
                                         contador2++;
-                                        if(contador2 >= json2.length - 7){
+                                        if (contador2 >= json2.length - 7) {
                                             ultimaSemanaQtd.push(contador.qtdMorte);
-                                            ultimaSemanaData.push(splitter[2]+"/"+splitter[1]+"/"+splitter[0])
+                                            ultimaSemanaData.push(splitter[2] + "/" + splitter[1] + "/" + splitter[0])
                                         }
                                         ///
-                                        
-                                        
+
+
                                         ///
                                         totalDeath += contador.qtdMorte;
                                     });
