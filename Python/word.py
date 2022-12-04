@@ -33,4 +33,4 @@ def plotarWordcloud(frases):
 	data_em_texto = data_em_texto.replace("/","-")
 	nome="wordlcloud-"+data_em_texto
 	nome +=".png"
-	plt.savefig("Site/public/dashboard/img/wordcloud/"+nome)
+	plt.savefig("../Site/public/dashboard/img/wordcloud/"+nome)

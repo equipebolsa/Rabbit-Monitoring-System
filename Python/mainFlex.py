@@ -21,14 +21,14 @@ def alertarComponente(tipo,fkMysql,fkAzure):
     data_e_hora_atuais = datetime.now()
     data_e_hora_em_texto = data_e_hora_atuais.strftime('%d/%m/%Y %H:%M')
     msg = "Consumo " +tipo+" - " + data_e_hora_em_texto
-    #pipefyCard.enviarWorldCloud(msg)
+    pipefyCard.enviarWorldCloud(msg)
 
 def alertarRAM(fkMysql,fkAzure):
-    if(psutil.virtual_memory().percent>50):
+    if(psutil.virtual_memory().percent>1):
         alertarComponente("RAM",fkMysql,fkAzure)
 
 def alertarCPU(fkMysql,fkAzure):
-    if(psutil.cpu_percent(interval=None, percpu=False)>1):
+    if(psutil.cpu_percent(interval=None, percpu=False)>0):
         alertarComponente("CPU",fkMysql,fkAzure)
 
 
@@ -43,7 +43,7 @@ def cadastrarRede(fkServidor1,fkServidor2,tipo):
     connection.commit()
     connection2.commit()
 
-connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa",auth_plugin='mysql_native_password')
+connection = mysql.connector.connect(host="172.17.0.2", user="root", password="123", database="bolsa",auth_plugin='mysql_native_password')
 cursor = connection.cursor()
 
 connection2 = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
@@ -81,25 +81,31 @@ def verificar(email, senha):
 
 def executarMonitoramento():
     while True:
-        query = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
-        cursor2.execute(query, gma())
-        resposta = cursor2.fetchall()
-        for row in resposta:
-
+        queryPai = ("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1")
+        cursor.execute(queryPai, [gma(),])
+        resposta1 = cursor.fetchall()
+        for row in resposta1:  
+             query = ("SELECT * FROM metrica WHERE idMetrica = %s")
+             cursor.execute(query, [row[1]])
+             resultado = cursor.fetchall()
+             leitura = dicionarioComandos.comando(resultado[0][1],comandos[1])
+             query = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(NOW(), %s, %s, %s)")
+             val = (str(leitura),str(row[0]),str(row[1]))
+             cursor.execute(query, val)
+             connection.commit()
+        cursor2.execute(queryPai, gma())
+        resposta2 = cursor2.fetchall()
+        for row in resposta2:
             query = ("SELECT * FROM metrica WHERE idMetrica = %s")
             cursor2.execute(query, row['fkMetrica'])
             resultado = cursor2.fetchall()
             leitura = dicionarioComandos.comando(resultado[0]['idMetrica'],comandos[1])
-            query = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(NOW(), %s, %s, %s)")
             query2 = ("INSERT INTO leitura(horarioLeitura,valorLeitura,fkComponenteFisico,fkMetrica) VALUES(CURRENT_TIMESTAMP, %s, %s, %s)")
             val = (str(leitura),str(row['fkComponenteFisico']),str(row['fkMetrica']))
-            cursor.execute(query, val)
             cursor2.execute(query2, val)
-            connection.commit()
             connection2.commit()
             lastIDAZURE = cursor2.lastrowid
             lastIDMYSQL = cursor.lastrowid
-            print(resultado)
             if(resultado[0]['idMetrica']==3):
                 alertarRAM(lastIDMYSQL,lastIDAZURE)
             if(resultado[0]['idMetrica']==1):

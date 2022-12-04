@@ -1,26 +1,29 @@
+
 from psutil import net_io_counters
 from time import sleep
 from getmac import get_mac_address as gma
 import pymssql
 import mysql.connector
 
-
-connection = mysql.connector.connect(host="localhost", user="aluno", password="sptech", database="bolsa")
+connection = mysql.connector.connect(host="172.17.0.2", user="root", password="123", database="bolsa")
 cursor = connection.cursor()
 connection2 = pymssql.connect("serverrabbit.database.windows.net", "rabbit", "RabMonSys@", "RabbitBanco")
 cursor2 = connection2.cursor(as_dict=True)
 
-def salvar(resposta,fkRedePar):
+def salvar(fk1,fk2,rede):
+    print(rede)
+    template = (net_usage(rede)[0],net_usage(rede)[1],net_usage(rede)[2],net_usage(rede)[3])
     query = "INSERT INTO dadosRede (fkRede,packetsRecv,packetsSent,bytesSent,bytesRecv,horarioLeitura) VALUES (%s,%s, %s,%s, %s, NOW())"
     query2 = "INSERT INTO dadosRede (fkRede,packetsRecv,packetsSent,bytesSent,bytesRecv,horarioLeitura) VALUES (%s,%s, %s,%s, %s, CURRENT_TIMESTAMP)"
-    params = (fkRedePar,net_usage(resposta)[0],net_usage(resposta)[1],net_usage(resposta)[2],net_usage(resposta)[3])
-    cursor.execute(query, params)
-    cursor2.execute(query2,params)
+    params1 = (fk1,template[0],template[1],template[2],template[3])
+    params2 = (fk2,template[0],template[1],template[2],template[3])
+    cursor.execute(query, params1)
+    cursor2.execute(query2,params2)
     connection.commit()
     connection2.commit()
     print("Executando")
 
-def net_usage(inf):   #change the inf variable according to the interface
+def net_usage(inf):
     net_stat = net_io_counters(pernic=True, nowrap=True)[inf]
     net_in_1 = net_stat.bytes_recv
     net_out_1 = net_stat.bytes_sent
@@ -48,9 +51,8 @@ query = ("SELECT idRede,tipoConexao FROM rede INNER JOIN servidor ON fkServidor 
 a = cursor2.execute(query, gma())
 b = cursor.execute(query, [gma(),])
 solucaoA = cursor.fetchall()
-solucao = str(solucaoA[0][0])
+solucaoA1 = solucaoA[0][0]
 solucaoB = cursor2.fetchall()
-solucao = str(solucaoB[0]['idRede'])
-if(solucao==solucao):
-    while(True):
-        salvar(solucaoA[0][1],solucao)
+solucaoB1 = solucaoB[0]['idRede']
+while(True):
+        salvar(solucaoA1,solucaoB1,solucaoA[0][1])
