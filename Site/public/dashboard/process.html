@@ -60,6 +60,7 @@
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="caua.html" class="nav-item nav-link"><i class="fa fa-cloud-sun me-2"></i>Climáticos</a>
+                    <a href="analise.html" class="nav-item nav-link"><i class="fa-solid fa-chart-simple"></i>Relatorio</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle  " data-bs-toggle="dropdown"><i
                                 class="fa fa-laptop me-2 "></i>Cadastro</a>
@@ -395,7 +396,7 @@
         function atualizarPagina() {
             popularListas("")
             if (podeAtualizar) {
-                setTimeout(atualizarPagina, 10000);
+                //setTimeout(atualizarPagina, 10000);
             }
         }
 
@@ -449,8 +450,8 @@
                         blocklist_list.innerHTML = "";
                         json.forEach(processo => {
                             nomeProcesso = processo.nome;
-                            if (nomeProcesso.length > 25) {
-                                nomeProcesso = nomeProcesso.substr(0, 22) + "...";
+                            if (nomeProcesso.length > 17) {
+                                nomeProcesso = nomeProcesso.substr(0, 14) + "...";
                             }
                             blocklist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                         <div class="w-100 ms-3">
@@ -497,8 +498,8 @@
                         allowlist_list.innerHTML = "";
                         json.forEach(processo => {
                             nomeProcesso = processo.nome;
-                            if (nomeProcesso.length > 22) {
-                                nomeProcesso = nomeProcesso.substr(0, 19) + "...";
+                            if (nomeProcesso.length > 17) {
+                                nomeProcesso = nomeProcesso.substr(0, 14) + "...";
                             }
                             allowlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
@@ -546,8 +547,8 @@
                         waitlist_list.innerHTML = "";
                         json.forEach(processo => {
                             nomeProcesso = processo.nome;
-                            if (nomeProcesso.length > 20) {
-                                nomeProcesso = nomeProcesso.substr(0, 17) + "...";
+                            if (nomeProcesso.length > 17) {
+                                nomeProcesso = nomeProcesso.substr(0, 14) + "...";
                             }
                             waitlist_list.innerHTML += `<div class="d-flex align-items-center border-bottom py-2">
                                                             <div class="w-100 ms-3">
