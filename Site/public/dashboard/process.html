@@ -91,34 +91,10 @@
                     </a>
                     <div class="navbar-nav align-items-center ms-auto">
 
+                        
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-triangle-exclamation me-lg-2"></i>
-                            </a>
-                            <div
-                                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 1: CPU 80%</h6>
-                                    <small>há 15 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 2: RAM 99%</h6>
-                                    <small>há 22 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Máquina 3: Temp 72°</h6>
-                                    <small>há 44 minutos</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="chart.html" class="dropdown-item text-center">Ver todos os alertas</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
-                                    style="width: 40px; height: 40px;">
+                                
                                 <span class="d-none d-lg-inline-flex" id="navNome">Julio Abacate</span>
                             </a>
                             <div
@@ -797,7 +773,7 @@
 
                                         }
                                         contador2++;
-                                        if (contador2 >= json2.length - 7) {
+                                        if (contador2 >= json2.length - 6) {
                                             ultimaSemanaQtd.push(contador.qtdMorte);
                                             ultimaSemanaData.push(splitter[2] + "/" + splitter[1] + "/" + splitter[0])
                                         }
