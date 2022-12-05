@@ -201,6 +201,20 @@ function mergeDataMaquina(id) {
     return database.select(instrucao1,instrucao2);
 }
 
+function listarTemperatura(id){
+    var instrucao = `SELECT TOP 1 temperatura, horaClima FROM clima WHERE estado = (SELECT estado FROM setor WHERE idSetor = ${id}) ORDER BY horaClima DESC`
+    return database.executar(instrucao);
+}
+
+function leiturasTemperatura(id) {
+    var instrucao = `SELECT temperatura, horaClima FROM clima WHERE estado = (SELECT estado FROM setor WHERE idSetor = ${id});`;
+    return database.select(instrucao);
+}
+
+function leiturasTemperaturaH(id) {
+    var instrucao = `SELECT TOP 1 dia1, dia2, dia3 FROM historicoClima WHERE estado = (SELECT estado FROM setor WHERE idSetor = ${id}) ORDER BY idHist DESC`
+    return database.executar(instrucao);
+}
 
 module.exports = {
     listarMaquinas,
@@ -220,5 +234,8 @@ module.exports = {
     leiturasSwapPercent,
     leiturasEscrita,
     mergeData,
-    mergeDataMaquina
+    mergeDataMaquina,
+    listarTemperatura,
+    leiturasTemperatura,
+    leiturasTemperaturaH
 };

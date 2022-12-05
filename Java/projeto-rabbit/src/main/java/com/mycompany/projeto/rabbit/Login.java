@@ -9,7 +9,11 @@ import com.mycompany.utilitario.Criptografia;
 import com.mycompany.utilitario.Util;
 
 import java.awt.Color;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -304,9 +308,16 @@ public class Login extends javax.swing.JFrame {
 
         List<Usuario> validUsuario = jdbcTemplate.query("SELECT * FROM usuario;", new BeanPropertyRowMapper(Usuario.class));
         for (Usuario usuario : validUsuario) {
-
+            System.out.println(usuario);
             if (senhaVar.equalsIgnoreCase(usuario.getSenhaUsuario()) && emailVar.equals(usuario.getEmailUsuario())) {
-                Dashboard tela = new Dashboard();
+                Dashboard tela = null;
+                try {
+                    tela = new Dashboard();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SocketException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 tela.setVisible(true);
                 this.dispose();
             }else{
