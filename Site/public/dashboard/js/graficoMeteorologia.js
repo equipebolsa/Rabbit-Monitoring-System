@@ -19,7 +19,7 @@ function plotarGraficoTemperatura(resposta, id) {
     const config = { type: 'line', data: dados1, };
     var ctx = document.getElementById("tempAtual").getContext("2d");
     let myChart = new Chart(ctx, config);
-    setTimeout(() => atualizarGraficoTemperatura(dados1, myChart, id), 2000);
+    setTimeout(() => atualizarGraficoTemperatura(dados1, myChart, id), 900000);
 
 }
 function atualizarGraficoTemperatura(dados, myChart, id) {
