@@ -13,8 +13,8 @@ function enviarEmail(req, res) {
     if(today[0]=="0"){
         todayTrust = today.replace(today[0],"")
     }
-    const user = ""
-    const pass = ""
+    const user = "gustavo.antonio@sptech.school"
+    const pass = "#Gf53451375877"
 
     const transporter = nodemailer.createTransport({ host: "smtp.office365.com", port: 587, auth: { user, pass } })
     const dirPath = path.join(__dirname, '../../public/dashboard/img/wordcloud/');

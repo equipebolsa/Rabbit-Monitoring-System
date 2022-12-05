@@ -129,9 +129,11 @@ CREATE TABLE historicoClima(
   horaHist DATETIME NOT NULL
 );
 
-INSERT INTO empresa VALUES(NULL,"SPTECH","802.996.720-93","(63) 2430-8532");
-INSERT INTO usuario VALUES(NULL,"URUBU","urubu@gmail.com","123","Gestor",1,NULL);
-INSERT INTO setor VALUES(NULL,1,"SETOR1","Destinado Aos Computadores da Região de São Paulo", "São Paulo", "SP");
+INSERT INTO empresa VALUES(NULL,"Binance","802.996.720-93","(63) 2430-8532");
+INSERT INTO empresa VALUES(NULL,"xP","765.976.123-90","(63) 3024-8532");
+INSERT INTO usuario VALUES(NULL,"Marise","marise@gmail.com","123","Gestor",1,NULL);
+INSERT INTO usuario VALUES(NULL,"Fernando","fernando@gmail.com","123","Técnico",1,NULL);
+INSERT INTO setor VALUES(NULL,1,"Setor 1","Destinado Aos Computadores da Região de São Paulo", "São Paulo", "SP");
 
 INSERT INTO metrica VALUES(NULL,'Porcentagem De Uso Da CPU','%','0');
 INSERT INTO metrica VALUES(NULL,'Memória De Uso Do DISCO','GB','0');

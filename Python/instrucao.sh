@@ -8,3 +8,5 @@ sudo docker run -t -i --name python id - executa imagem python
 sudo docker exec -it id container bash - entra no bash
 mysql -u root -p - entra no bash do mysql
 sudo docker exec -t id cat /etc/hosts - pegar ip do container
+
+sudo lsof -i -P -n | grep LISTEN

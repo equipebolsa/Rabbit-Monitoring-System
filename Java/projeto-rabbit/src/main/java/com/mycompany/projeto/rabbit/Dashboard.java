@@ -1,19 +1,25 @@
- package com.mycompany.projeto.rabbit;
+package com.mycompany.projeto.rabbit;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.util.Conversor;
 import com.mycompany.utilitario.Util;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -23,9 +29,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class Dashboard extends javax.swing.JFrame {
 
     ConnectionBD config = new ConnectionBD();
-    JdbcTemplate con = new JdbcTemplate(config.getDatasource());
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(config.getDatasource());
 
-    public Dashboard() {
+    public Dashboard() throws UnknownHostException, SocketException {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
@@ -44,6 +50,19 @@ public class Dashboard extends javax.swing.JFrame {
         Looca looca = new Looca();
         Conversor conversor = new Conversor();
 
+        InetAddress localHost = InetAddress.getLocalHost();
+        NetworkInterface ni = NetworkInterface.getByInetAddress(localHost);
+        byte[] hardwareAddress = ni.getHardwareAddress();
+        String[] hexadecimal = new String[hardwareAddress.length];
+        for (int i = 0; i < hardwareAddress.length; i++) {
+            hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
+        }
+        String macAddress = String.join("-", hexadecimal);
+        String mac = macAddress.replace("-",":");
+        List<Usuario> valor = jdbcTemplate.query("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress LIKE '"+macAddress+"' and parametroAtivo = 1;", new BeanPropertyRowMapper());
+        System.out.println(valor);
+        //List<Usuario> validUsuario = jdbcTemplate.query("SELECT * from parametro INNER JOIN servidor ON fkServidor = idServidor WHERE macAddress = %s and parametroAtivo = 1;", new BeanPropertyRowMapper());
+
         informacoesSistesma(looca, conversor);
         informacoesCpu(looca, conversor);
         informacoesDisco(looca, conversor);
@@ -53,11 +72,11 @@ public class Dashboard extends javax.swing.JFrame {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                 //LocalDate myDateObj = LocalDate.now(); // Create a date object
+                //LocalDate myDateObj = LocalDate.now(); // Create a date object
                 //DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                 //String formattedDate = myDateObj.format(myFormatObj);
-                consumoCpuRealTime(looca);
-                consumoRamRealTime(looca);
+                //String formattedDate = myDateObj.format(myFormatObj);
+                //consumoCpuRealTime(looca);
+                //consumoRamRealTime(looca);
 
             }
         };
@@ -671,9 +690,9 @@ public class Dashboard extends javax.swing.JFrame {
         Long pgBarValueCpu = Math.round(consumoCpu);// Consumo de CPU Arredondado para inserir no setValue() da ProgressBar
         String insertPercentCPU = "INSERT INTO leitura VALUES (NULL,NOW(),?,?,?)";
         String strConsumoCpu = String.format("%.1f %%", consumoCpu);// String Consumo de CPU para inserir no setString() da ProgressBar
-        String strconsumoCpuTratada = String.format("%.1f",  consumoCpu);
-        strconsumoCpuTratada =  strconsumoCpuTratada.replace(',', '.');
-        con.update(insertPercentCPU, strconsumoCpuTratada,1,1);
+        String strconsumoCpuTratada = String.format("%.1f", consumoCpu);
+        strconsumoCpuTratada = strconsumoCpuTratada.replace(',', '.');
+        con.update(insertPercentCPU, strconsumoCpuTratada, 1, 1);
         pgBarCpu.setValue(pgBarValueCpu.intValue());
         pgBarCpu.setString(strConsumoCpu);
         pgBarCpu.setString(strConsumoCpu);
@@ -687,7 +706,7 @@ public class Dashboard extends javax.swing.JFrame {
         String strConsumoRam = String.format("%.1f %%", consumoRam);// String Consumo de RAM para inserir no setString() da ProgressBar
         String strConsumoRamTratada = String.format("%.1f", consumoRam);
         strConsumoRamTratada = strConsumoRamTratada.replace(',', '.');
-        con.update(insertPercentRAM,strConsumoRamTratada,2,2);
+        con.update(insertPercentRAM, strConsumoRamTratada, 2, 2);
         pgBarRam.setValue(pgBarValueRam.intValue());
         pgBarRam.setString(strConsumoRam);
     }
@@ -705,11 +724,11 @@ public class Dashboard extends javax.swing.JFrame {
         Double consumoDisco = (espacoDiscoUso.doubleValue() * 100) / espacoDiscoTotal.doubleValue(); // Consumo de Disco em %
         Long pgBarValueDisco = Math.round(consumoDisco); // Consumo de Disco Arredondado para inserir no setValue() da ProgressBar
         String strConsumoDisco = String.format("%.1f %%", consumoDisco); // String Consumo de Disco para inserir no setString() da ProgressBar
-        
-         String insertConsumoDisco = "INSERT INTO leitura VALUES (NULL,NOW(),?,?,?)";
-         String strConsumoDiscoTratada = String.format("%.1f", consumoDisco);
-         strConsumoDiscoTratada = strConsumoDiscoTratada.replace(',', '.');
-         System.out.println(con.update(insertConsumoDisco, strConsumoDiscoTratada,3,3));
+
+        String insertConsumoDisco = "INSERT INTO leitura VALUES (NULL,NOW(),?,?,?)";
+        String strConsumoDiscoTratada = String.format("%.1f", consumoDisco);
+        strConsumoDiscoTratada = strConsumoDiscoTratada.replace(',', '.');
+        System.out.println(con.update(insertConsumoDisco, strConsumoDiscoTratada, 3, 3));
         lblDiscoTotal.setText(strDiscoTotalGb);
         lblDiscoUso.setText(strDiscoUsadoGb);
         lblDiscoDisp.setText(strDiscoDispGb);

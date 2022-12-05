@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
         rel="stylesheet">
-
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -107,38 +107,27 @@
                 <!-- Navbar End -->
 
 
-                 <!-- Sidebar Start -->
-         <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">
-                        <img class="nav-logo" src="img/logo.png">
-                        </i>Rabbit MS
-                    </h3>
-                </a>
-                <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <span id="gestorOnly">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle  active" data-bs-toggle="dropdown"><i
-                                    class="fa fa-laptop me-2 "></i>Cadastro</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="add-machine.html" class="dropdown-item">Servidor</a>
-                                <a href="add-user.html" class="dropdown-item">Funcionário</a>
-                                <a href="add-sector.html" class="dropdown-item">Setor</a>
+                <!-- Sales Chart Start -->
+                <div class="container-fluid pt-4 px-4 central">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary rounded h-100 p-4 container">
+                                <h6 class="mb-4">Servidor</h6>
+                                <form onsubmit="return false">
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Leituras</label>
+                                        <span id="checkLeituras">
+
+                                        </span>
+                                    </div>
+
+                                    <button onclick="atualizarServidor();" class="btn btn-primary">Atualizar</button>
+                                </form>
                             </div>
                         </div>
-                        <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-                        <a href="process.html" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Processos</a>
-                       <!-- <a href="noticias.html" class="nav-item nav-link"><i class="fa fa-newspaper me-2"></i>
-                            Notícias</a>-->
-                           <a href="dados.html" class="nav-item nav-link"><i class="fa fa-database me-2"></i>
-                            Dados</a>
-                    </span>
+                    </div>
                 </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
+                <!-- Sales Chart End -->
 
 
 
@@ -298,7 +287,11 @@
             }).then(
                 function res(resposta) {
                     if (resposta.ok) {
-                        alert("Atualizado com Sucesso!");
+                        Swal.fire(
+  'Atualizado',
+  'Seu servidor foi atualizado com sucesso',
+  'success'
+)
                     }
                 }
             )

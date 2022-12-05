@@ -167,12 +167,6 @@
                                         <th scope="col">Maior
                                             Outlier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </th>
-                                        <th scope="col">Quantidade</th>
-                                        <th scope="col">Média</th>
-                                        <th scope="col">Menor
-                                            Outlier&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </th>
-                                        <th scope="col">Quantidade</th>
                                         <th scope="col">Média</th>
                                         <th scope="col">Detalhes</th>
 
@@ -226,7 +220,7 @@
         nome.innerHTML = (resultado.nomeUsuario);
         var idEmpresa = resultado.fkEmpresa;
         tabelaFuncao(idEmpresa);
-        var csv = 'idServidor,nomeSetor,qtdAlertas,nomeMaxQtdMetrica,maxQtdMetrica,avgMaxQtdMetrica,nomeMinQtdMetrica,minQtdMetrica,avgMinQtdMetrica\n';
+        var csv = 'idServidor,nomeSetor,qtdAlertas,nomeMaxQtdMetrica,avgMaxQtdMetrica\n';
         var csvFileData = [];
 
 
@@ -244,7 +238,6 @@
             fetch(`/leituras/mergeData/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-
                         resposta.forEach(element => {
                             csvFileData.push(Object.values(element));
                         });
@@ -272,11 +265,7 @@
                                     <td>${valorJson.nomeSetor}</td>
                                     <td>${valorJson.qtdAlertas}</td>
                                     <td>${valorJson.nomeMaxQtdMetrica}</td>
-                                    <td>${valorJson.maxQtdMetrica}</td>
                                     <td>${valorJson.avgMaxQtdMetrica.toFixed(1)}</td>
-                                    <td>${valorJson.nomeMinQtdMetrica}</td>
-                                    <td>${valorJson.minQtdMetrica}</td>
-                                    <td>${valorJson.avgMinQtdMetrica.toFixed(1)}</td>
                                     <td><a class="btn btn-sm btn-primary" onclick="detalhes(${valorJson.idServidor});">Detalhes</a></td>
                                 </tr>`
             }

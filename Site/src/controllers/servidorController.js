@@ -219,9 +219,8 @@ function atualizar(req, res) {
             });  
             if(!achou){
                 servidorModel.cadastrarComponente(servidor, metricasNome[i]).then(function (resultado2) {
-                    if (resultado2.insertId) {
-                        servidorModel.cadastrarParametro(servidor, resultado2.insertId, metricasId[i]);
-                    }
+                        servidorModel.cadastrarParametro(servidor, null, metricasId[i]);
+                    
                 })
             }
             

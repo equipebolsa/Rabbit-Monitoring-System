@@ -267,6 +267,7 @@
             fetch(`/leituras/mergeDataMaquina/${id}`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
+                        resposta.reverse()
                         resposta.forEach(element => {
 
                             csvFileData.push(Object.values(element));

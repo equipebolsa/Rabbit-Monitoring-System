@@ -21,7 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class Login extends javax.swing.JFrame {
 
     ConnectionBD config = new ConnectionBD();
-    JdbcTemplate con = new JdbcTemplate(config.getDatasource());
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(config.getDatasource());
 
     /**
      * Creates new form login
@@ -302,7 +302,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Informe seu email e senha", "Dados inválidos", JOptionPane.ERROR_MESSAGE);
         }
 
-        List<Usuario> validUsuario = con.query("SELECT * FROM usuario", new BeanPropertyRowMapper(Usuario.class));
+        List<Usuario> validUsuario = jdbcTemplate.query("SELECT * FROM usuario;", new BeanPropertyRowMapper(Usuario.class));
         for (Usuario usuario : validUsuario) {
 
             if (senhaVar.equalsIgnoreCase(usuario.getSenhaUsuario()) && emailVar.equals(usuario.getEmailUsuario())) {
