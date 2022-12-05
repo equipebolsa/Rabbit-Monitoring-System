@@ -3,7 +3,7 @@ function plotarGraficoTemperatura(resposta, id) {
     let dados1 = {
         labels: labels1,
         datasets: [{
-            label: 'Tempo real',
+            label: 'Porcetagem da CPU (%)',
             data: [],
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
@@ -19,16 +19,16 @@ function plotarGraficoTemperatura(resposta, id) {
     const config = { type: 'line', data: dados1, };
     var ctx = document.getElementById("tempAtual").getContext("2d");
     let myChart = new Chart(ctx, config);
-    setTimeout(() => atualizarGraficoTemperatura(dados1, myChart, id), 900000);
-
+    setTimeout(() => atualizarGraficoCpuPercent(dados1, myChart, id), 900000);
 }
+
 function atualizarGraficoTemperatura(dados, myChart, id) {
 
-    fetch(`/leituras/leiturasTemperatura/${id}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/leituras/leiturasCpuPercentTempoReal/${id}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
 
-                if (novoRegistro[0].horaClima == dados.labels[dados.labels.length - 1]) {
+                if (novoRegistro[0].horarioLeitura == dados.labels[dados.labels.length - 1]) {
                 } else {
                     var registro = novoRegistro[0];
                     var horario = registro.horaClima.replace(/T/, ' ').replace(/\..+/, '');
@@ -36,15 +36,15 @@ function atualizarGraficoTemperatura(dados, myChart, id) {
                     dados.labels.push(horario);
 
                     dados.datasets[0].data.shift();
-                    dados.datasets[0].data.push(novoRegistro[0].valorLeitura);
+                    dados.datasets[0].data.push(novoRegistro[0].temperatura);
 
                     myChart.update();
                 }
-                proximaAtualizacao = setTimeout(() => atualizarGraficoTemperatura(dados, myChart, id), 900000);
+                proximaAtualizacao = setTimeout(() => atualizarGraficoCpuPercent(dados, myChart, id), 900000);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
-            proximaAtualizacao = setTimeout(() => atualizarGraficoTemperatura(dados, myChart, id), 2000);
+            proximaAtualizacao = setTimeout(() => atualizarGraficoCpuPercent(dados, myChart, id), 2000);
         }
     })
         .catch(function (error) {
