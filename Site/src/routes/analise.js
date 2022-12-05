@@ -16991,4 +16991,12 @@ router.get("/limiteDezembroDiscoServidor56", function (req, res) {
     analiseController.limiteDezembroDiscoServidor56(req, res);
 });
 
+router.get("/ultimas/:idServidor", function (req, res) {
+    analiseController.buscarUltimasMedidas(req, res);
+});
+router.get("/ultimas1/:idServidor1", function (req, res) {
+    analiseController.buscarUltimasMedidas1(req, res);
+});
+
+
 module.exports = router;
