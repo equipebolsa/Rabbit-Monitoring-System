@@ -1,10 +1,8 @@
-from tkinter.tix import Tree
 import psutil as ps
 import mysql.connector
 import os
 import sys
 from time import sleep
-import time
 import datetime 
 import pymssql
 from getmac import get_mac_address as gma
