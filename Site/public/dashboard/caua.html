@@ -260,7 +260,6 @@
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(JSON.stringify(resposta));
-                        resposta.reverse();
                         plotarGraficoTemperatura(resposta, id);
 
                     }).catch(function (error) {
