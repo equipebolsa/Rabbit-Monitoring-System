@@ -6,8 +6,6 @@ robjects.r('csvFinal <- read.csv("./csvFinal.csv")')
 
 robjects.r('data.frame(csvFinal)')
 
-print(robjects.r('View(csvFinal)'))
-
 robjects.r('linearModelCpu <- lm(cpu~ram, data = csvFinal)')
 robjects.r('linearModelRam <- lm(ram~cpu, data = csvFinal)')
 
