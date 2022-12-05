@@ -19,6 +19,7 @@ var alertaRouter = require("./src/routes/alerta");
 var processRouter = require("./src/routes/process");
 var dadosRedeRouter = require("./src/routes/dadosRede");
 var parametroRouter = require("./src/routes/parametro");
+var analiseRouter = require("./src/routes/analise");
 
 
 app.use(express.json());
@@ -36,7 +37,8 @@ app.use("/servidores", cadastarRouter );
 app.use("/alerta", alertaRouter );
 app.use("/process", processRouter );
 app.use("/dadosRede", dadosRedeRouter );
-app.use("/parametro",parametroRouter)
+app.use("/parametro",parametroRouter);
+app.use("/analise",analiseRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
