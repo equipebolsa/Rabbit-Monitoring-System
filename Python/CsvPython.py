@@ -40,4 +40,4 @@ while True:
     print("Monitorando")
 
     time.sleep(1)
-    os.system('cls')
+    os.system('clear')
