@@ -154,10 +154,9 @@
                     </h3>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i
+                    <a href="index.html" class="nav-item nav-link active"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="caua.html" class="nav-item nav-link"><i class="fa fa-cloud-sun me-2"></i>Climáticos</a>
-                    <a href="analise.html" class="nav-item nav-link active"><i class="fa-solid fa-chart-simple"></i> Relatorio</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i>Gráficos</a>
                     <span id="gestorOnly">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
@@ -169,8 +168,6 @@
                             </div>
                         </div>
                         <a href="users.html" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Funcionários</a>
-                        <a href="process.html" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Processos</a>
-                        <a href="dados.html" class="nav-item nav-link"><i class="fa fa-database me-2"></i>Dados</a>
                     </span>
                 </div>
             </nav>
@@ -559,6 +556,7 @@
 
         var idServidor1 = 0;
         var idServidor = 0;
+        var servidor = 0;
         
         function comparar() {
             var idServidor = Number(escolherServer1.value);
@@ -567,9 +565,7 @@
             console.log(idServidor1)
 
             fetch(`/analise/ultimas/${idServidor}`, { cache: 'no-store' }).then(function (response) {
-                console.log(response)
                 if (response.ok) {
-                    alert("b")
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta.reverse();
@@ -583,7 +579,7 @@
                 .catch(function (error) {
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
-                fetch(`analise/ultimas1/${idServidor1}`, { cache: 'no-store' }).then(function (response) {
+                fetch(`/analise/ultimas1/${idServidor1}`, { cache: 'no-store' }).then(function (response) {
                     if (response.ok) {
                         response.json().then(function (resposta) {
                             console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -600,13 +596,15 @@
                     });        
         }
 
-        //verificarAcesso(0);
-        //var resultado = obterDados(sessionStorage.USUARIO);
-        //nome.innerHTML = (resultado.nomeUsuario);
+        /*verificarAcesso(0);
+        var resultado = obterDados(sessionStorage.USUARIO);
+        nome.innerHTML = (resultado.nomeUsuario);
+        var idEmpresa = resultado.fkEmpresa;
+        tabelaFuncao(idEmpresa); */
 
         function criarServidor() {
             for (let i = 0; i < 56; i++) {
-                servidoresMain.innerHTML += `<div id='servidor${i+1}' class='servidores' onclick="pegarDadosServidor${i+1}()" type='button'value=${i + 1}>${i + 1}</div>`;
+                servidoresMain.innerHTML += `<input id='servidorEscolhido${i + 1}' class='servidores' onclick="pegarDadosServidor${i + 1}()" type='button'value="${i + 1}"></input>`;
 
             }
         }
@@ -616,6 +614,9 @@
         function apagar(){
             chartGraph.destroy();
         }
+
+        
+
 
     </script>
 

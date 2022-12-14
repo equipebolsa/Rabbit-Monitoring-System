@@ -38,7 +38,7 @@ app.use("/alerta", alertaRouter );
 app.use("/process", processRouter );
 app.use("/dadosRede", dadosRedeRouter );
 app.use("/parametro",parametroRouter);
-app.use("/analise",analiseRouter);
+app.use("/analise", analiseRouter)
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
